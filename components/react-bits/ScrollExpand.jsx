@@ -29,9 +29,9 @@ const ScrollExpand = ({
   overlayScrim = 0.45,
   useWindowScroll = false,
   enabled = true,
-  children,
+  children = null,
   className = '',
-  style,
+  style = {},
   ...rest
 }) => {
   const rootRef = useRef(null);
