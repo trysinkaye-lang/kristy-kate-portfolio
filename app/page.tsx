@@ -1,11 +1,11 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
-import { TechStack } from "@/components/sections/TechStack";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ScrollFeature } from "@/components/sections/ScrollFeature";
 import { DesignSection } from "@/components/sections/DesignSection";
 import { UIUXShowcase } from "@/components/sections/UIUXShowcase";
+import { TechStack } from "@/components/sections/TechStack";
 import { Process } from "@/components/sections/Process";
 import { SkillsExperience } from "@/components/sections/SkillsExperience";
 import { GitHubSection } from "@/components/sections/GitHubSection";
@@ -18,11 +18,11 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
-      <TechStack />
       <ProjectsSection />
       <ScrollFeature />
       <DesignSection />
       <UIUXShowcase />
+      <TechStack />
       <Process />
       <SkillsExperience />
       <GitHubSection />
