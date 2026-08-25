@@ -29,9 +29,9 @@ const ScrollExpand = ({
   overlayScrim = 0.45,
   useWindowScroll = false,
   enabled = true,
-  children = null,
+  children = /** @type {import('react').ReactNode} */ (null),
   className = '',
-  style = {},
+  style = /** @type {import('react').CSSProperties} */ ({}),
   ...rest
 }) => {
   const rootRef = useRef(null);
