@@ -29,7 +29,7 @@ const MaskedHeading = ({
   lineHeight = 1.06,
   textScale = 0.115,
   className = '',
-  style,
+  style = {},
   ...rest
 }) => {
   const rootRef = useRef(null);
