@@ -1,15 +1,27 @@
 "use client";
-import { ThemeProvider } from "next-themes";
+
 import { useEffect } from "react";
 import Lenis from "lenis";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({ duration: 0.9, smoothWheel: true });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touchLike = window.matchMedia("(pointer: coarse)").matches;
+    if (reduceMotion || touchLike || window.innerWidth < 900) return;
+
+    const lenis = new Lenis({ duration: 0.85, smoothWheel: true });
     let raf = 0;
-    const loop = (time: number) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
+    };
     raf = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(raf); lenis.destroy(); };
+
+    return () => {
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+    };
   }, []);
-  return <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>{children}</ThemeProvider>;
+
+  return <>{children}</>;
 }
