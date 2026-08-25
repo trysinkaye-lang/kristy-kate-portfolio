@@ -1,0 +1,3 @@
+import { stack } from "@/data/site";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+export function TechStack(){return <section className="section-wrap"><SectionTitle eyebrow="Tech stack" title="Tools organized by the work they support" copy="No arbitrary skill percentages — just the technologies and tools used across development and design."/><div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{Object.entries(stack).map(([cat,items])=><div className="stack-card" key={cat}><p className="eyebrow">{cat}</p><div className="mt-4 flex flex-wrap gap-2">{items.map(i=><span title={cat} className="tech-chip" key={i}>{i}</span>)}</div></div>)}</div></section>}
