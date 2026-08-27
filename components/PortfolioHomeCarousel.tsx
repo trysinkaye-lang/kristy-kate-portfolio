@@ -24,29 +24,22 @@ export function PortfolioHomeCarousel() {
     <main id="main-content" className="portfolio-v2">
       <section aria-label="Portfolio introduction" className="bg-black">
         <ScrollExpand
-          src="/media/masked-bg.svg"
-          alt="Abstract portfolio background"
-          title="Watch it unfold."
-          scrollHint="Scroll to enter"
-          startWidth={42}
-          startHeight={58}
-          startRadius={24}
+          src="/media/developer-intro.svg"
+          alt="Developer workspace with code, terminal, and system interface panels"
+          title=""
+          scrollHint="Scroll to explore"
+          startWidth={46}
+          startHeight={60}
+          startRadius={22}
           endRadius={0}
-          mediaZoom={1.35}
-          scrollDistance={1.2}
-          holdDistance={0.35}
+          mediaZoom={1.18}
+          scrollDistance={1.05}
+          holdDistance={0.22}
           smoothing={0.1}
-          overlayScrim={0.5}
+          overlayScrim={0.18}
           useWindowScroll
           enabled
-        >
-          <h2 className="max-w-4xl text-[clamp(2.8rem,7vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-white">
-            Ideas take shape here.
-          </h2>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg">
-            Scroll through the work.
-          </p>
-        </ScrollExpand>
+        />
       </section>
 
       <section id="home" className="portfolio-hero relative overflow-hidden">
