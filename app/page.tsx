@@ -1,5 +1,5 @@
-import { PortfolioHome } from "@/components/PortfolioHome";
+import { PortfolioHomeCarousel } from "@/components/PortfolioHomeCarousel";
 
 export default function Home() {
-  return <PortfolioHome />;
+  return <PortfolioHomeCarousel />;
 }
