@@ -9,10 +9,10 @@ import { MagnetLite } from "@/components/react-bits/MagnetLite";
 import { InteractiveDotGridLite } from "@/components/react-bits/InteractiveDotGridLite";
 import { RotatingRoleLite } from "@/components/react-bits/RotatingRoleLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
-import { TiltCardLite } from "@/components/react-bits/TiltCardLite";
 import ScrollExpand from "@/components/react-bits/ScrollExpand";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
 import { TechStackOrbit } from "@/components/TechStackOrbit";
+import { ProfileIdCard } from "@/components/ProfileIdCard";
 
 const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
@@ -86,20 +86,9 @@ export function PortfolioHomeCarousel() {
             </div>
           </div>
 
-          <TiltCardLite className="mx-auto w-full max-w-[460px]">
-            <SpotlightCardLite className="relative rounded-[2rem]">
-              <div className="absolute -left-5 -top-7 h-24 w-24 border-l border-t border-white/15" />
-              <div className="absolute -bottom-7 -right-5 h-24 w-24 border-b border-r border-white/15" />
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#101010] p-5">
-                <div className="grid h-full place-items-center rounded-[1.3rem] border border-dashed border-white/10 bg-[#0b0b0b] text-center">
-                  <div>
-                    <div className="mx-auto grid h-28 w-28 place-items-center rounded-full border border-white/10 bg-white/[.03] text-4xl font-semibold text-white">KT</div>
-                    <p className="mt-5 text-sm text-zinc-600">Professional portrait can be added here</p>
-                  </div>
-                </div>
-              </div>
-            </SpotlightCardLite>
-          </TiltCardLite>
+          <div className="mx-auto w-full max-w-[460px]">
+            <ProfileIdCard />
+          </div>
         </div>
 
         <div className="relative z-10 border-y border-white/[.06] bg-black/20 py-3 backdrop-blur-sm">
