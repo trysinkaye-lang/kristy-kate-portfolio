@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useRef } from 'react';
 
 import './ScrollExpand.css';
@@ -27,9 +29,9 @@ const ScrollExpand = ({
   overlayScrim = 0.45,
   useWindowScroll = false,
   enabled = true,
-  children,
+  children = /** @type {import('react').ReactNode} */ (null),
   className = '',
-  style,
+  style = /** @type {import('react').CSSProperties} */ ({}),
   ...rest
 }) => {
   const rootRef = useRef(null);
