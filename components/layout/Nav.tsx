@@ -5,19 +5,17 @@ import { Menu, X } from "lucide-react";
 import { site } from "@/data/site";
 
 const links = [
-  ["Home", "#home"],
-  ["About", "#about"],
   ["Projects", "#projects"],
-  ["Designs", "#designs"],
+  ["About", "#about"],
   ["Skills", "#skills"],
   ["Experience", "#experience"],
-  ["Resume", "#resume"],
+  ["Design", "#designs"],
   ["Contact", "#contact"],
 ] as const;
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#home");
+  const [active, setActive] = useState("#projects");
 
   useEffect(() => {
     const sections = links
@@ -45,41 +43,36 @@ export function Nav() {
     return () => window.removeEventListener("resize", close);
   }, [open]);
 
-  const navLink = (label: string, href: string, mobile = false) => (
-    <a
-      key={href}
-      href={href}
-      onClick={() => mobile && setOpen(false)}
-      aria-current={active === href ? "page" : undefined}
-      className={
-        mobile
-          ? `block rounded-xl px-4 py-3 text-sm font-medium transition ${active === href ? "bg-cyan-400/10 text-cyan-200" : "text-slate-200 hover:bg-white/5"}`
-          : `rounded-full px-3 py-2 text-sm transition ${active === href ? "bg-white/10 text-white" : "text-slate-300 hover:bg-white/5 hover:text-white"}`
-      }
-    >
-      {label}
-    </a>
-  );
-
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-[#050914]/88 px-3 py-2.5 shadow-2xl shadow-black/25 backdrop-blur-xl sm:px-4 sm:py-3" aria-label="Main navigation">
-        <a href="#home" className="shrink-0 font-semibold tracking-tight text-white">KT<span className="text-cyan-400">.</span></a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/6 bg-[#05070b]/90 backdrop-blur-xl">
+      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8" aria-label="Main navigation">
+        <a href="#home" className="shrink-0 text-sm font-semibold tracking-tight text-white sm:text-base">
+          Kristy Kate Taylor
+        </a>
 
-        <div className="hidden items-center gap-1 xl:flex">
-          {links.map(([label, href]) => navLink(label, href))}
+        <div className="hidden items-center gap-1 lg:flex">
+          {links.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              aria-current={active === href ? "page" : undefined}
+              className={`rounded-lg px-3 py-2 text-sm transition ${active === href ? "text-white" : "text-slate-400 hover:text-white"}`}
+            >
+              {label}
+            </a>
+          ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <a href={`mailto:${site.email}`} className="hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 md:inline-flex">
-            Let&apos;s Work Together
+          <a href={`mailto:${site.email}`} className="hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-slate-200 sm:inline-flex">
+            Contact
           </a>
           <button
-            className="icon-button xl:hidden"
+            className="icon-button lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-navigation"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpen((value) => !value)}
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -87,13 +80,19 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div id="mobile-navigation" className="mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-[#050914]/98 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl xl:hidden">
-          <div className="grid gap-1 sm:grid-cols-2">
-            {links.map(([label, href]) => navLink(label, href, true))}
+        <div id="mobile-navigation" className="border-t border-white/6 bg-[#05070b] px-5 py-4 lg:hidden">
+          <div className="mx-auto grid max-w-7xl gap-1">
+            {links.map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-slate-300 hover:bg-white/5 hover:text-white"
+              >
+                {label}
+              </a>
+            ))}
           </div>
-          <a href={`mailto:${site.email}`} onClick={() => setOpen(false)} className="mt-2 flex w-full justify-center rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 md:hidden">
-            Let&apos;s Work Together
-          </a>
         </div>
       )}
     </header>

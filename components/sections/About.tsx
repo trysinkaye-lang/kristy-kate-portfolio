@@ -1,19 +1,39 @@
-import { Code2, Layers3, WandSparkles } from "lucide-react";
-import MaskedHeading from "@/components/react-bits/MaskedHeading";
+import { Code2, Database, Layers3, Workflow } from "lucide-react";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
+const strengths = [
+  [Code2, "Software Development", "Build practical applications around real operational workflows."],
+  [Database, "Data & Systems", "Structure information, validation, and database-backed processes clearly."],
+  [Layers3, "UI/UX Design", "Turn complex requirements into interfaces people can understand and use."],
+  [Workflow, "Problem Solving", "Translate constraints and requirements into maintainable system behavior."],
+] as const;
+
 export function About() {
-  return <section id="about" className="section-wrap">
-    <SectionTitle eyebrow="About" title="Development + design + problem solving" copy="I create digital solutions that are technically functional, visually clear, and practical for the people who use them." />
-    <div className="mt-12 grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
-      <div className="glass-card min-h-[360px] p-4"><div className="about-visual"><div className="about-code">&lt;developer<br/><span>designer</span><br/>problemSolver /&gt;</div></div></div>
-      <div className="flex flex-col justify-center">
-        <p className="text-xl leading-9 text-slate-200">I&apos;m a software developer and designer focused on turning real requirements into useful systems. My work combines software engineering, interface design, databases, user experience, and visual communication.</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {[ [Code2,"Development","Build reliable workflows and applications."], [Layers3,"Design","Make complex systems easier to understand."], [WandSparkles,"Problem Solving","Translate constraints into practical solutions."] ].map(([Icon,title,copy]: any) => <div key={title} className="soft-card"><Icon size={20}/><h3>{title}</h3><p>{copy}</p></div>)}
+  return (
+    <section id="about" className="section-wrap border-t border-white/6">
+      <SectionTitle
+        eyebrow="About"
+        title="Development grounded in real workflows"
+        copy="I work across software development, information systems, databases, and interface design — with a focus on building tools that remain understandable in day-to-day use."
+      />
+
+      <div className="mt-10 grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+        <div>
+          <p className="max-w-xl text-xl leading-9 text-slate-200">
+            My work combines technical implementation with interface thinking. I care about how data is structured, how users move through a workflow, and how the final system communicates what is happening without unnecessary complexity.
+          </p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          {strengths.map(([Icon, title, copy]) => (
+            <div key={title} className="rounded-2xl border border-white/8 bg-white/[.025] p-5">
+              <Icon size={19} className="text-cyan-300" />
+              <h3 className="mt-4 font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
-    <div className="mt-20 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.025] px-3 py-10 sm:px-8"><MaskedHeading text="Software × Design" src="/media/masked-bg.svg" reveal="rise" trigger="view" parallax={18} drift={8} brightness={1.1} saturation={1.1} textScale={0.105}/></div>
-  </section>;
+    </section>
+  );
 }
