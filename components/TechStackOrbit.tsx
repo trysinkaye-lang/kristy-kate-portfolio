@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { stack } from "@/data/site";
 import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
+import "./TechStackOrbit.css";
 
 const categories = Object.keys(stack) as Array<keyof typeof stack>;
 
