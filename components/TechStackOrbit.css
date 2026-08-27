@@ -1,0 +1,25 @@
+.tech-orbit-shell{display:grid;gap:1rem;grid-template-columns:260px minmax(0,1fr)}
+.tech-orbit-tabs{display:flex;flex-direction:column;gap:.5rem}
+.tech-orbit-tab{display:grid;grid-template-columns:32px 1fr;align-items:center;min-height:54px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.015);padding:.8rem 1rem;text-align:left;color:#71717a;transition:.25s ease;cursor:pointer}
+.tech-orbit-tab span{font-size:.68rem;color:#52525b}
+.tech-orbit-tab:hover{border-color:rgba(255,255,255,.16);color:#d4d4d8;transform:translateX(4px)}
+.tech-orbit-tab.is-active{border-color:rgba(255,255,255,.22);background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));color:#fff;transform:translateX(6px)}
+.tech-orbit-stage{position:relative;min-height:520px;border:1px solid rgba(255,255,255,.08);border-radius:2rem;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.055),rgba(255,255,255,.015) 32%,rgba(6,6,6,.96) 70%);overflow:hidden}
+.tech-orbit-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(circle,#000 25%,transparent 78%);-webkit-mask-image:radial-gradient(circle,#000 25%,transparent 78%)}
+.tech-orbit-ring{position:absolute;left:50%;top:50%;border:1px solid rgba(255,255,255,.08);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.tech-orbit-ring-one{width:58%;aspect-ratio:1/1;animation:techRing 18s linear infinite}
+.tech-orbit-ring-two{width:78%;aspect-ratio:1/1;border-style:dashed;opacity:.5;animation:techRing 26s linear infinite reverse}
+.tech-orbit-core{position:absolute;left:50%;top:50%;z-index:3;width:210px;aspect-ratio:1/1;transform:translate(-50%,-50%);display:grid;place-content:center;text-align:center;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.11),rgba(12,12,12,.94) 58%);box-shadow:0 0 80px rgba(255,255,255,.05),inset 0 0 40px rgba(255,255,255,.025)}
+.tech-orbit-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:.2em;color:#71717a}
+.tech-orbit-core h3{margin:.7rem 0 0;font-size:1.35rem;line-height:1.1;color:#fff}
+.tech-orbit-core p{margin:.55rem 0 0;font-size:.75rem;color:#52525b}
+.tech-orbit-items{position:absolute;inset:0;z-index:4;animation:techItemsIn .5s cubic-bezier(.22,1,.36,1)}
+.tech-orbit-item{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(var(--orbit-angle)) translateY(calc(var(--orbit-radius) * -1));transform-origin:center;animation:techChipIn .55s var(--orbit-delay) both cubic-bezier(.22,1,.36,1)}
+.tech-orbit-item span{display:inline-flex;align-items:center;justify-content:center;min-width:92px;min-height:38px;padding:.55rem .82rem;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(10,10,10,.88);backdrop-filter:blur(12px);color:#d4d4d8;font-size:.75rem;white-space:nowrap;box-shadow:0 10px 35px rgba(0,0,0,.35);transform:rotate(calc(var(--orbit-angle) * -1));transition:.22s ease}
+.tech-orbit-item span:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;box-shadow:0 0 30px rgba(255,255,255,.06),0 16px 40px rgba(0,0,0,.4);transform:rotate(calc(var(--orbit-angle) * -1)) scale(1.06)}
+@keyframes techRing{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes techItemsIn{from{opacity:.2}to{opacity:1}}
+@keyframes techChipIn{from{opacity:0;filter:blur(5px);scale:.85}to{opacity:1;filter:blur(0);scale:1}}
+@media(max-width:900px){.tech-orbit-shell{grid-template-columns:1fr}.tech-orbit-tabs{display:grid;grid-template-columns:repeat(3,1fr)}.tech-orbit-tab,.tech-orbit-tab:hover,.tech-orbit-tab.is-active{transform:none}.tech-orbit-stage{min-height:500px}}
+@media(max-width:640px){.tech-orbit-tabs{display:flex;flex-direction:row;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:none}.tech-orbit-tabs::-webkit-scrollbar{display:none}.tech-orbit-tab{flex:0 0 auto;min-width:155px}.tech-orbit-stage{min-height:440px;border-radius:1.5rem}.tech-orbit-core{width:150px}.tech-orbit-core h3{font-size:1rem}.tech-orbit-ring-one{width:68%}.tech-orbit-ring-two{width:90%}.tech-orbit-item span{min-width:72px;min-height:34px;padding:.45rem .6rem;font-size:.68rem}}
+@media(prefers-reduced-motion:reduce){.tech-orbit-ring,.tech-orbit-items,.tech-orbit-item{animation:none!important}}
