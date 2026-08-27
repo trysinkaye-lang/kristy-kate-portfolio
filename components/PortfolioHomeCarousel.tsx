@@ -24,9 +24,9 @@ export function PortfolioHomeCarousel() {
     <main id="main-content" className="portfolio-v2">
       <section aria-label="Portfolio introduction" className="bg-black">
         <ScrollExpand
-          src="/media/rbim-dashboard.webp"
-          alt="RBIM system dashboard"
-          title="Kristy Kate Taylor"
+          src="/media/masked-bg.svg"
+          alt="Abstract portfolio background"
+          title="Watch it unfold."
           scrollHint="Scroll to enter"
           startWidth={42}
           startHeight={58}
@@ -40,12 +40,11 @@ export function PortfolioHomeCarousel() {
           useWindowScroll
           enabled
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/60">Software Developer · UI/UX Designer</p>
-          <h2 className="mt-4 max-w-4xl text-[clamp(2.8rem,7vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-white">
-            Systems built for real-world work.
+          <h2 className="max-w-4xl text-[clamp(2.8rem,7vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-white">
+            Ideas take shape here.
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg">
-            Scroll through the frame to enter my portfolio and explore the systems, interfaces, and digital experiences I design and develop.
+            Scroll through the work.
           </p>
         </ScrollExpand>
       </section>
