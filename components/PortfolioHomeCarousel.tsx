@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowUpRight, Github, Mail } from "lucide-react";
-import { site, stack } from "@/data/site";
+import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
 import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
 import { MagnetLite } from "@/components/react-bits/MagnetLite";
@@ -11,6 +11,7 @@ import { RotatingRoleLite } from "@/components/react-bits/RotatingRoleLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import { TiltCardLite } from "@/components/react-bits/TiltCardLite";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
+import { TechStackOrbit } from "@/components/TechStackOrbit";
 
 const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
@@ -114,20 +115,7 @@ export function PortfolioHomeCarousel() {
             </div>
           </div>
 
-          {portfolioTab === "projects" ? (
-            <PortfolioShowcaseCarousel />
-          ) : (
-            <div className="mt-12 grid gap-px overflow-hidden rounded-[2rem] border border-white/[.07] bg-white/[.07] sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(stack).map(([category, items]) => (
-                <SpotlightCardLite key={category} className="bg-[#0a0a0a] p-7 sm:p-8">
-                  <p className="text-xs uppercase tracking-[.18em] text-zinc-600">{category}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {items.filter((item) => !item.includes("replace with")).map((item) => <span className="v2-chip" key={item}>{item}</span>)}
-                  </div>
-                </SpotlightCardLite>
-              ))}
-            </div>
-          )}
+          {portfolioTab === "projects" ? <PortfolioShowcaseCarousel /> : <TechStackOrbit />}
         </div>
       </section>
 
