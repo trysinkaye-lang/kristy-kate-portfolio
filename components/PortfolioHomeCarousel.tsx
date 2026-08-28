@@ -26,17 +26,17 @@ export function PortfolioHomeCarousel() {
         <ScrollExpand
           src="/media/developer-intro.svg"
           alt="Developer workspace with code, terminal, and system interface panels"
-          title=""
-          scrollHint="Scroll to explore"
-          startWidth={46}
-          startHeight={60}
-          startRadius={22}
+          title="Ideas into systems."
+          scrollHint="Scroll"
+          startWidth={58}
+          startHeight={68}
+          startRadius={18}
           endRadius={0}
-          mediaZoom={1.18}
-          scrollDistance={1.05}
-          holdDistance={0.22}
-          smoothing={0.1}
-          overlayScrim={0.18}
+          mediaZoom={1.08}
+          scrollDistance={0.55}
+          holdDistance={0}
+          smoothing={0.08}
+          overlayScrim={0.16}
           useWindowScroll
           enabled
         />
