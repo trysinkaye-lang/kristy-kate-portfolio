@@ -3,22 +3,14 @@
 import { useMemo, useState } from "react";
 import {
   ArrowUpRight,
-  Atom,
   Braces,
   Code2,
   Database,
-  FileCode2,
-  GitBranch,
-  Github,
   MonitorCog,
-  Package,
   Palette,
-  PenTool,
   ServerCog,
   Sparkles,
   Wrench,
-  Zap,
-  type LucideIcon,
 } from "lucide-react";
 import { stack } from "@/data/site";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
@@ -59,30 +51,36 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
   },
 };
 
-const techMeta: Record<string, { tag: string; icon: LucideIcon }> = {
-  HTML: { tag: "Markup", icon: FileCode2 },
-  CSS: { tag: "Styling", icon: Palette },
-  JavaScript: { tag: "Language", icon: Braces },
-  TypeScript: { tag: "Language", icon: Code2 },
-  React: { tag: "UI Framework", icon: Atom },
-  Vite: { tag: "Build Tool", icon: Zap },
-  "Tailwind CSS": { tag: "Styling", icon: Palette },
-  PHP: { tag: "Backend", icon: Code2 },
-  "Node.js": { tag: "Runtime", icon: ServerCog },
-  "REST APIs": { tag: "Integration", icon: Braces },
-  PostgreSQL: { tag: "Database", icon: Database },
-  SQLite: { tag: "Database", icon: Database },
-  MySQL: { tag: "Database", icon: Database },
-  Tauri: { tag: "Desktop Framework", icon: MonitorCog },
-  Rust: { tag: "Language", icon: Wrench },
-  "PHP Desktop": { tag: "Desktop Runtime", icon: MonitorCog },
-  Git: { tag: "Version Control", icon: GitBranch },
-  GitHub: { tag: "Repository", icon: Github },
-  "VS Code": { tag: "Editor", icon: Code2 },
-  npm: { tag: "Package Manager", icon: Package },
-  "GitHub Actions": { tag: "Automation", icon: Github },
-  Figma: { tag: "Interface Design", icon: PenTool },
-  Canva: { tag: "Visual Design", icon: Palette },
+type TechMeta = {
+  tag: string;
+  logo?: string;
+  fallback?: React.ReactNode;
+};
+
+const techMeta: Record<string, TechMeta> = {
+  HTML: { tag: "Markup", logo: "https://cdn.simpleicons.org/html5/E34F26" },
+  CSS: { tag: "Styling", logo: "https://cdn.simpleicons.org/css/663399" },
+  JavaScript: { tag: "Language", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
+  TypeScript: { tag: "Language", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
+  React: { tag: "UI Framework", logo: "https://cdn.simpleicons.org/react/61DAFB" },
+  Vite: { tag: "Build Tool", logo: "https://cdn.simpleicons.org/vite/646CFF" },
+  "Tailwind CSS": { tag: "Styling", logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
+  PHP: { tag: "Backend", logo: "https://cdn.simpleicons.org/php/777BB4" },
+  "Node.js": { tag: "Runtime", logo: "https://cdn.simpleicons.org/nodedotjs/5FA04E" },
+  "REST APIs": { tag: "Integration", fallback: <Braces size={20} strokeWidth={1.8} /> },
+  PostgreSQL: { tag: "Database", logo: "https://cdn.simpleicons.org/postgresql/4169E1" },
+  SQLite: { tag: "Database", logo: "https://cdn.simpleicons.org/sqlite/003B57" },
+  MySQL: { tag: "Database", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
+  Tauri: { tag: "Desktop Framework", logo: "https://cdn.simpleicons.org/tauri/24C8D8" },
+  Rust: { tag: "Language", logo: "https://cdn.simpleicons.org/rust/DEA584" },
+  "PHP Desktop": { tag: "Desktop Runtime", logo: "https://cdn.simpleicons.org/php/777BB4" },
+  Git: { tag: "Version Control", logo: "https://cdn.simpleicons.org/git/F05032" },
+  GitHub: { tag: "Repository", logo: "https://cdn.simpleicons.org/github/FFFFFF" },
+  "VS Code": { tag: "Editor", logo: "https://cdn.simpleicons.org/visualstudiocode/007ACC" },
+  npm: { tag: "Package Manager", logo: "https://cdn.simpleicons.org/npm/CB3837" },
+  "GitHub Actions": { tag: "Automation", logo: "https://cdn.simpleicons.org/githubactions/2088FF" },
+  Figma: { tag: "Interface Design", logo: "https://cdn.simpleicons.org/figma/F24E1E" },
+  Canva: { tag: "Visual Design", logo: "https://cdn.simpleicons.org/canva/00C4CC" },
 };
 
 export function TechStackOrbit() {
@@ -147,8 +145,7 @@ export function TechStackOrbit() {
 
         <div className="tech-showcase-bento" key={activeCategory}>
           {items.map((item, index) => {
-            const meta = techMeta[item] ?? { tag: "Technology", icon: Code2 };
-            const TechIcon = meta.icon;
+            const meta = techMeta[item] ?? { tag: "Technology", fallback: <Code2 size={20} strokeWidth={1.8} /> };
             const featured = index === 0 || item === "React" || (items.length <= 3 && index === 0);
 
             return (
@@ -159,7 +156,11 @@ export function TechStackOrbit() {
               >
                 <div className="tech-card-topline">
                   <span className="tech-card-mark" aria-hidden="true">
-                    <TechIcon size={20} strokeWidth={1.8} />
+                    {meta.logo ? (
+                      <img src={meta.logo} alt="" width={24} height={24} loading="lazy" style={{ display: "block", objectFit: "contain" }} />
+                    ) : (
+                      meta.fallback
+                    )}
                   </span>
                   <ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} />
                 </div>
