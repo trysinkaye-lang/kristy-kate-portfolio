@@ -1,7 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowUpRight, Braces, Code2, Database, Layers3, MonitorCog, Palette, ServerCog, Sparkles, Wrench } from "lucide-react";
+import {
+  ArrowUpRight,
+  Atom,
+  Braces,
+  Code2,
+  Database,
+  FileCode2,
+  GitBranch,
+  Github,
+  MonitorCog,
+  Package,
+  Palette,
+  PenTool,
+  ServerCog,
+  Sparkles,
+  Wrench,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
 import { stack } from "@/data/site";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import "./TechStackOrbit.css";
@@ -41,30 +59,30 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
   },
 };
 
-const techMeta: Record<string, { tag: string; mark: string }> = {
-  HTML: { tag: "Markup", mark: "H5" },
-  CSS: { tag: "Styling", mark: "C3" },
-  JavaScript: { tag: "Language", mark: "JS" },
-  TypeScript: { tag: "Language", mark: "TS" },
-  React: { tag: "UI Framework", mark: "⚛" },
-  Vite: { tag: "Build Tool", mark: "V" },
-  "Tailwind CSS": { tag: "Styling", mark: "TW" },
-  PHP: { tag: "Backend", mark: "PHP" },
-  "Node.js": { tag: "Runtime", mark: "N" },
-  "REST APIs": { tag: "Integration", mark: "API" },
-  PostgreSQL: { tag: "Database", mark: "PG" },
-  SQLite: { tag: "Database", mark: "SQ" },
-  MySQL: { tag: "Database", mark: "MY" },
-  Tauri: { tag: "Desktop Framework", mark: "TA" },
-  Rust: { tag: "Language", mark: "RS" },
-  "PHP Desktop": { tag: "Desktop Runtime", mark: "PD" },
-  Git: { tag: "Version Control", mark: "G" },
-  GitHub: { tag: "Repository", mark: "GH" },
-  "VS Code": { tag: "Editor", mark: "VS" },
-  npm: { tag: "Package Manager", mark: "npm" },
-  "GitHub Actions": { tag: "Automation", mark: "GA" },
-  Figma: { tag: "Interface Design", mark: "F" },
-  Canva: { tag: "Visual Design", mark: "C" },
+const techMeta: Record<string, { tag: string; icon: LucideIcon }> = {
+  HTML: { tag: "Markup", icon: FileCode2 },
+  CSS: { tag: "Styling", icon: Palette },
+  JavaScript: { tag: "Language", icon: Braces },
+  TypeScript: { tag: "Language", icon: Code2 },
+  React: { tag: "UI Framework", icon: Atom },
+  Vite: { tag: "Build Tool", icon: Zap },
+  "Tailwind CSS": { tag: "Styling", icon: Palette },
+  PHP: { tag: "Backend", icon: Code2 },
+  "Node.js": { tag: "Runtime", icon: ServerCog },
+  "REST APIs": { tag: "Integration", icon: Braces },
+  PostgreSQL: { tag: "Database", icon: Database },
+  SQLite: { tag: "Database", icon: Database },
+  MySQL: { tag: "Database", icon: Database },
+  Tauri: { tag: "Desktop Framework", icon: MonitorCog },
+  Rust: { tag: "Language", icon: Wrench },
+  "PHP Desktop": { tag: "Desktop Runtime", icon: MonitorCog },
+  Git: { tag: "Version Control", icon: GitBranch },
+  GitHub: { tag: "Repository", icon: Github },
+  "VS Code": { tag: "Editor", icon: Code2 },
+  npm: { tag: "Package Manager", icon: Package },
+  "GitHub Actions": { tag: "Automation", icon: Github },
+  Figma: { tag: "Interface Design", icon: PenTool },
+  Canva: { tag: "Visual Design", icon: Palette },
 };
 
 export function TechStackOrbit() {
@@ -129,7 +147,8 @@ export function TechStackOrbit() {
 
         <div className="tech-showcase-bento" key={activeCategory}>
           {items.map((item, index) => {
-            const meta = techMeta[item] ?? { tag: "Technology", mark: item.slice(0, 2).toUpperCase() };
+            const meta = techMeta[item] ?? { tag: "Technology", icon: Code2 };
+            const TechIcon = meta.icon;
             const featured = index === 0 || item === "React" || (items.length <= 3 && index === 0);
 
             return (
@@ -139,7 +158,9 @@ export function TechStackOrbit() {
                 style={{ "--tech-delay": `${index * 70}ms` } as React.CSSProperties}
               >
                 <div className="tech-card-topline">
-                  <span className="tech-card-mark">{meta.mark}</span>
+                  <span className="tech-card-mark" aria-hidden="true">
+                    <TechIcon size={20} strokeWidth={1.8} />
+                  </span>
                   <ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} />
                 </div>
                 <div className="tech-card-copy">
