@@ -1,12 +1,71 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ArrowUpRight, Braces, Code2, Database, Layers3, MonitorCog, Palette, ServerCog, Sparkles, Wrench } from "lucide-react";
 import { stack } from "@/data/site";
-import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import "./TechStackOrbit.css";
 
 const categories = Object.keys(stack) as Array<keyof typeof stack>;
+
+const categoryMeta: Record<keyof typeof stack, { description: string; capabilities: string[]; icon: React.ReactNode }> = {
+  Frontend: {
+    description: "Building responsive, accessible and interactive interfaces for modern web applications.",
+    capabilities: ["UI Engineering", "Responsive Design", "Web Applications"],
+    icon: <Code2 size={19} strokeWidth={1.7} />,
+  },
+  Backend: {
+    description: "Creating application logic, API layers and server-side workflows that power digital products.",
+    capabilities: ["API Development", "Application Logic", "Integrations"],
+    icon: <ServerCog size={19} strokeWidth={1.7} />,
+  },
+  Database: {
+    description: "Designing dependable data structures for transactional systems, reporting and long-term growth.",
+    capabilities: ["Data Modeling", "SQL", "System Data"],
+    icon: <Database size={19} strokeWidth={1.7} />,
+  },
+  "Desktop / Applications": {
+    description: "Developing desktop and application experiences for operational, offline and hybrid workflows.",
+    capabilities: ["Desktop Apps", "Offline Workflows", "Native Systems"],
+    icon: <MonitorCog size={19} strokeWidth={1.7} />,
+  },
+  "Development Tools": {
+    description: "The tools I rely on to build, version, validate and ship software with a reliable workflow.",
+    capabilities: ["Version Control", "Build Workflow", "Automation"],
+    icon: <Wrench size={19} strokeWidth={1.7} />,
+  },
+  "Design Tools": {
+    description: "Tools used to translate ideas into polished interfaces, visual systems and digital communication.",
+    capabilities: ["Interface Design", "Prototyping", "Visual Design"],
+    icon: <Palette size={19} strokeWidth={1.7} />,
+  },
+};
+
+const techMeta: Record<string, { tag: string; mark: string }> = {
+  HTML: { tag: "Markup", mark: "H5" },
+  CSS: { tag: "Styling", mark: "C3" },
+  JavaScript: { tag: "Language", mark: "JS" },
+  TypeScript: { tag: "Language", mark: "TS" },
+  React: { tag: "UI Framework", mark: "⚛" },
+  Vite: { tag: "Build Tool", mark: "V" },
+  "Tailwind CSS": { tag: "Styling", mark: "TW" },
+  PHP: { tag: "Backend", mark: "PHP" },
+  "Node.js": { tag: "Runtime", mark: "N" },
+  "REST APIs": { tag: "Integration", mark: "API" },
+  PostgreSQL: { tag: "Database", mark: "PG" },
+  SQLite: { tag: "Database", mark: "SQ" },
+  MySQL: { tag: "Database", mark: "MY" },
+  Tauri: { tag: "Desktop Framework", mark: "TA" },
+  Rust: { tag: "Language", mark: "RS" },
+  "PHP Desktop": { tag: "Desktop Runtime", mark: "PD" },
+  Git: { tag: "Version Control", mark: "G" },
+  GitHub: { tag: "Repository", mark: "GH" },
+  "VS Code": { tag: "Editor", mark: "VS" },
+  npm: { tag: "Package Manager", mark: "npm" },
+  "GitHub Actions": { tag: "Automation", mark: "GA" },
+  Figma: { tag: "Interface Design", mark: "F" },
+  Canva: { tag: "Visual Design", mark: "C" },
+};
 
 export function TechStackOrbit() {
   const [activeCategory, setActiveCategory] = useState<keyof typeof stack>(categories[0]);
@@ -16,10 +75,12 @@ export function TechStackOrbit() {
     [activeCategory],
   );
 
-  const allItems = useMemo(
-    () => Object.values(stack).flat().filter((item) => !item.includes("replace with")),
+  const capabilities = useMemo(
+    () => ["Web Applications", "System Design", "REST APIs", "Database Design", "UI / UX", "Desktop Apps", "Deployment"],
     [],
   );
+
+  const selectedMeta = categoryMeta[activeCategory];
 
   return (
     <div className="mt-12 tech-showcase-wrap">
@@ -33,43 +94,73 @@ export function TechStackOrbit() {
             onClick={() => setActiveCategory(category)}
             className={`tech-showcase-tab ${activeCategory === category ? "is-active" : ""}`}
           >
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            {category}
+            <span className="tech-showcase-tab-number">{String(index + 1).padStart(2, "0")}</span>
+            <span className="tech-showcase-tab-label">{category}</span>
           </button>
         ))}
       </div>
 
-      <SpotlightCardLite className="tech-showcase-panel">
-        <div className="tech-showcase-glow" aria-hidden="true" />
+      <section className="tech-showcase-panel" aria-live="polite">
+        <div className="tech-showcase-ambient" aria-hidden="true" />
+        <div className="tech-showcase-watermark" aria-hidden="true">
+          {String(categories.indexOf(activeCategory) + 1).padStart(2, "0")}
+        </div>
 
         <div className="tech-showcase-copy">
-          <p className="tech-showcase-kicker">Selected category</p>
+          <div className="tech-showcase-kicker-row">
+            <span className="tech-showcase-icon">{selectedMeta.icon}</span>
+            <p className="tech-showcase-kicker">Selected category</p>
+          </div>
+
           <h3>{activeCategory}</h3>
-          <p className="tech-showcase-description">
-            Tools and technologies I use within this part of my development workflow.
-          </p>
+          <p className="tech-showcase-description">{selectedMeta.description}</p>
+
           <div className="tech-showcase-meta">
-            <span>{String(items.length).padStart(2, "0")}</span>
-            <p>technologies</p>
+            <strong>{String(items.length).padStart(2, "0")}</strong>
+            <span>technologies</span>
+          </div>
+
+          <div className="tech-showcase-capabilities">
+            {selectedMeta.capabilities.map((capability) => (
+              <span key={capability}>{capability}</span>
+            ))}
           </div>
         </div>
 
-        <div className="tech-showcase-items" key={activeCategory}>
-          {items.map((item, index) => (
-            <div
-              className="tech-showcase-item"
-              key={item}
-              style={{ "--tech-delay": `${index * 70}ms` } as React.CSSProperties}
-            >
-              <span className="tech-showcase-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="tech-showcase-name">{item}</span>
-            </div>
-          ))}
-        </div>
-      </SpotlightCardLite>
+        <div className="tech-showcase-bento" key={activeCategory}>
+          {items.map((item, index) => {
+            const meta = techMeta[item] ?? { tag: "Technology", mark: item.slice(0, 2).toUpperCase() };
+            const featured = index === 0 || item === "React" || (items.length <= 3 && index === 0);
 
-      <div className="tech-showcase-marquee">
-        <ScrollVelocityLite items={allItems} />
+            return (
+              <article
+                className={`tech-card ${featured ? "is-featured" : ""}`}
+                key={item}
+                style={{ "--tech-delay": `${index * 70}ms` } as React.CSSProperties}
+              >
+                <div className="tech-card-topline">
+                  <span className="tech-card-mark">{meta.mark}</span>
+                  <ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} />
+                </div>
+                <div className="tech-card-copy">
+                  <span>{meta.tag}</span>
+                  <h4>{item}</h4>
+                </div>
+                <div className="tech-card-sheen" aria-hidden="true" />
+              </article>
+            );
+          })}
+
+          <div className="tech-bento-note" aria-hidden="true">
+            <Sparkles size={18} strokeWidth={1.6} />
+            <span>Built around practical, production-focused workflows.</span>
+          </div>
+        </div>
+      </section>
+
+      <div className="tech-showcase-marquee" aria-label="Development capabilities">
+        <div className="tech-showcase-marquee-label"><Braces size={15} />Capabilities</div>
+        <ScrollVelocityLite items={capabilities} />
       </div>
     </div>
   );
