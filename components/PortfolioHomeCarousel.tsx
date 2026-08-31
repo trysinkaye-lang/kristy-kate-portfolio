@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
@@ -10,12 +10,48 @@ import { InteractiveDotGridLite } from "@/components/react-bits/InteractiveDotGr
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
 import { TechStackOrbit } from "@/components/TechStackOrbit";
+import "./hero-scroll-motion.css";
 
 const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
 
 function Hero3DStage() {
   const stageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateScrollMotion = () => {
+      const stage = stageRef.current;
+      if (!stage) return;
+
+      const rect = stage.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+      const centered = progress - 0.5;
+
+      stage.style.setProperty("--scroll-scene", `${centered * 72}px`);
+      stage.style.setProperty("--scroll-photo", `${centered * -34}px`);
+      stage.style.setProperty("--scroll-rbim", `${centered * -64}px`);
+      stage.style.setProperty("--scroll-ahdis", `${centered * 46}px`);
+      stage.style.setProperty("--scroll-design", `${centered * -40}px`);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateScrollMotion);
+    };
+
+    updateScrollMotion();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     const stage = stageRef.current;
@@ -56,7 +92,7 @@ function Hero3DStage() {
         <div className="hero3d-card hero3d-photo-card">
           <div className="hero3d-photo-shell">
             <img
-              src="/media/kristy-profile.webp"
+              src="/media/kristy-profile-scroll.webp"
               alt="Kristy Kate Taylor"
               className="hero3d-photo"
               draggable={false}
