@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { site } from "@/data/site";
 
@@ -13,30 +13,9 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const hero = document.getElementById("home");
-    if (!hero) {
-      setVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting || entry.boundingClientRect.top < 0),
-      { threshold: 0.08 }
-    );
-
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#080808]/88 backdrop-blur-xl transition-all duration-500 ${
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#080808]/88 backdrop-blur-xl">
       <nav className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between px-5 sm:px-7" aria-label="Main navigation">
         <a href="#home" className="text-sm font-semibold tracking-[-.02em] text-white sm:text-base">Kristy Kate Taylor</a>
         <div className="hidden items-center gap-7 md:flex">
