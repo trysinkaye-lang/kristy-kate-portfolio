@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
@@ -13,82 +13,130 @@ import { TechStackOrbit } from "@/components/TechStackOrbit";
 
 const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
-const featuredSystems = ["RBIM", "AHDIS", "ERP"];
+
+function Hero3DStage() {
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const rect = stage.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+    stage.style.setProperty("--hero-rx", `${-y * 10}deg`);
+    stage.style.setProperty("--hero-ry", `${x * 13}deg`);
+    stage.style.setProperty("--hero-x", `${x * 16}px`);
+    stage.style.setProperty("--hero-y", `${y * 12}px`);
+  };
+
+  const resetPointer = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.setProperty("--hero-rx", "0deg");
+    stage.style.setProperty("--hero-ry", "0deg");
+    stage.style.setProperty("--hero-x", "0px");
+    stage.style.setProperty("--hero-y", "0px");
+  };
+
+  return (
+    <div
+      ref={stageRef}
+      className="hero3d-stage"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+      aria-label="Interactive portrait and featured systems"
+    >
+      <div className="hero3d-glow hero3d-glow-a" aria-hidden="true" />
+      <div className="hero3d-glow hero3d-glow-b" aria-hidden="true" />
+      <div className="hero3d-ring" aria-hidden="true" />
+
+      <div className="hero3d-scene">
+        <div className="hero3d-card hero3d-photo-card">
+          <div className="hero3d-photo-shell">
+            <img
+              src="/media/kristy-profile.webp"
+              alt="Kristy Kate Taylor"
+              className="hero3d-photo"
+              draggable={false}
+            />
+            <div className="hero3d-photo-copy">
+              <span>Kristy Kate Taylor</span>
+              <strong>Software Developer · UI/UX Designer</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero3d-float hero3d-float-rbim">
+          <span className="hero3d-float-index">01</span>
+          <strong>RBIM</strong>
+          <small>Information system</small>
+        </div>
+
+        <div className="hero3d-float hero3d-float-ahdis">
+          <span className="hero3d-float-index">02</span>
+          <strong>AHDIS</strong>
+          <small>Health data system</small>
+        </div>
+
+        <div className="hero3d-float hero3d-float-design">
+          <span className="hero3d-float-dot" />
+          <strong>UI / UX</strong>
+          <small>Clear interfaces</small>
+        </div>
+
+        <div className="hero3d-status">
+          <span className="hero-status-dot" />
+          Available for opportunities
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function PortfolioHomeCarousel() {
   const [portfolioTab, setPortfolioTab] = useState<"projects" | "stack">("projects");
 
   return (
     <main id="main-content" className="portfolio-v2">
-      <section id="home" className="portfolio-hero relative overflow-hidden pt-[72px]">
-        <InteractiveDotGridLite className="absolute inset-0 opacity-40" />
-        <div className="pointer-events-none absolute -left-32 top-20 h-[30rem] w-[30rem] rounded-full bg-amber-100/[.035] blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute -right-24 bottom-10 h-[34rem] w-[34rem] rounded-full bg-emerald-200/[.035] blur-3xl" aria-hidden="true" />
+      <section id="home" className="portfolio-hero portfolio-hero-3d relative overflow-hidden pt-[72px]">
+        <InteractiveDotGridLite className="absolute inset-0 opacity-30" />
+        <div className="hero3d-bg hero3d-bg-one" aria-hidden="true" />
+        <div className="hero3d-bg hero3d-bg-two" aria-hidden="true" />
 
-        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-16 py-16 lg:grid-cols-[1.05fr_.95fr] lg:py-20">
+        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
           <div className="min-w-0">
-            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[.09] bg-white/[.035] px-4 py-2 text-xs text-zinc-300 backdrop-blur-sm">
-              <Sparkles size={13} className="text-emerald-300" />
-              Software Developer · UI/UX Designer
+            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[.1] bg-white/[.045] px-4 py-2 text-xs text-zinc-200 backdrop-blur-xl">
+              <Sparkles size={13} className="text-violet-300" />
+              Welcome — I&apos;m a developer who loves thoughtful design
             </div>
 
-            <h1 className="max-w-4xl text-[clamp(3.3rem,6.4vw,6.4rem)] font-semibold leading-[.94] tracking-[-.055em] text-white">
-              <SplitTextLite text="Hi, I’m Kristy." delay={34} />
+            <h1 className="max-w-4xl text-[clamp(3.25rem,6.1vw,6.15rem)] font-semibold leading-[.93] tracking-[-.058em] text-white">
+              <SplitTextLite text="Hi, I’m Kristy." delay={32} />
+              <br />
+              <span className="hero-gradient-text"><SplitTextLite text="I make complex work feel simple." delay={28} /></span>
             </h1>
 
-            <p className="mt-6 max-w-2xl text-[clamp(1.25rem,2vw,1.7rem)] leading-[1.45] tracking-[-.02em] text-zinc-300">
-              I design and build practical digital products that make everyday work simpler, clearer, and easier to use.
-            </p>
-
-            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-500 sm:text-lg">
-              My work spans information systems, data-driven tools, database design, and interfaces built around real workflows—not just good-looking screens.
+            <p className="mt-7 max-w-2xl text-[clamp(1.08rem,1.65vw,1.4rem)] leading-[1.55] text-zinc-300">
+              I design and develop digital systems, interfaces, and data-driven tools that are practical to use and pleasant to interact with.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">See my projects <ArrowDown size={16} /></a></MagnetLite>
-              <MagnetLite strength={0.12}><a href="#contact" className="v2-button">Get in touch <ArrowUpRight size={15} /></a></MagnetLite>
+              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore projects <ArrowDown size={16} /></a></MagnetLite>
+              <MagnetLite strength={0.12}><a href="#contact" className="v2-button hero-secondary-button">Let&apos;s talk <ArrowUpRight size={15} /></a></MagnetLite>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-3 text-sm text-zinc-500">
-              <span className="mr-1 text-xs uppercase tracking-[.18em] text-zinc-600">Featured systems</span>
-              {featuredSystems.map((item) => (
-                <span key={item} className="rounded-full border border-white/[.07] bg-white/[.02] px-3 py-1.5 text-xs text-zinc-400">{item}</span>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
+            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
               <a className="transition hover:text-white" href={site.github} target="_blank" rel="noreferrer"><Github className="mr-2 inline" size={15} />GitHub</a>
               <a className="transition hover:text-white" href={`mailto:${site.email}`}><Mail className="mr-2 inline" size={15} />{site.email}</a>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[500px]">
-            <div className="absolute -inset-5 rounded-[2.75rem] border border-white/[.035] bg-white/[.018]" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-[2.35rem] border border-white/[.1] bg-[#111] p-2 shadow-[0_32px_100px_rgba(0,0,0,.48)]">
-              <div className="relative overflow-hidden rounded-[1.95rem] bg-gradient-to-b from-stone-200 to-stone-300">
-                <img
-                  src="/media/kristy-profile.webp"
-                  alt="Kristy Kate Taylor"
-                  className="aspect-[4/5] w-full object-cover object-[center_22%]"
-                  draggable={false}
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent px-6 pb-6 pt-20">
-                  <p className="text-xs uppercase tracking-[.22em] text-white/55">Kristy Kate Taylor</p>
-                  <p className="mt-2 text-lg font-medium text-white">Building useful systems with thoughtful design.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-5 -left-6 hidden rounded-2xl border border-white/[.1] bg-[#0d0d0d]/90 px-4 py-3 shadow-2xl backdrop-blur-xl sm:block">
-              <div className="flex items-center gap-2 text-xs text-zinc-300">
-                <span className="hero-status-dot h-2 w-2 rounded-full bg-emerald-400" />
-                Available for opportunities
-              </div>
-            </div>
-          </div>
+          <Hero3DStage />
         </div>
 
-        <div className="relative z-10 border-y border-white/[.06] bg-black/20 py-3 backdrop-blur-sm">
+        <div className="relative z-10 border-y border-white/[.065] bg-black/15 py-3 backdrop-blur-md">
           <ScrollVelocityLite items={marqueeItems} />
         </div>
       </section>
