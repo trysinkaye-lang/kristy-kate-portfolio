@@ -1,70 +1,178 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowDown, ArrowUpRight, Github, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
 import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
 import { MagnetLite } from "@/components/react-bits/MagnetLite";
 import { InteractiveDotGridLite } from "@/components/react-bits/InteractiveDotGridLite";
-import { RotatingRoleLite } from "@/components/react-bits/RotatingRoleLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
 import { TechStackOrbit } from "@/components/TechStackOrbit";
-import { ProfileIdCard } from "@/components/ProfileIdCard";
+import "./hero-scroll-motion.css";
 
 const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
+
+function Hero3DStage() {
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateScrollMotion = () => {
+      const stage = stageRef.current;
+      if (!stage) return;
+
+      const rect = stage.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+      const centered = progress - 0.5;
+
+      stage.style.setProperty("--scroll-scene", `${centered * 72}px`);
+      stage.style.setProperty("--scroll-photo", `${centered * -34}px`);
+      stage.style.setProperty("--scroll-rbim", `${centered * -64}px`);
+      stage.style.setProperty("--scroll-ahdis", `${centered * 46}px`);
+      stage.style.setProperty("--scroll-design", `${centered * -40}px`);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateScrollMotion);
+    };
+
+    updateScrollMotion();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const rect = stage.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+    stage.style.setProperty("--hero-rx", `${-y * 10}deg`);
+    stage.style.setProperty("--hero-ry", `${x * 13}deg`);
+    stage.style.setProperty("--hero-x", `${x * 16}px`);
+    stage.style.setProperty("--hero-y", `${y * 12}px`);
+  };
+
+  const resetPointer = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.setProperty("--hero-rx", "0deg");
+    stage.style.setProperty("--hero-ry", "0deg");
+    stage.style.setProperty("--hero-x", "0px");
+    stage.style.setProperty("--hero-y", "0px");
+  };
+
+  return (
+    <div
+      ref={stageRef}
+      className="hero3d-stage"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+      aria-label="Interactive portrait and featured systems"
+    >
+      <div className="hero3d-glow hero3d-glow-a" aria-hidden="true" />
+      <div className="hero3d-glow hero3d-glow-b" aria-hidden="true" />
+      <div className="hero3d-ring" aria-hidden="true" />
+
+      <div className="hero3d-scene">
+        <div className="hero3d-card hero3d-photo-card">
+          <div className="hero3d-photo-shell">
+            <img
+              src="/media/kristy-profile-scroll.webp"
+              alt="Kristy Kate Taylor"
+              className="hero3d-photo"
+              draggable={false}
+            />
+            <div className="hero3d-photo-copy">
+              <span>Kristy Kate Taylor</span>
+              <strong>Software Developer · UI/UX Designer</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero3d-float hero3d-float-rbim">
+          <span className="hero3d-float-index">01</span>
+          <strong>RBIM</strong>
+          <small>Information system</small>
+        </div>
+
+        <div className="hero3d-float hero3d-float-ahdis">
+          <span className="hero3d-float-index">02</span>
+          <strong>AHDIS</strong>
+          <small>Health data system</small>
+        </div>
+
+        <div className="hero3d-float hero3d-float-design">
+          <span className="hero3d-float-dot" />
+          <strong>UI / UX</strong>
+          <small>Clear interfaces</small>
+        </div>
+
+        <div className="hero3d-status">
+          <span className="hero-status-dot" />
+          Available for opportunities
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function PortfolioHomeCarousel() {
   const [portfolioTab, setPortfolioTab] = useState<"projects" | "stack">("projects");
 
   return (
     <main id="main-content" className="portfolio-v2">
-      <section id="home" className="portfolio-hero relative overflow-hidden pt-[72px]">
-        <InteractiveDotGridLite className="absolute inset-0" />
-        <div className="rb-hero-glow" aria-hidden="true" />
+      <section id="home" className="portfolio-hero portfolio-hero-3d relative overflow-hidden pt-[72px]">
+        <InteractiveDotGridLite className="absolute inset-0 opacity-30" />
+        <div className="hero3d-bg hero3d-bg-one" aria-hidden="true" />
+        <div className="hero3d-bg hero3d-bg-two" aria-hidden="true" />
 
-        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-14 py-16 lg:grid-cols-[1.08fr_.92fr] lg:py-20">
+        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
           <div className="min-w-0">
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/[.08] bg-white/[.025] px-4 py-2 text-xs uppercase tracking-[.2em] text-zinc-400">
-              <span className="hero-status-dot h-2 w-2 rounded-full bg-emerald-400" />
-              Welcome to my portfolio
+            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[.1] bg-white/[.045] px-4 py-2 text-xs text-zinc-200 backdrop-blur-xl">
+              <Sparkles size={13} className="text-violet-300" />
+              Welcome — I&apos;m a developer who loves thoughtful design
             </div>
 
-            <p className="mb-4 text-sm uppercase tracking-[.28em] text-zinc-500">Kristy Kate Taylor</p>
-            <h1 className="max-w-5xl text-[clamp(3.5rem,7.5vw,7.2rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">
-              <SplitTextLite text="I build digital systems" delay={34} />
+            <h1 className="max-w-4xl text-[clamp(3.25rem,6.1vw,6.15rem)] font-semibold leading-[.93] tracking-[-.058em] text-white">
+              <SplitTextLite text="Hi, I’m Kristy." delay={32} />
               <br />
-              <span className="text-zinc-500"><SplitTextLite text="for real work." delay={34} /></span>
+              <span className="hero-gradient-text"><SplitTextLite text="I make complex work feel simple." delay={28} /></span>
             </h1>
 
-            <div className="mt-7 flex min-h-10 flex-wrap items-center gap-2 text-lg text-zinc-400 sm:text-xl">
-              <span>Software Developer ·</span>
-              <RotatingRoleLite roles={["System Developer", "UI/UX Designer", "Web Developer", "Product Builder"]} />
-            </div>
-
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
-              I design and develop practical systems, interfaces, and data-driven tools that make complex workflows easier to understand and use.
+            <p className="mt-7 max-w-2xl text-[clamp(1.08rem,1.65vw,1.4rem)] leading-[1.55] text-zinc-300">
+              I design and develop digital systems, interfaces, and data-driven tools that are practical to use and pleasant to interact with.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore my work <ArrowDown size={16} /></a></MagnetLite>
-              <MagnetLite strength={0.12}><a href="#contact" className="v2-button">Let&apos;s talk</a></MagnetLite>
+              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore projects <ArrowDown size={16} /></a></MagnetLite>
+              <MagnetLite strength={0.12}><a href="#contact" className="v2-button hero-secondary-button">Let&apos;s talk <ArrowUpRight size={15} /></a></MagnetLite>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
+            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
               <a className="transition hover:text-white" href={site.github} target="_blank" rel="noreferrer"><Github className="mr-2 inline" size={15} />GitHub</a>
               <a className="transition hover:text-white" href={`mailto:${site.email}`}><Mail className="mr-2 inline" size={15} />{site.email}</a>
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-[460px]">
-            <ProfileIdCard />
-          </div>
+          <Hero3DStage />
         </div>
 
-        <div className="relative z-10 border-y border-white/[.06] bg-black/20 py-3 backdrop-blur-sm">
+        <div className="relative z-10 border-y border-white/[.065] bg-black/15 py-3 backdrop-blur-md">
           <ScrollVelocityLite items={marqueeItems} />
         </div>
       </section>
