@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Github, Mail } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Github, Mail } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
 import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
@@ -9,7 +9,6 @@ import { MagnetLite } from "@/components/react-bits/MagnetLite";
 import { InteractiveDotGridLite } from "@/components/react-bits/InteractiveDotGridLite";
 import { RotatingRoleLite } from "@/components/react-bits/RotatingRoleLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
-import ScrollExpand from "@/components/react-bits/ScrollExpand";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
 import { TechStackOrbit } from "@/components/TechStackOrbit";
 import { ProfileIdCard } from "@/components/ProfileIdCard";
@@ -22,55 +21,36 @@ export function PortfolioHomeCarousel() {
 
   return (
     <main id="main-content" className="portfolio-v2">
-      <section aria-label="Portfolio introduction" className="bg-black">
-        <ScrollExpand
-          src="/media/developer-intro.svg"
-          alt="Developer workspace with code, terminal, and system interface panels"
-          title="Ideas into systems."
-          scrollHint="Scroll"
-          startWidth={58}
-          startHeight={68}
-          startRadius={18}
-          endRadius={0}
-          mediaZoom={1.08}
-          scrollDistance={0.55}
-          holdDistance={0}
-          smoothing={0.08}
-          overlayScrim={0.16}
-          useWindowScroll
-          enabled
-        />
-      </section>
-
-      <section id="home" className="portfolio-hero relative overflow-hidden">
+      <section id="home" className="portfolio-hero relative overflow-hidden pt-[72px]">
         <InteractiveDotGridLite className="absolute inset-0" />
         <div className="rb-hero-glow" aria-hidden="true" />
 
-        <div className="portfolio-shell relative z-10 grid min-h-[780px] items-center gap-14 py-32 lg:grid-cols-[1.12fr_.88fr] lg:py-28">
+        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-14 py-16 lg:grid-cols-[1.08fr_.92fr] lg:py-20">
           <div className="min-w-0">
-            <div className="mb-10 flex items-center gap-3 text-xs uppercase tracking-[.22em] text-zinc-500">
+            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/[.08] bg-white/[.025] px-4 py-2 text-xs uppercase tracking-[.2em] text-zinc-400">
               <span className="hero-status-dot h-2 w-2 rounded-full bg-emerald-400" />
-              Available for opportunities
+              Welcome to my portfolio
             </div>
 
-            <p className="mb-5 text-sm uppercase tracking-[.28em] text-zinc-500">Kristy Kate Taylor</p>
-            <h1 className="max-w-4xl text-[clamp(3.7rem,8vw,7.6rem)] font-semibold leading-[.86] tracking-[-.065em] text-white">
-              <SplitTextLite text="Software" delay={38} />
+            <p className="mb-4 text-sm uppercase tracking-[.28em] text-zinc-500">Kristy Kate Taylor</p>
+            <h1 className="max-w-5xl text-[clamp(3.5rem,7.5vw,7.2rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">
+              <SplitTextLite text="I build digital systems" delay={34} />
               <br />
-              <SplitTextLite text="Developer" delay={38} />
+              <span className="text-zinc-500"><SplitTextLite text="for real work." delay={34} /></span>
             </h1>
 
             <div className="mt-7 flex min-h-10 flex-wrap items-center gap-2 text-lg text-zinc-400 sm:text-xl">
-              <span>I also work as a</span>
+              <span>Software Developer ·</span>
               <RotatingRoleLite roles={["System Developer", "UI/UX Designer", "Web Developer", "Product Builder"]} />
             </div>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-500">
-              I build practical digital systems and clear interfaces for real-world workflows.
+
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
+              I design and develop practical systems, interfaces, and data-driven tools that make complex workflows easier to understand and use.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">View projects <ArrowUpRight size={16} /></a></MagnetLite>
-              <MagnetLite strength={0.12}><a href="#contact" className="v2-button">Contact me</a></MagnetLite>
+              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore my work <ArrowDown size={16} /></a></MagnetLite>
+              <MagnetLite strength={0.12}><a href="#contact" className="v2-button">Let&apos;s talk</a></MagnetLite>
             </div>
 
             <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
