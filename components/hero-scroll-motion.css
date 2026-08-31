@@ -1,0 +1,65 @@
+.hero3d-stage {
+  --scroll-scene: 0px;
+  --scroll-photo: 0px;
+  --scroll-rbim: 0px;
+  --scroll-ahdis: 0px;
+  --scroll-design: 0px;
+}
+
+.hero3d-scene {
+  transform: translate(-50%, calc(-50% + var(--scroll-scene))) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));
+  will-change: transform;
+}
+
+.hero3d-card {
+  transform: translateZ(70px) translateY(var(--scroll-photo));
+  will-change: transform;
+}
+
+.hero3d-photo {
+  transition: transform .35s cubic-bezier(.22,1,.36,1), filter .35s ease;
+}
+
+.hero3d-stage:hover .hero3d-photo {
+  transform: translateZ(36px) scale(1.035);
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.hero3d-float-rbim {
+  transform: translate3d(calc(var(--hero-x) * -.7), calc((var(--hero-y) * -.7) + var(--scroll-rbim)), 150px) rotateZ(-5deg);
+}
+
+.hero3d-float-ahdis {
+  transform: translate3d(calc(var(--hero-x) * .9), calc((var(--hero-y) * .8) + var(--scroll-ahdis)), 125px) rotateZ(5deg);
+}
+
+.hero3d-float-design {
+  transform: translate3d(calc(var(--hero-x) * -.5), calc((var(--hero-y) * .65) + var(--scroll-design)), 110px) rotateZ(3deg);
+}
+
+@media (max-width: 900px) {
+  .hero3d-stage {
+    min-height: 580px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero3d-stage {
+    --scroll-scene: 0px !important;
+    --scroll-photo: 0px !important;
+    --scroll-rbim: 0px !important;
+    --scroll-ahdis: 0px !important;
+    --scroll-design: 0px !important;
+    min-height: 520px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero3d-stage {
+    --scroll-scene: 0px !important;
+    --scroll-photo: 0px !important;
+    --scroll-rbim: 0px !important;
+    --scroll-ahdis: 0px !important;
+    --scroll-design: 0px !important;
+  }
+}
