@@ -14,7 +14,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main id="main-content" className="mx-auto max-w-6xl px-6 pb-24 pt-32 lg:px-8">
-      <Link className="social-link" href="/#projects"><ArrowLeft size={16} /> Back to projects</Link>
+      <Link className="social-link" href="/projects"><ArrowLeft size={16} /> Back to projects</Link>
       <div className="mt-8">
         <p className="eyebrow">Case study · {project.status}</p>
         <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">{project.title}</h1>

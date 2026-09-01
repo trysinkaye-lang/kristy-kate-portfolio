@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
-import { SpotlightCardLite } from "@/components/react-bits/SpotlightCardLite";
 import { MagnetLite } from "@/components/react-bits/MagnetLite";
 import { InteractiveDotGridLite } from "@/components/react-bits/InteractiveDotGridLite";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import { PortfolioShowcaseCarousel } from "@/components/PortfolioShowcaseCarousel";
-import { TechStackOrbit } from "@/components/TechStackOrbit";
 import "./hero-scroll-motion.css";
 
-const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
 const marqueeItems = ["React", "TypeScript", "PostgreSQL", "SQLite", "Tauri", "Rust", "PHP", "UI/UX", "GitHub", "System Design"];
 
 function Hero3DStage() {
@@ -136,8 +134,6 @@ function Hero3DStage() {
 }
 
 export function PortfolioHomeCarousel() {
-  const [portfolioTab, setPortfolioTab] = useState<"projects" | "stack">("projects");
-
   return (
     <main id="main-content" className="portfolio-v2">
       <section id="home" className="portfolio-hero portfolio-hero-3d relative overflow-hidden pt-[72px]">
@@ -164,7 +160,7 @@ export function PortfolioHomeCarousel() {
 
             <div className="mt-9 flex flex-wrap gap-3">
               <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore projects <ArrowDown size={16} /></a></MagnetLite>
-              <MagnetLite strength={0.12}><a href="#contact" className="v2-button hero-secondary-button">Let&apos;s talk <ArrowUpRight size={15} /></a></MagnetLite>
+              <MagnetLite strength={0.12}><Link href="/contact" className="v2-button hero-secondary-button">Let&apos;s talk <ArrowUpRight size={15} /></Link></MagnetLite>
             </div>
 
             <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">
@@ -181,74 +177,17 @@ export function PortfolioHomeCarousel() {
         </div>
       </section>
 
-      <section id="about" className="portfolio-section border-t border-white/[.06]">
-        <div className="portfolio-shell grid gap-12 py-24 lg:grid-cols-[.75fr_1.25fr] lg:py-28">
-          <div>
-            <p className="v2-kicker">About</p>
-            <h2 className="v2-heading mt-4">I turn requirements into usable systems.</h2>
-          </div>
-          <div>
-            <p className="max-w-3xl text-xl leading-9 text-zinc-300">
-              I work across software development, information systems, databases, and interface design. My goal is to make complex workflows feel organized, understandable, and reliable for the people using them.
-            </p>
-            <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/[.07] bg-white/[.07] sm:grid-cols-2">
-              {strengths.map((item, index) => (
-                <SpotlightCardLite key={item} className="bg-[#0b0b0b] px-6 py-6">
-                  <span className="text-xs text-zinc-600">0{index + 1}</span>
-                  <p className="mt-2 font-medium text-zinc-200">{item}</p>
-                </SpotlightCardLite>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="portfolio" className="portfolio-section border-t border-white/[.06]">
         <div className="portfolio-shell py-24 lg:py-28">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="v2-kicker">Selected work</p>
-              <h2 className="v2-heading mt-4">Portfolio Showcase</h2>
-              <p className="mt-5 max-w-2xl leading-7 text-zinc-500">A focused view of the systems I have designed and developed.</p>
+              <p className="v2-kicker">Featured work</p>
+              <h2 className="v2-heading mt-4">Systems built for real work.</h2>
+              <p className="mt-5 max-w-2xl leading-7 text-zinc-500">A preview of my software and interface projects.</p>
             </div>
-            <div className="inline-flex w-fit rounded-full border border-white/[.08] bg-white/[.025] p-1">
-              <button type="button" onClick={() => setPortfolioTab("projects")} className={`v2-tab ${portfolioTab === "projects" ? "is-active" : ""}`}>Projects</button>
-              <button type="button" onClick={() => setPortfolioTab("stack")} className={`v2-tab ${portfolioTab === "stack" ? "is-active" : ""}`}>Tech Stack</button>
-            </div>
+            <Link href="/projects" className="v2-button">View all projects <ArrowUpRight size={16} /></Link>
           </div>
-
-          {portfolioTab === "projects" ? <PortfolioShowcaseCarousel /> : <TechStackOrbit />}
-        </div>
-      </section>
-
-      <section id="experience" className="portfolio-section border-t border-white/[.06]">
-        <div className="portfolio-shell grid gap-12 py-24 lg:grid-cols-[.65fr_1.35fr] lg:py-28">
-          <div>
-            <p className="v2-kicker">Experience</p>
-            <h2 className="v2-heading mt-4">Building systems with purpose.</h2>
-          </div>
-          <div className="divide-y divide-white/[.07] border-y border-white/[.07]">
-            <div className="grid gap-3 py-7 sm:grid-cols-[160px_1fr]"><span className="text-xs uppercase tracking-[.18em] text-zinc-600">Education</span><div><h3 className="font-medium text-white">BS Information Technology</h3><p className="mt-2 text-sm text-zinc-500">University of Science and Technology of Southern Philippines</p></div></div>
-            <div className="grid gap-3 py-7 sm:grid-cols-[160px_1fr]"><span className="text-xs uppercase tracking-[.18em] text-zinc-600">Systems</span><div><h3 className="font-medium text-white">RBIM · AHDIS · ERP</h3><p className="mt-2 text-sm leading-6 text-zinc-500">Software development, system workflows, database design, interface design, validation, and deployment-focused improvements.</p></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="portfolio-section border-t border-white/[.06]">
-        <div className="portfolio-shell py-24 lg:py-28">
-          <SpotlightCardLite className="rounded-[2rem] border border-white/[.08] bg-[#0a0a0a] p-8 sm:p-12 lg:p-16">
-            <p className="v2-kicker">Contact</p>
-            <div className="mt-5 grid gap-10 lg:grid-cols-[1.2fr_.8fr] lg:items-end">
-              <div>
-                <h2 className="max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl lg:text-6xl">Have a project or opportunity in mind?</h2>
-                <p className="mt-5 max-w-2xl leading-7 text-zinc-500">I’m open to conversations about software development, systems, and interface design.</p>
-              </div>
-              <div className="lg:text-right">
-                <MagnetLite className="lg:justify-end" strength={0.12}><a className="v2-button v2-button-primary" href={`mailto:${site.email}`}>Email me <Mail size={16} /></a></MagnetLite>
-                <p className="mt-4 text-sm text-zinc-600">{site.email}</p>
-              </div>
-            </div>
-          </SpotlightCardLite>
+          <PortfolioShowcaseCarousel />
         </div>
       </section>
 
