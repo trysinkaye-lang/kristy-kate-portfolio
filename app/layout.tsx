@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
+import { RouteEffects } from "@/components/layout/RouteEffects";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -12,4 +14,4 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: `${site.name} | ${site.title}`, description: site.headline }
 };
 
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" suppressHydrationWarning><body><Providers><a className="skip-link" href="#main-content">Skip to content</a><Nav/>{children}</Providers></body></html>}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" suppressHydrationWarning><body><Providers><a className="skip-link" href="#main-content">Skip to content</a><Nav/><RouteEffects>{children}</RouteEffects><SiteFooter/></Providers></body></html>}

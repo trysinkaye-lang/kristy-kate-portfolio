@@ -1,17 +1,21 @@
-import { Github, Mail, MapPin } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, Github, Mail, MapPin, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 
 export default function ContactPage() {
   return (
-    <main id="main-content" className="portfolio-v2 grid min-h-screen place-items-center px-5 pb-20 pt-32">
-      <div className="contact-page-card w-full max-w-5xl rounded-[2.5rem] border border-white/[.08] p-8 sm:p-12 lg:p-16">
-        <p className="v2-kicker">Contact</p>
-        <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[.95] tracking-[-.05em] text-white sm:text-6xl lg:text-7xl">Let’s build something useful together.</h1>
-        <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-500">I’m open to software development, information systems, web projects, UI/UX design, and professional opportunities.</p>
-        <div className="mt-12 grid gap-4 sm:grid-cols-3">
-          <a className="contact-option rounded-2xl border border-white/[.08] p-5" href={`mailto:${site.email}`}><Mail size={20} /><span className="mt-6 block text-xs uppercase tracking-[.16em] text-zinc-600">Email</span><strong className="mt-2 block text-sm text-white">{site.email}</strong></a>
-          <a className="contact-option rounded-2xl border border-white/[.08] p-5" href={site.github} target="_blank" rel="noreferrer"><Github size={20} /><span className="mt-6 block text-xs uppercase tracking-[.16em] text-zinc-600">GitHub</span><strong className="mt-2 block text-sm text-white">@trysinkaye-lang</strong></a>
-          <div className="contact-option rounded-2xl border border-white/[.08] p-5"><MapPin size={20} /><span className="mt-6 block text-xs uppercase tracking-[.16em] text-zinc-600">Location</span><strong className="mt-2 block text-sm text-white">Philippines</strong></div>
+    <main id="main-content" className="portfolio-v2 contact-page relative min-h-screen overflow-hidden px-5 pb-24 pt-36">
+      <div className="contact-orb contact-orb-one" aria-hidden="true" /><div className="contact-orb contact-orb-two" aria-hidden="true" />
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-white"><ArrowLeft size={16} /> Back home</Link>
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1.12fr_.88fr] lg:items-end">
+          <div><div className="inline-flex items-center gap-2 rounded-full border border-white/[.1] bg-white/[.035] px-4 py-2 text-xs text-zinc-300"><Sparkles size={14} /> Available for opportunities</div><h1 className="mt-7 text-[clamp(4rem,9vw,8rem)] font-semibold leading-[.84] tracking-[-.07em] text-white">Let’s make<br />something<br /><span className="contact-outline-text">useful.</span></h1></div>
+          <div className="pb-2"><p className="max-w-xl text-xl leading-9 text-zinc-400">Have a software project, information system, website, or UI/UX opportunity? Tell me what you’re building.</p><a className="contact-email-link mt-9 inline-flex items-center gap-3 text-xl font-semibold text-white" href={`mailto:${site.email}`}>{site.email}<ArrowUpRight size={20} /></a></div>
+        </div>
+        <div className="mt-20 grid gap-4 md:grid-cols-3">
+          <a className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6" href={`mailto:${site.email}`}><div className="flex items-start justify-between"><Mail size={22} /><ArrowUpRight className="transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} /></div><span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">Email</span><strong className="mt-2 block text-sm text-white">{site.email}</strong></a>
+          <a className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6" href={site.github} target="_blank" rel="noreferrer"><div className="flex items-start justify-between"><Github size={22} /><ArrowUpRight className="transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} /></div><span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">GitHub</span><strong className="mt-2 block text-sm text-white">@trysinkaye-lang</strong></a>
+          <div className="contact-option rounded-[1.7rem] border border-white/[.09] p-6"><MapPin size={22} /><span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">Based in</span><strong className="mt-2 block text-sm text-white">Philippines · GMT+8</strong></div>
         </div>
       </div>
     </main>

@@ -23,6 +23,12 @@ section[id] { scroll-margin-top: 72px; }
 .theme-toggle:hover { background:rgba(255,255,255,.08); transform:rotate(8deg); }
 .floating-mobile-menu { border:1px solid rgba(255,255,255,.12); background:rgba(8,8,8,.94); color:#e4e4e7; box-shadow:0 18px 50px rgba(0,0,0,.32); backdrop-filter:blur(22px); }
 .floating-mobile-menu a:hover { background:rgba(255,255,255,.07); }
+.scroll-progress { position:fixed; left:0; top:0; z-index:100; height:2px; width:100%; transform-origin:left; background:linear-gradient(90deg,#fff,#a1a1aa); box-shadow:0 0 16px rgba(255,255,255,.35); }
+.route-reveal { animation:routeReveal .58s cubic-bezier(.22,1,.36,1) both; }
+@keyframes routeReveal { from { opacity:0; transform:translateY(13px); filter:blur(5px); } to { opacity:1; transform:none; filter:none; } }
+.site-footer { background:linear-gradient(180deg,#080808,#050505); }
+.footer-link { display:inline-flex; align-items:center; gap:.45rem; border:1px solid rgba(255,255,255,.09); border-radius:999px; padding:.65rem .85rem; color:#a1a1aa; font-size:.78rem; transition:.22s ease; }
+.footer-link:hover { color:#fff; border-color:rgba(255,255,255,.22); background:rgba(255,255,255,.05); transform:translateY(-2px); }
 .project-page-card,.about-skill-card,.contact-page-card,.contact-option { background:rgba(255,255,255,.025); box-shadow:inset 0 1px 0 rgba(255,255,255,.025); transition:border-color .25s ease,background .25s ease,transform .25s ease; }
 .project-page-card:hover,.contact-option:hover { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.045); transform:translateY(-4px); }
 .project-editorial-visual { background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.1),transparent 60%),#101010; box-shadow:0 30px 80px rgba(0,0,0,.28); }
@@ -30,6 +36,18 @@ section[id] { scroll-margin-top: 72px; }
 .about-service-card:hover,.stack-logo-card:hover { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.05); transform:translateY(-3px); }
 .stack-logo-card img { filter:grayscale(1) brightness(1.6); transition:filter .25s ease,transform .25s ease; }
 .stack-logo-card:hover img { filter:none; transform:scale(1.08); }
+.contact-page { background:radial-gradient(circle at 75% 10%,rgba(255,255,255,.07),transparent 26%),linear-gradient(180deg,#080808,#0c0c0c 62%,#080808); }
+.contact-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; animation:contactFloat 9s ease-in-out infinite; }
+.contact-orb-one { right:-10rem; top:8rem; height:32rem; width:32rem; background:rgba(124,58,237,.12); }
+.contact-orb-two { left:-12rem; bottom:3rem; height:28rem; width:28rem; background:rgba(16,185,129,.08); animation-delay:-4s; }
+@keyframes contactFloat { 50% { transform:translate(20px,-24px) scale(1.06); } }
+.contact-outline-text { color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.52); }
+.contact-email-link { border-bottom:1px solid rgba(255,255,255,.16); padding-bottom:.45rem; transition:.22s ease; }
+.contact-email-link:hover { border-color:#fff; gap:1rem; }
+.case-hero-visual { background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.11),transparent 60%),#101010; box-shadow:0 40px 120px rgba(0,0,0,.32); }
+.case-feature { background:rgba(255,255,255,.025); transition:.22s ease; }
+.case-feature:hover { border-color:rgba(255,255,255,.17); background:rgba(255,255,255,.045); transform:translateY(-2px); }
+.project-editorial-row,.case-editorial-section { content-visibility:auto; contain-intrinsic-size:auto 640px; }
 .portfolio-hero { background: linear-gradient(to bottom, rgba(8,8,8,.76), rgba(8,8,8,.95)); }
 .portfolio-hero-3d { background: radial-gradient(circle at 65% 20%, rgba(88,28,135,.19), transparent 30%), radial-gradient(circle at 88% 75%, rgba(6,95,70,.16), transparent 28%), linear-gradient(180deg,#080808 0%,#0b0a0d 55%,#080808 100%); }
 .reference-hero { background:radial-gradient(ellipse 43% 40% at 58% 18%,rgba(255,255,255,.72),rgba(174,174,174,.36) 42%,transparent 72%),linear-gradient(180deg,#929292 0%,#4b4b4b 41%,#090909 87%); }
@@ -219,6 +237,12 @@ section[id] { scroll-margin-top: 72px; }
 .light .theme-toggle:hover { background:rgba(23,23,23,.065); }
 .light .floating-mobile-menu { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.94); color:#27272a; box-shadow:0 18px 50px rgba(57,49,42,.16); }
 .light .floating-mobile-menu a:hover { background:rgba(23,23,23,.05); }
+.light .scroll-progress { background:linear-gradient(90deg,#171717,#71717a); box-shadow:0 0 14px rgba(23,23,23,.22); }
+.light .site-footer { border-color:rgba(23,23,23,.09); background:linear-gradient(180deg,#ebe9e4,#e2dfd8); }
+.light .site-footer .text-white { color:#171717; }
+.light .site-footer .text-zinc-600 { color:#71717a; }
+.light .footer-link { border-color:rgba(23,23,23,.1); color:#52525b; background:rgba(255,255,255,.4); }
+.light .footer-link:hover { border-color:rgba(23,23,23,.22); color:#171717; background:#fff; }
 .light .project-page-card,.light .about-skill-card,.light .contact-page-card,.light .contact-option { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.55); box-shadow:0 18px 55px rgba(57,49,42,.08),inset 0 1px 0 #fff; }
 .light .project-page-card:hover,.light .contact-option:hover { border-color:rgba(23,23,23,.2); background:rgba(255,255,255,.85); }
 .light .project-editorial-visual { border-color:rgba(23,23,23,.1); background:radial-gradient(circle at 50% 35%,#fff,transparent 60%),#dedbd5; box-shadow:0 30px 80px rgba(57,49,42,.12); }
@@ -226,6 +250,15 @@ section[id] { scroll-margin-top: 72px; }
 .light .about-service-card:hover,.light .stack-logo-card:hover { border-color:rgba(23,23,23,.2); background:rgba(255,255,255,.86); }
 .light .stack-logo-card img { filter:grayscale(1); }
 .light .stack-logo-card:hover img { filter:none; }
+.light .contact-page { background:radial-gradient(circle at 74% 10%,#fff,transparent 28%),linear-gradient(180deg,#f3f1ed,#e8e5df 62%,#f3f1ed); }
+.light .contact-orb-one { background:rgba(124,58,237,.09); }
+.light .contact-orb-two { background:rgba(16,185,129,.07); }
+.light .contact-outline-text { -webkit-text-stroke-color:rgba(23,23,23,.45); }
+.light .contact-email-link { border-color:rgba(23,23,23,.16); }
+.light .contact-email-link:hover { border-color:#171717; }
+.light .case-hero-visual { border-color:rgba(23,23,23,.1); background:radial-gradient(circle at 50% 35%,#fff,transparent 60%),#dedbd5; box-shadow:0 40px 110px rgba(57,49,42,.13); }
+.light .case-feature { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.5); }
+.light .case-feature:hover { border-color:rgba(23,23,23,.2); background:#fff; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }

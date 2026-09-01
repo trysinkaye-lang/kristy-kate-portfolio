@@ -157,7 +157,6 @@ export function PortfolioHomeCarousel() {
         </div>
       </section>
 
-      <footer className="border-t border-white/[.06] px-5 py-8 text-center text-sm text-zinc-700">Kristy Kate Taylor · Software Developer & UI/UX Designer</footer>
     </main>
   );
 }
