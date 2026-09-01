@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Code2, Github, Mail } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
 import { MagnetLite } from "@/components/react-bits/MagnetLite";
@@ -83,12 +83,8 @@ function Hero3DStage() {
       onPointerLeave={resetPointer}
       aria-label="Interactive portrait and featured systems"
     >
-      <div className="hero3d-glow hero3d-glow-a" aria-hidden="true" />
-      <div className="hero3d-glow hero3d-glow-b" aria-hidden="true" />
-      <div className="hero3d-ring" aria-hidden="true" />
-
       <div className="hero3d-scene">
-        <div className="hero3d-card hero3d-photo-card">
+        <div className="hero3d-card hero3d-photo-card reference-portrait-card">
           <div className="hero3d-photo-shell">
             <Image
               src="/media/kristy-profile-scroll.webp"
@@ -99,34 +95,8 @@ function Hero3DStage() {
               priority
               sizes="(max-width: 768px) 80vw, 420px"
             />
-            <div className="hero3d-photo-copy">
-              <span>Kristy Kate Taylor</span>
-              <strong>Software Developer · UI/UX Designer</strong>
-            </div>
+            <span className="reference-code-badge" aria-hidden="true"><Code2 size={20} /></span>
           </div>
-        </div>
-
-        <div className="hero3d-float hero3d-float-rbim">
-          <span className="hero3d-float-index">01</span>
-          <strong>RBIM</strong>
-          <small>Information system</small>
-        </div>
-
-        <div className="hero3d-float hero3d-float-ahdis">
-          <span className="hero3d-float-index">02</span>
-          <strong>AHDIS</strong>
-          <small>Health data system</small>
-        </div>
-
-        <div className="hero3d-float hero3d-float-design">
-          <span className="hero3d-float-dot" />
-          <strong>UI / UX</strong>
-          <small>Clear interfaces</small>
-        </div>
-
-        <div className="hero3d-status">
-          <span className="hero-status-dot" />
-          Available for opportunities
         </div>
       </div>
     </div>
@@ -136,31 +106,27 @@ function Hero3DStage() {
 export function PortfolioHomeCarousel() {
   return (
     <main id="main-content" className="portfolio-v2">
-      <section id="home" className="portfolio-hero portfolio-hero-3d relative overflow-hidden pt-[72px]">
+      <section id="home" className="portfolio-hero portfolio-hero-3d reference-hero relative overflow-hidden pt-[72px]">
         <InteractiveDotGridLite className="absolute inset-0 opacity-30" />
         <div className="hero3d-bg hero3d-bg-one" aria-hidden="true" />
         <div className="hero3d-bg hero3d-bg-two" aria-hidden="true" />
 
         <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
           <div className="min-w-0">
-            <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/[.1] bg-white/[.045] px-4 py-2 text-xs text-zinc-200 backdrop-blur-xl">
-              <Sparkles size={13} className="text-violet-300" />
-              Welcome — I&apos;m a developer who loves thoughtful design
-            </div>
+            <p className="reference-intro mb-7 text-xl font-semibold text-white">Hey <span aria-hidden="true">👋</span>, I’m Kristy</p>
 
-            <h1 className="max-w-4xl text-[clamp(3.25rem,6.1vw,6.15rem)] font-semibold leading-[.93] tracking-[-.058em] text-white">
-              <SplitTextLite text="Hi, I’m Kristy." delay={32} />
-              <br />
-              <span className="hero-gradient-text"><SplitTextLite text="I make complex work feel simple." delay={28} /></span>
+            <h1 className="max-w-4xl text-[clamp(3.5rem,6.2vw,6.5rem)] font-semibold leading-[.93] tracking-[-.058em] text-white">
+              <SplitTextLite text="Software developer &" delay={28} />
+              <br /><SplitTextLite text="UI/UX designer" delay={28} />
             </h1>
 
-            <p className="mt-7 max-w-2xl text-[clamp(1.08rem,1.65vw,1.4rem)] leading-[1.55] text-zinc-300">
-              I design and develop digital systems, interfaces, and data-driven tools that are practical to use and pleasant to interact with.
+            <p className="mt-7 max-w-xl text-[clamp(1.05rem,1.45vw,1.28rem)] leading-[1.6] text-zinc-400">
+              I build practical information systems and thoughtful interfaces that make complex work feel clear, reliable, and easy to use.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <MagnetLite><a href="#portfolio" className="v2-button v2-button-primary">Explore projects <ArrowDown size={16} /></a></MagnetLite>
-              <MagnetLite strength={0.12}><Link href="/contact" className="v2-button hero-secondary-button">Let&apos;s talk <ArrowUpRight size={15} /></Link></MagnetLite>
+              <MagnetLite><Link href="/contact" className="v2-button v2-button-primary"><Mail size={16} /> Contact me</Link></MagnetLite>
+              <MagnetLite strength={0.12}><Link href="/projects" className="v2-button hero-secondary-button">View my work <ArrowRight size={16} /></Link></MagnetLite>
             </div>
 
             <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm text-zinc-500">

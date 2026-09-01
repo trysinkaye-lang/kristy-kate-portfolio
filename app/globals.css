@@ -27,6 +27,13 @@ section[id] { scroll-margin-top: 72px; }
 .project-page-card:hover,.contact-option:hover { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.045); transform:translateY(-4px); }
 .portfolio-hero { background: linear-gradient(to bottom, rgba(8,8,8,.76), rgba(8,8,8,.95)); }
 .portfolio-hero-3d { background: radial-gradient(circle at 65% 20%, rgba(88,28,135,.19), transparent 30%), radial-gradient(circle at 88% 75%, rgba(6,95,70,.16), transparent 28%), linear-gradient(180deg,#080808 0%,#0b0a0d 55%,#080808 100%); }
+.reference-hero { background:radial-gradient(ellipse 43% 40% at 58% 18%,rgba(255,255,255,.72),rgba(174,174,174,.36) 42%,transparent 72%),linear-gradient(180deg,#929292 0%,#4b4b4b 41%,#090909 87%); }
+.reference-hero::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(5,5,5,.5),transparent 43%,rgba(5,5,5,.1)); }
+.reference-intro { text-shadow:0 2px 24px rgba(0,0,0,.3); }
+.reference-portrait-card { inset:42px 20px 42px; border:7px solid #080808; border-radius:38px; background:#080808; box-shadow:0 35px 90px rgba(0,0,0,.42); }
+.reference-portrait-card .hero3d-photo-shell { inset:0; border-radius:29px; }
+.reference-portrait-card .hero3d-photo { filter:grayscale(1) contrast(1.02); object-position:center 18%; }
+.reference-code-badge { position:absolute; right:18px; bottom:18px; z-index:4; display:grid; height:48px; width:48px; place-items:center; border-radius:14px; background:rgba(12,12,12,.78); color:#d4d4d8; backdrop-filter:blur(12px); box-shadow:0 12px 30px rgba(0,0,0,.24); }
 .portfolio-section { background: rgba(8,8,8,.94); }
 .portfolio-shell { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
 .v2-kicker { font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color:#71717a; }
@@ -168,6 +175,9 @@ section[id] { scroll-margin-top: 72px; }
 /* Light mode keeps the same cinematic layout while shifting contrast and glow. */
 .light .portfolio-v2 { background-color:#f3f1ed; background-image:linear-gradient(rgba(23,23,23,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(23,23,23,.035) 1px,transparent 1px); }
 .light .portfolio-hero,.light .portfolio-hero-3d { background:radial-gradient(circle at 68% 18%,rgba(124,58,237,.12),transparent 31%),radial-gradient(circle at 90% 72%,rgba(16,185,129,.11),transparent 28%),linear-gradient(180deg,#f7f6f2 0%,#eeece7 58%,#f3f1ed 100%); }
+.light .reference-hero { background:radial-gradient(ellipse 48% 42% at 60% 18%,#fff 0%,rgba(255,255,255,.65) 38%,transparent 72%),linear-gradient(180deg,#deddd9 0%,#c3c1bc 48%,#f3f1ed 92%); }
+.light .reference-hero::after { background:linear-gradient(90deg,rgba(255,255,255,.28),transparent 44%,rgba(255,255,255,.08)); }
+.light .reference-portrait-card { border-color:#171717; background:#171717; box-shadow:0 35px 90px rgba(57,49,42,.25); }
 .light .portfolio-section { background:rgba(243,241,237,.94); }
 .light .portfolio-v2 .text-white { color:#171717; }
 .light .portfolio-v2 .text-zinc-200,.light .portfolio-v2 .text-zinc-300 { color:#3f3f46; }
