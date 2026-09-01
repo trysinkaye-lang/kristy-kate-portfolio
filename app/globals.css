@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root { color-scheme: dark; --bg:#080808; --fg:#f7f7f7; }
+:root { color-scheme: light; --bg:#f3f1ed; --fg:#171717; }
+.dark { color-scheme: dark; --bg:#080808; --fg:#f7f7f7; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--bg); overflow-x: hidden; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--bg); color: var(--fg); font-family: Arial, Helvetica, sans-serif; }
@@ -12,6 +13,16 @@ section[id] { scroll-margin-top: 72px; }
 .skip-link:focus { top: 1rem; }
 
 .portfolio-v2 { background-color:#080808; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 48px 48px; }
+
+.floating-nav { border:1px solid rgba(255,255,255,.12); background:rgba(8,8,8,.88); box-shadow:0 14px 45px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.09); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); }
+.floating-nav-link,.floating-contact { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border-radius:999px; padding:0 .95rem; color:#a1a1aa; font-size:.86rem; font-weight:600; transition:.22s ease; }
+.floating-nav-link:hover,.floating-contact:hover { color:#fff; background:rgba(255,255,255,.06); }
+.floating-nav-link.is-home { color:#fff; background:rgba(255,255,255,.08); }
+.floating-contact { margin-left:.2rem; border-left:1px solid rgba(255,255,255,.08); border-radius:0; }
+.theme-toggle { display:grid; height:42px; width:42px; flex:0 0 auto; place-items:center; border:0; border-radius:999px; background:transparent; color:#f4f4f5; cursor:pointer; transition:.22s ease; }
+.theme-toggle:hover { background:rgba(255,255,255,.08); transform:rotate(8deg); }
+.floating-mobile-menu { border:1px solid rgba(255,255,255,.12); background:rgba(8,8,8,.94); color:#e4e4e7; box-shadow:0 18px 50px rgba(0,0,0,.32); backdrop-filter:blur(22px); }
+.floating-mobile-menu a:hover { background:rgba(255,255,255,.07); }
 .portfolio-hero { background: linear-gradient(to bottom, rgba(8,8,8,.76), rgba(8,8,8,.95)); }
 .portfolio-hero-3d { background: radial-gradient(circle at 65% 20%, rgba(88,28,135,.19), transparent 30%), radial-gradient(circle at 88% 75%, rgba(6,95,70,.16), transparent 28%), linear-gradient(180deg,#080808 0%,#0b0a0d 55%,#080808 100%); }
 .portfolio-section { background: rgba(8,8,8,.94); }
@@ -151,6 +162,46 @@ section[id] { scroll-margin-top: 72px; }
   .rb-tilt-card { transform:none!important; }
   .hero3d-scene { transform:translate(-50%,-50%)!important; }
 }
+
+/* Light mode keeps the same cinematic layout while shifting contrast and glow. */
+.light .portfolio-v2 { background-color:#f3f1ed; background-image:linear-gradient(rgba(23,23,23,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(23,23,23,.035) 1px,transparent 1px); }
+.light .portfolio-hero,.light .portfolio-hero-3d { background:radial-gradient(circle at 68% 18%,rgba(124,58,237,.12),transparent 31%),radial-gradient(circle at 90% 72%,rgba(16,185,129,.11),transparent 28%),linear-gradient(180deg,#f7f6f2 0%,#eeece7 58%,#f3f1ed 100%); }
+.light .portfolio-section { background:rgba(243,241,237,.94); }
+.light .portfolio-v2 .text-white { color:#171717; }
+.light .portfolio-v2 .text-zinc-200,.light .portfolio-v2 .text-zinc-300 { color:#3f3f46; }
+.light .portfolio-v2 .text-zinc-400,.light .portfolio-v2 .text-zinc-500 { color:#71717a; }
+.light .portfolio-v2 .text-zinc-600,.light .portfolio-v2 .text-zinc-700 { color:#8b8b94; }
+.light .portfolio-v2 [class*="border-white"] { border-color:rgba(23,23,23,.1); }
+.light .portfolio-v2 [class*="divide-white"] > :not(:last-child) { border-color:rgba(23,23,23,.1); }
+.light .portfolio-v2 [class*="bg-white/"] { background-color:rgba(255,255,255,.46); }
+.light .spotlight-card { background-color:rgba(255,255,255,.52); }
+.light .spotlight-card::before { background:radial-gradient(360px circle at var(--spot-x) var(--spot-y),rgba(124,58,237,.1),transparent 58%); }
+.light .v2-heading { color:#171717; }
+.light .v2-button { border-color:rgba(23,23,23,.13); color:#3f3f46; background:rgba(255,255,255,.48); }
+.light .v2-button:hover { border-color:rgba(23,23,23,.25); color:#171717; background:#fff; }
+.light .v2-button-primary { background:#171717; color:#fff; border-color:#171717; }
+.light .v2-button-primary:hover { background:#000; color:#fff; border-color:#000; box-shadow:0 10px 30px rgba(23,23,23,.16); }
+.light .v2-chip { border-color:rgba(23,23,23,.1); color:#52525b; background:rgba(255,255,255,.55); }
+.light .v2-tab { color:#71717a; }
+.light .v2-tab.is-active { background:#171717; color:#fff; }
+.light .hero-gradient-text { background:linear-gradient(90deg,#171717 0%,#6d28d9 44%,#047857 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.light .hero3d-card { border-color:rgba(23,23,23,.12); background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.35)); box-shadow:0 42px 100px rgba(57,49,42,.2),inset 0 1px 0 #fff; }
+.light .hero3d-float,.light .hero3d-status { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.78); box-shadow:0 18px 50px rgba(57,49,42,.15); color:#3f3f46; }
+.light .hero3d-float strong { color:#18181b; }
+.light .rb-dot-grid { background-image:radial-gradient(circle,rgba(23,23,23,.15) 1px,transparent 1.4px); }
+.light .rb-marquee-item { color:#71717a; }
+.light .rb-marquee-item::after { color:#52525b; }
+.light .rb-electric-frame { background:rgba(23,23,23,.1); }
+.light .rb-electric-frame::after { background:#f3f1ed; }
+.light .floating-nav { border-color:rgba(23,23,23,.12); background:rgba(255,255,255,.82); box-shadow:0 14px 45px rgba(57,49,42,.15),inset 0 1px 0 #fff; }
+.light .floating-nav-link,.light .floating-contact { color:#71717a; }
+.light .floating-nav-link:hover,.light .floating-contact:hover { color:#171717; background:rgba(23,23,23,.055); }
+.light .floating-nav-link.is-home { color:#171717; background:rgba(23,23,23,.07); }
+.light .floating-contact { border-left-color:rgba(23,23,23,.09); }
+.light .theme-toggle { color:#171717; }
+.light .theme-toggle:hover { background:rgba(23,23,23,.065); }
+.light .floating-mobile-menu { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.94); color:#27272a; box-shadow:0 18px 50px rgba(57,49,42,.16); }
+.light .floating-mobile-menu a:hover { background:rgba(23,23,23,.05); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }

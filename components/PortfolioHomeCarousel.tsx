@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Github, Mail, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
@@ -91,11 +92,14 @@ function Hero3DStage() {
       <div className="hero3d-scene">
         <div className="hero3d-card hero3d-photo-card">
           <div className="hero3d-photo-shell">
-            <img
+            <Image
               src="/media/kristy-profile-scroll.webp"
               alt="Kristy Kate Taylor"
               className="hero3d-photo"
               draggable={false}
+              fill
+              priority
+              sizes="(max-width: 768px) 80vw, 420px"
             />
             <div className="hero3d-photo-copy">
               <span>Kristy Kate Taylor</span>
