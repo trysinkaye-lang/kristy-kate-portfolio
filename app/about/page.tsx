@@ -1,24 +1,42 @@
-import { stack } from "@/data/site";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight, Database, Figma, Layers3, MonitorSmartphone } from "lucide-react";
 
-const strengths = ["Software Development", "Information Systems", "UI/UX Design", "Database Design"];
+const experience = [
+  { name: "RBIM", role: "Software Developer · UI/UX Designer", detail: "Offline-first and hybrid population information system" },
+  { name: "AHDIS", role: "Software Developer · UI Designer", detail: "Adolescent health and development information system" },
+  { name: "ERP System", role: "Software Developer · UI Designer", detail: "Business operations and resource planning system" },
+];
+
+const services = [
+  { icon: MonitorSmartphone, label: "Software Development" },
+  { icon: Layers3, label: "Information Systems" },
+  { icon: Figma, label: "UI/UX Design" },
+  { icon: Database, label: "Database Design" },
+];
+
+const tools = [
+  ["react", "React"], ["typescript", "TypeScript"], ["tailwindcss", "Tailwind CSS"], ["nodedotjs", "Node.js"],
+  ["postgresql", "PostgreSQL"], ["sqlite", "SQLite"], ["rust", "Rust"], ["tauri", "Tauri"],
+  ["php", "PHP"], ["figma", "Figma"], ["github", "GitHub"], ["vercel", "Vercel"],
+] as const;
 
 export default function AboutPage() {
   return (
-    <main id="main-content" className="portfolio-v2 min-h-screen pb-24 pt-36">
+    <main id="main-content" className="portfolio-v2 min-h-screen pb-20 pt-36">
       <div className="portfolio-shell">
-        <p className="v2-kicker">About me</p>
-        <h1 className="v2-heading mt-4">I turn complex requirements into usable systems.</h1>
-        <div className="mt-14 grid gap-12 lg:grid-cols-[1.1fr_.9fr]">
-          <div>
-            <p className="text-xl leading-9 text-zinc-300">I’m Kristy Kate Taylor, a software developer and UI/UX designer from the Philippines. I work across application development, databases, system workflows, and interface design.</p>
-            <p className="mt-6 text-lg leading-8 text-zinc-500">My work focuses on practical tools that make data entry, reporting, and day-to-day operations clearer and more reliable.</p>
-            <div className="mt-10 border-y border-white/[.08] py-7"><p className="v2-kicker">Education</p><h2 className="mt-3 text-xl font-semibold text-white">BS Information Technology</h2><p className="mt-2 text-zinc-500">University of Science and Technology of Southern Philippines</p></div>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            {strengths.map((item, index) => <div key={item} className="about-skill-card rounded-2xl border border-white/[.08] p-6"><span className="text-xs text-zinc-600">0{index + 1}</span><p className="mt-2 font-medium text-zinc-200">{item}</p></div>)}
-          </div>
-        </div>
-        <section className="mt-24"><p className="v2-kicker">Technology</p><h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Tools I work with</h2><div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{Object.entries(stack).map(([group, items]) => <div className="about-skill-card rounded-2xl border border-white/[.08] p-6" key={group}><h3 className="font-semibold text-white">{group}</h3><div className="mt-4 flex flex-wrap gap-2">{items.filter((item) => !item.includes("replace with")).map((item) => <span className="v2-chip" key={item}>{item}</span>)}</div></div>)}</div></section>
+        <header className="grid gap-10 border-b border-white/[.09] pb-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-20 lg:pb-24">
+          <h1 className="text-[clamp(3.6rem,7vw,6.8rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">Hello! I’m Kristy Kate.</h1>
+          <div className="space-y-6 text-lg leading-8 text-zinc-400 lg:pt-3"><p>I’m a software developer and UI/UX designer passionate about building clear, reliable digital systems for real people and real workflows.</p><p>My work combines requirements analysis, database design, application development, and interface design. I care about making powerful tools feel organized rather than overwhelming.</p><p>I’m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.</p></div>
+        </header>
+        <section className="grid gap-10 border-b border-white/[.09] py-16 lg:grid-cols-[.38fr_.62fr] lg:py-24">
+          <div><p className="v2-kicker">Experience</p><h2 className="mt-4 text-3xl font-semibold text-white">Selected systems</h2></div>
+          <div className="divide-y divide-white/[.09] border-y border-white/[.09]">{experience.map((item, index) => <div key={item.name} className="about-experience-row grid gap-4 py-7 sm:grid-cols-[50px_1fr_auto] sm:items-center"><span className="text-xs text-zinc-600">0{index + 1}</span><div><h3 className="text-lg font-semibold text-white">{item.name}</h3><p className="mt-1 text-sm text-zinc-500">{item.detail}</p></div><p className="text-sm text-zinc-400 sm:text-right">{item.role}</p></div>)}</div>
+        </section>
+        <section className="grid gap-10 border-b border-white/[.09] py-16 lg:grid-cols-[.38fr_.62fr] lg:py-24"><div><p className="v2-kicker">Education</p></div><div className="about-education-card rounded-[2rem] border border-white/[.09] p-7 sm:p-9"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-lg font-bold text-black">U</span><h2 className="mt-7 text-2xl font-semibold text-white">University of Science and Technology of Southern Philippines</h2><p className="mt-3 text-zinc-500">Bachelor of Science in Information Technology</p></div></section>
+        <section className="py-16 lg:py-24"><p className="v2-kicker">What I do</p><div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{services.map(({ icon: Icon, label }) => <div className="about-service-card rounded-2xl border border-white/[.09] p-6" key={label}><Icon size={22} /><p className="mt-12 font-semibold text-white">{label}</p></div>)}</div></section>
+        <section className="border-y border-white/[.09] py-16 lg:py-24"><p className="v2-kicker">Stack</p><h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Tools I work with</h2><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{tools.map(([slug, name]) => <div className="stack-logo-card flex min-h-28 flex-col items-center justify-center rounded-2xl border border-white/[.08] p-4 text-center" key={name}><Image src={`https://cdn.simpleicons.org/${slug}`} alt="" aria-hidden="true" width={32} height={32} className="h-8 w-8" /><span className="mt-3 text-sm font-medium text-zinc-300">{name}</span></div>)}</div></section>
+        <section className="py-24 text-center"><p className="v2-kicker">Let’s connect</p><h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">I’m open to thoughtful projects and opportunities.</h2><div className="mt-8 flex flex-wrap justify-center gap-3"><Link href="/contact" className="v2-button v2-button-primary">Contact me <ArrowUpRight size={16} /></Link><Link href="/projects" className="v2-button">See projects</Link></div></section>
       </div>
     </main>
   );

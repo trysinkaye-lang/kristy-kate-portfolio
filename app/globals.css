@@ -25,6 +25,11 @@ section[id] { scroll-margin-top: 72px; }
 .floating-mobile-menu a:hover { background:rgba(255,255,255,.07); }
 .project-page-card,.about-skill-card,.contact-page-card,.contact-option { background:rgba(255,255,255,.025); box-shadow:inset 0 1px 0 rgba(255,255,255,.025); transition:border-color .25s ease,background .25s ease,transform .25s ease; }
 .project-page-card:hover,.contact-option:hover { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.045); transform:translateY(-4px); }
+.project-editorial-visual { background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.1),transparent 60%),#101010; box-shadow:0 30px 80px rgba(0,0,0,.28); }
+.about-education-card,.about-service-card,.stack-logo-card { background:rgba(255,255,255,.025); transition:border-color .25s ease,background .25s ease,transform .25s ease; }
+.about-service-card:hover,.stack-logo-card:hover { border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.05); transform:translateY(-3px); }
+.stack-logo-card img { filter:grayscale(1) brightness(1.6); transition:filter .25s ease,transform .25s ease; }
+.stack-logo-card:hover img { filter:none; transform:scale(1.08); }
 .portfolio-hero { background: linear-gradient(to bottom, rgba(8,8,8,.76), rgba(8,8,8,.95)); }
 .portfolio-hero-3d { background: radial-gradient(circle at 65% 20%, rgba(88,28,135,.19), transparent 30%), radial-gradient(circle at 88% 75%, rgba(6,95,70,.16), transparent 28%), linear-gradient(180deg,#080808 0%,#0b0a0d 55%,#080808 100%); }
 .reference-hero { background:radial-gradient(ellipse 43% 40% at 58% 18%,rgba(255,255,255,.72),rgba(174,174,174,.36) 42%,transparent 72%),linear-gradient(180deg,#929292 0%,#4b4b4b 41%,#090909 87%); }
@@ -216,6 +221,11 @@ section[id] { scroll-margin-top: 72px; }
 .light .floating-mobile-menu a:hover { background:rgba(23,23,23,.05); }
 .light .project-page-card,.light .about-skill-card,.light .contact-page-card,.light .contact-option { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.55); box-shadow:0 18px 55px rgba(57,49,42,.08),inset 0 1px 0 #fff; }
 .light .project-page-card:hover,.light .contact-option:hover { border-color:rgba(23,23,23,.2); background:rgba(255,255,255,.85); }
+.light .project-editorial-visual { border-color:rgba(23,23,23,.1); background:radial-gradient(circle at 50% 35%,#fff,transparent 60%),#dedbd5; box-shadow:0 30px 80px rgba(57,49,42,.12); }
+.light .about-education-card,.light .about-service-card,.light .stack-logo-card { border-color:rgba(23,23,23,.1); background:rgba(255,255,255,.52); }
+.light .about-service-card:hover,.light .stack-logo-card:hover { border-color:rgba(23,23,23,.2); background:rgba(255,255,255,.86); }
+.light .stack-logo-card img { filter:grayscale(1); }
+.light .stack-logo-card:hover img { filter:none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }
