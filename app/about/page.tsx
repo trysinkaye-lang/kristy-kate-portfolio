@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowUpRight, Database, Figma, Layers3, MonitorSmartphone } from "lucide-react";
+import { InteractiveToolGrid } from "@/components/InteractiveToolGrid";
 
 const experience = [
   { name: "RBIM", role: "Software Developer · UI/UX Designer", detail: "Offline-first and hybrid population information system" },
@@ -14,12 +14,6 @@ const services = [
   { icon: Figma, label: "UI/UX Design" },
   { icon: Database, label: "Database Design" },
 ];
-
-const tools = [
-  ["react", "React"], ["typescript", "TypeScript"], ["tailwindcss", "Tailwind CSS"], ["nodedotjs", "Node.js"],
-  ["postgresql", "PostgreSQL"], ["sqlite", "SQLite"], ["rust", "Rust"], ["tauri", "Tauri"],
-  ["php", "PHP"], ["figma", "Figma"], ["github", "GitHub"], ["vercel", "Vercel"],
-] as const;
 
 export default function AboutPage() {
   return (
@@ -35,7 +29,7 @@ export default function AboutPage() {
         </section>
         <section className="grid gap-10 border-b border-white/[.09] py-16 lg:grid-cols-[.38fr_.62fr] lg:py-24"><div><p className="v2-kicker">Education</p></div><div className="about-education-card rounded-[2rem] border border-white/[.09] p-7 sm:p-9"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-lg font-bold text-black">U</span><h2 className="mt-7 text-2xl font-semibold text-white">University of Science and Technology of Southern Philippines</h2><p className="mt-3 text-zinc-500">Bachelor of Science in Information Technology</p></div></section>
         <section className="py-16 lg:py-24"><p className="v2-kicker">What I do</p><div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{services.map(({ icon: Icon, label }) => <div className="about-service-card rounded-2xl border border-white/[.09] p-6" key={label}><Icon size={22} /><p className="mt-12 font-semibold text-white">{label}</p></div>)}</div></section>
-        <section className="border-y border-white/[.09] py-16 lg:py-24"><p className="v2-kicker">Stack</p><h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Tools I work with</h2><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{tools.map(([slug, name]) => <div className="stack-logo-card flex min-h-28 flex-col items-center justify-center rounded-2xl border border-white/[.08] p-4 text-center" key={name}><Image src={`https://cdn.simpleicons.org/${slug}`} alt="" aria-hidden="true" width={32} height={32} className="h-8 w-8" /><span className="mt-3 text-sm font-medium text-zinc-300">{name}</span></div>)}</div></section>
+        <section className="border-y border-white/[.09] py-16 lg:py-24"><p className="v2-kicker">Stack</p><h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Tools I work with</h2><InteractiveToolGrid /></section>
         <section className="py-24 text-center"><p className="v2-kicker">Let’s connect</p><h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">I’m open to thoughtful projects and opportunities.</h2><div className="mt-8 flex flex-wrap justify-center gap-3"><Link href="/contact" className="v2-button v2-button-primary">Contact me <ArrowUpRight size={16} /></Link><Link href="/projects" className="v2-button">See projects</Link></div></section>
       </div>
     </main>

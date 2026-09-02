@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { stack } from "@/data/site";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
+import { TechLogo } from "@/components/ui/TechLogo";
 import "./TechStackOrbit.css";
 
 const categories = Object.keys(stack) as Array<keyof typeof stack>;
@@ -53,34 +54,33 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
 
 type TechMeta = {
   tag: string;
-  logo?: string;
   fallback?: React.ReactNode;
 };
 
 const techMeta: Record<string, TechMeta> = {
-  HTML: { tag: "Markup", logo: "https://cdn.simpleicons.org/html5/E34F26" },
-  CSS: { tag: "Styling", logo: "https://cdn.simpleicons.org/css/663399" },
-  JavaScript: { tag: "Language", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
-  TypeScript: { tag: "Language", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
-  React: { tag: "UI Framework", logo: "https://cdn.simpleicons.org/react/61DAFB" },
-  Vite: { tag: "Build Tool", logo: "https://cdn.simpleicons.org/vite/646CFF" },
-  "Tailwind CSS": { tag: "Styling", logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
-  PHP: { tag: "Backend", logo: "https://cdn.simpleicons.org/php/777BB4" },
-  "Node.js": { tag: "Runtime", logo: "https://cdn.simpleicons.org/nodedotjs/5FA04E" },
+  HTML: { tag: "Markup" },
+  CSS: { tag: "Styling" },
+  JavaScript: { tag: "Language" },
+  TypeScript: { tag: "Language" },
+  React: { tag: "UI Framework" },
+  Vite: { tag: "Build Tool" },
+  "Tailwind CSS": { tag: "Styling" },
+  PHP: { tag: "Backend" },
+  "Node.js": { tag: "Runtime" },
   "REST APIs": { tag: "Integration", fallback: <Braces size={20} strokeWidth={1.8} /> },
-  PostgreSQL: { tag: "Database", logo: "https://cdn.simpleicons.org/postgresql/4169E1" },
-  SQLite: { tag: "Database", logo: "https://cdn.simpleicons.org/sqlite/003B57" },
-  MySQL: { tag: "Database", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
-  Tauri: { tag: "Desktop Framework", logo: "https://cdn.simpleicons.org/tauri/24C8D8" },
-  Rust: { tag: "Language", logo: "https://cdn.simpleicons.org/rust/DEA584" },
-  "PHP Desktop": { tag: "Desktop Runtime", logo: "https://cdn.simpleicons.org/php/777BB4" },
-  Git: { tag: "Version Control", logo: "https://cdn.simpleicons.org/git/F05032" },
-  GitHub: { tag: "Repository", logo: "https://cdn.simpleicons.org/github/FFFFFF" },
-  "VS Code": { tag: "Editor", logo: "https://cdn.simpleicons.org/visualstudiocode/007ACC" },
-  npm: { tag: "Package Manager", logo: "https://cdn.simpleicons.org/npm/CB3837" },
-  "GitHub Actions": { tag: "Automation", logo: "https://cdn.simpleicons.org/githubactions/2088FF" },
-  Figma: { tag: "Interface Design", logo: "https://cdn.simpleicons.org/figma/F24E1E" },
-  Canva: { tag: "Visual Design", logo: "https://cdn.simpleicons.org/canva/00C4CC" },
+  PostgreSQL: { tag: "Database" },
+  SQLite: { tag: "Database" },
+  MySQL: { tag: "Database" },
+  Tauri: { tag: "Desktop Framework" },
+  Rust: { tag: "Language" },
+  "PHP Desktop": { tag: "Desktop Runtime" },
+  Git: { tag: "Version Control" },
+  GitHub: { tag: "Repository" },
+  "VS Code": { tag: "Editor" },
+  npm: { tag: "Package Manager" },
+  "GitHub Actions": { tag: "Automation" },
+  Figma: { tag: "Interface Design" },
+  Canva: { tag: "Visual Design" },
 };
 
 export function TechStackOrbit() {
@@ -156,11 +156,7 @@ export function TechStackOrbit() {
               >
                 <div className="tech-card-topline">
                   <span className="tech-card-mark" aria-hidden="true">
-                    {meta.logo ? (
-                      <img src={meta.logo} alt="" width={24} height={24} loading="lazy" style={{ display: "block", objectFit: "contain" }} />
-                    ) : (
-                      meta.fallback
-                    )}
+                    {techMeta[item] ? <TechLogo name={item} size={24} /> : meta.fallback}
                   </span>
                   <ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} />
                 </div>
