@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Code2, Github, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Github, Mail } from "lucide-react";
 import { site } from "@/data/site";
 import { SplitTextLite } from "@/components/react-bits/SplitTextLite";
 import { MagnetLite } from "@/components/react-bits/MagnetLite";
@@ -96,7 +96,6 @@ function Hero3DStage() {
               fetchPriority="high"
               decoding="async"
             />
-            <span className="reference-code-badge" aria-hidden="true"><Code2 size={20} /></span>
           </div>
         </div>
       </div>
