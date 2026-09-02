@@ -3,6 +3,7 @@ import "./globals.css";
 import "./theme-overrides.css";
 import "./readability-fixes.css";
 import "./contact-readability.css";
+import "./mobile-and-page-polish.css";
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { RouteEffects } from "@/components/layout/RouteEffects";
