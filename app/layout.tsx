@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "./theme-overrides.css";
 import "./readability-fixes.css";
@@ -18,4 +19,4 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: `${site.name} | ${site.title}`, description: site.headline }
 };
 
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" suppressHydrationWarning><body><Providers><a className="skip-link" href="#main-content">Skip to content</a><Nav/><RouteEffects>{children}</RouteEffects><SiteFooter/></Providers></body></html>}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" suppressHydrationWarning><body><Providers><a className="skip-link" href="#main-content">Skip to content</a><Nav/><RouteEffects>{children}</RouteEffects><SiteFooter/></Providers><Analytics/></body></html>}
