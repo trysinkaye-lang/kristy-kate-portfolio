@@ -9,6 +9,7 @@ const links = [
   ["Home", "/"],
   ["Projects", "/projects"],
   ["About", "/about"],
+  ["Contact", "/contact"],
 ] as const;
 
 export function Nav() {
@@ -18,6 +19,11 @@ export function Nav() {
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
   const toggleTheme = () => {
     const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
@@ -42,18 +48,48 @@ export function Nav() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-5 z-50 px-4">
-      <nav className="floating-nav mx-auto flex h-14 w-fit items-center rounded-full p-1.5" aria-label="Main navigation">
-        <div className="hidden items-center sm:flex">
-          {links.map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
+    <>
+      <header className="fixed inset-x-0 top-5 z-50 px-4">
+        <nav className="floating-nav mx-auto hidden h-14 w-fit items-center rounded-full p-1.5 sm:flex" aria-label="Main navigation">
+          <div className="flex items-center">
+            {links.slice(0, 3).map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
+          </div>
+          <a href="/contact" className={`floating-contact inline-flex ${pathname.startsWith('/contact') ? 'is-home' : ''}`}>Contact</a>
+          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={resolvedTheme === "dark" ? "Use light mode" : "Use dark mode"}>
+            {mounted && resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+        </nav>
+
+        <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-between sm:hidden">
+          <a href="/" className="mobile-brand" aria-label="Go to home">KT</a>
+          <button type="button" className="mobile-menu-button" onClick={() => setOpen(true)} aria-label="Open navigation sidebar"><Menu size={21} /></button>
         </div>
-        <a href="/contact" className="floating-contact hidden md:inline-flex">Contact</a>
-        <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={resolvedTheme === "dark" ? "Use light mode" : "Use dark mode"}>
-          {mounted && resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-        <button type="button" className="theme-toggle sm:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X size={18} /> : <Menu size={18} />}</button>
-      </nav>
-      {open && <div className="floating-mobile-menu mx-auto mt-2 grid max-w-xs gap-1 rounded-2xl p-2 sm:hidden">{links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm">{label}</a>)}<a href="/contact" onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm">Contact</a></div>}
-    </header>
+      </header>
+
+      <div className={`mobile-sidebar-backdrop ${open ? "is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden={!open} />
+      <aside className={`mobile-sidebar ${open ? "is-open" : ""}`} aria-hidden={!open}>
+        <div className="mobile-sidebar-head">
+          <div>
+            <p className="mobile-sidebar-eyebrow">Portfolio</p>
+            <strong>Kristy Kate</strong>
+          </div>
+          <button type="button" className="mobile-sidebar-close" onClick={() => setOpen(false)} aria-label="Close navigation sidebar"><X size={20} /></button>
+        </div>
+
+        <nav className="mobile-sidebar-links" aria-label="Mobile navigation">
+          {links.map(([label, href]) => {
+            const active = pathname === href || (href !== "/" && pathname.startsWith(href));
+            return <a key={href} href={href} className={active ? "is-active" : ""}><span>{label}</span><span aria-hidden="true">↗</span></a>;
+          })}
+        </nav>
+
+        <div className="mobile-sidebar-footer">
+          <button type="button" className="mobile-theme-row" onClick={toggleTheme}>
+            <span>{resolvedTheme === "dark" ? "Light mode" : "Dark mode"}</span>
+            {mounted && resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
