@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Code2, Github, Mail } from "lucide-react";
 import { site } from "@/data/site";
@@ -86,14 +85,16 @@ function Hero3DStage() {
       <div className="hero3d-scene">
         <div className="hero3d-card hero3d-photo-card reference-portrait-card">
           <div className="hero3d-photo-shell">
-            <Image
-              src="/media/kristy-kate-taylor-portrait.webp"
+            <img
+              src="/media/kristy-kate-professional-portrait-v2.webp"
               alt="Kristy Kate Taylor"
               className="hero3d-photo"
               draggable={false}
-              fill
-              priority
-              sizes="(max-width: 768px) 80vw, 420px"
+              width={960}
+              height={960}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
             <span className="reference-code-badge" aria-hidden="true"><Code2 size={20} /></span>
           </div>
