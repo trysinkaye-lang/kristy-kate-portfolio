@@ -19,7 +19,27 @@ export function Nav() {
 
   useEffect(() => setMounted(true), []);
 
-  const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  const toggleTheme = () => {
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
+    const root = document.documentElement;
+    root.classList.remove("theme-transitioning");
+    void root.offsetWidth;
+    root.classList.add("theme-transitioning");
+
+    const applyTheme = () => setTheme(nextTheme);
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => { finished: Promise<void> };
+    };
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && doc.startViewTransition) {
+      const transition = doc.startViewTransition(applyTheme);
+      transition.finished.finally(() => root.classList.remove("theme-transitioning"));
+      return;
+    }
+
+    applyTheme();
+    window.setTimeout(() => root.classList.remove("theme-transitioning"), 620);
+  };
 
   return (
     <header className="fixed inset-x-0 top-5 z-50 px-4">
