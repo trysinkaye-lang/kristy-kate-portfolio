@@ -1,0 +1,303 @@
+/* Theme refinements: softer light mode + animated theme switching. */
+
+.light {
+  color-scheme: light;
+  --bg: #e9e8e4;
+  --fg: #22252b;
+}
+
+html,
+body,
+.portfolio-v2,
+.portfolio-section,
+.floating-nav,
+.floating-mobile-menu,
+.site-footer,
+.project-page-card,
+.about-skill-card,
+.contact-page-card,
+.contact-option,
+.about-education-card,
+.about-service-card,
+.stack-logo-card,
+.v2-button,
+.v2-chip,
+.theme-toggle {
+  transition:
+    background-color 0.52s cubic-bezier(.22, 1, .36, 1),
+    color 0.42s ease,
+    border-color 0.42s ease,
+    box-shadow 0.52s ease,
+    filter 0.42s ease;
+}
+
+/* Keep light mode genuinely light, but remove the harsh white/blue glare. */
+.light body {
+  background: #e9e8e4;
+  color: #282a30;
+}
+
+.light .portfolio-v2 {
+  background-color: #e9e8e4;
+  background-image:
+    linear-gradient(rgba(45, 48, 55, .026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 48, 55, .026) 1px, transparent 1px);
+}
+
+.light .portfolio-hero,
+.light .portfolio-hero-3d,
+.light .reference-hero {
+  background:
+    radial-gradient(circle at 76% 22%, rgba(112, 103, 138, .10), transparent 34%),
+    radial-gradient(circle at 14% 78%, rgba(76, 118, 113, .07), transparent 34%),
+    linear-gradient(135deg, #efeee9 0%, #e6e7e2 54%, #ece9e5 100%);
+}
+
+.light .reference-hero::after {
+  background: linear-gradient(120deg, rgba(239, 238, 233, .52), transparent 45%, rgba(77, 72, 92, .025));
+}
+
+.light .reference-hero::before {
+  opacity: .30;
+  filter: blur(86px);
+}
+
+.light .reference-hero .rb-dot-grid {
+  opacity: .27;
+  background-image: radial-gradient(circle, rgba(62, 59, 71, .15) 1px, transparent 1.4px);
+}
+
+.light .reference-intro {
+  color: #625b70 !important;
+}
+
+.light .reference-hero h1 {
+  color: #25272c !important;
+  text-shadow: none;
+}
+
+.light .reference-hero .text-zinc-400,
+.light .portfolio-v2 .text-zinc-400 {
+  color: #62646b;
+}
+
+.light .reference-hero .text-zinc-500,
+.light .portfolio-v2 .text-zinc-500 {
+  color: #777980;
+}
+
+.light .portfolio-v2 .text-white,
+.light .v2-heading {
+  color: #25272c;
+}
+
+.light .portfolio-section {
+  background: rgba(235, 234, 229, .96);
+}
+
+.light .floating-nav {
+  border-color: rgba(49, 51, 58, .10);
+  background: rgba(232, 232, 228, .90);
+  box-shadow: 0 15px 44px rgba(55, 54, 51, .10), inset 0 1px 0 rgba(255, 255, 255, .44);
+}
+
+.light .floating-nav-link,
+.light .floating-contact {
+  color: #65676d;
+}
+
+.light .floating-nav-link:hover,
+.light .floating-contact:hover,
+.light .floating-nav-link.is-home {
+  color: #292b31;
+  background: rgba(55, 55, 62, .065);
+}
+
+.light .floating-contact {
+  border-left-color: rgba(49, 51, 58, .09);
+}
+
+.light .theme-toggle {
+  color: #34363c;
+}
+
+.light .theme-toggle:hover {
+  background: rgba(55, 55, 62, .07);
+}
+
+.light .floating-mobile-menu {
+  border-color: rgba(49, 51, 58, .10);
+  background: rgba(234, 234, 230, .96);
+  color: #31333a;
+  box-shadow: 0 18px 48px rgba(55, 54, 51, .11);
+}
+
+.light .v2-button {
+  border-color: rgba(49, 51, 58, .12);
+  color: #46484f;
+  background: rgba(241, 240, 235, .62);
+  box-shadow: 0 8px 22px rgba(55, 54, 51, .045);
+}
+
+.light .v2-button:hover {
+  border-color: rgba(49, 51, 58, .22);
+  color: #25272c;
+  background: #efeee9;
+  box-shadow: 0 12px 30px rgba(55, 54, 51, .08);
+}
+
+.light .v2-button-primary,
+.light .v2-button-primary:hover {
+  border-color: #303238;
+  background: #303238;
+  color: #f3f2ee;
+  box-shadow: 0 12px 28px rgba(41, 42, 47, .16);
+}
+
+.light .v2-chip {
+  border-color: rgba(49, 51, 58, .10);
+  color: #5d5f66;
+  background: rgba(241, 240, 235, .58);
+}
+
+.light .spotlight-card,
+.light .project-page-card,
+.light .about-skill-card,
+.light .contact-page-card,
+.light .contact-option,
+.light .about-education-card,
+.light .about-service-card,
+.light .stack-logo-card,
+.light .case-feature {
+  border-color: rgba(49, 51, 58, .09);
+  background: rgba(242, 241, 236, .72);
+  box-shadow: 0 16px 42px rgba(55, 54, 51, .055), inset 0 1px 0 rgba(255, 255, 255, .42);
+}
+
+.light .project-page-card:hover,
+.light .contact-option:hover,
+.light .about-service-card:hover,
+.light .stack-logo-card:hover,
+.light .case-feature:hover {
+  border-color: rgba(49, 51, 58, .16);
+  background: rgba(245, 244, 239, .88);
+}
+
+.light .project-editorial-visual,
+.light .case-hero-visual {
+  border-color: rgba(49, 51, 58, .09);
+  background: radial-gradient(circle at 50% 35%, #efeee9, transparent 60%), #deded9;
+  box-shadow: 0 30px 75px rgba(55, 54, 51, .10);
+}
+
+.light .reference-portrait-card {
+  border-color: rgba(224, 223, 218, .94);
+  background: #e3e2dd;
+  box-shadow: 0 30px 82px rgba(55, 54, 51, .16), 0 0 0 1px rgba(61, 61, 68, .08);
+}
+
+.light .reference-portrait-card .hero3d-photo-shell {
+  background: #e3e2dd;
+}
+
+.light .contact-page {
+  background:
+    radial-gradient(circle at 74% 10%, rgba(243, 242, 237, .62), transparent 29%),
+    linear-gradient(180deg, #ebeae5, #e3e2dd 62%, #ebeae5);
+}
+
+.light .site-footer {
+  border-color: rgba(49, 51, 58, .08);
+  background: linear-gradient(180deg, #e5e4df, #deddd8);
+}
+
+.light .footer-link {
+  border-color: rgba(49, 51, 58, .10);
+  color: #5b5d64;
+  background: rgba(239, 238, 233, .48);
+}
+
+.light .footer-link:hover {
+  border-color: rgba(49, 51, 58, .18);
+  color: #292b31;
+  background: #ebeae5;
+}
+
+.light .scroll-progress {
+  background: linear-gradient(90deg, #5a5862, #807789, #6d7d78);
+  box-shadow: 0 0 12px rgba(68, 66, 73, .15);
+}
+
+/* Education logo tile stays readable in both themes. */
+.ustp-logo-shell {
+  display: inline-flex;
+  min-height: 92px;
+  min-width: 92px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 1.35rem;
+  background: #f3f2ee;
+  padding: .7rem;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .16);
+}
+
+.ustp-logo-shell img {
+  display: block;
+  width: 76px;
+  height: auto;
+  object-fit: contain;
+}
+
+.light .ustp-logo-shell {
+  border-color: rgba(49, 51, 58, .08);
+  background: #e4e3de;
+  box-shadow: 0 10px 28px rgba(55, 54, 51, .08);
+}
+
+/* Visible, restrained motion every time the light/dark toggle is used. */
+html.theme-transitioning .theme-toggle {
+  animation: themeTogglePulse .58s cubic-bezier(.22, 1, .36, 1);
+}
+
+html.theme-transitioning .theme-toggle svg {
+  animation: themeIconTurn .58s cubic-bezier(.22, 1, .36, 1);
+}
+
+::view-transition-old(root) {
+  animation: themeOldFrame .52s cubic-bezier(.4, 0, .2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: themeNewFrame .58s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes themeTogglePulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(.82) rotate(-8deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes themeIconTurn {
+  0% { transform: rotate(0deg) scale(1); opacity: 1; }
+  48% { transform: rotate(135deg) scale(.35); opacity: .25; }
+  100% { transform: rotate(270deg) scale(1); opacity: 1; }
+}
+
+@keyframes themeOldFrame {
+  to { opacity: .52; transform: scale(.992); filter: blur(1.5px); }
+}
+
+@keyframes themeNewFrame {
+  from { opacity: 0; transform: scale(1.012); filter: blur(5px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  html.theme-transitioning .theme-toggle,
+  html.theme-transitioning .theme-toggle svg {
+    animation: none !important;
+  }
+}
