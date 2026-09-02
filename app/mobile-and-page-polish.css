@@ -1,0 +1,290 @@
+/* Projects/About background redesign + mobile sidebar navigation. */
+
+/* Cleaner page backgrounds: no checker/grid treatment. */
+.projects-page,
+.about-page {
+  background-image: none !important;
+}
+
+.dark .projects-page,
+.dark .about-page {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(91, 91, 214, .08), transparent 28%),
+    radial-gradient(circle at 14% 82%, rgba(42, 157, 206, .055), transparent 30%),
+    linear-gradient(180deg, #08090b 0%, #0c0d10 52%, #08090b 100%) !important;
+}
+
+.light .projects-page,
+.light .about-page {
+  background:
+    radial-gradient(circle at 82% 10%, rgba(91,91,214,.075), transparent 28%),
+    radial-gradient(circle at 12% 74%, rgba(42,157,206,.055), transparent 32%),
+    linear-gradient(180deg, #f5f7fb 0%, #edf1f7 58%, #f3f6fb 100%) !important;
+}
+
+/* Softer, more deliberate separators. */
+.projects-page .projects-list,
+.about-page .about-section,
+.about-page .about-hero {
+  border-color: rgba(255,255,255,.07) !important;
+}
+
+.light .projects-page .projects-list,
+.light .about-page .about-section,
+.light .about-page .about-hero {
+  border-color: rgba(57,66,88,.09) !important;
+}
+
+/* About page: reduce visual heaviness of large empty areas. */
+.about-page .about-education-card,
+.about-page .about-service-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.light .about-page .about-education-card,
+.light .about-page .about-service-card {
+  background: rgba(249,250,255,.80) !important;
+}
+
+/* Mobile top trigger replaces the full floating nav. */
+.mobile-nav-trigger {
+  height: 48px;
+}
+
+.mobile-brand,
+.mobile-menu-button {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.11);
+  background: rgba(10,10,12,.78);
+  color: #f4f4f5;
+  box-shadow: 0 12px 34px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.mobile-brand {
+  min-width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.mobile-menu-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.light .mobile-brand,
+.light .mobile-menu-button {
+  border-color: rgba(91,91,214,.12);
+  background: rgba(248,250,255,.90);
+  color: #303753;
+  box-shadow: 0 12px 32px rgba(52,62,89,.10), inset 0 1px 0 rgba(255,255,255,.78);
+}
+
+/* Sidebar drawer. */
+.mobile-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(0,0,0,.46);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+  backdrop-filter: blur(3px);
+}
+
+.mobile-sidebar-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  width: min(86vw, 360px);
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(91,91,214,.12), transparent 30%),
+    linear-gradient(180deg, #0d0e12, #090a0d);
+  border-left: 1px solid rgba(255,255,255,.08);
+  box-shadow: -24px 0 60px rgba(0,0,0,.34);
+  transform: translateX(102%);
+  transition: transform .34s cubic-bezier(.22,1,.36,1);
+}
+
+.mobile-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.light .mobile-sidebar {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(91,91,214,.085), transparent 30%),
+    radial-gradient(circle at 12% 72%, rgba(42,157,206,.055), transparent 34%),
+    linear-gradient(180deg, #f7f9fd, #edf1f7);
+  border-left-color: rgba(91,91,214,.10);
+  box-shadow: -24px 0 60px rgba(52,62,89,.16);
+}
+
+.mobile-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .45rem .25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.light .mobile-sidebar-head {
+  border-bottom-color: rgba(57,66,88,.10);
+}
+
+.mobile-sidebar-eyebrow {
+  margin: 0 0 .25rem;
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #777b86;
+}
+
+.mobile-sidebar-head strong {
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.light .mobile-sidebar-head strong {
+  color: #202733;
+}
+
+.mobile-sidebar-close {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 14px;
+  background: rgba(255,255,255,.04);
+  color: #f4f4f5;
+  cursor: pointer;
+}
+
+.light .mobile-sidebar-close {
+  border-color: rgba(91,91,214,.10);
+  background: rgba(255,255,255,.62);
+  color: #303753;
+}
+
+.mobile-sidebar-links {
+  display: grid;
+  gap: .45rem;
+  padding: 1.2rem 0;
+}
+
+.mobile-sidebar-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 0 1rem;
+  color: #a6a8af;
+  font-size: 1rem;
+  font-weight: 650;
+  transition: .2s ease;
+}
+
+.mobile-sidebar-links a:hover,
+.mobile-sidebar-links a.is-active {
+  color: #fff;
+  border-color: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.055);
+}
+
+.light .mobile-sidebar-links a {
+  color: #5b6578;
+}
+
+.light .mobile-sidebar-links a:hover,
+.light .mobile-sidebar-links a.is-active {
+  color: #313995;
+  border-color: rgba(91,91,214,.10);
+  background: rgba(91,91,214,.07);
+}
+
+.mobile-sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.light .mobile-sidebar-footer {
+  border-top-color: rgba(57,66,88,.10);
+}
+
+.mobile-theme-row {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 0 1rem;
+  background: rgba(255,255,255,.035);
+  color: #e4e4e7;
+  cursor: pointer;
+}
+
+.light .mobile-theme-row {
+  border-color: rgba(91,91,214,.10);
+  background: rgba(255,255,255,.62);
+  color: #374151;
+}
+
+@media (min-width: 640px) {
+  .mobile-sidebar,
+  .mobile-sidebar-backdrop,
+  .mobile-nav-trigger {
+    display: none !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .projects-page,
+  .about-page {
+    padding-top: 7.25rem !important;
+  }
+
+  .portfolio-shell {
+    width: min(100% - 28px, 1240px);
+  }
+
+  .projects-page .projects-heading,
+  .about-page h1 {
+    font-size: clamp(3rem, 15vw, 4.5rem) !important;
+    line-height: .92 !important;
+  }
+
+  .projects-page .project-copy {
+    border-radius: 1.25rem !important;
+  }
+
+  .projects-page .project-editorial-row,
+  .about-page .about-section {
+    padding-top: 2.6rem !important;
+    padding-bottom: 2.6rem !important;
+  }
+}
