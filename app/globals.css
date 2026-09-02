@@ -55,7 +55,7 @@ section[id] { scroll-margin-top: 72px; }
 .reference-intro { text-shadow:0 2px 24px rgba(0,0,0,.3); }
 .reference-portrait-card { inset:42px 20px 42px; border:7px solid #080808; border-radius:38px; background:#080808; box-shadow:0 35px 90px rgba(0,0,0,.42); }
 .reference-portrait-card .hero3d-photo-shell { inset:0; border-radius:29px; }
-.reference-portrait-card .hero3d-photo { filter:grayscale(1) contrast(1.02); object-position:center 18%; }
+.reference-portrait-card .hero3d-photo { filter:saturate(.94) contrast(1.02); object-position:center center; }
 .reference-code-badge { position:absolute; right:18px; bottom:18px; z-index:4; display:grid; height:48px; width:48px; place-items:center; border-radius:14px; background:rgba(12,12,12,.78); color:#d4d4d8; backdrop-filter:blur(12px); box-shadow:0 12px 30px rgba(0,0,0,.24); }
 .portfolio-section { background: rgba(8,8,8,.94); }
 .portfolio-shell { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }

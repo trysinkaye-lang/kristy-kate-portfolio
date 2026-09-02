@@ -87,7 +87,7 @@ function Hero3DStage() {
         <div className="hero3d-card hero3d-photo-card reference-portrait-card">
           <div className="hero3d-photo-shell">
             <Image
-              src="/media/kristy-profile-scroll.webp"
+              src="/media/kristy-kate-taylor-portrait.webp"
               alt="Kristy Kate Taylor"
               className="hero3d-photo"
               draggable={false}
