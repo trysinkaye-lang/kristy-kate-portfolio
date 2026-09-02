@@ -1,121 +1,307 @@
-/* Final light-mode readability pass.
-   Loaded after the broader theme file so the Projects page stays calm,
-   high-contrast, and comfortable for long viewing sessions. */
+/* Unified light-mode system.
+   The Contact page is the visual reference for every page: soft blue/lilac
+   atmosphere, dark readable type, translucent white surfaces, restrained accents. */
 
-.light .projects-page {
-  --project-page-ink: #1e232c;
-  --project-page-body: #47505e;
-  --project-page-muted: #657080;
-  --project-page-line: rgba(35, 40, 49, .11);
-  --project-page-surface: rgba(255, 253, 248, .84);
-  background-color: #f3f0e9 !important;
-  background-image:
-    linear-gradient(rgba(57, 61, 70, .012) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(57, 61, 70, .012) 1px, transparent 1px),
-    radial-gradient(circle at 8% 4%, rgba(88, 79, 160, .035), transparent 25%),
-    radial-gradient(circle at 94% 22%, rgba(57, 118, 137, .025), transparent 24%) !important;
-  color: var(--project-page-ink);
+.light {
+  --uniform-bg-top: #f4f7fc;
+  --uniform-bg-mid: #edf1f7;
+  --uniform-bg-bottom: #f3f6fb;
+  --uniform-ink: #202733;
+  --uniform-body: #536075;
+  --uniform-muted: #6b7587;
+  --uniform-line: rgba(69, 78, 101, .10);
+  --uniform-surface: rgba(248, 250, 255, .78);
+  --uniform-surface-strong: rgba(250, 251, 255, .90);
+  --uniform-indigo: #5b5bd6;
+  --uniform-cyan: #2a9dce;
+  --uniform-violet: #8b5cf6;
 }
 
-/* Header: remove the pale gradient that was reducing legibility. */
+/* One page background system for Home, Projects, About, and Contact. */
+.light body,
+.light .portfolio-v2,
+.light .projects-page,
+.light .contact-page {
+  background-color: var(--uniform-bg-mid) !important;
+  background-image:
+    radial-gradient(circle at 74% 10%, rgba(91, 91, 214, .085), transparent 28%),
+    radial-gradient(circle at 15% 70%, rgba(42, 157, 206, .075), transparent 32%),
+    radial-gradient(circle at 88% 84%, rgba(139, 92, 246, .045), transparent 26%),
+    linear-gradient(180deg, var(--uniform-bg-top), var(--uniform-bg-mid) 62%, var(--uniform-bg-bottom)) !important;
+  color: var(--uniform-ink);
+}
+
+/* Keep the Contact-style background on the home hero and content sections too. */
+.light .portfolio-hero,
+.light .portfolio-hero-3d,
+.light .reference-hero,
+.light .portfolio-section {
+  background:
+    radial-gradient(circle at 74% 10%, rgba(91, 91, 214, .085), transparent 28%),
+    radial-gradient(circle at 15% 72%, rgba(42, 157, 206, .075), transparent 32%),
+    linear-gradient(180deg, var(--uniform-bg-top), var(--uniform-bg-mid) 62%, var(--uniform-bg-bottom)) !important;
+}
+
+.light .reference-hero::after {
+  background: linear-gradient(120deg, rgba(255,255,255,.28), transparent 45%, rgba(91,91,214,.025)) !important;
+}
+
+.light .reference-hero::before {
+  opacity: .36 !important;
+  filter: blur(90px) !important;
+}
+
+/* The grid remains present, but faint enough not to compete with text. */
+.light .portfolio-v2:not(.contact-page) {
+  background-size: auto, auto, auto, auto !important;
+}
+
+.light .portfolio-v2:not(.contact-page)::before {
+  opacity: .2;
+}
+
+/* Consistent typography everywhere. */
+.light .portfolio-v2 .text-white,
+.light .v2-heading,
+.light .project-title,
+.light .projects-cta h2,
+.light .about-education-card h2,
+.light .about-service-card p,
+.light .site-footer .text-white {
+  color: var(--uniform-ink) !important;
+}
+
+.light .portfolio-v2 .text-zinc-300,
+.light .portfolio-v2 .text-zinc-400 {
+  color: #566175 !important;
+}
+
+.light .portfolio-v2 .text-zinc-500 {
+  color: #667185 !important;
+}
+
+.light .portfolio-v2 .text-zinc-600,
+.light .portfolio-v2 .text-zinc-700 {
+  color: #7b8494 !important;
+}
+
+.light .v2-kicker {
+  color: #555cae !important;
+}
+
+/* Shared navigation on every page. */
+.light .floating-nav {
+  background: rgba(248, 250, 255, .92) !important;
+  border-color: rgba(91, 91, 214, .12) !important;
+  box-shadow: 0 15px 44px rgba(52, 62, 89, .11), inset 0 1px 0 rgba(255,255,255,.78) !important;
+}
+
+.light .floating-nav-link,
+.light .floating-contact {
+  color: #59657a !important;
+}
+
+.light .floating-nav-link:hover,
+.light .floating-contact:hover {
+  color: #343b93 !important;
+  background: rgba(91,91,214,.07) !important;
+}
+
+.light .floating-nav-link.is-home {
+  color: #373f9d !important;
+  background: linear-gradient(135deg, rgba(91,91,214,.13), rgba(42,157,206,.07)) !important;
+}
+
+.light .floating-contact {
+  border-left-color: rgba(91,91,214,.09) !important;
+}
+
+.light .theme-toggle {
+  color: #404790 !important;
+}
+
+.light .theme-toggle:hover {
+  background: rgba(91,91,214,.08) !important;
+}
+
+.light .floating-mobile-menu {
+  background: rgba(248,250,255,.97) !important;
+  border-color: rgba(91,91,214,.11) !important;
+  color: #303848 !important;
+  box-shadow: 0 18px 48px rgba(52,62,89,.12) !important;
+}
+
+/* Shared cards and interactive surfaces. */
+.light .contact-option,
+.light .contact-page-card,
+.light .about-education-card,
+.light .about-service-card,
+.light .about-skill-card,
+.light .stack-logo-card,
+.light .project-page-card,
+.light .case-feature,
+.light .spotlight-card {
+  border-color: rgba(91,91,214,.10) !important;
+  background: var(--uniform-surface) !important;
+  box-shadow: 0 16px 42px rgba(52,62,89,.07), inset 0 1px 0 rgba(255,255,255,.78) !important;
+}
+
+.light .contact-option:hover,
+.light .about-service-card:hover,
+.light .stack-logo-card:hover,
+.light .project-page-card:hover,
+.light .case-feature:hover {
+  border-color: rgba(91,91,214,.20) !important;
+  background: var(--uniform-surface-strong) !important;
+}
+
+/* Shared buttons and pills. */
+.light .v2-button {
+  border-color: rgba(91,91,214,.14) !important;
+  color: #465067 !important;
+  background: rgba(255,255,255,.72) !important;
+  box-shadow: 0 8px 22px rgba(91,91,214,.055) !important;
+}
+
+.light .v2-button:hover {
+  border-color: rgba(91,91,214,.28) !important;
+  color: #30388f !important;
+  background: #fff !important;
+  box-shadow: 0 12px 30px rgba(91,91,214,.10) !important;
+}
+
+.light .v2-button-primary,
+.light .v2-button-primary:hover {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, #5b5bd6, #4d7dd8 58%, #2a9dce) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 30px rgba(77,92,191,.22) !important;
+}
+
+.light .v2-chip {
+  border-color: rgba(91,91,214,.13) !important;
+  background: rgba(249,250,255,.86) !important;
+  color: #4a556b !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.84) !important;
+  font-weight: 600;
+}
+
+/* Home: keep Contact's calm atmospheric feel. */
+.light .reference-intro {
+  color: #4d55a4 !important;
+}
+
+.light .reference-hero h1 {
+  color: var(--uniform-ink) !important;
+  text-shadow: none !important;
+}
+
+.light .reference-portrait-card {
+  border-color: rgba(255,255,255,.92) !important;
+  background: #f8f9fd !important;
+  box-shadow: 0 30px 82px rgba(52,62,89,.15), 0 0 0 1px rgba(91,91,214,.09) !important;
+}
+
+.light .reference-portrait-card .hero3d-photo-shell {
+  background: #f8f9fd !important;
+}
+
+.light .hero-secondary-button {
+  background: linear-gradient(135deg, rgba(91,91,214,.08), rgba(42,157,206,.06)) !important;
+}
+
+/* Projects: same global palette, with accent colors only inside each project. */
+.projects-page { position: relative; overflow: hidden; }
+
 .light .projects-page .projects-hero::before {
-  opacity: .34;
-  background: radial-gradient(circle, rgba(84, 78, 151, .10), transparent 72%);
+  opacity: .32;
+  background: radial-gradient(circle, rgba(91,91,214,.11), transparent 72%) !important;
 }
 
 .light .projects-page .projects-color-rail {
-  gap: .38rem;
+  gap: .4rem;
 }
 
 .light .projects-page .projects-color-rail span {
   height: 4px;
-  width: 34px;
-  opacity: .82;
+  width: 36px;
+  opacity: .8;
 }
 
-.light .projects-page .projects-color-rail span:nth-child(1) { background: #5753a6; }
-.light .projects-page .projects-color-rail span:nth-child(2) { background: #4e8b98; }
-.light .projects-page .projects-color-rail span:nth-child(3) { background: #8b6caf; }
+.light .projects-page .projects-color-rail span:nth-child(1) { background: #5b5bd6; }
+.light .projects-page .projects-color-rail span:nth-child(2) { background: #2a9dce; }
+.light .projects-page .projects-color-rail span:nth-child(3) { background: #8b5cf6; }
 
 .light .projects-page .projects-kicker {
-  color: #4e4a92 !important;
+  color: #555cae !important;
   font-weight: 800;
-  letter-spacing: .18em;
 }
 
 .light .projects-page .projects-heading {
   background: none !important;
   -webkit-background-clip: initial !important;
   background-clip: initial !important;
-  -webkit-text-fill-color: #1c222b !important;
-  color: #1c222b !important;
+  -webkit-text-fill-color: var(--uniform-ink) !important;
+  color: var(--uniform-ink) !important;
   text-shadow: none !important;
   font-weight: 720;
 }
 
 .light .projects-page .projects-subtitle {
-  color: #46505e !important;
+  color: #526076 !important;
   font-weight: 500;
   line-height: 1.75;
 }
 
-.light .projects-page .projects-list {
-  border-color: var(--project-page-line) !important;
-}
-
+.light .projects-page .projects-list,
 .light .projects-page .project-editorial-row {
-  border-color: var(--project-page-line) !important;
+  border-color: var(--uniform-line) !important;
 }
 
-/* Project image treatment: neutral frame, accent only around the edges. */
+.project-accent-0 { --project-accent: #5659cb; --project-soft: rgba(86,89,203,.12); --project-soft-2: rgba(42,157,206,.08); }
+.project-accent-1 { --project-accent: #7a56d5; --project-soft: rgba(122,86,213,.11); --project-soft-2: rgba(214,95,143,.06); }
+.project-accent-2 { --project-accent: #2a9078; --project-soft: rgba(42,144,120,.11); --project-soft-2: rgba(42,157,206,.07); }
+
+.light .projects-page .project-editorial-row::before {
+  opacity: .82;
+  background: var(--project-accent) !important;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--project-accent) 24%, transparent) !important;
+}
+
 .light .projects-page .project-visual-shell {
-  border-color: color-mix(in srgb, var(--project-accent) 20%, rgba(30,35,44,.15)) !important;
+  border-color: color-mix(in srgb, var(--project-accent) 24%, transparent) !important;
   background:
-    radial-gradient(circle at 82% 16%, var(--project-soft), transparent 27%),
-    linear-gradient(145deg, #fbfaf6, #eceae4) !important;
-  box-shadow:
-    0 18px 46px rgba(41, 43, 48, .10),
-    0 0 0 1px rgba(255,255,255,.58) inset !important;
-}
-
-.light .projects-page .project-visual-shell:hover {
-  box-shadow:
-    0 24px 58px rgba(41, 43, 48, .14),
-    0 0 0 1px color-mix(in srgb, var(--project-accent) 14%, transparent) !important;
+    radial-gradient(circle at 82% 16%, var(--project-soft), transparent 28%),
+    radial-gradient(circle at 18% 82%, var(--project-soft-2), transparent 32%),
+    linear-gradient(145deg, rgba(255,255,255,.96), rgba(239,243,250,.92)) !important;
+  box-shadow: 0 22px 56px rgba(52,62,89,.12), inset 0 1px 0 rgba(255,255,255,.82) !important;
 }
 
 .light .projects-page .project-visual-glow {
-  opacity: .34;
-  filter: blur(42px);
-}
-
-.light .projects-page .project-interface-image {
-  filter: saturate(1.02) contrast(1.035);
+  opacity: .40;
+  filter: blur(40px);
 }
 
 .light .projects-page .project-open-button {
-  background: color-mix(in srgb, var(--project-accent) 76%, #292d35) !important;
-  border-color: rgba(255,255,255,.52) !important;
+  background: color-mix(in srgb, var(--project-accent) 80%, #282d38) !important;
+  border-color: rgba(255,255,255,.50) !important;
   color: #fff !important;
   box-shadow: 0 8px 20px color-mix(in srgb, var(--project-accent) 18%, transparent) !important;
 }
 
-/* Text panel: warmer, more opaque, and much stronger typography. */
 .light .projects-page .project-copy {
-  border: 1px solid rgba(34, 38, 47, .095) !important;
+  border: 1px solid rgba(91,91,214,.09) !important;
   border-radius: 1.6rem;
-  background: var(--project-page-surface) !important;
-  box-shadow:
-    0 16px 38px rgba(47, 45, 41, .065),
-    inset 0 1px 0 rgba(255, 255, 255, .78) !important;
-  padding: 2.1rem;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background: var(--uniform-surface) !important;
+  box-shadow: 0 16px 42px rgba(52,62,89,.065), inset 0 1px 0 rgba(255,255,255,.80) !important;
+  padding: 2.05rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .light .projects-page .project-meta {
-  color: #555f6f !important;
-  font-weight: 750;
+  color: #596477 !important;
+  font-weight: 730;
 }
 
 .light .projects-page .project-index {
@@ -124,90 +310,98 @@
 }
 
 .light .projects-page .project-meta-line {
-  background: color-mix(in srgb, var(--project-accent) 25%, rgba(42,46,54,.18)) !important;
+  background: color-mix(in srgb, var(--project-accent) 28%, transparent) !important;
 }
 
 .light .projects-page .project-status {
-  color: #5b6270 !important;
+  color: #626b7d !important;
 }
 
 .light .projects-page .project-title {
-  color: #161b23 !important;
+  color: #171e29 !important;
   font-weight: 760;
-  letter-spacing: -.035em;
 }
 
 .light .projects-page .project-full-title {
-  color: #343c49 !important;
+  color: #3d4657 !important;
   font-weight: 650;
 }
 
 .light .projects-page .project-overview {
-  color: #3f4855 !important;
+  color: #465164 !important;
   font-weight: 500;
   line-height: 1.78;
 }
 
 .light .projects-page .project-role {
-  color: #303743 !important;
-  font-weight: 720;
+  color: #30394a !important;
+  font-weight: 700;
 }
 
 .light .projects-page .project-tech .v2-chip {
-  border-color: rgba(38, 43, 52, .12) !important;
-  background: #f5f2ec !important;
-  color: #353c47 !important;
+  border-color: color-mix(in srgb, var(--project-accent) 17%, transparent) !important;
+  background: rgba(249,250,255,.88) !important;
+  color: #3f495d !important;
   font-weight: 650;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
 }
 
 .light .projects-page .project-case-link {
-  color: color-mix(in srgb, var(--project-accent) 72%, #252a33) !important;
+  color: color-mix(in srgb, var(--project-accent) 76%, #27303c) !important;
   font-weight: 800;
 }
 
-.light .projects-page .project-case-link:hover {
-  color: #1e2430 !important;
-  filter: none !important;
-}
-
 .light .projects-page .projects-cta::before {
-  background: linear-gradient(135deg, rgba(87,83,166,.045), rgba(78,139,152,.04), rgba(139,108,175,.04)) !important;
+  background: linear-gradient(135deg, rgba(91,91,214,.055), rgba(42,157,206,.045), rgba(139,92,246,.05)) !important;
 }
 
 .light .projects-page .projects-cta h2 {
   background: none !important;
   -webkit-background-clip: initial !important;
   background-clip: initial !important;
-  -webkit-text-fill-color: #1d232c !important;
-  color: #1d232c !important;
+  -webkit-text-fill-color: var(--uniform-ink) !important;
+  color: var(--uniform-ink) !important;
 }
 
-/* Keep the nav light and comfortable without the icy tint. */
-.light .floating-nav {
-  background: rgba(249, 247, 242, .93) !important;
-  border-color: rgba(38, 42, 50, .10) !important;
-  box-shadow: 0 12px 34px rgba(50, 47, 42, .10), inset 0 1px 0 rgba(255,255,255,.74) !important;
+/* About: same cards, borders, and text palette as Contact. */
+.light .about-experience-row {
+  color: var(--uniform-body);
 }
 
-.light .floating-nav-link,
-.light .floating-contact {
-  color: #596271 !important;
+.light .about-education-card,
+.light .about-service-card,
+.light .stack-logo-card {
+  background: var(--uniform-surface) !important;
 }
 
-.light .floating-nav-link:hover,
-.light .floating-contact:hover {
-  color: #262c35 !important;
-  background: rgba(74, 69, 129, .06) !important;
+.light .ustp-logo-shell {
+  border-color: rgba(91,91,214,.09) !important;
+  background: linear-gradient(145deg, #ffffff, #eef2fa) !important;
+  box-shadow: 0 10px 28px rgba(52,62,89,.09) !important;
 }
 
-.light .floating-nav-link.is-home {
-  color: #37357d !important;
-  background: rgba(87, 83, 166, .09) !important;
+/* Contact remains the visual reference, now explicitly sharing the same tokens. */
+.light .contact-orb-one { background: rgba(91,91,214,.08) !important; }
+.light .contact-orb-two { background: rgba(42,157,206,.07) !important; }
+.light .contact-outline-text { -webkit-text-stroke-color: rgba(32,39,51,.34) !important; }
+.light .contact-email-link { border-color: rgba(32,39,51,.16) !important; color: var(--uniform-ink) !important; }
+.light .contact-email-link:hover { border-color: var(--uniform-ink) !important; }
+
+/* Footer belongs to the same family. */
+.light .site-footer {
+  border-color: rgba(91,91,214,.08) !important;
+  background: linear-gradient(180deg, #eaf0f8, #e2e8f1) !important;
 }
 
-.light .theme-toggle {
-  color: #3b3f58 !important;
+.light .footer-link {
+  border-color: rgba(91,91,214,.10) !important;
+  color: #596177 !important;
+  background: rgba(248,250,255,.62) !important;
+}
+
+.light .footer-link:hover {
+  border-color: rgba(91,91,214,.20) !important;
+  color: #343b93 !important;
+  background: #f8faff !important;
 }
 
 @media (max-width: 1023px) {
