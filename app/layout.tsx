@@ -18,6 +18,7 @@ import "./wix-reactbits-mix-v8.css";
 import "./cinematic-home-v9.css";
 import "./cinematic-projects-v10.css";
 import "./cinematic-about-v11.css";
+import "./cinematic-details-contact-v12.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
