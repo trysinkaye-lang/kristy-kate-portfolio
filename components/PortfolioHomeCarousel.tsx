@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { HomeCinematicHero } from "@/components/animations/HomeCinematicHero";
+import { HomeScrollStory } from "@/components/animations/HomeScrollStory";
 
 const capabilities = [
   {
@@ -24,45 +24,45 @@ const capabilities = [
 
 export function PortfolioHomeCarousel() {
   return (
-    <main id="main-content" className="portfolio-v2 home14-page">
-      <HomeCinematicHero />
+    <main id="main-content" className="portfolio-v2 home16-page">
+      <HomeScrollStory />
 
-      <section className="home14-statement">
-        <div className="portfolio-shell home14-statement-grid">
-          <p className="home14-section-label">What I build</p>
+      <section className="home16-manifesto">
+        <div className="portfolio-shell home16-manifesto-grid">
+          <p className="home16-section-label">What I build</p>
           <div>
-            <p className="home14-statement-copy">
-              Good software should make complicated work feel <em>obvious.</em>
+            <p className="home16-manifesto-copy">
+              Software should reduce friction, not add another layer of complexity.
             </p>
-            <p className="home14-statement-support">
-              I work across systems thinking, interface design, and implementation so the final product feels coherent from the data model to the screen.
+            <p className="home16-manifesto-support">
+              I work across systems thinking, interface design, and implementation so each product feels coherent from the data model to the final interaction.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="home14-capabilities-section">
+      <section className="home16-capabilities">
         <div className="portfolio-shell">
-          <div className="home14-capability-list">
+          <div className="home16-capability-list">
             {capabilities.map((item) => (
-              <article className="home14-capability-row" key={item.title}>
-                <span className="home14-capability-index">{item.index}</span>
+              <article className="home16-capability-row" key={item.title}>
+                <span className="home16-capability-index">{item.index}</span>
                 <h2>{item.title}</h2>
                 <p>{item.description}</p>
-                <span className="home14-capability-line" aria-hidden="true" />
+                <span className="home16-capability-arrow" aria-hidden="true">↗</span>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="home14-project-bridge">
-        <div className="portfolio-shell home14-project-bridge-inner">
+      <section className="home16-project-bridge">
+        <div className="portfolio-shell home16-project-bridge-inner">
           <div>
-            <p className="home14-section-label">Selected work</p>
-            <h2>See the systems behind the interface.</h2>
+            <p className="home16-section-label">Selected work</p>
+            <h2>See how the thinking becomes software.</h2>
           </div>
-          <Link href="/projects" className="home14-project-link">
+          <Link href="/projects" className="home16-project-link">
             Explore projects <ArrowRight size={18} />
           </Link>
         </div>
