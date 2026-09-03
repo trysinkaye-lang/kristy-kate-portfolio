@@ -14,6 +14,7 @@ import "./feminine-editorial-v6.css";
 import "./feminine-lightmode-v7.css";
 import "./unified-editorial-v8.css";
 import "./editorial-uniform-v9.css";
+import "./contact-classic-v10.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
