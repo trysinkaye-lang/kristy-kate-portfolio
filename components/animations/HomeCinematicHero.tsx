@@ -37,6 +37,7 @@ export function HomeCinematicHero() {
   const [sceneReady, setSceneReady] = useState(false);
   const [webgl, setWebgl] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [compactScene, setCompactScene] = useState(true);
   const { resolvedTheme } = useTheme();
 
   const theme = resolvedTheme === "light" ? "light" : "dark";
@@ -46,6 +47,7 @@ export function HomeCinematicHero() {
     const frame = window.requestAnimationFrame(() => {
       setWebgl(supportsWebGL());
       setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+      setCompactScene(window.matchMedia("(max-width: 1023px), (pointer: coarse)").matches);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -56,72 +58,73 @@ export function HomeCinematicHero() {
     const copy = copyRef.current;
     if (!section || !title || !copy) return;
 
+    progressRef.current = 0;
+    if (reducedMotion || compactScene) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const wordEls = Array.from(title.querySelectorAll<HTMLElement>("[data-scatter-word]"));
     const secondaryEls = Array.from(copy.querySelectorAll<HTMLElement>("[data-hero-secondary]"));
 
     const ctx = gsap.context(() => {
+      const scatter = [
+        { x: -50, y: -10 },
+        { x: -30, y: 22 },
+        { x: -10, y: -18 },
+        { x: 18, y: 24 },
+        { x: 34, y: -12 },
+        { x: 54, y: 18 },
+        { x: 78, y: -6 },
+      ];
+
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
           end: "+=120%",
-          scrub: reducedMotion ? false : 0.9,
-          pin: !reducedMotion,
+          scrub: 0.9,
+          pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            progressRef.current = reducedMotion ? 0 : self.progress;
+            progressRef.current = self.progress;
           },
         },
       });
 
-      if (!reducedMotion) {
-        const scatter = [
-          { x: -50, y: -10 },
-          { x: -30, y: 22 },
-          { x: -10, y: -18 },
-          { x: 18, y: 24 },
-          { x: 34, y: -12 },
-          { x: 54, y: 18 },
-          { x: 78, y: -6 },
-        ];
-
-        wordEls.forEach((word, index) => {
-          const target = scatter[index] ?? { x: index * 10, y: 0 };
-          timeline.to(
-            word,
-            {
-              x: target.x,
-              y: target.y,
-              opacity: index < 2 ? 0.55 : 0.28,
-              ease: "none",
-              duration: 1,
-            },
-            0,
-          );
-        });
-
+      wordEls.forEach((word, index) => {
+        const target = scatter[index] ?? { x: index * 10, y: 0 };
         timeline.to(
-          secondaryEls,
-          { y: -22, opacity: 0.22, ease: "none", duration: 0.8 },
-          0.08,
-        );
-
-        timeline.to(
-          section,
-          { "--hero-glow-progress": 1, ease: "none", duration: 1 } as gsap.TweenVars,
+          word,
+          {
+            x: target.x,
+            y: target.y,
+            opacity: index < 2 ? 0.55 : 0.28,
+            ease: "none",
+            duration: 1,
+          },
           0,
         );
-      }
+      });
+
+      timeline.to(
+        secondaryEls,
+        { y: -22, opacity: 0.22, ease: "none", duration: 0.8 },
+        0.08,
+      );
+
+      timeline.to(
+        section,
+        { "--hero-glow-progress": 1, ease: "none", duration: 1 } as gsap.TweenVars,
+        0,
+      );
     }, section);
 
     return () => ctx.revert();
-  }, [reducedMotion]);
+  }, [compactScene, reducedMotion]);
 
   const onPointerMove = (event: React.PointerEvent<HTMLElement>) => {
-    if (reducedMotion || window.matchMedia("(pointer: coarse)").matches) return;
+    if (reducedMotion || compactScene) return;
     const rect = sectionRef.current?.getBoundingClientRect();
     if (!rect) return;
     pointerRef.current.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
@@ -150,6 +153,7 @@ export function HomeCinematicHero() {
             pointerRef={pointerRef}
             theme={theme}
             reducedMotion={reducedMotion}
+            compact={compactScene}
             onReady={() => setSceneReady(true)}
           />
         ) : (
