@@ -8,53 +8,63 @@ const capabilities = [
   {
     index: "01",
     title: "Information systems",
-    description: "Records, workflows, reporting, and operational data shaped into clear, dependable software.",
+    description: "Structured workflows, records, validation, reporting, and dependable operational software.",
   },
   {
     index: "02",
     title: "Web applications",
-    description: "Responsive applications designed to stay usable and readable across desktop, tablet, and mobile.",
+    description: "Responsive products designed to stay clear and usable across desktop, tablet, and mobile.",
   },
   {
     index: "03",
     title: "UI/UX design",
-    description: "Interfaces that reduce friction, improve hierarchy, and make complex tasks easier to understand.",
+    description: "Readable hierarchy and interaction design that reduce friction in complex tools.",
   },
 ];
 
 export function PortfolioHomeCarousel() {
   return (
-    <main id="main-content" className="portfolio-v2">
+    <main id="main-content" className="portfolio-v2 home14-page">
       <HomeCinematicHero />
 
-      <section className="portfolio-section home-capabilities border-t border-white/[.06]">
-        <div className="portfolio-shell py-20 lg:py-24">
-          <div className="home-capabilities-header">
-            <div className="home-capabilities-copy">
-              <p className="v2-kicker">What I build</p>
-              <h2 className="v2-heading mt-4">Three areas. One clear focus.</h2>
-              <p className="mt-5 max-w-xl leading-7 text-zinc-500">
-                Useful software starts with understanding the work, then designing the simplest system that can support it well.
-              </p>
-            </div>
+      <section className="home14-statement">
+        <div className="portfolio-shell home14-statement-grid">
+          <p className="home14-section-label">What I build</p>
+          <div>
+            <p className="home14-statement-copy">
+              Good software should make complicated work feel <em>obvious.</em>
+            </p>
+            <p className="home14-statement-support">
+              I work across systems thinking, interface design, and implementation so the final product feels coherent from the data model to the screen.
+            </p>
           </div>
+        </div>
+      </section>
 
-          <div className="home-capability-grid mt-12">
+      <section className="home14-capabilities-section">
+        <div className="portfolio-shell">
+          <div className="home14-capability-list">
             {capabilities.map((item) => (
-              <article className="home-capability-card" key={item.title}>
-                <span className="home-capability-index">{item.index}</span>
-                <h3>{item.title}</h3>
+              <article className="home14-capability-row" key={item.title}>
+                <span className="home14-capability-index">{item.index}</span>
+                <h2>{item.title}</h2>
                 <p>{item.description}</p>
+                <span className="home14-capability-line" aria-hidden="true" />
               </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="home-work-cta">
-            <p>Want to see how these come together in real projects?</p>
-            <Link href="/projects" className="home-work-link">
-              Explore projects <ArrowRight size={15} />
-            </Link>
+      <section className="home14-project-bridge">
+        <div className="portfolio-shell home14-project-bridge-inner">
+          <div>
+            <p className="home14-section-label">Selected work</p>
+            <h2>See the systems behind the interface.</h2>
           </div>
+          <Link href="/projects" className="home14-project-link">
+            Explore projects <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
     </main>
