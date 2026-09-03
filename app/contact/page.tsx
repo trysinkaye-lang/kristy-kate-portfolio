@@ -1,5 +1,6 @@
 import { ArrowUpRight, Github, Mail, MapPin } from "lucide-react";
 import { site } from "@/data/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 export default function ContactPage() {
   return (
@@ -21,23 +22,40 @@ export default function ContactPage() {
             <p className="max-w-xl text-xl leading-9 text-zinc-400">
               Have a software project, information system, website, or UI/UX opportunity? Tell me what you’re building.
             </p>
-            <a className="contact-email-link mt-9 inline-flex items-center gap-3 text-xl font-semibold text-white" href={`mailto:${site.email}`}>
+            <TrackedLink
+              className="contact-email-link mt-9 inline-flex items-center gap-3 text-xl font-semibold text-white"
+              href={`mailto:${site.email}`}
+              eventName="contact_email_click"
+              eventData={{ source: "contact_hero" }}
+            >
               {site.email}<ArrowUpRight size={20} />
-            </a>
+            </TrackedLink>
           </div>
         </div>
 
         <div className="contact-classic-options mt-20 grid gap-4 md:grid-cols-3">
-          <a className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6" href={`mailto:${site.email}`}>
+          <TrackedLink
+            className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6"
+            href={`mailto:${site.email}`}
+            eventName="contact_email_click"
+            eventData={{ source: "contact_card" }}
+          >
             <div className="flex items-start justify-between"><Mail size={22} /><ArrowUpRight className="transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} /></div>
             <span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">Email</span>
             <strong className="mt-2 block text-sm text-white">{site.email}</strong>
-          </a>
-          <a className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6" href={site.github} target="_blank" rel="noreferrer">
+          </TrackedLink>
+          <TrackedLink
+            className="contact-option group rounded-[1.7rem] border border-white/[.09] p-6"
+            href={site.github}
+            eventName="github_click"
+            eventData={{ source: "contact_card" }}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className="flex items-start justify-between"><Github size={22} /><ArrowUpRight className="transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} /></div>
             <span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">GitHub</span>
             <strong className="mt-2 block text-sm text-white">@trysinkaye-lang</strong>
-          </a>
+          </TrackedLink>
           <div className="contact-option rounded-[1.7rem] border border-white/[.09] p-6">
             <MapPin size={22} />
             <span className="mt-14 block text-xs uppercase tracking-[.18em] text-zinc-600">Based in</span>
