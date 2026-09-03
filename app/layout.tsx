@@ -16,6 +16,7 @@ import "./unified-editorial-v8.css";
 import "./editorial-uniform-v9.css";
 import "./contact-classic-v10.css";
 import "./responsive-polish-v11.css";
+import "./about-portrait-v12.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
