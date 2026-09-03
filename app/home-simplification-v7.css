@@ -1,0 +1,142 @@
+/* V7 Home simplification: fewer competing elements, stronger negative space. */
+
+.home-hero-shell {
+  min-height: calc(100vh - 72px);
+}
+
+.home-portrait-stage {
+  min-height: 560px;
+}
+
+.home-contact-link,
+.home-work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: #d4d4d8;
+  font-size: .86rem;
+  font-weight: 650;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  padding-bottom: .25rem;
+  transition: color .2s ease, border-color .2s ease, gap .2s ease;
+}
+
+.home-contact-link:hover,
+.home-work-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,.42);
+  gap: .7rem;
+}
+
+.light .home-contact-link,
+.light .home-work-link {
+  color: #4a5568;
+  border-bottom-color: rgba(52,62,89,.16);
+}
+
+.light .home-contact-link:hover,
+.light .home-work-link:hover {
+  color: #252c3b;
+  border-bottom-color: rgba(52,62,89,.35);
+}
+
+.home-capabilities-header {
+  max-width: 880px;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.home-capabilities-copy .v2-heading {
+  max-width: 760px;
+  font-size: clamp(2.5rem, 4.8vw, 4.8rem) !important;
+}
+
+.home-capability-grid {
+  margin-top: 3rem !important;
+}
+
+.home-capability-card {
+  min-height: 260px !important;
+  padding: 1.35rem 1.35rem 1.6rem !important;
+}
+
+.home-capability-card h3 {
+  margin-top: 3rem !important;
+  max-width: 250px !important;
+  font-size: clamp(1.85rem, 2.5vw, 2.7rem) !important;
+}
+
+.home-capability-card p {
+  max-width: 300px !important;
+  margin-top: 1rem !important;
+}
+
+.home-capability-card::after,
+.home-capability-meta {
+  display: none !important;
+}
+
+.home-work-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--creative-line-dark);
+  padding: 1.4rem 0;
+  color: #777781;
+  font-size: .9rem;
+}
+
+.light .home-work-cta {
+  border-bottom-color: var(--creative-line-light);
+  color: #697386;
+}
+
+@media (max-width: 1023px) {
+  .home-hero-shell {
+    min-height: auto;
+    padding-top: 5.5rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .home-portrait-stage {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero-shell {
+    gap: 1.5rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .home-portrait-stage {
+    min-height: 420px;
+  }
+
+  .home-capabilities .portfolio-shell {
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+
+  .home-capability-grid {
+    margin-top: 2.25rem !important;
+  }
+
+  .home-capability-card {
+    min-height: auto !important;
+    padding: 1.3rem 0 1.75rem !important;
+  }
+
+  .home-capability-card h3 {
+    margin-top: 2rem !important;
+  }
+
+  .home-work-cta {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 1.5rem;
+  }
+}
