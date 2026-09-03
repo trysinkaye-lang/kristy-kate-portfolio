@@ -25,7 +25,7 @@ export function RouteEffects({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
-      <div key={pathname} className="route-reveal">{children}</div>
+      <div key={pathname}>{children}</div>
     </>
   );
 }
