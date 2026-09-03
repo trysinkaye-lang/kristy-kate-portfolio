@@ -32,6 +32,13 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
+    - name: Upload visual QA captures
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: visual-qa-screenshots
+        path: screenshots/
+        retention-days: 7
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
