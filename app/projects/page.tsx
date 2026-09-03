@@ -8,8 +8,7 @@ export default function ProjectsPage() {
     <main id="main-content" className="portfolio-v2 projects-page editorial-page min-h-screen pb-20 pt-36">
       <div className="portfolio-shell">
         <header className="page-hero page-hero-panel projects-hero">
-          <p className="v2-kicker page-kicker projects-kicker">Projects</p>
-          <h1 className="page-title projects-heading mt-5 text-white">My recent <span className="page-title-accent">work.</span></h1>
+          <h1 className="page-title projects-heading text-white">My recent <span className="page-title-accent">work.</span></h1>
           <p className="page-intro projects-subtitle mt-7 max-w-2xl text-lg leading-8 text-zinc-500">Information systems, business applications, and interfaces I’m proud to have designed and developed.</p>
         </header>
 
@@ -23,12 +22,10 @@ export default function ProjectsPage() {
               </Link>
 
               <div className={`project-copy ${index % 2 ? "lg:order-1" : ""}`}>
-                <div className="project-meta flex items-center gap-4 text-xs uppercase tracking-[.18em] text-zinc-600">
-                  <span className="project-index">0{index + 1}</span>
-                  <span className="project-meta-line h-px w-10" />
+                <div className="project-meta flex items-center gap-3 text-xs uppercase tracking-[.16em] text-zinc-600">
                   <span className="project-status"><i aria-hidden="true" />{project.status}</span>
                 </div>
-                <h2 className="section-title project-title mt-6 text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">{project.shortTitle}</h2>
+                <h2 className="section-title project-title mt-5 text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">{project.shortTitle}</h2>
                 <p className="project-full-title mt-4 text-sm font-medium text-zinc-400">{project.title}</p>
                 <p className="project-overview mt-6 max-w-xl text-lg leading-8 text-zinc-500">{project.overview}</p>
                 <p className="project-role mt-6 text-sm text-zinc-400">{project.role}</p>
@@ -39,7 +36,7 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <section className="projects-cta page-cta editorial-section py-24 text-center"><p className="v2-kicker">Let’s connect</p><h2 className="section-title mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">Have a system, website, or interface in mind?</h2><Link href="/contact" className="v2-button v2-button-primary mt-8">Contact me <ArrowUpRight size={16} /></Link></section>
+        <section className="projects-cta page-cta editorial-section py-24 text-center"><h2 className="section-title mx-auto max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">Have a system, website, or interface in mind?</h2><Link href="/contact" className="v2-button v2-button-primary mt-8">Contact me <ArrowUpRight size={16} /></Link></section>
       </div>
     </main>
   );
