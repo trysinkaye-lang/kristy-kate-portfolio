@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Playfair_Display, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 import "./theme-overrides.css";
@@ -14,6 +14,7 @@ import "./content-architecture-v5.css";
 import "./hero-type-refinement.css";
 import "./creative-system-v6.css";
 import "./home-simplification-v7.css";
+import "./wix-reactbits-mix-v8.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
@@ -30,6 +31,12 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-editorial",
   display: "swap",
 });
 
@@ -63,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
         <Providers>
           <a className="skip-link" href="#main-content">
             Skip to content
