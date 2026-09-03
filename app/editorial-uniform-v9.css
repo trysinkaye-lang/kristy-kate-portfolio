@@ -1,0 +1,393 @@
+/* V9 — final uniform inner-page system. Imported last. */
+
+.editorial-page {
+  --page-bg: #120f16;
+  --page-panel: rgba(25, 20, 29, .82);
+  --page-panel-strong: rgba(31, 24, 35, .94);
+  --page-text: #f7f0f5;
+  --page-muted: #aa9dab;
+  --page-soft: #8e818f;
+  --page-line: rgba(221, 192, 210, .11);
+  --page-accent: #c99db8;
+  --page-accent-2: #ad91bd;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(186, 150, 199, .11), transparent 27%),
+    radial-gradient(circle at 9% 82%, rgba(211, 160, 185, .07), transparent 29%),
+    var(--page-bg) !important;
+}
+
+.editorial-page .portfolio-shell {
+  width: min(1180px, calc(100% - 40px)) !important;
+}
+
+.page-hero-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--page-line) !important;
+  border-radius: 2.15rem;
+  padding: clamp(2rem, 4vw, 3.25rem) !important;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(186,150,199,.10), transparent 31%),
+    linear-gradient(145deg, var(--page-panel-strong), var(--page-panel)) !important;
+  box-shadow: 0 28px 80px rgba(18, 10, 20, .20), inset 0 1px 0 rgba(255,255,255,.028);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.page-hero-panel::before {
+  content: "";
+  position: absolute;
+  left: clamp(2rem,4vw,3.25rem);
+  top: 0;
+  width: 82px;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, var(--page-accent), var(--page-accent-2));
+}
+
+.page-hero-split {
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.page-title {
+  margin: 0;
+  max-width: 760px !important;
+  font-size: clamp(3.55rem, 7vw, 6.6rem) !important;
+  line-height: .9 !important;
+  letter-spacing: -.06em !important;
+  font-weight: 590 !important;
+  color: var(--page-text) !important;
+  text-wrap: balance;
+}
+
+.page-title-accent {
+  display: inline;
+  color: #d5aec5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.045em;
+}
+
+.page-intro {
+  color: var(--page-muted) !important;
+}
+
+.page-kicker,
+.editorial-page .v2-kicker {
+  color: #c0a4bd !important;
+}
+
+.editorial-section {
+  border-color: var(--page-line) !important;
+}
+
+.section-title {
+  color: var(--page-text) !important;
+}
+
+/* Projects now uses the same surface language as About and Contact. */
+.projects-list {
+  display: grid !important;
+  gap: 1.25rem !important;
+  border: 0 !important;
+}
+
+.project-editorial-row {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--page-line) !important;
+  border-radius: 2.15rem !important;
+  padding: clamp(1.05rem, 2.2vw, 1.65rem) !important;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(198,157,184,.06), transparent 30%),
+    linear-gradient(145deg, rgba(255,255,255,.025), rgba(211,166,188,.018)) !important;
+  box-shadow: 0 24px 68px rgba(17, 10, 20, .16) !important;
+}
+
+.project-editorial-row:hover {
+  border-color: rgba(218,177,201,.23) !important;
+  box-shadow: 0 30px 82px rgba(17,10,20,.22) !important;
+}
+
+.project-editorial-visual,
+.case-hero-visual {
+  border-color: rgba(218,177,201,.13) !important;
+  border-radius: 1.7rem !important;
+  background:
+    radial-gradient(circle at 66% 28%, rgba(193,151,181,.12), transparent 34%),
+    linear-gradient(145deg, #1a151d, #130f17) !important;
+  box-shadow: 0 20px 52px rgba(12,7,14,.23) !important;
+}
+
+.project-open-button {
+  border-color: rgba(226,196,214,.14) !important;
+  background: rgba(35,27,39,.78) !important;
+  color: #f4eaf1 !important;
+}
+
+.project-meta-line {
+  background: rgba(221,192,210,.14) !important;
+}
+
+.project-status i {
+  background: #c99db8 !important;
+  box-shadow: 0 0 0 5px rgba(201,157,184,.08) !important;
+}
+
+.project-title,
+.project-case-link {
+  color: var(--page-text) !important;
+}
+
+.project-full-title,
+.project-overview,
+.project-role {
+  color: var(--page-muted) !important;
+}
+
+.v2-chip {
+  border-color: rgba(218,177,201,.12) !important;
+  background: rgba(218,177,201,.035) !important;
+  color: #bcaeba !important;
+}
+
+/* About cards and Contact cards use identical surfaces. */
+.editorial-card,
+.about-method-card,
+.about-service-card,
+.about-education-card,
+.contact-option,
+.case-feature {
+  border: 1px solid var(--page-line) !important;
+  border-radius: 1.55rem !important;
+  background: rgba(255,255,255,.024) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.02) !important;
+}
+
+.editorial-card:hover,
+.about-method-card:hover,
+.about-service-card:hover,
+.contact-option:hover,
+.case-feature:hover {
+  border-color: rgba(218,177,201,.22) !important;
+  background: rgba(218,177,201,.05) !important;
+  box-shadow: 0 18px 52px rgba(18,10,20,.14) !important;
+}
+
+.about-method-number,
+.about-service-card svg {
+  color: #c6a0ba !important;
+}
+
+/* Contact no longer looks like an unrelated landing page. */
+.contact-page {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.contact-hero {
+  margin-top: 2.5rem;
+}
+
+.contact-page .contact-email-link {
+  color: var(--page-text) !important;
+  border-color: rgba(218,177,201,.18) !important;
+}
+
+.contact-page .contact-orb-one {
+  background: rgba(190,145,183,.11) !important;
+}
+
+.contact-page .contact-orb-two {
+  background: rgba(169,143,188,.08) !important;
+}
+
+/* ---------- LIGHT MODE ---------- */
+.light .editorial-page {
+  --page-bg: #f8f2f1;
+  --page-panel: rgba(255, 251, 249, .86);
+  --page-panel-strong: rgba(255, 253, 252, .96);
+  --page-text: #342a35;
+  --page-muted: #716572;
+  --page-soft: #8c7d8c;
+  --page-line: rgba(113, 82, 106, .12);
+  --page-accent: #a87895;
+  --page-accent-2: #9075a0;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(182,158,195,.14), transparent 26%),
+    radial-gradient(circle at 8% 82%, rgba(213,169,190,.12), transparent 29%),
+    #f8f2f1 !important;
+}
+
+.light .page-hero-panel {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(183,157,197,.14), transparent 31%),
+    linear-gradient(145deg, rgba(255,253,252,.98), rgba(251,245,245,.92)) !important;
+  border-color: rgba(113,82,106,.12) !important;
+  box-shadow: 0 26px 72px rgba(99,68,91,.08), inset 0 1px 0 #fff !important;
+}
+
+.light .page-title {
+  color: #342a35 !important;
+}
+
+.light .page-title-accent {
+  color: #9c718d !important;
+}
+
+.light .page-intro,
+.light .project-full-title,
+.light .project-overview,
+.light .project-role {
+  color: #716572 !important;
+}
+
+.light .page-kicker,
+.light .editorial-page .v2-kicker {
+  color: #8f6c8c !important;
+}
+
+.light .section-title,
+.light .project-title,
+.light .project-case-link {
+  color: #342a35 !important;
+}
+
+.light .project-editorial-row {
+  border-color: rgba(113,82,106,.11) !important;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(185,156,195,.10), transparent 30%),
+    linear-gradient(145deg, rgba(255,253,252,.94), rgba(249,242,244,.88)) !important;
+  box-shadow: 0 22px 62px rgba(99,68,91,.075) !important;
+}
+
+.light .project-editorial-row:hover {
+  border-color: rgba(145,105,136,.20) !important;
+  box-shadow: 0 28px 74px rgba(99,68,91,.11) !important;
+}
+
+.light .project-editorial-visual,
+.light .case-hero-visual {
+  border-color: rgba(113,82,106,.11) !important;
+  background:
+    radial-gradient(circle at 68% 28%, rgba(182,158,195,.17), transparent 35%),
+    linear-gradient(145deg, #fffdfc, #f1e8ec) !important;
+  box-shadow: 0 18px 48px rgba(99,68,91,.09) !important;
+}
+
+.light .project-open-button {
+  border-color: rgba(113,82,106,.12) !important;
+  background: rgba(255,249,248,.88) !important;
+  color: #554456 !important;
+}
+
+.light .project-meta-line {
+  background: rgba(113,82,106,.14) !important;
+}
+
+.light .project-status i {
+  background: #9c718d !important;
+  box-shadow: 0 0 0 5px rgba(156,113,141,.08) !important;
+}
+
+.light .v2-chip {
+  border-color: rgba(113,82,106,.12) !important;
+  background: rgba(238,224,232,.46) !important;
+  color: #735e70 !important;
+}
+
+.light .editorial-card,
+.light .about-method-card,
+.light .about-service-card,
+.light .about-education-card,
+.light .contact-option,
+.light .case-feature {
+  border-color: rgba(113,82,106,.11) !important;
+  background: rgba(255,253,252,.78) !important;
+  box-shadow: 0 12px 38px rgba(99,68,91,.055), inset 0 1px 0 #fff !important;
+}
+
+.light .editorial-card:hover,
+.light .about-method-card:hover,
+.light .about-service-card:hover,
+.light .contact-option:hover,
+.light .case-feature:hover {
+  border-color: rgba(145,105,136,.19) !important;
+  background: #fffaf9 !important;
+  box-shadow: 0 18px 48px rgba(99,68,91,.09) !important;
+}
+
+.light .about-method-number,
+.light .about-service-card svg {
+  color: #9b718d !important;
+}
+
+.light .contact-page .contact-email-link {
+  color: #4d3f4e !important;
+}
+
+/* Equalized vertical rhythm */
+.projects-page .projects-hero,
+.about-page .about-hero,
+.contact-page .contact-hero {
+  margin-bottom: 0 !important;
+}
+
+.projects-page .projects-list,
+.about-page .about-section:first-of-type,
+.contact-page .contact-hero + div {
+  margin-top: 3rem !important;
+}
+
+@media (min-width: 1024px) {
+  .page-hero-split {
+    grid-template-columns: minmax(0,.88fr) minmax(0,1.12fr);
+  }
+
+  .projects-page .projects-hero {
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .editorial-page .portfolio-shell {
+    width: min(100% - 24px, 1180px) !important;
+  }
+
+  .page-hero-panel {
+    border-radius: 1.55rem;
+    padding: 1.45rem !important;
+  }
+
+  .page-hero-panel::before {
+    left: 1.45rem;
+    width: 64px;
+  }
+
+  .page-title {
+    font-size: clamp(3rem, 15vw, 4.6rem) !important;
+    line-height: .93 !important;
+  }
+
+  .page-intro {
+    font-size: 1rem !important;
+    line-height: 1.72 !important;
+  }
+
+  .projects-page .projects-list,
+  .about-page .about-section:first-of-type,
+  .contact-page .contact-hero + div {
+    margin-top: 1.5rem !important;
+  }
+
+  .project-editorial-row {
+    border-radius: 1.5rem !important;
+    padding: .85rem !important;
+  }
+}
