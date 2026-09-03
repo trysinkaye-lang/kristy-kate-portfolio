@@ -21,7 +21,6 @@ export function HomeCinematicHero() {
     if (!section || !portraitStage || !copy) return;
 
     gsap.registerPlugin(ScrollTrigger);
-
     const media = gsap.matchMedia();
 
     media.add(
@@ -29,14 +28,13 @@ export function HomeCinematicHero() {
       () => {
         const title = copy.querySelector(".cinematic-title");
         const secondary = copy.querySelectorAll("[data-hero-secondary]");
-        const floatingItems = portraitStage.querySelectorAll("[data-portrait-float]");
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=78%",
-            scrub: 0.85,
+            end: "+=62%",
+            scrub: 0.8,
             pin: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
@@ -44,16 +42,11 @@ export function HomeCinematicHero() {
         });
 
         timeline
-          .to(title, { y: -28, opacity: 0.88, ease: "none", duration: 1 }, 0)
-          .to(secondary, { y: -14, opacity: 0.72, ease: "none", duration: 1 }, 0)
+          .to(title, { y: -18, opacity: 0.9, ease: "none", duration: 1 }, 0)
+          .to(secondary, { y: -8, opacity: 0.78, ease: "none", duration: 1 }, 0)
           .to(
             portraitStage,
-            { y: -44, scale: 1.035, rotate: 1.25, ease: "none", duration: 1 },
-            0,
-          )
-          .to(
-            floatingItems,
-            { y: (index) => (index % 2 === 0 ? -22 : 18), ease: "none", duration: 1 },
+            { y: -28, scale: 1.018, rotate: 0.6, ease: "none", duration: 1 },
             0,
           );
       },
@@ -70,8 +63,8 @@ export function HomeCinematicHero() {
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
 
-    stage.style.setProperty("--portrait-rx", `${-y * 3.5}deg`);
-    stage.style.setProperty("--portrait-ry", `${x * 4.5}deg`);
+    stage.style.setProperty("--portrait-rx", `${-y * 2.2}deg`);
+    stage.style.setProperty("--portrait-ry", `${x * 2.8}deg`);
   };
 
   const resetPointer = () => {
@@ -133,27 +126,11 @@ export function HomeCinematicHero() {
                 fill
                 priority
                 className="home-portrait-image-v2 object-cover"
-                sizes="(max-width: 1023px) 82vw, 40vw"
+                sizes="(max-width: 1023px) 78vw, 36vw"
               />
               <div className="home-portrait-soft-glow" aria-hidden="true" />
             </div>
           </div>
-
-          <div className="home-portrait-badge home-portrait-badge-top" data-portrait-float>
-            <span>Developer + Designer</span>
-            <strong>Building systems with clarity.</strong>
-          </div>
-
-          <div className="home-portrait-badge home-portrait-badge-bottom" data-portrait-float>
-            <span>Focus</span>
-            <div>
-              <i>Information Systems</i>
-              <i>Web Applications</i>
-              <i>UI/UX</i>
-            </div>
-          </div>
-
-          <div className="home-portrait-index" aria-hidden="true">KT / 01</div>
         </div>
       </div>
 
