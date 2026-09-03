@@ -7,7 +7,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/projects";
-import { TiltCardLite } from "@/components/react-bits/TiltCardLite";
 
 export function ProjectStoryList() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -24,12 +23,12 @@ export function ProjectStoryList() {
       const rows = gsap.utils.toArray<HTMLElement>(".project-story-row", root);
 
       rows.forEach((row) => {
-        const visual = row.querySelector<HTMLElement>(".project-story-visual");
+        const frame = row.querySelector<HTMLElement>(".project-story-frame");
         const copy = row.querySelector<HTMLElement>(".project-story-copy");
 
         gsap.fromTo(
           row,
-          { opacity: 0.32, y: 64, scale: 0.985 },
+          { opacity: 0.34, y: 54, scale: 0.99 },
           {
             opacity: 1,
             y: 0,
@@ -38,36 +37,37 @@ export function ProjectStoryList() {
             scrollTrigger: {
               trigger: row,
               start: "top 88%",
-              end: "top 45%",
-              scrub: 0.75,
+              end: "top 46%",
+              scrub: 0.72,
             },
           },
         );
 
         gsap.to(row, {
-          opacity: 0.48,
-          scale: 0.985,
+          opacity: 0.52,
+          scale: 0.99,
           ease: "none",
           scrollTrigger: {
             trigger: row,
             start: "bottom 54%",
             end: "bottom 12%",
-            scrub: 0.75,
+            scrub: 0.72,
           },
         });
 
-        if (visual) {
+        if (frame) {
           gsap.fromTo(
-            visual,
-            { yPercent: 3 },
+            frame,
+            { y: 22, rotateZ: row.dataset.reverse === "true" ? -0.6 : 0.6 },
             {
-              yPercent: -3,
+              y: -12,
+              rotateZ: 0,
               ease: "none",
               scrollTrigger: {
                 trigger: row,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: 1,
+                scrub: 0.9,
               },
             },
           );
@@ -76,7 +76,7 @@ export function ProjectStoryList() {
         if (copy) {
           gsap.fromTo(
             copy,
-            { x: row.dataset.reverse === "true" ? -26 : 26 },
+            { x: row.dataset.reverse === "true" ? -22 : 22 },
             {
               x: 0,
               ease: "none",
@@ -107,19 +107,20 @@ export function ProjectStoryList() {
             data-reverse={reverse ? "true" : "false"}
           >
             <div className={`project-story-layout ${reverse ? "is-reverse" : ""}`}>
-              <TiltCardLite className="project-story-tilt">
+              <div className="project-story-frame">
                 <Link href={`/projects/${project.slug}`} className="project-story-visual group">
                   <div className="project-story-image-bg" aria-hidden="true" />
                   <Image
                     src={project.image}
                     alt={`${project.shortTitle} interface`}
                     fill
+                    unoptimized
                     className="project-story-image object-contain"
-                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    sizes="(max-width: 1024px) 100vw, 52vw"
                   />
                   <span className="project-story-open" aria-hidden="true"><ArrowUpRight size={18} /></span>
                 </Link>
-              </TiltCardLite>
+              </div>
 
               <div className="project-story-copy">
                 <div className="project-story-meta">
