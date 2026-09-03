@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-const CONTACT_URL = 'https://kristy-kate-dev-portfolio.vercel.app/contact';
+const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3000';
+const CONTACT_URL = `${BASE_URL}/contact`;
 
 async function expectContactContent(page: import('@playwright/test').Page) {
   await expect(page.getByText('Available for opportunities')).toBeVisible();
@@ -20,18 +21,10 @@ test.describe('Contact page visibility regression', () => {
 
   test('contact content remains visible after switching to light mode', async ({ page }) => {
     await page.goto(CONTACT_URL);
-
-    const themeButton = page.getByRole('button', {
-      name: /Use (dark|light) mode/,
-    });
-
+    const themeButton = page.getByRole('button', { name: /Use (dark|light) mode/ });
     await expect(themeButton).toBeVisible();
-
     const label = await themeButton.getAttribute('aria-label');
-    if (label === 'Use light mode') {
-      await themeButton.click();
-    }
-
+    if (label === 'Use light mode') await themeButton.click();
     await expect(page.getByRole('button', { name: 'Use dark mode' })).toBeVisible();
     await expectContactContent(page);
   });
