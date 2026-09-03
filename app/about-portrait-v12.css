@@ -1,0 +1,83 @@
+/* V12 — portrait-integrated About hero and cleanup for removed micro-labels. */
+
+.about-hero-with-portrait {
+  display: grid !important;
+  grid-template-columns: 290px minmax(0, .78fr) minmax(0, 1.22fr) !important;
+  align-items: center !important;
+  gap: 2.4rem !important;
+}
+
+.about-portrait-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1.8rem;
+  border: 1px solid rgba(221, 192, 210, .14);
+  background:
+    radial-gradient(circle at 70% 18%, rgba(214, 166, 185, .11), transparent 30%),
+    #181219;
+  box-shadow: 0 24px 60px rgba(13, 8, 16, .18);
+}
+
+.about-portrait-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 56%, rgba(17, 12, 18, .22));
+}
+
+.about-portrait {
+  object-position: 50% 32%;
+}
+
+.about-hero-with-portrait .page-title {
+  margin-top: 0 !important;
+}
+
+.light .about-portrait-wrap {
+  border-color: rgba(113, 82, 106, .13);
+  background:
+    radial-gradient(circle at 70% 18%, rgba(213, 166, 185, .14), transparent 32%),
+    #f4ecec;
+  box-shadow: 0 22px 55px rgba(89, 61, 82, .09);
+}
+
+.light .about-portrait-wrap::after {
+  background: linear-gradient(180deg, transparent 60%, rgba(83, 57, 77, .06));
+}
+
+/* Removed decorative labels should not leave accidental spacing behind. */
+.projects-hero .page-title,
+.contact-classic-heading h1 {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 1100px) {
+  .about-hero-with-portrait {
+    grid-template-columns: 230px minmax(0, 1fr) !important;
+  }
+
+  .about-hero-with-portrait .page-intro {
+    grid-column: 1 / -1;
+    max-width: 780px;
+  }
+}
+
+@media (max-width: 760px) {
+  .about-hero-with-portrait {
+    grid-template-columns: 1fr !important;
+    gap: 1.6rem !important;
+  }
+
+  .about-portrait-wrap {
+    width: min(72vw, 320px);
+    aspect-ratio: 4 / 5;
+    border-radius: 1.5rem;
+  }
+
+  .about-hero-with-portrait .page-intro {
+    grid-column: auto;
+  }
+}
