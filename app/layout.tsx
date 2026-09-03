@@ -23,6 +23,7 @@ import "./warm-light-refinement-v12.css";
 import "./home-blueprint-image-quality-v13.css";
 import "./home-editorial-v14.css";
 import "./home-system-board-v15.css";
+import "./project-preview-clarity-v16.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
