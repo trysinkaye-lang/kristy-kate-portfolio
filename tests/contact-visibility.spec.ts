@@ -4,8 +4,8 @@ const CONTACT_URL = 'https://kristy-kate-dev-portfolio.vercel.app/contact';
 
 async function expectContactContent(page: import('@playwright/test').Page) {
   const main = page.locator('main.contact-page');
-  const shell = page.locator('.contact-classic-shell');
-  const heading = page.getByRole('heading', { level: 1 });
+  const shell = main.locator('.contact-classic-shell');
+  const heading = main.getByRole('heading', { level: 1 });
 
   await expect(main).toBeVisible();
   await expect(shell).toBeVisible();
@@ -13,11 +13,11 @@ async function expectContactContent(page: import('@playwright/test').Page) {
   await expect(heading).toContainText(/Let.?s make/i);
   await expect(heading).toContainText(/something/i);
   await expect(heading).toContainText(/useful\./i);
-  await expect(page.getByText(/Have a software project, information system, website, or UI\/UX opportunity/i)).toBeVisible();
-  await expect(page.getByRole('link', { name: /trysinkaye@gmail\.com/i }).first()).toBeVisible();
-  await expect(page.getByText('Email', { exact: true })).toBeVisible();
-  await expect(page.getByText('GitHub', { exact: true })).toBeVisible();
-  await expect(page.getByText('Based in', { exact: true })).toBeVisible();
+  await expect(main.getByText(/Have a software project, information system, website, or UI\/UX opportunity/i)).toBeVisible();
+  await expect(main.getByRole('link', { name: /trysinkaye@gmail\.com/i }).first()).toBeVisible();
+  await expect(main.getByText('Email', { exact: true })).toBeVisible();
+  await expect(main.getByText('GitHub', { exact: true })).toBeVisible();
+  await expect(main.getByText('Based in', { exact: true })).toBeVisible();
 }
 
 test.describe('Contact page visibility regression', () => {
