@@ -23,72 +23,94 @@
 .contact-classic .contact-outline-text {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
-  -webkit-text-stroke: 1px rgba(219, 181, 204, .62) !important;
+  -webkit-text-stroke: 1.25px rgba(225, 188, 211, .78) !important;
+  text-shadow: 0 0 28px rgba(197, 151, 181, .055);
   font-family: inherit !important;
   font-style: normal !important;
 }
 
 .contact-classic .contact-classic-copy p {
-  color: #aa9dab !important;
+  color: #b2a5b2 !important;
 }
 
 .contact-classic .contact-email-link {
-  color: #f5eaf1 !important;
-  border-color: rgba(218,177,201,.18) !important;
+  color: #f7edf3 !important;
+  border-color: rgba(224,190,210,.23) !important;
 }
 
 .contact-classic .contact-option {
-  border-color: rgba(221,192,210,.11) !important;
-  background: rgba(255,255,255,.024) !important;
+  border-color: rgba(225,195,213,.14) !important;
+  background: rgba(255,255,255,.031) !important;
   border-radius: 1.7rem !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.02) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.026) !important;
 }
 
 .contact-classic .contact-option:hover {
-  border-color: rgba(218,177,201,.22) !important;
-  background: rgba(218,177,201,.05) !important;
-  box-shadow: 0 18px 52px rgba(18,10,20,.14) !important;
+  border-color: rgba(218,177,201,.25) !important;
+  background: rgba(218,177,201,.06) !important;
+  box-shadow: 0 18px 52px rgba(18,10,20,.16) !important;
 }
 
 .contact-classic .contact-availability {
-  border-color: rgba(221,192,210,.12) !important;
-  background: rgba(221,192,210,.035) !important;
-  color: #cbbdc8 !important;
+  border-color: rgba(221,192,210,.14) !important;
+  background: rgba(221,192,210,.045) !important;
+  color: #d0c3ce !important;
+}
+
+/* Light mode is intentionally warmer and higher contrast than the dark-mode inverse. */
+.light .contact-classic {
+  background:
+    radial-gradient(circle at 86% 9%, rgba(173, 151, 190, .11), transparent 25%),
+    radial-gradient(circle at 8% 82%, rgba(208, 170, 186, .08), transparent 28%),
+    #f8f3ef !important;
 }
 
 .light .contact-classic .contact-classic-heading h1 {
-  color: #342a35 !important;
+  color: #302632 !important;
 }
 
 .light .contact-classic .contact-outline-text {
-  -webkit-text-stroke: 1px rgba(119, 91, 112, .48) !important;
+  color: rgba(159, 115, 143, .025) !important;
+  -webkit-text-fill-color: rgba(159, 115, 143, .025) !important;
+  -webkit-text-stroke: 1.35px rgba(132, 91, 119, .70) !important;
+  text-shadow: none;
 }
 
 .light .contact-classic .contact-classic-copy p {
-  color: #716572 !important;
+  color: #645865 !important;
 }
 
 .light .contact-classic .contact-email-link {
-  color: #4d3f4e !important;
-  border-color: rgba(113,82,106,.16) !important;
+  color: #403342 !important;
+  border-color: rgba(104,76,99,.24) !important;
 }
 
 .light .contact-classic .contact-option {
-  border-color: rgba(113,82,106,.11) !important;
-  background: rgba(255,253,252,.78) !important;
-  box-shadow: 0 12px 38px rgba(99,68,91,.055), inset 0 1px 0 #fff !important;
+  border-color: rgba(101,73,96,.16) !important;
+  background: rgba(255,252,250,.94) !important;
+  box-shadow: 0 14px 38px rgba(89,61,82,.085), inset 0 1px 0 #fff !important;
 }
 
 .light .contact-classic .contact-option:hover {
-  border-color: rgba(145,105,136,.19) !important;
-  background: #fffaf9 !important;
-  box-shadow: 0 18px 48px rgba(99,68,91,.09) !important;
+  border-color: rgba(130,91,121,.25) !important;
+  background: #fffdfb !important;
+  box-shadow: 0 20px 50px rgba(89,61,82,.13) !important;
+}
+
+.light .contact-classic .contact-option span {
+  color: #786979 !important;
+}
+
+.light .contact-classic .contact-option strong,
+.light .contact-classic .contact-option svg {
+  color: #382d3a !important;
 }
 
 .light .contact-classic .contact-availability {
-  border-color: rgba(113,82,106,.11) !important;
-  background: rgba(255,253,252,.68) !important;
-  color: #6f6370 !important;
+  border-color: rgba(104,76,99,.16) !important;
+  background: rgba(255,252,250,.88) !important;
+  color: #625563 !important;
+  box-shadow: 0 6px 18px rgba(89,61,82,.05);
 }
 
 @media (max-width: 760px) {
