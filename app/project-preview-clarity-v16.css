@@ -1,0 +1,186 @@
+/* Project preview clarity v16
+   Keep raster screenshots at controlled display sizes so low-resolution source files are not stretched into full-width hero artwork. */
+
+.project-detail-intro {
+  display: grid;
+  grid-template-columns: minmax(0, .78fr) minmax(520px, 1.22fr);
+  align-items: center;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+
+.project-detail-copy {
+  max-width: 560px;
+}
+
+.project-detail-title {
+  margin: 0;
+  font-family: var(--font-display-stack) !important;
+  font-size: clamp(3.8rem, 6.2vw, 6.8rem);
+  font-weight: 520;
+  line-height: .9;
+  letter-spacing: -.06em;
+  color: #f5f6f8;
+}
+
+.light .project-detail-title { color: #25282f; }
+
+.project-detail-full-title {
+  max-width: 34rem;
+  color: #b1b6c0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+.light .project-detail-full-title { color: #4e5663; }
+
+.project-detail-overview {
+  max-width: 35rem;
+  color: #848b98;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.light .project-detail-overview { color: #5b6068; }
+
+.project-detail-preview-shell {
+  width: min(100%, 780px);
+  justify-self: end;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 18px;
+  background: #0d1016;
+  box-shadow: 0 30px 90px rgba(0,0,0,.25);
+}
+
+.light .project-detail-preview-shell {
+  border-color: rgba(55,50,45,.1);
+  background: #f4f1eb;
+  box-shadow: 0 24px 70px rgba(65,57,50,.1);
+}
+
+.project-detail-window-bar {
+  display: flex;
+  align-items: center;
+  gap: .38rem;
+  height: 36px;
+  padding: 0 .8rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.025);
+}
+.project-detail-window-bar > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #59606d;
+}
+.project-detail-window-bar small {
+  margin-left: .45rem;
+  color: #747b87;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.light .project-detail-window-bar {
+  border-bottom-color: rgba(55,50,45,.08);
+  background: rgba(255,255,255,.45);
+}
+.light .project-detail-window-bar small { color: #756e66; }
+
+.project-detail-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 75% 18%, rgba(111,88,220,.08), transparent 33%),
+    #090b10;
+}
+.light .project-detail-preview {
+  background:
+    radial-gradient(circle at 75% 18%, rgba(111,88,190,.06), transparent 33%),
+    #ece7df;
+}
+
+.project-detail-preview .project-detail-image {
+  inset: 18px !important;
+  width: calc(100% - 36px) !important;
+  height: calc(100% - 36px) !important;
+  object-fit: contain !important;
+  transform: none !important;
+  filter: none !important;
+  image-rendering: auto;
+}
+
+.project-detail-preview-note {
+  margin: 0;
+  padding: .75rem 1rem .85rem;
+  border-top: 1px solid rgba(255,255,255,.055);
+  color: #686f7b;
+  font-size: .64rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.light .project-detail-preview-note {
+  border-top-color: rgba(55,50,45,.07);
+  color: #7b736a;
+}
+
+/* Projects overview: keep screenshots contained rather than stretched. */
+.project-story-visual {
+  display: grid !important;
+  place-items: center;
+  aspect-ratio: 16 / 10 !important;
+  padding: clamp(1.2rem, 2.5vw, 2rem) !important;
+}
+
+.project-story-image {
+  position: relative !important;
+  inset: auto !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 760px) !important;
+  max-height: 470px !important;
+  padding: 0 !important;
+  object-fit: contain !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.project-story-visual:hover .project-story-image {
+  transform: none !important;
+  filter: none !important;
+}
+
+.project-story-tilt.rb-tilt-card {
+  transform: none !important;
+}
+
+@media (min-width: 1500px) {
+  .project-story-image { max-width: 700px !important; }
+  .project-detail-preview-shell { max-width: 740px; }
+}
+
+@media (max-width: 1023px) {
+  .project-detail-intro {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .project-detail-copy { max-width: 720px; }
+  .project-detail-preview-shell {
+    width: min(100%, 760px);
+    justify-self: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-detail-title { font-size: clamp(3rem, 15vw, 4.7rem); }
+  .project-detail-preview-shell { border-radius: 12px; }
+  .project-detail-preview { padding: 10px; }
+  .project-detail-preview .project-detail-image {
+    inset: 10px !important;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
+  }
+  .project-story-visual { padding: .75rem !important; }
+  .project-story-image { max-height: none !important; }
+}
