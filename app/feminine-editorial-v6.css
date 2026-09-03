@@ -1,0 +1,437 @@
+/* Feminine editorial visual system — imported last.
+   Softer, warmer, elegant, and still professional. */
+
+:root {
+  --fem-ink: #2e2733;
+  --fem-ink-soft: #675d6d;
+  --fem-cream: #fbf7f5;
+  --fem-cream-2: #f5efed;
+  --fem-plum: #7a5f86;
+  --fem-lilac: #b6a1c7;
+  --fem-rose: #d5a6b9;
+  --fem-mauve: #a9829b;
+  --fem-line: rgba(91, 70, 102, .12);
+}
+
+/* ---------- GLOBAL DARK ---------- */
+.dark body,
+.dark .portfolio-v2,
+.dark .portfolio-section {
+  background-color: #120f16;
+  color: #f7f1f5;
+}
+
+.dark .portfolio-v2 {
+  background-image:
+    radial-gradient(circle at 82% 8%, rgba(181, 144, 198, .09), transparent 28%),
+    radial-gradient(circle at 12% 78%, rgba(214, 160, 184, .065), transparent 30%);
+}
+
+.dark .portfolio-section {
+  background: rgba(18, 15, 22, .96);
+}
+
+.dark .text-white,
+.dark .v2-heading,
+.dark .project-title,
+.dark .about-page h1,
+.dark .about-page h2,
+.dark .contact-page h1 {
+  color: #f8f2f6 !important;
+}
+
+.dark .text-zinc-400,
+.dark .text-zinc-500,
+.dark .text-zinc-600 {
+  color: #a99daa !important;
+}
+
+.dark .v2-kicker {
+  color: #b99ec1;
+  letter-spacing: .18em;
+}
+
+.dark [class*="border-white"] {
+  border-color: rgba(219, 192, 210, .11) !important;
+}
+
+/* ---------- GLOBAL LIGHT ---------- */
+.light body,
+.light .portfolio-v2,
+.light .portfolio-section {
+  background-color: var(--fem-cream) !important;
+  color: var(--fem-ink) !important;
+}
+
+.light .portfolio-v2 {
+  background-image:
+    radial-gradient(circle at 86% 9%, rgba(182, 161, 199, .12), transparent 30%),
+    radial-gradient(circle at 10% 78%, rgba(213, 166, 185, .10), transparent 30%) !important;
+}
+
+.light .portfolio-section {
+  background: rgba(251, 247, 245, .96) !important;
+}
+
+.light .portfolio-v2 .text-white,
+.light .v2-heading,
+.light .project-title,
+.light .about-page h1,
+.light .about-page h2,
+.light .contact-page h1 {
+  color: var(--fem-ink) !important;
+}
+
+.light .portfolio-v2 .text-zinc-400,
+.light .portfolio-v2 .text-zinc-500,
+.light .portfolio-v2 .text-zinc-600 {
+  color: #746a78 !important;
+}
+
+.light .v2-kicker {
+  color: #8a698f !important;
+}
+
+.light .portfolio-v2 [class*="border-white"] {
+  border-color: var(--fem-line) !important;
+}
+
+/* ---------- NAV ---------- */
+.floating-nav {
+  border-color: rgba(216, 183, 204, .14) !important;
+  background: rgba(26, 21, 30, .82) !important;
+  box-shadow: 0 16px 50px rgba(22, 14, 26, .24), inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+
+.floating-nav-link,
+.floating-contact {
+  color: #c4b7c4 !important;
+}
+
+.floating-nav-link:hover,
+.floating-contact:hover,
+.floating-nav-link.is-home {
+  color: #fff7fb !important;
+  background: rgba(213, 166, 185, .10) !important;
+}
+
+.theme-toggle {
+  color: #f7eef4 !important;
+}
+
+.light .floating-nav {
+  border-color: rgba(122, 95, 134, .13) !important;
+  background: rgba(255, 250, 248, .88) !important;
+  box-shadow: 0 16px 48px rgba(92, 68, 86, .12), inset 0 1px 0 #fff !important;
+}
+
+.light .floating-nav-link,
+.light .floating-contact {
+  color: #716472 !important;
+}
+
+.light .floating-nav-link:hover,
+.light .floating-contact:hover,
+.light .floating-nav-link.is-home {
+  color: var(--fem-ink) !important;
+  background: rgba(182, 161, 199, .12) !important;
+}
+
+.light .theme-toggle {
+  color: #5f5263 !important;
+}
+
+/* ---------- BUTTONS ---------- */
+.v2-button,
+.hero-secondary-button {
+  border-color: rgba(215, 181, 202, .14) !important;
+  background: rgba(215, 181, 202, .035) !important;
+  color: #d9ced6 !important;
+  border-radius: 999px;
+}
+
+.v2-button:hover {
+  background: rgba(215, 181, 202, .09) !important;
+  border-color: rgba(215, 181, 202, .25) !important;
+  color: #fff7fb !important;
+}
+
+.v2-button-primary {
+  background: linear-gradient(135deg, #eadbe4, #d9c6e2) !important;
+  color: #342a37 !important;
+  border-color: transparent !important;
+  box-shadow: 0 10px 34px rgba(155, 113, 142, .12) !important;
+}
+
+.v2-button-primary:hover {
+  background: linear-gradient(135deg, #f3e7ee, #e5d5eb) !important;
+  color: #2d2430 !important;
+}
+
+.light .v2-button {
+  border-color: rgba(122, 95, 134, .13) !important;
+  background: rgba(255,255,255,.64) !important;
+  color: #665a6a !important;
+}
+
+.light .v2-button-primary {
+  background: linear-gradient(135deg, #745d7e, #9d7893) !important;
+  color: white !important;
+}
+
+/* ---------- CARDS / SURFACES ---------- */
+.project-page-card,
+.about-skill-card,
+.contact-page-card,
+.contact-option,
+.about-education-card,
+.about-service-card,
+.stack-logo-card,
+.case-feature {
+  border-color: rgba(216, 183, 204, .11) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.025), rgba(214,166,185,.022)) !important;
+  border-radius: 1.6rem;
+}
+
+.project-page-card:hover,
+.contact-option:hover,
+.about-service-card:hover,
+.stack-logo-card:hover,
+.case-feature:hover {
+  border-color: rgba(216, 183, 204, .22) !important;
+  background: rgba(216, 183, 204, .055) !important;
+  box-shadow: 0 18px 55px rgba(32, 18, 30, .16) !important;
+}
+
+.light .project-page-card,
+.light .about-skill-card,
+.light .contact-page-card,
+.light .contact-option,
+.light .about-education-card,
+.light .about-service-card,
+.light .stack-logo-card,
+.light .case-feature {
+  border-color: rgba(122,95,134,.11) !important;
+  background: rgba(255,255,255,.60) !important;
+  box-shadow: 0 18px 52px rgba(95, 71, 91, .06) !important;
+}
+
+/* ---------- PROJECT VISUALS ---------- */
+.project-editorial-visual,
+.case-hero-visual {
+  background:
+    radial-gradient(circle at 55% 35%, rgba(205, 177, 211, .13), transparent 58%),
+    #17121a !important;
+  box-shadow: 0 28px 80px rgba(19, 11, 21, .28) !important;
+}
+
+.light .project-editorial-visual,
+.light .case-hero-visual {
+  background:
+    radial-gradient(circle at 55% 35%, rgba(182,161,199,.18), transparent 58%),
+    #f1e9ed !important;
+  box-shadow: 0 28px 70px rgba(95,71,91,.11) !important;
+}
+
+/* ---------- ABOUT ---------- */
+.about-page {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(183, 153, 196, .08), transparent 25%),
+    #120f16 !important;
+}
+
+.light .about-page {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(182,161,199,.12), transparent 26%),
+    var(--fem-cream) !important;
+}
+
+.about-page h1,
+.about-page h2,
+.projects-heading,
+.contact-page h1 {
+  letter-spacing: -.05em !important;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-page {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(188, 149, 195, .13), transparent 28%),
+    radial-gradient(circle at 12% 82%, rgba(213, 166, 185, .07), transparent 30%),
+    linear-gradient(180deg, #120f16, #17121a 62%, #120f16) !important;
+}
+
+.contact-orb-one {
+  background: rgba(181, 137, 189, .15) !important;
+}
+
+.contact-orb-two {
+  background: rgba(214, 160, 184, .10) !important;
+}
+
+.contact-outline-text {
+  -webkit-text-stroke: 1px rgba(225, 193, 211, .58) !important;
+}
+
+.light .contact-page {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(182,161,199,.15), transparent 28%),
+    radial-gradient(circle at 12% 82%, rgba(213,166,185,.12), transparent 31%),
+    var(--fem-cream) !important;
+}
+
+.light .contact-outline-text {
+  -webkit-text-stroke: 1px rgba(92, 68, 94, .45) !important;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  background: linear-gradient(180deg, #120f16, #0d0a10) !important;
+}
+
+.light .site-footer {
+  background: linear-gradient(180deg, #f8f3f1, #f2eae8) !important;
+}
+
+.footer-link {
+  border-color: rgba(216,183,204,.12) !important;
+  color: #b5a7b4 !important;
+}
+
+.light .footer-link {
+  border-color: rgba(122,95,134,.12) !important;
+  color: #6e6370 !important;
+}
+
+/* ---------- HOME COVER: softer and more editorial ---------- */
+.home-cover {
+  background: #130f17 !important;
+  color: #f8f1f5 !important;
+}
+
+.cover-light {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(190, 152, 202, .20), transparent 25%),
+    radial-gradient(circle at calc(var(--mx) - 25%) calc(var(--my) + 32%), rgba(218, 164, 189, .12), transparent 23%),
+    linear-gradient(155deg, #130f17 0%, #19121b 50%, #100d13 100%) !important;
+}
+
+.cover-grid {
+  opacity: .14 !important;
+  background-image:
+    linear-gradient(rgba(230, 205, 220, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230, 205, 220, .03) 1px, transparent 1px) !important;
+  background-size: 74px 74px !important;
+}
+
+.cover-orbit {
+  border-color: rgba(218, 180, 207, .12) !important;
+}
+
+.cover-title-wrap h1 {
+  font-weight: 580 !important;
+  letter-spacing: -.065em !important;
+}
+
+.cover-title-wrap h1 span {
+  color: #f8eff5 !important;
+}
+
+.cover-title-wrap h1 em {
+  color: #cbb1cf !important;
+  -webkit-text-stroke: 0 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: -.045em !important;
+}
+
+.cover-monogram {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: rgba(235, 212, 226, .025) !important;
+}
+
+.cover-meta,
+.cover-footer,
+.cover-index,
+.cover-coordinates {
+  color: #9c8e9c !important;
+}
+
+.cover-paths {
+  border-color: rgba(218,180,207,.10) !important;
+}
+
+.cover-path {
+  border-color: rgba(218,180,207,.10) !important;
+  color: #e9dfe6 !important;
+}
+
+.cover-path:hover {
+  background: linear-gradient(90deg, rgba(213,166,185,.08), rgba(182,161,199,.06)) !important;
+}
+
+.cover-path-number {
+  color: #9b8c9a !important;
+}
+
+.cover-rule i {
+  background: #d0a9c0 !important;
+  box-shadow: 0 0 0 7px rgba(208,169,192,.08), 0 0 28px rgba(184,144,174,.24) !important;
+}
+
+.light .home-cover {
+  background: #fbf7f5 !important;
+  color: var(--fem-ink) !important;
+}
+
+.light .cover-light {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(182,161,199,.16), transparent 26%),
+    radial-gradient(circle at calc(var(--mx) - 25%) calc(var(--my) + 32%), rgba(213,166,185,.14), transparent 24%),
+    linear-gradient(155deg, #fdf9f7 0%, #f5eeef 52%, #fbf7f5 100%) !important;
+}
+
+.light .cover-title-wrap h1 span {
+  color: #322a35 !important;
+}
+
+.light .cover-title-wrap h1 em {
+  color: #9b718d !important;
+}
+
+.light .cover-monogram {
+  color: rgba(108, 79, 105, .035) !important;
+}
+
+.light .cover-path {
+  color: #443848 !important;
+  border-color: rgba(122,95,134,.10) !important;
+}
+
+.light .cover-path:hover {
+  background: linear-gradient(90deg, rgba(213,166,185,.14), rgba(182,161,199,.12)) !important;
+}
+
+.light .cover-meta,
+.light .cover-footer,
+.light .cover-index,
+.light .cover-coordinates,
+.light .cover-path-number {
+  color: #806f80 !important;
+}
+
+/* slightly softer corners across major visuals */
+.project-editorial-visual,
+.case-hero-visual,
+.about-education-card,
+.contact-option {
+  border-radius: 2rem !important;
+}
+
+@media (max-width: 760px) {
+  .cover-title-wrap h1 em {
+    font-size: .92em;
+  }
+}
