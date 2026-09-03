@@ -1,0 +1,39 @@
+/* Production safety override for the Contact page.
+   This file is imported last so earlier theme/animation layers cannot hide
+   the actual contact content while leaving only the background visible. */
+
+.contact-page > .relative.z-10 {
+  display: block !important;
+  position: relative !important;
+  z-index: 20 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  content-visibility: visible !important;
+}
+
+.contact-page > .relative.z-10 > * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.contact-page h1,
+.contact-page p,
+.contact-page a,
+.contact-page strong,
+.contact-page span:not(.contact-outline-text),
+.contact-page svg {
+  visibility: visible !important;
+}
+
+/* Keep the intended outline treatment while ensuring the word itself renders. */
+.dark .contact-page .contact-outline-text {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.light .contact-page .contact-outline-text {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
