@@ -21,6 +21,7 @@ import "./cinematic-about-v11.css";
 import "./cinematic-details-contact-v12.css";
 import "./warm-light-refinement-v12.css";
 import "./home-blueprint-image-quality-v13.css";
+import "./home-editorial-v14.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
