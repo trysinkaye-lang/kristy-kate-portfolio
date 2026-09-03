@@ -1,23 +1,24 @@
-/* V12 — portrait-integrated About hero and cleanup for removed micro-labels. */
+/* V12 — portrait-integrated About hero. Kept intentionally small and page-specific. */
 
 .about-hero-with-portrait {
   display: grid !important;
-  grid-template-columns: 290px minmax(0, .78fr) minmax(0, 1.22fr) !important;
+  grid-template-columns: minmax(250px, 285px) minmax(0, 1fr) !important;
   align-items: center !important;
-  gap: 2.4rem !important;
+  gap: clamp(2rem, 4vw, 3.75rem) !important;
 }
 
 .about-portrait-wrap {
   position: relative;
   width: 100%;
+  max-width: 285px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 1.8rem;
+  border-radius: 1.65rem;
   border: 1px solid rgba(221, 192, 210, .14);
   background:
     radial-gradient(circle at 70% 18%, rgba(214, 166, 185, .11), transparent 30%),
     #181219;
-  box-shadow: 0 24px 60px rgba(13, 8, 16, .18);
+  box-shadow: 0 22px 55px rgba(13, 8, 16, .2);
 }
 
 .about-portrait-wrap::after {
@@ -25,15 +26,34 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 56%, rgba(17, 12, 18, .22));
+  background: linear-gradient(180deg, transparent 64%, rgba(17, 12, 18, .14));
 }
 
 .about-portrait {
-  object-position: 50% 32%;
+  object-position: 50% 30%;
 }
 
-.about-hero-with-portrait .page-title {
-  margin-top: 0 !important;
+.about-refined-intro {
+  max-width: 780px;
+}
+
+.about-identity-line {
+  color: #bfa7b8;
+  font-size: .7rem;
+  font-weight: 750;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.about-refined-copy {
+  max-width: 720px;
+  color: #b2a5af !important;
+  font-size: clamp(1.05rem, 1.4vw, 1.16rem) !important;
+  line-height: 1.72 !important;
+}
+
+.about-refined-copy p {
+  margin: 0;
 }
 
 .light .about-portrait-wrap {
@@ -41,27 +61,41 @@
   background:
     radial-gradient(circle at 70% 18%, rgba(213, 166, 185, .14), transparent 32%),
     #f4ecec;
-  box-shadow: 0 22px 55px rgba(89, 61, 82, .09);
+  box-shadow: 0 20px 50px rgba(89, 61, 82, .09);
 }
 
 .light .about-portrait-wrap::after {
-  background: linear-gradient(180deg, transparent 60%, rgba(83, 57, 77, .06));
+  background: linear-gradient(180deg, transparent 68%, rgba(83, 57, 77, .04));
 }
 
-/* Removed decorative labels should not leave accidental spacing behind. */
-.projects-hero .page-title,
+.light .about-identity-line {
+  color: #8d7185;
+}
+
+.light .about-refined-copy {
+  color: #675a67 !important;
+}
+
 .contact-classic-heading h1 {
   margin-top: 0 !important;
 }
 
 @media (max-width: 1100px) {
   .about-hero-with-portrait {
-    grid-template-columns: 230px minmax(0, 1fr) !important;
+    grid-template-columns: minmax(210px, 240px) minmax(0, 1fr) !important;
+    gap: 2rem !important;
   }
 
-  .about-hero-with-portrait .page-intro {
-    grid-column: 1 / -1;
-    max-width: 780px;
+  .about-portrait-wrap {
+    max-width: 240px;
+  }
+
+  .about-refined-title {
+    font-size: clamp(3.1rem, 6.4vw, 4.9rem) !important;
+  }
+
+  .about-refined-copy {
+    font-size: 1.02rem !important;
   }
 }
 
@@ -72,12 +106,18 @@
   }
 
   .about-portrait-wrap {
-    width: min(72vw, 320px);
-    aspect-ratio: 4 / 5;
-    border-radius: 1.5rem;
+    width: min(72vw, 300px);
+    max-width: 300px;
+    border-radius: 1.45rem;
   }
 
-  .about-hero-with-portrait .page-intro {
-    grid-column: auto;
+  .about-refined-title {
+    font-size: clamp(3rem, 13.5vw, 4.35rem) !important;
+  }
+
+  .about-refined-copy {
+    max-width: 100%;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
   }
 }
