@@ -135,9 +135,9 @@ export function PortfolioHomeCarousel() {
 
         <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
           <div className="hero-copy-panel min-w-0">
-            <p className="reference-intro hero-intro-motion mb-7 text-xl font-semibold text-white">Hey <span aria-hidden="true">👋</span>, I’m Kristy</p>
+            <p className="reference-intro hero-intro-motion mb-7 text-xl font-semibold text-white">Hey, I’m Kristy</p>
 
-            <h1 className="hero-title-motion max-w-4xl text-[clamp(3.5rem,6.2vw,6.5rem)] font-semibold leading-[.93] tracking-[-.058em] text-white">
+            <h1 className="hero-title-motion max-w-4xl text-white">
               <SplitTextLite text="Software developer &" delay={28} />
               <br /><SplitTextLite text="UI/UX designer" delay={28} />
             </h1>
