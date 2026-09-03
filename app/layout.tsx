@@ -10,6 +10,7 @@ import "./enhancements-v3.css";
 import "./mobile-refinement-v4.css";
 import "./contact-visibility-hotfix.css";
 import "./content-architecture-v5.css";
+import "./hero-type-refinement.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
