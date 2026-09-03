@@ -29,24 +29,25 @@ export function HomeScrollStory() {
         const intro = stage.querySelectorAll<HTMLElement>("[data-intro]");
         const portal = stage.querySelector<HTMLElement>("[data-portal]");
         const portalLabel = stage.querySelector<HTMLElement>("[data-portal-label]");
-        const ticks = stage.querySelectorAll<HTMLElement>("[data-tick]");
         const phase = stage.querySelectorAll<HTMLElement>("[data-phase]");
+        const progress = stage.querySelector<HTMLElement>("[data-progress]");
 
-        if (!software || !systems || !interfaces || !resolve || !portal || !portalLabel) return;
+        if (!software || !systems || !interfaces || !resolve || !portal || !portalLabel || !progress) return;
 
-        gsap.set(systems, { xPercent: 34, opacity: 0.16 });
-        gsap.set(interfaces, { xPercent: -28, opacity: 0.12 });
-        gsap.set(resolve, { opacity: 0, y: 40 });
-        gsap.set(portal, { scale: 0.56, borderRadius: "999px" });
+        gsap.set([software, systems, interfaces], { opacity: 0.3, scale: 1 });
+        gsap.set(software, { opacity: 1 });
+        gsap.set(resolve, { opacity: 0, y: 28 });
+        gsap.set(portal, { scaleX: 0.12, scaleY: 0.035, opacity: 0.7, borderRadius: "999px" });
         gsap.set(portalLabel, { opacity: 0 });
         gsap.set(phase, { opacity: 0 });
         gsap.set(phase[0], { opacity: 1 });
+        gsap.set(progress, { scaleX: 0.08 });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: story,
             start: "top top",
-            end: "+=300%",
+            end: "+=270%",
             scrub: 0.85,
             pin: stage,
             anticipatePin: 1,
@@ -55,28 +56,27 @@ export function HomeScrollStory() {
         });
 
         timeline
-          .to(software, { xPercent: -22, yPercent: -16, scale: 0.9, ease: "none", duration: 1 }, 0)
-          .to(systems, { xPercent: 0, opacity: 1, scale: 1.08, ease: "none", duration: 1 }, 0)
-          .to(intro, { opacity: 0.58, y: -10, ease: "none", duration: 1 }, 0)
-          .to(ticks, { x: (i) => (i % 2 === 0 ? 28 : -24), opacity: 0.7, stagger: 0.02, ease: "none", duration: 1 }, 0)
-          .to(phase[0], { opacity: 0, duration: 0.15 }, 0.72)
-          .to(phase[1], { opacity: 1, duration: 0.15 }, 0.78)
+          .to(software, { opacity: 0.28, scale: 0.985, ease: "none", duration: 1 }, 0)
+          .to(systems, { opacity: 1, scale: 1.018, ease: "none", duration: 1 }, 0)
+          .to(progress, { scaleX: 0.34, ease: "none", duration: 1 }, 0)
+          .to(phase[0], { opacity: 0, duration: 0.14 }, 0.72)
+          .to(phase[1], { opacity: 1, duration: 0.14 }, 0.78)
 
-          .to(software, { xPercent: -42, yPercent: -26, opacity: 0.2, ease: "none", duration: 1 }, 1)
-          .to(systems, { xPercent: 18, yPercent: -5, opacity: 0.35, scale: 0.92, ease: "none", duration: 1 }, 1)
-          .to(interfaces, { xPercent: 0, yPercent: 10, opacity: 1, scale: 1.08, ease: "none", duration: 1 }, 1)
-          .to(portal, { scale: 0.9, rotate: -4, ease: "none", duration: 1 }, 1)
-          .to(phase[1], { opacity: 0, duration: 0.15 }, 1.72)
-          .to(phase[2], { opacity: 1, duration: 0.15 }, 1.78)
+          .to(systems, { opacity: 0.28, scale: 0.985, ease: "none", duration: 1 }, 1)
+          .to(interfaces, { opacity: 1, scale: 1.018, ease: "none", duration: 1 }, 1)
+          .to(portal, { scaleX: 0.6, scaleY: 0.055, opacity: 0.92, ease: "none", duration: 1 }, 1)
+          .to(progress, { scaleX: 0.67, ease: "none", duration: 1 }, 1)
+          .to(phase[1], { opacity: 0, duration: 0.14 }, 1.72)
+          .to(phase[2], { opacity: 1, duration: 0.14 }, 1.78)
 
-          .to(software, { opacity: 0.07, yPercent: -36, ease: "none", duration: 1 }, 2)
-          .to(systems, { opacity: 0.08, xPercent: 36, ease: "none", duration: 1 }, 2)
-          .to(interfaces, { opacity: 0.08, yPercent: 32, ease: "none", duration: 1 }, 2)
-          .to(portal, { scale: 1.82, rotate: 0, borderRadius: "34px", ease: "none", duration: 1 }, 2)
-          .to(portalLabel, { opacity: 1, y: -4, ease: "none", duration: 0.55 }, 2.18)
-          .to(resolve, { opacity: 1, y: 0, ease: "none", duration: 0.7 }, 2.25)
-          .to(phase[2], { opacity: 0, duration: 0.15 }, 2.72)
-          .to(phase[3], { opacity: 1, duration: 0.15 }, 2.78);
+          .to([software, systems, interfaces], { opacity: 0.08, scale: 0.97, ease: "none", duration: 1 }, 2)
+          .to(intro, { opacity: 0.28, ease: "none", duration: 1 }, 2)
+          .to(portal, { scaleX: 1.78, scaleY: 1.3, opacity: 1, borderRadius: "30px", ease: "none", duration: 1 }, 2)
+          .to(portalLabel, { opacity: 1, ease: "none", duration: 0.45 }, 2.16)
+          .to(resolve, { opacity: 1, y: 0, ease: "none", duration: 0.7 }, 2.24)
+          .to(progress, { scaleX: 1, ease: "none", duration: 1 }, 2)
+          .to(phase[2], { opacity: 0, duration: 0.14 }, 2.72)
+          .to(phase[3], { opacity: 1, duration: 0.14 }, 2.78);
       },
     );
 
@@ -84,29 +84,33 @@ export function HomeScrollStory() {
   }, []);
 
   return (
-    <section ref={storyRef} className="home16-story" aria-label="Scroll-driven portfolio introduction">
-      <div ref={stageRef} className="home16-stage">
+    <section ref={storyRef} className="home16-story home17-story" aria-label="Scroll-driven portfolio introduction">
+      <div ref={stageRef} className="home16-stage home17-stage">
         <div className="home16-grid" aria-hidden="true" />
         <div className="home16-glow" aria-hidden="true" />
 
-        <div className="portfolio-shell home16-stage-inner">
+        <div className="portfolio-shell home16-stage-inner home17-stage-inner">
           <div className="home16-topline" data-intro>
             <span>Kristy Kate Taylor</span>
             <span>Software Developer · UI/UX Designer</span>
           </div>
 
-          <div className="home16-word-field" aria-hidden="true">
-            <span className="home16-word home16-word-software" data-word="software">SOFTWARE</span>
-            <span className="home16-word home16-word-systems" data-word="systems">SYSTEMS</span>
-            <span className="home16-word home16-word-interfaces" data-word="interfaces">INTERFACES</span>
+          <div className="home17-heading-block" aria-hidden="true">
+            <span className="home17-word" data-word="software">SOFTWARE</span>
+            <span className="home17-word home17-word-editorial" data-word="systems">SYSTEMS</span>
+            <span className="home17-word" data-word="interfaces">INTERFACES</span>
           </div>
 
-          <div className="home16-portal" data-portal aria-hidden="true">
+          <div className="home17-progress-track" aria-hidden="true">
+            <span data-progress />
+          </div>
+
+          <div className="home16-portal home17-portal" data-portal aria-hidden="true">
             <div className="home16-portal-noise" />
             <span data-portal-label>DESIGN × DEVELOPMENT</span>
           </div>
 
-          <div className="home16-resolve" data-resolve>
+          <div className="home16-resolve home17-resolve" data-resolve>
             <p>One focus</p>
             <h1>I make complex work feel clear.</h1>
             <div className="home16-resolve-actions">
@@ -126,14 +130,8 @@ export function HomeScrollStory() {
             <span data-phase>04 · Clarity</span>
           </div>
 
-          <div className="home16-ticks" aria-hidden="true">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <i key={index} data-tick />
-            ))}
-          </div>
-
           <div className="home16-scroll" data-intro aria-hidden="true">
-            <span>Scroll to shape the story</span>
+            <span>Scroll to explore</span>
             <ArrowDown size={14} />
           </div>
         </div>
