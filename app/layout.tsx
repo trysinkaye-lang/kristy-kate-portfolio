@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 import "./theme-overrides.css";
@@ -25,25 +26,25 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: `${site.name} | ${site.title}`,
-
-  description: `Portfolio of ${site.name}, a software developer and designer specializing in software systems, web development, UI/UX design, and digital experiences.`,
-
+  description: `Portfolio of ${site.name}, a ${site.title} building information systems, web applications, and desktop/offline-first software with usable interfaces and reliable data workflows.`,
   keywords: [
+    "Kristy Kate Taylor",
     "Software Developer",
     "UI/UX Designer",
-    "Web Developer",
     "Information Systems",
+    "Web Development",
+    "Application Development",
     "Portfolio",
     "Philippines",
   ],
-
   openGraph: {
     title: `${site.name} | ${site.title}`,
     description: site.headline,
+    siteName: site.name,
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: `${site.name} | ${site.title}`,
@@ -74,6 +75,7 @@ export default function RootLayout({
         </Providers>
 
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
