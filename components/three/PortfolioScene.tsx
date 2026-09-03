@@ -13,10 +13,11 @@ type PortfolioSceneProps = {
   pointerRef: MutableRefObject<PointerState>;
   theme: "dark" | "light";
   reducedMotion: boolean;
+  compact: boolean;
   onReady?: () => void;
 };
 
-function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }: PortfolioSceneProps) {
+function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, compact, onReady }: PortfolioSceneProps) {
   const group = useRef<THREE.Group>(null);
   const ringA = useRef<THREE.Mesh>(null);
   const ringB = useRef<THREE.Mesh>(null);
@@ -51,12 +52,13 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
   }, [nodePositions]);
 
   useFrame((state, delta) => {
-    const progress = progressRef.current;
-    const pointer = pointerRef.current;
+    const progress = compact ? 0 : progressRef.current;
+    const pointer = compact ? { x: 0, y: 0 } : pointerRef.current;
     const smooth = 1 - Math.exp(-delta * 4.5);
 
     if (group.current) {
-      const idle = reducedMotion ? 0 : state.clock.elapsedTime * 0.08;
+      const idleRate = compact ? 0.035 : 0.08;
+      const idle = reducedMotion ? 0 : state.clock.elapsedTime * idleRate;
       const targetX = progress * 0.28 + pointer.y * 0.08;
       const targetY = progress * 1.25 + idle + pointer.x * 0.13;
       const targetZ = progress * -0.08;
@@ -66,16 +68,16 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
       group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, targetZ, smooth);
       group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, progress * 0.9, smooth);
       group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, progress * 0.5, smooth);
-      const scale = 1 + progress * 0.13;
+      const scale = (compact ? 0.88 : 1) + progress * 0.13;
       group.current.scale.lerp(new THREE.Vector3(scale, scale, scale), smooth);
     }
 
-    if (ringA.current) ringA.current.rotation.z += delta * (reducedMotion ? 0 : 0.16);
-    if (ringB.current) ringB.current.rotation.x -= delta * (reducedMotion ? 0 : 0.12);
+    if (ringA.current) ringA.current.rotation.z += delta * (reducedMotion ? 0 : compact ? 0.06 : 0.16);
+    if (ringB.current) ringB.current.rotation.x -= delta * (reducedMotion ? 0 : compact ? 0.045 : 0.12);
 
     const targetCameraX = progress * 0.55 + pointer.x * 0.12;
     const targetCameraY = 0.05 + pointer.y * 0.08;
-    const targetCameraZ = 6.3 - progress * 1.25;
+    const targetCameraZ = compact ? 6.8 : 6.3 - progress * 1.25;
     camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetCameraX, smooth);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetCameraY, smooth);
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetCameraZ, smooth);
@@ -90,7 +92,7 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
   return (
     <group ref={group}>
       <mesh>
-        <icosahedronGeometry args={[1.05, 2]} />
+        <icosahedronGeometry args={[1.05, compact ? 1 : 2]} />
         <meshStandardMaterial
           color={coreColor}
           metalness={0.72}
@@ -101,11 +103,11 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
       </mesh>
 
       <mesh ref={ringA} rotation={[Math.PI / 2.5, 0.25, 0]}>
-        <torusGeometry args={[1.65, 0.035, 16, 120]} />
+        <torusGeometry args={[1.65, 0.035, 12, compact ? 72 : 120]} />
         <meshStandardMaterial color={accentColor} metalness={0.8} roughness={0.25} />
       </mesh>
       <mesh ref={ringB} rotation={[0.4, Math.PI / 2.8, 0.6]}>
-        <torusGeometry args={[1.92, 0.025, 16, 120]} />
+        <torusGeometry args={[1.92, 0.025, 12, compact ? 72 : 120]} />
         <meshStandardMaterial color={coreColor} metalness={0.75} roughness={0.28} transparent opacity={0.72} />
       </mesh>
 
@@ -127,17 +129,17 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
       ))}
 
       <Sparkles
-        count={reducedMotion ? 8 : 28}
-        scale={[5.2, 4.2, 3.2]}
-        size={reducedMotion ? 0.8 : 1.15}
-        speed={reducedMotion ? 0 : 0.12}
-        opacity={dark ? 0.32 : 0.17}
+        count={reducedMotion ? 6 : compact ? 12 : 28}
+        scale={compact ? [4.6, 3.6, 2.8] : [5.2, 4.2, 3.2]}
+        size={reducedMotion ? 0.7 : compact ? 0.85 : 1.15}
+        speed={reducedMotion ? 0 : compact ? 0.04 : 0.12}
+        opacity={dark ? (compact ? 0.22 : 0.32) : compact ? 0.12 : 0.17}
         color={accentColor}
         noise={0.45}
       />
 
-      <pointLight position={[2.8, 2.4, 3.5]} intensity={dark ? 18 : 10} color={accentColor} distance={9} />
-      <pointLight position={[-3, -1.4, 2]} intensity={dark ? 11 : 6} color={coreColor} distance={8} />
+      <pointLight position={[2.8, 2.4, 3.5]} intensity={dark ? (compact ? 12 : 18) : compact ? 7 : 10} color={accentColor} distance={9} />
+      <pointLight position={[-3, -1.4, 2]} intensity={dark ? (compact ? 7 : 11) : compact ? 4 : 6} color={coreColor} distance={8} />
     </group>
   );
 }
@@ -148,8 +150,8 @@ export default function PortfolioScene(props: PortfolioSceneProps) {
   return (
     <Canvas
       className="portfolio-webgl-canvas"
-      camera={{ position: [0, 0.05, 6.3], fov: 42 }}
-      dpr={[1, 1.5]}
+      camera={{ position: [0, 0.05, props.compact ? 6.8 : 6.3], fov: 42 }}
+      dpr={props.compact ? [1, 1.25] : [1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       onCreated={({ gl }) => {
         gl.setClearColor(background, 0);
