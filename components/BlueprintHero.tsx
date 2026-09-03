@@ -101,19 +101,12 @@ export function BlueprintHero() {
         <div className="portfolio-shell cover-shell">
           <div className="cover-stage">
             <div className="cover-title-wrap">
-              <div className="cover-role">SOFTWARE / UI·UX</div>
               <h1>
                 <span className="cover-line-a">DEVELOPER</span>
                 <em className="cover-line-b">&amp; DESIGNER.</em>
               </h1>
               <p className="cover-signature">Designing thoughtful digital experiences with code, clarity, and care.</p>
               <div className="cover-rule" aria-hidden="true"><i /></div>
-            </div>
-
-            <div className="cover-coordinates" aria-hidden="true">
-              <span>DESIGN</span>
-              <span>CODE</span>
-              <span>DETAIL</span>
             </div>
           </div>
 
@@ -134,16 +127,10 @@ export function BlueprintHero() {
               <ArrowUpRight size={20} />
             </Link>
           </nav>
-
-          <div className="cover-footer">
-            <span>DESIGNED &amp; BUILT WITH INTENTION</span>
-            <span>INTERACTIVE PORTFOLIO</span>
-          </div>
         </div>
 
         <div className="cover-scroll-cue" aria-hidden="true">
-          <span>SCROLL TO MOVE THROUGH DEPTH</span>
-          <ArrowDown size={14} />
+          <ArrowDown size={16} />
         </div>
       </div>
     </section>
