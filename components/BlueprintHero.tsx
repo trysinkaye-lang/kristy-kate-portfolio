@@ -19,13 +19,27 @@ export function BlueprintHero() {
       const rect = cover.getBoundingClientRect();
       const travel = Math.max(1, rect.height - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      const eased = 1 - Math.pow(1 - progress, 3);
 
       cover.style.setProperty("--sp", progress.toFixed(4));
-      cover.style.setProperty("--title-y", `${progress * -52}px`);
-      cover.style.setProperty("--line-a-x", `${progress * -6.5}vw`);
-      cover.style.setProperty("--line-b-x", `${progress * 6.5}vw`);
-      cover.style.setProperty("--grid-y", `${progress * 34}px`);
-      cover.style.setProperty("--paths-y", `${(1 - progress) * 22}px`);
+      cover.style.setProperty("--se", eased.toFixed(4));
+      cover.style.setProperty("--title-y", `${eased * -92}px`);
+      cover.style.setProperty("--line-a-x", `${eased * -8.5}vw`);
+      cover.style.setProperty("--line-b-x", `${eased * 8.5}vw`);
+      cover.style.setProperty("--line-a-z", `${eased * 150}px`);
+      cover.style.setProperty("--line-b-z", `${eased * 58}px`);
+      cover.style.setProperty("--scene-rx", `${eased * 11}deg`);
+      cover.style.setProperty("--scene-ry", `${eased * -7}deg`);
+      cover.style.setProperty("--scene-z", `${eased * -115}px`);
+      cover.style.setProperty("--scene-scale", `${1 - eased * 0.075}`);
+      cover.style.setProperty("--grid-y", `${eased * 76}px`);
+      cover.style.setProperty("--grid-r", `${eased * 9}deg`);
+      cover.style.setProperty("--orbit-r", `${eased * 32}deg`);
+      cover.style.setProperty("--paths-y", `${(1 - eased) * 54}px`);
+      cover.style.setProperty("--paths-z", `${eased * 86}px`);
+      cover.style.setProperty("--plane-a-x", `${eased * -12}vw`);
+      cover.style.setProperty("--plane-b-x", `${eased * 14}vw`);
+      cover.style.setProperty("--plane-r", `${eased * 24}deg`);
     };
 
     const onScroll = () => {
@@ -52,8 +66,8 @@ export function BlueprintHero() {
     const y = (event.clientY - rect.top) / rect.height;
     cover.style.setProperty("--mx", `${x * 100}%`);
     cover.style.setProperty("--my", `${y * 100}%`);
-    cover.style.setProperty("--rx", `${(0.5 - y) * 2.4}deg`);
-    cover.style.setProperty("--ry", `${(x - 0.5) * 3.6}deg`);
+    cover.style.setProperty("--rx", `${(0.5 - y) * 3.3}deg`);
+    cover.style.setProperty("--ry", `${(x - 0.5) * 4.8}deg`);
   };
 
   const resetPointer = () => {
@@ -80,12 +94,14 @@ export function BlueprintHero() {
         <div className="cover-light" aria-hidden="true" />
         <div className="cover-orbit cover-orbit-a" aria-hidden="true" />
         <div className="cover-orbit cover-orbit-b" aria-hidden="true" />
-        <div className="cover-ribbon cover-ribbon-a" aria-hidden="true" />
-        <div className="cover-ribbon cover-ribbon-b" aria-hidden="true" />
+        <div className="cover-depth-plane cover-depth-plane-a" aria-hidden="true" />
+        <div className="cover-depth-plane cover-depth-plane-b" aria-hidden="true" />
+        <div className="cover-depth-ring" aria-hidden="true"><i /><b /></div>
 
         <div className="portfolio-shell cover-shell">
           <div className="cover-stage">
             <div className="cover-title-wrap">
+              <div className="cover-role">SOFTWARE / UI·UX</div>
               <h1>
                 <span className="cover-line-a">DEVELOPER</span>
                 <em className="cover-line-b">&amp; DESIGNER.</em>
@@ -126,7 +142,7 @@ export function BlueprintHero() {
         </div>
 
         <div className="cover-scroll-cue" aria-hidden="true">
-          <span>SCROLL</span>
+          <span>SCROLL TO MOVE THROUGH DEPTH</span>
           <ArrowDown size={14} />
         </div>
       </div>
