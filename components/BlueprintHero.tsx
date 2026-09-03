@@ -5,20 +5,23 @@ import type { PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import "./blueprint-hero.css";
+import "./home-scroll-fix.css";
 
 export function BlueprintHero() {
   const coverRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let frame = 0;
+    let resizeObserver: ResizeObserver | null = null;
 
     const updateScroll = () => {
       const cover = coverRef.current;
       if (!cover) return;
 
-      const rect = cover.getBoundingClientRect();
-      const travel = Math.max(1, rect.height - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      const travel = Math.max(1, cover.offsetHeight - window.innerHeight);
+      const sectionTop = cover.offsetTop;
+      const scrolledThroughSection = window.scrollY - sectionTop;
+      const progress = Math.min(1, Math.max(0, scrolledThroughSection / travel));
       const eased = 1 - Math.pow(1 - progress, 3);
 
       cover.style.setProperty("--sp", progress.toFixed(4));
@@ -42,19 +45,27 @@ export function BlueprintHero() {
       cover.style.setProperty("--plane-r", `${eased * 24}deg`);
     };
 
-    const onScroll = () => {
+    const queueUpdate = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(updateScroll);
     };
 
-    updateScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    queueUpdate();
+    window.addEventListener("scroll", queueUpdate, { passive: true });
+    window.addEventListener("resize", queueUpdate);
+    window.addEventListener("pageshow", queueUpdate);
+
+    if (typeof ResizeObserver !== "undefined" && coverRef.current) {
+      resizeObserver = new ResizeObserver(queueUpdate);
+      resizeObserver.observe(coverRef.current);
+    }
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      resizeObserver?.disconnect();
+      window.removeEventListener("scroll", queueUpdate);
+      window.removeEventListener("resize", queueUpdate);
+      window.removeEventListener("pageshow", queueUpdate);
     };
   }, []);
 
