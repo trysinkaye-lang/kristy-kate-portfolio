@@ -21,13 +21,13 @@ export function BlueprintHero() {
       const progress = Math.min(1, Math.max(0, -rect.top / travel));
 
       cover.style.setProperty("--sp", progress.toFixed(4));
-      cover.style.setProperty("--title-y", `${progress * -58}px`);
-      cover.style.setProperty("--line-a-x", `${progress * -8}vw`);
-      cover.style.setProperty("--line-b-x", `${progress * 8}vw`);
-      cover.style.setProperty("--mono-r", `${progress * 8}deg`);
-      cover.style.setProperty("--mono-s", `${1 + progress * 0.16}`);
-      cover.style.setProperty("--grid-y", `${progress * 42}px`);
-      cover.style.setProperty("--paths-y", `${(1 - progress) * 28}px`);
+      cover.style.setProperty("--title-y", `${progress * -52}px`);
+      cover.style.setProperty("--line-a-x", `${progress * -6.5}vw`);
+      cover.style.setProperty("--line-b-x", `${progress * 6.5}vw`);
+      cover.style.setProperty("--mono-r", `${progress * 6}deg`);
+      cover.style.setProperty("--mono-s", `${1 + progress * 0.12}`);
+      cover.style.setProperty("--grid-y", `${progress * 34}px`);
+      cover.style.setProperty("--paths-y", `${(1 - progress) * 22}px`);
     };
 
     const onScroll = () => {
@@ -54,15 +54,15 @@ export function BlueprintHero() {
     const y = (event.clientY - rect.top) / rect.height;
     cover.style.setProperty("--mx", `${x * 100}%`);
     cover.style.setProperty("--my", `${y * 100}%`);
-    cover.style.setProperty("--rx", `${(0.5 - y) * 3.5}deg`);
-    cover.style.setProperty("--ry", `${(x - 0.5) * 5}deg`);
+    cover.style.setProperty("--rx", `${(0.5 - y) * 2.4}deg`);
+    cover.style.setProperty("--ry", `${(x - 0.5) * 3.6}deg`);
   };
 
   const resetPointer = () => {
     const cover = coverRef.current;
     if (!cover) return;
-    cover.style.setProperty("--mx", "68%");
-    cover.style.setProperty("--my", "36%");
+    cover.style.setProperty("--mx", "72%");
+    cover.style.setProperty("--my", "30%");
     cover.style.setProperty("--rx", "0deg");
     cover.style.setProperty("--ry", "0deg");
   };
@@ -82,28 +82,31 @@ export function BlueprintHero() {
         <div className="cover-light" aria-hidden="true" />
         <div className="cover-orbit cover-orbit-a" aria-hidden="true" />
         <div className="cover-orbit cover-orbit-b" aria-hidden="true" />
+        <div className="cover-ribbon cover-ribbon-a" aria-hidden="true" />
+        <div className="cover-ribbon cover-ribbon-b" aria-hidden="true" />
 
         <div className="portfolio-shell cover-shell">
           <div className="cover-meta">
-            <span>KRISTY KATE TAYLOR</span>
+            <span>SOFTWARE DEVELOPER · UI/UX DESIGNER</span>
             <span>PORTFOLIO / 2026</span>
           </div>
 
           <div className="cover-stage">
-            <div className="cover-monogram" aria-hidden="true">KKT</div>
+            <div className="cover-monogram" aria-hidden="true">KK</div>
             <div className="cover-title-wrap">
-              <span className="cover-index">001 / HOME</span>
+              <span className="cover-index">KRISTY KATE TAYLOR</span>
               <h1>
-                <span className="cover-line-a">CLARITY</span>
-                <em className="cover-line-b">ENGINEERED.</em>
+                <span className="cover-line-a">KRISTY</span>
+                <em className="cover-line-b">KATE.</em>
               </h1>
+              <p className="cover-signature">Designing thoughtful digital experiences with code, clarity, and care.</p>
               <div className="cover-rule" aria-hidden="true"><i /></div>
             </div>
 
             <div className="cover-coordinates" aria-hidden="true">
-              <span>38.7°</span>
-              <span>∞ / 01</span>
-              <span>SYS.READY</span>
+              <span>DESIGN</span>
+              <span>CODE</span>
+              <span>DETAIL</span>
             </div>
           </div>
 
@@ -115,19 +118,19 @@ export function BlueprintHero() {
             </Link>
             <Link href="/about" className="cover-path">
               <span className="cover-path-number">02</span>
-              <span className="cover-path-label">STORY</span>
+              <span className="cover-path-label">ABOUT</span>
               <ArrowUpRight size={20} />
             </Link>
             <Link href="/contact" className="cover-path">
               <span className="cover-path-number">03</span>
-              <span className="cover-path-label">HELLO</span>
+              <span className="cover-path-label">CONTACT</span>
               <ArrowUpRight size={20} />
             </Link>
           </nav>
 
           <div className="cover-footer">
-            <span>INTERACTIVE DIGITAL COVER</span>
-            <span>MOVE YOUR CURSOR</span>
+            <span>DESIGNED & BUILT WITH INTENTION</span>
+            <span>INTERACTIVE PORTFOLIO</span>
           </div>
         </div>
 
