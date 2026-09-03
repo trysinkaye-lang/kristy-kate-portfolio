@@ -1,41 +1,109 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
-import { ProjectsExplorer } from "@/components/projects/ProjectsExplorer";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
-    <main id="main-content" className="portfolio-v2 projects-page editorial-page projects-v13 min-h-screen pb-20 pt-36">
+    <main
+      id="main-content"
+      className="portfolio-v2 projects-page editorial-page min-h-screen pb-20 pt-36"
+    >
       <div className="portfolio-shell">
-        <header className="projects-v13-hero">
-          <div className="projects-v13-hero-copy">
-            <div className="projects-v13-eyebrow">
-              <Sparkles size={14} aria-hidden="true" />
-              Selected systems, interfaces, and product work
-            </div>
-            <h1 className="page-title projects-heading text-white">
-              Work built for <span className="page-title-accent">real workflows.</span>
-            </h1>
-            <p className="page-intro projects-subtitle mt-7 max-w-2xl text-lg leading-8 text-zinc-500">
-              I design and develop systems where data, workflow, and interface decisions have to work together—not just look good in a screenshot.
-            </p>
-          </div>
-
-          <div className="projects-v13-hero-stats" aria-label="Portfolio highlights">
-            <div><strong>04</strong><span>Case studies</span></div>
-            <div><strong>03</strong><span>Information systems</span></div>
-            <div><strong>Full cycle</strong><span>Requirements to interface</span></div>
-          </div>
+        <header
+          className="page-hero-panel projects-refined-hero flex flex-col justify-center"
+          style={{ minHeight: "clamp(270px, 23vw, 320px)" }}
+        >
+          <h1 className="section-title max-w-4xl text-[clamp(3.5rem,6vw,5.85rem)] font-semibold leading-[.9] tracking-[-.06em]">
+            My recent <span className="page-title-accent">work.</span>
+          </h1>
+          <p className="page-intro mt-5 max-w-[680px] text-[1.05rem] leading-7 sm:text-lg sm:leading-8">
+            Information systems, business applications, and interfaces I&apos;m proud to have designed and developed.
+          </p>
         </header>
 
-        <ProjectsExplorer />
+        <div className="mt-6 grid gap-5 sm:mt-8">
+          {projects.map((project, index) => (
+            <article
+              key={project.slug}
+              className={`project-editorial-row project-accent-${index % 3} editorial-section grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-10 xl:gap-12`}
+            >
+              <TrackedLink
+                href={`/projects/${project.slug}`}
+                eventName="project_case_study_click"
+                eventData={{ project: project.slug, source: "projects_visual" }}
+                aria-label={`View ${project.shortTitle} case study`}
+                className={`project-editorial-visual project-visual-shell group relative aspect-[16/10] overflow-hidden border border-white/[.09] ${index % 2 ? "lg:order-2" : ""}`}
+              >
+                <div className="project-visual-glow" aria-hidden="true" />
+                <Image
+                  src={project.image}
+                  alt={`${project.shortTitle} interface`}
+                  fill
+                  className="project-interface-image object-contain p-2 transition duration-500 group-hover:scale-[1.018] motion-reduce:transform-none motion-reduce:transition-none sm:p-3"
+                  sizes="(max-width: 1100px) 100vw, 54vw"
+                />
+                <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-[.65rem] font-bold tracking-[.14em] text-zinc-300 backdrop-blur-md">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="project-open-button absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/10 text-white backdrop-blur-xl transition group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none">
+                  <ArrowUpRight size={18} />
+                </span>
+              </TrackedLink>
 
-        <section className="projects-v13-cta">
-          <div>
-            <p className="v2-kicker">Have something complex to build?</p>
-            <h2>Let&apos;s turn the workflow into a system people can actually use.</h2>
-          </div>
-          <Link href="/contact" className="v2-button v2-button-primary">
-            Start a conversation <ArrowUpRight size={16} />
+              <div className={`project-copy min-w-0 py-2 ${index % 2 ? "lg:order-1" : ""}`}>
+                <div className="project-meta flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[.14em] text-zinc-500">
+                  <span className="project-status"><i aria-hidden="true" />{project.status}</span>
+                  <span aria-hidden="true" className="h-px w-8 bg-white/10" />
+                  <span>{project.category.slice(0, 2).join(" · ")}</span>
+                </div>
+
+                <h2 className="section-title project-title mt-4 text-[clamp(2.45rem,4vw,4.1rem)] font-semibold leading-[.96] tracking-[-.05em]">
+                  {project.shortTitle}
+                </h2>
+                <p className="project-full-title mt-3 max-w-xl text-sm font-medium leading-6 text-zinc-400">
+                  {project.title}
+                </p>
+                <p className="project-overview mt-5 max-w-[62ch] text-[1rem] leading-7 text-zinc-400">
+                  {project.overview}
+                </p>
+
+                <div className="mt-6 grid gap-5 border-t border-white/[.08] pt-5 sm:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
+                  <div>
+                    <span className="text-[.66rem] font-bold uppercase tracking-[.14em] text-zinc-500">Role</span>
+                    <p className="mt-2 text-sm leading-6 text-zinc-300">{project.role}</p>
+                  </div>
+                  <div>
+                    <span className="text-[.66rem] font-bold uppercase tracking-[.14em] text-zinc-500">Technology</span>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 5).map((item) => (
+                        <span className="v2-chip" key={item}>{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <TrackedLink
+                  href={`/projects/${project.slug}`}
+                  eventName="project_case_study_click"
+                  eventData={{ project: project.slug, source: "projects_cta" }}
+                  className="project-case-link group mt-6 inline-flex items-center gap-2 text-sm font-semibold"
+                >
+                  View Case Study
+                  <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" size={16} />
+                </TrackedLink>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <section className="projects-cta page-cta editorial-section py-20 text-center sm:py-24">
+          <h2 className="section-title mx-auto max-w-3xl text-4xl font-semibold tracking-[-.045em] sm:text-5xl">
+            Have a system, website, or interface in mind?
+          </h2>
+          <Link href="/contact" className="v2-button v2-button-primary mt-8">
+            Contact me <ArrowUpRight size={16} />
           </Link>
         </section>
       </div>
