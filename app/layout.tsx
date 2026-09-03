@@ -11,6 +11,7 @@ import "./mobile-refinement-v4.css";
 import "./contact-visibility-hotfix.css";
 import "./content-architecture-v5.css";
 import "./feminine-editorial-v6.css";
+import "./feminine-lightmode-v7.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
