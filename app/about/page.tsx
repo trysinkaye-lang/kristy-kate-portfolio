@@ -1,7 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Database, Figma, Layers3, MonitorSmartphone } from "lucide-react";
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Database,
+  Figma,
+  GraduationCap,
+  Layers3,
+  MapPin,
+  MonitorSmartphone,
+  Sparkles,
+} from "lucide-react";
 import { InteractiveToolGrid } from "@/components/InteractiveToolGrid";
+import { AboutFocusPanel } from "@/components/about/AboutFocusPanel";
 
 const methods = [
   {
@@ -27,84 +38,127 @@ const methods = [
 ];
 
 const services = [
-  { icon: MonitorSmartphone, label: "Software Development" },
-  { icon: Layers3, label: "Information Systems" },
-  { icon: Figma, label: "UI/UX Design" },
-  { icon: Database, label: "Database Design" },
+  { icon: MonitorSmartphone, label: "Software Development", note: "Systems, applications, and operational tools" },
+  { icon: Layers3, label: "Information Systems", note: "Structured data and real-world workflows" },
+  { icon: Figma, label: "UI/UX Design", note: "Clear interfaces and interaction patterns" },
+  { icon: Database, label: "Database Design", note: "Reliable relationships and data integrity" },
 ];
 
 export default function AboutPage() {
   return (
-    <main id="main-content" className="portfolio-v2 about-page editorial-page min-h-screen pb-20 pt-36">
+    <main id="main-content" className="portfolio-v2 about-page editorial-page about-v13 min-h-screen pb-20 pt-36">
       <div className="portfolio-shell">
-        <header className="page-hero page-hero-panel about-hero about-hero-with-portrait">
-          <div className="about-portrait-wrap">
-            <Image
-              src="/media/kristy-kate-professional-portrait-v2.webp"
-              alt="Kristy Kate Taylor"
-              fill
-              priority
-              className="about-portrait object-cover"
-              sizes="(max-width: 820px) 100vw, 340px"
-            />
+        <header className="about-v13-hero">
+          <div className="about-v13-portrait-column">
+            <div className="about-v13-portrait-frame">
+              <span className="about-v13-portrait-glow" aria-hidden="true" />
+              <Image
+                src="/media/kristy-kate-professional-portrait-v2.webp"
+                alt="Kristy Kate Taylor"
+                fill
+                priority
+                className="about-v13-portrait object-cover"
+                sizes="(max-width: 900px) 100vw, 420px"
+              />
+              <div className="about-v13-portrait-label">
+                <span><MapPin size={13} /> Philippines</span>
+                <span>Software + Design</span>
+              </div>
+            </div>
           </div>
 
-          <div className="page-hero-heading">
-            <h1 className="page-title text-white">Hello, I’m <span className="page-title-accent">Kristy Kate.</span></h1>
-          </div>
+          <div className="about-v13-intro">
+            <div className="about-v13-eyebrow"><Sparkles size={14} /> Behind the systems</div>
+            <h1 className="page-title text-white">Hello, I&apos;m <span className="page-title-accent">Kristy Kate.</span></h1>
+            <p className="about-v13-lead">
+              I&apos;m a software developer and UI/UX designer who likes solving the part between a messy real-world workflow and a system that finally feels clear.
+            </p>
+            <p className="about-v13-copy">
+              My work combines requirements analysis, database design, application development, and interface design. I&apos;m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.
+            </p>
 
-          <div className="page-intro space-y-6 text-lg leading-8 text-zinc-400">
-            <p>I’m a software developer and UI/UX designer passionate about building clear, reliable digital systems for real people and real workflows.</p>
-            <p>My work combines requirements analysis, database design, application development, and interface design. I care about making powerful tools feel organized rather than overwhelming.</p>
-            <p>I’m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.</p>
+            <div className="about-v13-quick-facts">
+              <div><BriefcaseBusiness size={17} /><span><strong>Focus</strong>Information systems</span></div>
+              <div><GraduationCap size={17} /><span><strong>Degree</strong>BS Information Technology</span></div>
+              <div><Layers3 size={17} /><span><strong>Approach</strong>Full workflow thinking</span></div>
+            </div>
           </div>
         </header>
 
-        <section className="about-section editorial-section border-b border-white/[.09] py-16 lg:py-24">
-          <div className="grid gap-10 lg:grid-cols-[.30fr_.70fr] lg:gap-16">
+        <section className="about-v13-focus-section">
+          <AboutFocusPanel />
+        </section>
+
+        <section className="about-v13-process">
+          <div className="about-v13-section-heading">
             <div>
-              <h2 className="section-title max-w-xs text-3xl font-semibold tracking-[-.035em] text-white">From messy requirements to a usable system.</h2>
-              <p className="mt-5 max-w-sm text-sm leading-7 text-zinc-500">My About page is about my thinking and process. The detailed project stories live only on the Projects page.</p>
+              <p className="v2-kicker">How I work</p>
+              <h2>From messy requirements to a usable system.</h2>
             </div>
-            <div className="about-method-grid">
-              {methods.map((item) => (
-                <article className="about-method-card editorial-card" key={item.number}>
-                  <span className="about-method-number">{item.number}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-            </div>
+            <p>I prefer process that makes the final interface easier to understand—not process for its own sake.</p>
           </div>
-        </section>
 
-        <section className="about-section editorial-section grid gap-10 border-b border-white/[.09] py-16 lg:grid-cols-[.38fr_.62fr] lg:py-24">
-          <div />
-          <div className="about-education-card editorial-card rounded-[2rem] border border-white/[.09] p-7 sm:p-9">
-            <h2 className="text-2xl font-semibold text-white">University of Science and Technology of Southern Philippines</h2>
-            <p className="mt-3 text-zinc-500">Bachelor of Science in Information Technology</p>
-          </div>
-        </section>
-
-        <section className="about-section editorial-section py-16 lg:py-24">
-          <div className="mt-2 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map(({ icon: Icon, label }) => (
-              <div className="about-service-card editorial-card rounded-2xl border border-white/[.09] p-6" key={label}>
-                <Icon size={22} />
-                <p className="mt-12 font-semibold text-white">{label}</p>
-              </div>
+          <div className="about-v13-process-grid">
+            {methods.map((item) => (
+              <article className="about-v13-process-card" key={item.number}>
+                <span>{item.number}</span>
+                <h3>{item.title}</h3>
+                <p>{item.detail}</p>
+                <i aria-hidden="true" />
+              </article>
             ))}
           </div>
         </section>
 
-        <section className="about-section editorial-section border-y border-white/[.09] py-16 lg:py-24">
-          <h2 className="section-title text-3xl font-semibold text-white sm:text-4xl">Tools I work with</h2>
+        <section className="about-v13-education">
+          <div className="about-v13-education-mark"><GraduationCap size={28} /></div>
+          <div>
+            <p className="v2-kicker">Education</p>
+            <h2>University of Science and Technology of Southern Philippines</h2>
+            <p>Bachelor of Science in Information Technology</p>
+          </div>
+          <span className="about-v13-education-code">BSIT</span>
+        </section>
+
+        <section className="about-v13-services">
+          <div className="about-v13-section-heading">
+            <div>
+              <p className="v2-kicker">What I bring</p>
+              <h2>Development and design, treated as one product problem.</h2>
+            </div>
+          </div>
+
+          <div className="about-v13-service-grid">
+            {services.map(({ icon: Icon, label, note }, index) => (
+              <article className="about-v13-service-card" key={label}>
+                <div className="about-v13-service-top">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon size={22} />
+                </div>
+                <h3>{label}</h3>
+                <p>{note}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="about-v13-tools">
+          <div className="about-v13-section-heading">
+            <div>
+              <p className="v2-kicker">Toolbox</p>
+              <h2>Tools I use to move from idea to working product.</h2>
+            </div>
+            <p>Click a tool to see where it fits in my workflow.</p>
+          </div>
           <InteractiveToolGrid />
         </section>
 
-        <section className="about-section editorial-section page-cta py-24 text-center">
-          <h2 className="section-title mx-auto max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">Want to see how this approach turns into real systems?</h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <section className="about-v13-cta">
+          <div>
+            <p className="v2-kicker">See the work</p>
+            <h2>Want to see how this thinking turns into real systems?</h2>
+          </div>
+          <div className="about-v13-cta-actions">
             <Link href="/projects" className="v2-button v2-button-primary">View projects <ArrowUpRight size={16} /></Link>
             <Link href="/contact" className="v2-button">Contact me</Link>
           </div>
