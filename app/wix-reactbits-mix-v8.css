@@ -1,0 +1,258 @@
+/* V8: Wix Studio-inspired editorial composition + React Bits interaction language. */
+
+:root {
+  --font-editorial-stack: var(--font-editorial), Georgia, serif;
+}
+
+/* Editorial contrast */
+.hero-title-motion,
+.home-capabilities-copy .v2-heading,
+.projects-heading,
+.about-hero h1,
+.contact-page h1 {
+  font-family: var(--font-display-stack) !important;
+}
+
+.hero-title-motion .split-word:last-child,
+.home-capabilities-copy .v2-heading em,
+.projects-heading em,
+.about-hero h1 em {
+  font-family: var(--font-editorial-stack) !important;
+  font-weight: 500 !important;
+  font-style: italic;
+  letter-spacing: -.035em !important;
+}
+
+/* Home hero: cleaner studio composition */
+.home-hero-shell {
+  min-height: calc(100vh - 72px);
+  position: relative;
+}
+
+.home-hero-shell::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.07) 18%, rgba(255,255,255,.07) 82%, transparent);
+  pointer-events: none;
+}
+
+.light .home-hero-shell::after {
+  background: linear-gradient(180deg, transparent, rgba(42,50,69,.08) 18%, rgba(42,50,69,.08) 82%, transparent);
+}
+
+.home-portrait-stage {
+  position: relative;
+  isolation: isolate;
+}
+
+.home-portrait-stage::before {
+  content: "";
+  position: absolute;
+  inset: 11% 8%;
+  border-radius: 48% 52% 44% 56% / 57% 43% 57% 43%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(132, 96, 246, .22), transparent 46%),
+    radial-gradient(circle at 72% 68%, rgba(51, 201, 176, .14), transparent 48%);
+  filter: blur(24px);
+  opacity: .7;
+  z-index: -1;
+  animation: studioBlob 14s ease-in-out infinite alternate;
+}
+
+@keyframes studioBlob {
+  0% { transform: rotate(-4deg) scale(.98); border-radius: 48% 52% 44% 56% / 57% 43% 57% 43%; }
+  100% { transform: rotate(5deg) scale(1.035); border-radius: 56% 44% 54% 46% / 45% 55% 42% 58%; }
+}
+
+.hero-title-motion {
+  max-width: 720px !important;
+}
+
+.hero-description-motion {
+  max-width: 560px !important;
+}
+
+.home-contact-link {
+  position: relative;
+  padding-bottom: .25rem;
+}
+
+.home-contact-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right .3s ease;
+}
+
+.home-contact-link:hover::after {
+  right: 0;
+}
+
+/* Wix-style spacious section rhythm */
+.portfolio-section {
+  scroll-margin-top: 96px;
+}
+
+.home-capabilities {
+  position: relative;
+}
+
+.home-capabilities::after {
+  content: "";
+  position: absolute;
+  right: 5vw;
+  top: 12%;
+  width: min(32vw, 430px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(111, 82, 238, .08), transparent 68%);
+  pointer-events: none;
+}
+
+.home-capabilities-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+}
+
+.home-capabilities-copy .v2-heading {
+  font-size: clamp(3rem, 5.5vw, 5.8rem) !important;
+  max-width: 820px;
+}
+
+.home-capability-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.home-capability-card {
+  padding-top: 2rem !important;
+  padding-bottom: 2.4rem !important;
+}
+
+.home-capability-card:nth-child(2) {
+  transform: translateY(32px);
+}
+
+.home-capability-card:nth-child(2):hover {
+  transform: translateY(32px) !important;
+}
+
+.home-capability-card h3 {
+  max-width: 240px !important;
+}
+
+.home-work-cta {
+  position: relative;
+  z-index: 1;
+  margin-top: 5rem !important;
+  padding: 1.35rem 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.light .home-work-cta {
+  border-color: rgba(48,58,78,.09);
+}
+
+/* Projects: Wix Studio editorial asymmetry */
+.project-editorial-row:nth-child(even) {
+  grid-template-columns: .82fr 1.18fr !important;
+}
+
+.project-editorial-row:nth-child(even) .project-editorial-visual {
+  transform: translateY(26px);
+}
+
+.project-editorial-row:nth-child(odd) .project-copy {
+  padding-top: 2.5rem !important;
+}
+
+.project-editorial-visual {
+  overflow: hidden;
+}
+
+.project-editorial-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255,255,255,.05), transparent 35%, transparent 65%, rgba(255,255,255,.025));
+  pointer-events: none;
+}
+
+.project-interface-image {
+  transition: transform .8s cubic-bezier(.22, 1, .36, 1), filter .4s ease !important;
+}
+
+.project-editorial-visual:hover .project-interface-image {
+  transform: scale(1.045) !important;
+}
+
+/* About: editorial pull-quote rhythm */
+.about-hero {
+  position: relative;
+}
+
+.about-hero::before {
+  content: "Selected profile";
+  position: absolute;
+  top: -2.8rem;
+  left: 0;
+  font-family: var(--font-body-stack);
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--v3-soft, #777);
+}
+
+.about-hero > div p:first-child::first-letter {
+  font-family: var(--font-editorial-stack);
+  font-size: 3.2rem;
+  line-height: .8;
+  float: left;
+  margin: .1rem .5rem 0 0;
+}
+
+/* Softer nav treatment */
+.floating-nav {
+  backdrop-filter: blur(24px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+}
+
+/* Motion discipline */
+.home-capability-card,
+.about-method-card,
+.project-editorial-row {
+  transition: background .28s ease, border-color .28s ease !important;
+}
+
+@media (max-width: 1023px) {
+  .home-hero-shell::after { display: none; }
+  .home-capability-card:nth-child(2),
+  .home-capability-card:nth-child(2):hover { transform: none !important; }
+  .project-editorial-row:nth-child(even) { grid-template-columns: 1fr !important; }
+  .project-editorial-row:nth-child(even) .project-editorial-visual { transform: none; }
+}
+
+@media (max-width: 639px) {
+  .home-capabilities-copy .v2-heading {
+    font-size: clamp(2.8rem, 13vw, 4.4rem) !important;
+  }
+  .home-work-cta {
+    margin-top: 3rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-portrait-stage::before {
+    animation: none !important;
+  }
+}
