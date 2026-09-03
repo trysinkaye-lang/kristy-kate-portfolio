@@ -43,8 +43,11 @@ export function HomeCinematicHero() {
   const words = useMemo(() => scatterWords, []);
 
   useEffect(() => {
-    setWebgl(supportsWebGL());
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const frame = window.requestAnimationFrame(() => {
+      setWebgl(supportsWebGL());
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
