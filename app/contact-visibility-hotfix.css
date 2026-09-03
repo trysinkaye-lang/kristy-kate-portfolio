@@ -2,6 +2,15 @@
    This file is imported last so earlier theme/animation layers cannot hide
    the actual contact content while leaving only the background visible. */
 
+/* enhancements-v3.css applies position: relative to every direct div under
+   .contact-page, which unintentionally overrides the decorative orbs' absolute
+   positioning and pushes the real content far down the page. Restore the orbs
+   to absolute positioning so they stay decorative and out of normal flow. */
+.contact-page > .contact-orb {
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
 .contact-page > .relative.z-10 {
   display: block !important;
   position: relative !important;
