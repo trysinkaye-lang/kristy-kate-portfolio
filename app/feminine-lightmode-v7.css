@@ -1,0 +1,311 @@
+/* Dedicated feminine light mode + personal home refinements. Imported last. */
+
+/* Home editorial identity */
+.home-cover .cover-signature {
+  max-width: 620px;
+  margin: 1.35rem auto 0;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.7;
+  color: #b9aab6;
+}
+
+.home-cover .cover-ribbon {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(1px);
+  opacity: .42;
+  transform-origin: center;
+}
+
+.home-cover .cover-ribbon-a {
+  width: 46vw;
+  height: 8vw;
+  min-height: 76px;
+  right: -12vw;
+  top: 20%;
+  border: 1px solid rgba(216, 172, 201, .16);
+  transform: rotate(-24deg);
+}
+
+.home-cover .cover-ribbon-b {
+  width: 38vw;
+  height: 6vw;
+  min-height: 62px;
+  left: -12vw;
+  bottom: 18%;
+  border: 1px solid rgba(188, 164, 207, .13);
+  transform: rotate(21deg);
+}
+
+.dark .cover-title-wrap h1 {
+  text-shadow: 0 18px 70px rgba(98, 69, 96, .22);
+}
+
+.dark .cover-title-wrap h1 em {
+  color: #d7b4c9 !important;
+}
+
+/* Light mode is intentionally warm/editorial rather than white/cool. */
+.light body {
+  background: #f8f1ef !important;
+  color: #302733 !important;
+}
+
+.light .portfolio-v2,
+.light .portfolio-section,
+.light .about-page,
+.light .projects-page,
+.light .contact-page {
+  background-color: #f8f1ef !important;
+}
+
+.light .portfolio-v2 {
+  background-image:
+    radial-gradient(circle at 86% 6%, rgba(190, 161, 199, .16), transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(221, 177, 194, .14), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.30), rgba(248,241,239,.20)) !important;
+}
+
+.light .portfolio-section {
+  background: rgba(248, 241, 239, .95) !important;
+}
+
+.light .portfolio-v2 .text-white,
+.light .projects-heading,
+.light .project-title,
+.light .about-page h1,
+.light .about-page h2,
+.light .contact-page h1,
+.light .v2-heading {
+  color: #302733 !important;
+}
+
+.light .portfolio-v2 .text-zinc-300,
+.light .portfolio-v2 .text-zinc-400,
+.light .portfolio-v2 .text-zinc-500 {
+  color: #706472 !important;
+}
+
+.light .portfolio-v2 .text-zinc-600,
+.light .portfolio-v2 .text-zinc-700 {
+  color: #948695 !important;
+}
+
+.light .v2-kicker {
+  color: #8d6687 !important;
+}
+
+.light .floating-nav {
+  background: rgba(255, 249, 247, .92) !important;
+  border-color: rgba(126, 94, 124, .14) !important;
+  box-shadow: 0 14px 46px rgba(107, 77, 101, .12), inset 0 1px 0 #fff !important;
+}
+
+.light .floating-nav-link,
+.light .floating-contact {
+  color: #6d5d6c !important;
+}
+
+.light .floating-nav-link:hover,
+.light .floating-contact:hover,
+.light .floating-nav-link.is-home {
+  background: rgba(205, 175, 194, .16) !important;
+  color: #3b2f3d !important;
+}
+
+.light .theme-toggle {
+  color: #665568 !important;
+}
+
+.light .v2-button {
+  background: rgba(255, 251, 249, .82) !important;
+  color: #665568 !important;
+  border-color: rgba(126, 94, 124, .14) !important;
+  box-shadow: 0 8px 22px rgba(110, 77, 103, .05);
+}
+
+.light .v2-button:hover {
+  background: #fffaf9 !important;
+  border-color: rgba(126, 94, 124, .24) !important;
+  color: #3b2f3d !important;
+}
+
+.light .v2-button-primary {
+  background: linear-gradient(135deg, #775d7d, #a57c96) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 30px rgba(126, 88, 119, .16) !important;
+}
+
+.light .v2-chip {
+  color: #6d5f70 !important;
+  background: rgba(255, 250, 248, .72) !important;
+  border-color: rgba(126, 94, 124, .12) !important;
+}
+
+.light .project-page-card,
+.light .about-skill-card,
+.light .contact-page-card,
+.light .contact-option,
+.light .about-education-card,
+.light .about-service-card,
+.light .stack-logo-card,
+.light .case-feature {
+  background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(250,242,244,.76)) !important;
+  border-color: rgba(126,94,124,.12) !important;
+  box-shadow: 0 18px 50px rgba(107,77,101,.07) !important;
+}
+
+.light .project-editorial-visual,
+.light .case-hero-visual {
+  background:
+    radial-gradient(circle at 55% 35%, rgba(196, 168, 205, .20), transparent 56%),
+    linear-gradient(145deg, #f4eaee, #eee4ea) !important;
+  box-shadow: 0 26px 65px rgba(107,77,101,.10) !important;
+}
+
+.light .project-interface-image {
+  filter: saturate(.96) contrast(1.01);
+}
+
+.light .about-page {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(191,164,201,.15), transparent 28%),
+    radial-gradient(circle at 9% 82%, rgba(221,177,194,.11), transparent 26%),
+    #f8f1ef !important;
+}
+
+.light .contact-page {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(191,164,201,.17), transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(221,177,194,.14), transparent 31%),
+    linear-gradient(180deg, #fbf5f3, #f5eceb 60%, #f8f1ef) !important;
+}
+
+.light .contact-option:hover,
+.light .about-service-card:hover,
+.light .stack-logo-card:hover,
+.light .case-feature:hover,
+.light .project-page-card:hover {
+  background: #fffaf9 !important;
+  border-color: rgba(126,94,124,.23) !important;
+  box-shadow: 0 22px 55px rgba(107,77,101,.11) !important;
+}
+
+.light .contact-outline-text {
+  color: rgba(116, 83, 111, .08) !important;
+  -webkit-text-fill-color: rgba(116, 83, 111, .08) !important;
+  -webkit-text-stroke: 1.5px rgba(91, 67, 91, .55) !important;
+}
+
+.light .site-footer {
+  background: linear-gradient(180deg, #f5ecea, #eee2e1) !important;
+  color: #504351 !important;
+}
+
+.light .footer-link {
+  background: rgba(255,250,248,.56) !important;
+  border-color: rgba(126,94,124,.12) !important;
+  color: #6e5e6e !important;
+}
+
+/* Home light mode: warm paper + lilac/rose glow + dark plum typography */
+.light .home-cover {
+  background: #faf4f1 !important;
+  color: #342a36 !important;
+}
+
+.light .home-cover .cover-light {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(190, 161, 199, .20), transparent 27%),
+    radial-gradient(circle at calc(var(--mx) - 26%) calc(var(--my) + 34%), rgba(224, 181, 198, .18), transparent 25%),
+    linear-gradient(145deg, #fffaf8 0%, #f7eeee 52%, #fbf5f2 100%) !important;
+}
+
+.light .home-cover .cover-grid {
+  opacity: .10 !important;
+  background-image:
+    linear-gradient(rgba(96, 72, 96, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 72, 96, .045) 1px, transparent 1px) !important;
+  background-size: 84px 84px !important;
+}
+
+.light .home-cover .cover-orbit,
+.light .home-cover .cover-ribbon {
+  border-color: rgba(143, 103, 139, .16) !important;
+}
+
+.light .cover-title-wrap h1 span {
+  color: #332936 !important;
+}
+
+.light .cover-title-wrap h1 em {
+  color: #9a6d8d !important;
+}
+
+.light .cover-signature {
+  color: #806d7d !important;
+}
+
+.light .cover-monogram {
+  color: rgba(100, 70, 98, .035) !important;
+}
+
+.light .cover-meta,
+.light .cover-footer,
+.light .cover-index,
+.light .cover-coordinates,
+.light .cover-path-number,
+.light .cover-scroll-cue {
+  color: #806f80 !important;
+}
+
+.light .cover-paths {
+  border-color: rgba(126,94,124,.12) !important;
+}
+
+.light .cover-path {
+  color: #493b4b !important;
+  border-color: rgba(126,94,124,.12) !important;
+}
+
+.light .cover-path:hover {
+  background: linear-gradient(90deg, rgba(221,177,194,.17), rgba(190,161,199,.14)) !important;
+}
+
+.light .cover-rule:before,
+.light .cover-rule:after {
+  background: linear-gradient(90deg, transparent, rgba(126,94,124,.18)) !important;
+}
+
+.light .cover-rule:after {
+  background: linear-gradient(90deg, rgba(126,94,124,.18), transparent) !important;
+}
+
+.light .cover-rule i {
+  background: #b788a4 !important;
+  box-shadow: 0 0 0 7px rgba(183,136,164,.10), 0 0 24px rgba(160,109,145,.20) !important;
+}
+
+@media (max-width: 760px) {
+  .home-cover .cover-signature {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+    max-width: 34rem;
+  }
+
+  .home-cover .cover-ribbon-a {
+    width: 78vw;
+    top: 24%;
+    right: -34vw;
+  }
+
+  .home-cover .cover-ribbon-b {
+    width: 68vw;
+    left: -32vw;
+  }
+}
