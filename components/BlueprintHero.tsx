@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { site } from "@/data/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import "./blueprint-hero.css";
 import "./home-scroll-fix.css";
 
@@ -26,23 +28,23 @@ export function BlueprintHero() {
 
       cover.style.setProperty("--sp", progress.toFixed(4));
       cover.style.setProperty("--se", eased.toFixed(4));
-      cover.style.setProperty("--title-y", `${eased * -92}px`);
-      cover.style.setProperty("--line-a-x", `${eased * -8.5}vw`);
-      cover.style.setProperty("--line-b-x", `${eased * 8.5}vw`);
-      cover.style.setProperty("--line-a-z", `${eased * 150}px`);
-      cover.style.setProperty("--line-b-z", `${eased * 58}px`);
-      cover.style.setProperty("--scene-rx", `${eased * 11}deg`);
-      cover.style.setProperty("--scene-ry", `${eased * -7}deg`);
-      cover.style.setProperty("--scene-z", `${eased * -115}px`);
-      cover.style.setProperty("--scene-scale", `${1 - eased * 0.075}`);
-      cover.style.setProperty("--grid-y", `${eased * 76}px`);
-      cover.style.setProperty("--grid-r", `${eased * 9}deg`);
-      cover.style.setProperty("--orbit-r", `${eased * 32}deg`);
-      cover.style.setProperty("--paths-y", `${(1 - eased) * 54}px`);
-      cover.style.setProperty("--paths-z", `${eased * 86}px`);
-      cover.style.setProperty("--plane-a-x", `${eased * -12}vw`);
-      cover.style.setProperty("--plane-b-x", `${eased * 14}vw`);
-      cover.style.setProperty("--plane-r", `${eased * 24}deg`);
+      cover.style.setProperty("--title-y", `${eased * -54}px`);
+      cover.style.setProperty("--line-a-x", `${eased * -5.4}vw`);
+      cover.style.setProperty("--line-b-x", `${eased * 5.4}vw`);
+      cover.style.setProperty("--line-a-z", `${eased * 96}px`);
+      cover.style.setProperty("--line-b-z", `${eased * 42}px`);
+      cover.style.setProperty("--scene-rx", `${eased * 7}deg`);
+      cover.style.setProperty("--scene-ry", `${eased * -4.5}deg`);
+      cover.style.setProperty("--scene-z", `${eased * -72}px`);
+      cover.style.setProperty("--scene-scale", `${1 - eased * 0.045}`);
+      cover.style.setProperty("--grid-y", `${eased * 48}px`);
+      cover.style.setProperty("--grid-r", `${eased * 6}deg`);
+      cover.style.setProperty("--orbit-r", `${eased * 22}deg`);
+      cover.style.setProperty("--paths-y", `${(1 - eased) * 34}px`);
+      cover.style.setProperty("--paths-z", `${eased * 54}px`);
+      cover.style.setProperty("--plane-a-x", `${eased * -8}vw`);
+      cover.style.setProperty("--plane-b-x", `${eased * 9}vw`);
+      cover.style.setProperty("--plane-r", `${eased * 16}deg`);
     };
 
     const queueUpdate = () => {
@@ -112,11 +114,52 @@ export function BlueprintHero() {
         <div className="portfolio-shell cover-shell">
           <div className="cover-stage">
             <div className="cover-title-wrap">
+              <div className="cover-identity">
+                <span className="cover-name">{site.name}</span>
+                <span className="cover-identity-divider" aria-hidden="true" />
+                <span className="cover-role">{site.title}</span>
+              </div>
+
               <h1>
                 <span className="cover-line-a">DEVELOPER</span>
                 <em className="cover-line-b">&amp; DESIGNER.</em>
               </h1>
-              <p className="cover-signature">Designing thoughtful digital experiences with code, clarity, and care.</p>
+
+              <p className="cover-signature">{site.headline}</p>
+
+              <div className="cover-actions">
+                <TrackedLink
+                  href="/projects"
+                  eventName="home_view_projects"
+                  eventData={{ source: "hero" }}
+                  className="v2-button v2-button-primary"
+                >
+                  View My Work <ArrowUpRight size={16} />
+                </TrackedLink>
+
+                {site.resume ? (
+                  <TrackedLink
+                    href={site.resume}
+                    eventName="home_resume_click"
+                    eventData={{ source: "hero" }}
+                    className="v2-button"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View Resume
+                  </TrackedLink>
+                ) : null}
+
+                <TrackedLink
+                  href="/contact"
+                  eventName="home_contact_click"
+                  eventData={{ source: "hero" }}
+                  className="v2-button"
+                >
+                  Contact Me
+                </TrackedLink>
+              </div>
+
               <div className="cover-rule" aria-hidden="true"><i /></div>
             </div>
           </div>
