@@ -7,10 +7,12 @@ test.describe("Homepage recruiter journey", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(BASE_URL);
 
-    await expect(page.getByText("Kristy Kate Taylor", { exact: true })).toBeVisible();
-    await expect(page.getByText("Software Developer & UI/UX Designer", { exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /developer.*designer/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /View My Work/i })).toBeVisible();
+    const hero = page.locator("#home");
+    await expect(hero).toBeVisible();
+    await expect(hero.getByText("Kristy Kate Taylor", { exact: true })).toBeVisible();
+    await expect(hero.getByText("Software Developer & UI/UX Designer", { exact: true })).toBeVisible();
+    await expect(hero.getByRole("heading", { name: /developer.*designer/i })).toBeVisible();
+    await expect(hero.getByRole("link", { name: /View My Work/i })).toBeVisible();
 
     await expect(page.getByRole("heading", { name: "RBIM" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AHDIS" })).toBeVisible();
@@ -20,7 +22,7 @@ test.describe("Homepage recruiter journey", () => {
 
   test("primary recruiter CTA opens Projects", async ({ page }) => {
     await page.goto(BASE_URL);
-    await page.getByRole("link", { name: /View My Work/i }).click();
+    await page.locator("#home").getByRole("link", { name: /View My Work/i }).click();
     await expect(page).toHaveURL(/\/projects$/);
   });
 
