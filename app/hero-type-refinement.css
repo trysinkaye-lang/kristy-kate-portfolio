@@ -1,0 +1,51 @@
+/* Hero typography refinement: calmer display type, cleaner hierarchy,
+   and safe descender rendering for the split-text animation. */
+
+.hero-title-motion {
+  font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: clamp(3.35rem, 5.9vw, 6rem) !important;
+  font-weight: 610 !important;
+  line-height: 1.01 !important;
+  letter-spacing: -.052em !important;
+  text-wrap: balance;
+  padding-bottom: .14em;
+}
+
+/* SplitTextLite uses overflow:hidden by default. That can clip descenders
+   such as g/y/p at tight display line-heights, so the hero opts out. */
+.hero-title-motion .split-word {
+  overflow: visible !important;
+  padding-bottom: .13em;
+  margin-bottom: -.13em;
+}
+
+.hero-title-motion .split-letter {
+  will-change: transform, opacity;
+}
+
+.reference-intro.hero-intro-motion {
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.22rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -.015em;
+}
+
+@media (max-width: 900px) {
+  .hero-title-motion {
+    font-size: clamp(3rem, 9.4vw, 5.15rem) !important;
+    line-height: 1.015 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title-motion {
+    font-size: clamp(2.85rem, 14vw, 4.4rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.045em !important;
+  }
+
+  .hero-title-motion .split-word {
+    padding-bottom: .15em;
+    margin-bottom: -.15em;
+  }
+}
