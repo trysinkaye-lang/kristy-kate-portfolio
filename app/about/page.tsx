@@ -36,12 +36,12 @@ export default function AboutPage() {
   return (
     <main id="main-content" className="portfolio-v2 about-page editorial-page min-h-screen pb-20 pt-36">
       <div className="portfolio-shell">
-        <header className="page-hero about-hero grid gap-10 border-b border-white/[.09] pb-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-20 lg:pb-24">
+        <header className="page-hero page-hero-panel page-hero-split about-hero">
           <div className="page-hero-heading">
             <p className="v2-kicker page-kicker">About</p>
-            <h1 className="page-title mt-5 text-[clamp(3.6rem,7vw,6.8rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">Hello! I’m Kristy Kate.</h1>
+            <h1 className="page-title mt-5 text-white">Hello, I’m <span className="page-title-accent">Kristy Kate.</span></h1>
           </div>
-          <div className="page-intro space-y-6 text-lg leading-8 text-zinc-400 lg:pt-3">
+          <div className="page-intro space-y-6 text-lg leading-8 text-zinc-400">
             <p>I’m a software developer and UI/UX designer passionate about building clear, reliable digital systems for real people and real workflows.</p>
             <p>My work combines requirements analysis, database design, application development, and interface design. I care about making powerful tools feel organized rather than overwhelming.</p>
             <p>I’m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.</p>
