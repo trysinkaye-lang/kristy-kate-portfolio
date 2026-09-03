@@ -24,8 +24,6 @@ export function BlueprintHero() {
       cover.style.setProperty("--title-y", `${progress * -52}px`);
       cover.style.setProperty("--line-a-x", `${progress * -6.5}vw`);
       cover.style.setProperty("--line-b-x", `${progress * 6.5}vw`);
-      cover.style.setProperty("--mono-r", `${progress * 6}deg`);
-      cover.style.setProperty("--mono-s", `${1 + progress * 0.12}`);
       cover.style.setProperty("--grid-y", `${progress * 34}px`);
       cover.style.setProperty("--paths-y", `${(1 - progress) * 22}px`);
     };
@@ -71,8 +69,8 @@ export function BlueprintHero() {
     <section
       ref={coverRef}
       id="home"
-      className="home-cover"
-      aria-label="Kristy Kate Taylor portfolio cover"
+      className="home-cover home-cover-clean"
+      aria-label="Portfolio home"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
     >
@@ -86,18 +84,11 @@ export function BlueprintHero() {
         <div className="cover-ribbon cover-ribbon-b" aria-hidden="true" />
 
         <div className="portfolio-shell cover-shell">
-          <div className="cover-meta">
-            <span>SOFTWARE DEVELOPER · UI/UX DESIGNER</span>
-            <span>PORTFOLIO / 2026</span>
-          </div>
-
           <div className="cover-stage">
-            <div className="cover-monogram" aria-hidden="true">KK</div>
             <div className="cover-title-wrap">
-              <span className="cover-index">KRISTY KATE TAYLOR</span>
               <h1>
-                <span className="cover-line-a">KRISTY</span>
-                <em className="cover-line-b">KATE.</em>
+                <span className="cover-line-a">DEVELOPER</span>
+                <em className="cover-line-b">&amp; DESIGNER.</em>
               </h1>
               <p className="cover-signature">Designing thoughtful digital experiences with code, clarity, and care.</p>
               <div className="cover-rule" aria-hidden="true"><i /></div>
@@ -129,7 +120,7 @@ export function BlueprintHero() {
           </nav>
 
           <div className="cover-footer">
-            <span>DESIGNED & BUILT WITH INTENTION</span>
+            <span>DESIGNED &amp; BUILT WITH INTENTION</span>
             <span>INTERACTIVE PORTFOLIO</span>
           </div>
         </div>
