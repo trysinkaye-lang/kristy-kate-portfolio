@@ -3,6 +3,7 @@
 import { useMemo, useRef } from "react";
 import type { MutableRefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 
 type PointerState = { x: number; y: number };
@@ -124,6 +125,16 @@ function DigitalCore({ progressRef, pointerRef, theme, reducedMotion, onReady }:
           />
         </mesh>
       ))}
+
+      <Sparkles
+        count={reducedMotion ? 8 : 28}
+        scale={[5.2, 4.2, 3.2]}
+        size={reducedMotion ? 0.8 : 1.15}
+        speed={reducedMotion ? 0 : 0.12}
+        opacity={dark ? 0.32 : 0.17}
+        color={accentColor}
+        noise={0.45}
+      />
 
       <pointLight position={[2.8, 2.4, 3.5]} intensity={dark ? 18 : 10} color={accentColor} distance={9} />
       <pointLight position={[-3, -1.4, 2]} intensity={dark ? 11 : 6} color={coreColor} distance={8} />
