@@ -1,11 +1,14 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Software Developer & Designer",
-  headline: "I build digital experiences that combine functional software, thoughtful design, and real-world solutions.",
+  title: "Software Developer & UI/UX Designer",
+  headline: "I build information systems, web applications, and offline-first software that turn complex workflows into clear, reliable digital tools.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
-  linkedin: "#linkedin-placeholder",
+  linkedin: null,
   location: "Philippines",
+  url: "https://kristy-kate-dev-portfolio.vercel.app",
+  // Set to "/resume/kristy-kate-taylor-resume.pdf" when that file is added under public/resume/.
+  resume: null as string | null,
 };
 
 export const services = [
@@ -16,12 +19,12 @@ export const services = [
 ];
 
 export const stack = {
-  Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Vite", "Tailwind CSS"],
+  Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vite", "Tailwind CSS"],
   Backend: ["PHP", "Node.js", "REST APIs"],
   Database: ["PostgreSQL", "SQLite", "MySQL"],
   "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
   "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
-  "Design Tools": ["Figma", "Canva", "Adobe tools — replace with the exact apps you use"]
+  "Design Tools": ["Figma", "Canva"]
 };
 
 export const skills = {
