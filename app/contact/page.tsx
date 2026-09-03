@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Mail, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, Github, Mail, MapPin } from "lucide-react";
 import { site } from "@/data/site";
 
 export default function ContactPage() {
@@ -10,10 +10,7 @@ export default function ContactPage() {
       <div className="contact-classic-shell portfolio-shell relative z-10">
         <div className="contact-classic-hero grid gap-12 lg:grid-cols-[1.12fr_.88fr] lg:items-end">
           <div className="contact-classic-heading">
-            <div className="contact-availability inline-flex items-center gap-2 rounded-full border border-white/[.1] bg-white/[.035] px-4 py-2 text-xs text-zinc-300">
-              <Sparkles size={14} /> Available for opportunities
-            </div>
-            <h1 className="mt-7 text-[clamp(4rem,9vw,8rem)] font-semibold leading-[.84] tracking-[-.07em] text-white">
+            <h1 className="text-[clamp(4rem,9vw,8rem)] font-semibold leading-[.84] tracking-[-.07em] text-white">
               Let’s make<br />
               something<br />
               <span className="contact-outline-text">useful.</span>
