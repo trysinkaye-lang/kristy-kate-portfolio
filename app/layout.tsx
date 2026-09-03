@@ -25,6 +25,7 @@ import "./home-editorial-v14.css";
 import "./home-system-board-v15.css";
 import "./project-preview-clarity-v16.css";
 import "./home-scroll-story-v16.css";
+import "./home-aligned-story-v17.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
