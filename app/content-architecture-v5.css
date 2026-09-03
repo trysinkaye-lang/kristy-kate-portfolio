@@ -1,0 +1,265 @@
+/* V5 information architecture: Home explains value, Projects owns case studies,
+   About explains the person and working style. */
+
+.home-capabilities {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-capabilities::before {
+  content: "";
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  right: -15rem;
+  top: 5rem;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, .08);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.home-capabilities-header {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+}
+
+.home-capabilities-copy {
+  max-width: 790px;
+}
+
+.home-capabilities-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+
+.home-capability-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.home-capability-card {
+  position: relative;
+  min-height: 265px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.085);
+  border-radius: 1.8rem;
+  padding: 1.7rem;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.042), rgba(255,255,255,.014));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+  transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .3s ease, background .3s ease;
+}
+
+.home-capability-card::after {
+  content: "";
+  position: absolute;
+  right: -25%;
+  bottom: -42%;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: var(--cap-glow, rgba(139,92,246,.12));
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.home-capability-card:nth-child(2) { --cap-glow: rgba(42,157,206,.13); }
+.home-capability-card:nth-child(3) { --cap-glow: rgba(47,159,131,.13); }
+
+.home-capability-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,.18);
+  background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+
+.home-capability-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  color: #a1a1aa;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.home-capability-card h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: 3rem;
+  max-width: 280px;
+  font-size: clamp(1.65rem, 2.5vw, 2.35rem);
+  line-height: 1.02;
+  letter-spacing: -.045em;
+  color: #fff;
+}
+
+.home-capability-card p {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.15rem;
+  max-width: 360px;
+  color: #8f8f99;
+  line-height: 1.7;
+}
+
+.home-capability-meta {
+  position: absolute;
+  left: 1.7rem;
+  bottom: 1.55rem;
+  z-index: 1;
+  color: #666672;
+  font-size: .69rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.home-process {
+  margin-top: 1rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.8rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,.018);
+}
+
+.home-process-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.home-process-list {
+  display: grid;
+  gap: .75rem;
+  margin-top: 1.35rem;
+}
+
+.home-process-step {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-height: 56px;
+  border-top: 1px solid rgba(255,255,255,.065);
+  color: #c3c3ca;
+  font-size: .9rem;
+}
+
+.home-process-step span:first-child {
+  color: #686873;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+/* About no longer repeats the project catalog. */
+.about-method-grid {
+  display: grid;
+  gap: .85rem;
+}
+
+.about-method-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--v3-border, rgba(255,255,255,.085));
+  border-radius: 1.45rem;
+  padding: 1.4rem;
+  background: var(--v3-card, rgba(255,255,255,.03));
+  transition: transform .28s ease, border-color .28s ease, background .28s ease;
+}
+
+.about-method-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--v3-purple, #8b7cff) 32%, var(--v3-border, rgba(255,255,255,.08)));
+}
+
+.about-method-number {
+  color: var(--v3-purple, #8b7cff);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+
+.about-method-card h3 {
+  margin-top: 2rem;
+  color: var(--v3-text, #fff);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.about-method-card p {
+  margin-top: .65rem;
+  color: var(--v3-muted, #a1a1aa);
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.light .home-capabilities::before {
+  background: rgba(91,91,214,.075);
+}
+
+.light .home-capability-card {
+  border-color: rgba(68,78,104,.11);
+  background: rgba(255,255,255,.68);
+  box-shadow: 0 18px 46px rgba(48,58,84,.07), inset 0 1px 0 rgba(255,255,255,.88);
+}
+
+.light .home-capability-card:hover {
+  border-color: rgba(91,91,214,.22);
+  background: rgba(255,255,255,.9);
+}
+
+.light .home-capability-index {
+  border-color: rgba(91,91,214,.13);
+  color: #596477;
+}
+
+.light .home-capability-card h3 { color: #202735; }
+.light .home-capability-card p { color: #566174; }
+.light .home-capability-meta { color: #778195; }
+
+.light .home-process {
+  border-color: rgba(68,78,104,.10);
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 14px 40px rgba(48,58,84,.055);
+}
+
+.light .home-process-step {
+  border-top-color: rgba(68,78,104,.09);
+  color: #455064;
+}
+
+.light .home-process-step span:first-child { color: #757f92; }
+
+@media (min-width: 768px) {
+  .home-capability-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-process-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .home-process-step {
+    border-top: 0;
+    border-left: 1px solid rgba(255,255,255,.065);
+    padding-left: 1rem;
+  }
+  .home-process-step:first-child { border-left: 0; padding-left: 0; }
+  .light .home-process-step { border-left-color: rgba(68,78,104,.09); }
+  .about-method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .home-capabilities-header { grid-template-columns: minmax(0, 1fr) auto; }
+  .about-method-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 639px) {
+  .home-capability-card { min-height: 235px; padding: 1.35rem; }
+  .home-capability-meta { left: 1.35rem; bottom: 1.25rem; }
+  .home-process { padding: 1.25rem; }
+}
