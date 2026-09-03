@@ -5,18 +5,18 @@ import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
-    <main id="main-content" className="portfolio-v2 projects-page min-h-screen pb-20 pt-36">
+    <main id="main-content" className="portfolio-v2 projects-page editorial-page min-h-screen pb-20 pt-36">
       <div className="portfolio-shell">
-        <header className="projects-hero relative max-w-3xl pb-16 sm:pb-20">
+        <header className="page-hero projects-hero relative border-b border-white/[.09] pb-16 sm:pb-20">
           <div className="projects-color-rail" aria-hidden="true"><span /><span /><span /></div>
-          <p className="v2-kicker projects-kicker">Selected work</p>
-          <h1 className="projects-heading mt-5 text-[clamp(3.7rem,8vw,7rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">My recent work</h1>
-          <p className="projects-subtitle mt-7 max-w-2xl text-lg leading-8 text-zinc-500">Information systems, business applications, and interfaces I’m proud to have designed and developed.</p>
+          <p className="v2-kicker page-kicker projects-kicker">Projects</p>
+          <h1 className="page-title projects-heading mt-5 text-[clamp(3.7rem,8vw,7rem)] font-semibold leading-[.9] tracking-[-.06em] text-white">My recent work</h1>
+          <p className="page-intro projects-subtitle mt-7 max-w-2xl text-lg leading-8 text-zinc-500">Information systems, business applications, and interfaces I’m proud to have designed and developed.</p>
         </header>
 
         <div className="projects-list divide-y divide-white/[.09] border-y border-white/[.09]">
           {projects.map((project, index) => (
-            <article key={project.slug} className={`project-editorial-row project-accent-${index % 3} grid gap-8 py-12 lg:grid-cols-[1.12fr_.88fr] lg:items-center lg:gap-14 lg:py-20`}>
+            <article key={project.slug} className={`project-editorial-row project-accent-${index % 3} editorial-section grid gap-8 py-12 lg:grid-cols-[1.12fr_.88fr] lg:items-center lg:gap-14 lg:py-20`}>
               <Link href={`/projects/${project.slug}`} className={`project-editorial-visual project-visual-shell group relative aspect-[16/10] overflow-hidden rounded-[2rem] border border-white/[.09] ${index % 2 ? "lg:order-2" : ""}`}>
                 <div className="project-visual-glow" aria-hidden="true" />
                 <Image src={project.image} alt={`${project.shortTitle} interface`} fill className="project-interface-image object-contain p-4 transition duration-700 group-hover:scale-[1.035]" sizes="(max-width: 1024px) 100vw, 58vw" />
@@ -29,7 +29,7 @@ export default function ProjectsPage() {
                   <span className="project-meta-line h-px w-10 bg-white/10" />
                   <span className="project-status"><i aria-hidden="true" />{project.status}</span>
                 </div>
-                <h2 className="project-title mt-6 text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">{project.shortTitle}</h2>
+                <h2 className="section-title project-title mt-6 text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">{project.shortTitle}</h2>
                 <p className="project-full-title mt-4 text-sm font-medium text-zinc-400">{project.title}</p>
                 <p className="project-overview mt-6 max-w-xl text-lg leading-8 text-zinc-500">{project.overview}</p>
                 <p className="project-role mt-6 text-sm text-zinc-400">{project.role}</p>
@@ -40,7 +40,7 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <section className="projects-cta py-24 text-center"><p className="v2-kicker">Let’s connect</p><h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">Have a system, website, or interface in mind?</h2><Link href="/contact" className="v2-button v2-button-primary mt-8">Contact me <ArrowUpRight size={16} /></Link></section>
+        <section className="projects-cta page-cta editorial-section py-24 text-center"><p className="v2-kicker">Let’s connect</p><h2 className="section-title mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-.045em] text-white sm:text-5xl">Have a system, website, or interface in mind?</h2><Link href="/contact" className="v2-button v2-button-primary mt-8">Contact me <ArrowUpRight size={16} /></Link></section>
       </div>
     </main>
   );
