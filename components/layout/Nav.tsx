@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
@@ -15,6 +15,7 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
 
@@ -22,7 +23,20 @@ export function Nav() {
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+
+    if (open) {
+      window.setTimeout(() => closeButtonRef.current?.focus(), 40);
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
   const toggleTheme = () => {
@@ -62,18 +76,32 @@ export function Nav() {
 
         <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-between sm:hidden">
           <a href="/" className="mobile-brand" aria-label="Go to home">KT</a>
-          <button type="button" className="mobile-menu-button" onClick={() => setOpen(true)} aria-label="Open navigation sidebar"><Menu size={21} /></button>
+          <button
+            type="button"
+            className="mobile-menu-button"
+            onClick={() => setOpen(true)}
+            aria-label="Open navigation sidebar"
+            aria-expanded={open}
+            aria-controls="mobile-navigation-panel"
+          >
+            <Menu size={21} />
+          </button>
         </div>
       </header>
 
       <div className={`mobile-sidebar-backdrop ${open ? "is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden={!open} />
-      <aside className={`mobile-sidebar ${open ? "is-open" : ""}`} aria-hidden={!open}>
+      <aside
+        id="mobile-navigation-panel"
+        className={`mobile-sidebar ${open ? "is-open" : ""}`}
+        aria-hidden={!open}
+        aria-label="Mobile navigation panel"
+      >
         <div className="mobile-sidebar-head">
           <div>
             <p className="mobile-sidebar-eyebrow">Portfolio</p>
             <strong>Kristy Kate</strong>
           </div>
-          <button type="button" className="mobile-sidebar-close" onClick={() => setOpen(false)} aria-label="Close navigation sidebar"><X size={20} /></button>
+          <button ref={closeButtonRef} type="button" className="mobile-sidebar-close" onClick={() => setOpen(false)} aria-label="Close navigation sidebar"><X size={20} /></button>
         </div>
 
         <nav className="mobile-sidebar-links" aria-label="Mobile navigation">
