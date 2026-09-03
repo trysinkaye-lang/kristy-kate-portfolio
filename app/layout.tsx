@@ -13,6 +13,7 @@ import "./contact-visibility-hotfix.css";
 import "./content-architecture-v5.css";
 import "./hero-type-refinement.css";
 import "./creative-system-v6.css";
+import "./home-simplification-v7.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
