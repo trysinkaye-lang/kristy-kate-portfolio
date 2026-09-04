@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-const CONTACT_URL = 'https://kristy-kate-dev-portfolio.vercel.app/contact';
-
 async function expectContactContent(page: import('@playwright/test').Page) {
   const main = page.locator('main.contact-page');
   const shell = main.locator('.contact-classic-shell');
@@ -22,7 +20,7 @@ async function expectContactContent(page: import('@playwright/test').Page) {
 
 test.describe('Contact page visibility regression', () => {
   test('contact content remains visible in dark mode', async ({ page }) => {
-    await page.goto(CONTACT_URL);
+    await page.goto('/contact');
 
     const themeButton = page.getByRole('button', { name: /Use (dark|light) mode/ });
     await expect(themeButton).toBeVisible();
@@ -37,7 +35,7 @@ test.describe('Contact page visibility regression', () => {
   });
 
   test('contact content remains visible after switching to light mode', async ({ page }) => {
-    await page.goto(CONTACT_URL);
+    await page.goto('/contact');
 
     const themeButton = page.getByRole('button', { name: /Use (dark|light) mode/ });
     await expect(themeButton).toBeVisible();

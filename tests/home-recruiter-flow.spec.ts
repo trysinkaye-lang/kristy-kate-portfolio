@@ -1,11 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-const BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? "https://kristy-kate-dev-portfolio.vercel.app";
-
 test.describe("Homepage recruiter journey", () => {
   test("communicates identity, role, proof of work, and next action", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(BASE_URL);
+    await page.goto("/");
 
     const hero = page.locator("#home");
     await expect(hero).toBeVisible();
@@ -21,13 +19,13 @@ test.describe("Homepage recruiter journey", () => {
   });
 
   test("primary recruiter CTA opens Projects", async ({ page }) => {
-    await page.goto(BASE_URL);
+    await page.goto("/");
     await page.locator("#home").getByRole("link", { name: /View My Work/i }).click();
     await expect(page).toHaveURL(/\/projects$/);
   });
 
   test("does not expose a broken resume link while no resume file exists", async ({ page }) => {
-    await page.goto(BASE_URL);
+    await page.goto("/");
     await expect(page.getByRole("link", { name: /View Resume|Download Resume/i })).toHaveCount(0);
   });
 
@@ -43,7 +41,7 @@ test.describe("Homepage recruiter journey", () => {
   ]) {
     test(`homepage has no horizontal overflow at ${viewport.name}`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto(BASE_URL);
+      await page.goto("/");
       const hasOverflow = await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
       );
