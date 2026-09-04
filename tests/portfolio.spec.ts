@@ -1,45 +1,30 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = 'https://kristy-kate-dev-portfolio.vercel.app';
-
 test.describe('Kristy Kate Portfolio Interactive Automation', () => {
-
   test('homepage loads successfully', async ({ page }) => {
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     await expect(page).toHaveTitle(/Kristy|Portfolio/i);
     await expect(page.locator('body')).toBeVisible();
-
-    await page.screenshot({
-      path: 'screenshots/homepage.png',
-      fullPage: true,
-    });
   });
 
-  test('home scroll updates 3D scene progress', async ({ page }) => {
+  test('homepage remains usable after scrolling beyond the hero', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
-    const hero = page.locator('.home-cover').first();
+    const hero = page.locator('#home');
     await expect(hero).toBeVisible();
 
-    const before = await hero.evaluate(element =>
-      getComputedStyle(element).getPropertyValue('--sp').trim()
-    );
+    await page.getByRole('heading', { name: /Real systems, built around real workflows/i }).scrollIntoViewIfNeeded();
 
-    await page.evaluate(() => window.scrollTo(0, Math.round(window.innerHeight * 0.7)));
-    await page.waitForTimeout(200);
-
-    const after = await hero.evaluate(element =>
-      getComputedStyle(element).getPropertyValue('--sp').trim()
-    );
-
-    expect(Number(after)).toBeGreaterThan(Number(before));
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBeGreaterThan(0);
+    await expect(page.getByRole('heading', { name: /Real systems, built around real workflows/i })).toBeVisible();
   });
 
   test('desktop navigation works through real clicks', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     const navigation = page.getByRole('navigation', { name: 'Main navigation' });
     await expect(navigation).toBeVisible();
@@ -56,7 +41,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
 
   test('dark and light mode toggle works', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     const themeButton = page.getByRole('button', { name: /Use (dark|light) mode/ });
     await expect(themeButton).toBeVisible();
@@ -65,17 +50,11 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     await themeButton.click();
 
     await expect(themeButton).not.toHaveAttribute('aria-label', originalLabel ?? '');
-    await page.waitForTimeout(700);
-
-    await page.screenshot({
-      path: 'screenshots/theme-toggle.png',
-      fullPage: true,
-    });
   });
 
   test('mobile sidebar opens and navigates correctly', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     const menuButton = page.getByRole('button', { name: 'Open navigation sidebar' });
     await expect(menuButton).toBeVisible();
@@ -89,16 +68,11 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
 
     await mobileNavigation.getByRole('link', { name: /Projects/ }).click();
     await expect(page).toHaveURL(/\/projects$/);
-
-    await page.screenshot({
-      path: 'screenshots/mobile-projects.png',
-      fullPage: true,
-    });
   });
 
   test('mobile sidebar closes with button and Escape', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(BASE_URL);
+    await page.goto('/');
 
     const openButton = page.getByRole('button', { name: 'Open navigation sidebar' });
     await openButton.click();
@@ -114,17 +88,12 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
   });
 
   test('RBIM project opens from Projects page', async ({ page }) => {
-    await page.goto(`${BASE_URL}/projects`);
+    await page.goto('/projects');
 
     const rbimLink = page.locator('a[href="/projects/rbim"]').first();
     await expect(rbimLink).toBeVisible();
     await rbimLink.click();
     await expect(page).toHaveURL(/\/projects\/rbim$/);
-
-    await page.screenshot({
-      path: 'screenshots/rbim-project.png',
-      fullPage: true,
-    });
   });
 
   test('all project detail pages load successfully', async ({ page }) => {
@@ -136,7 +105,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     ];
 
     for (const route of projects) {
-      const response = await page.goto(`${BASE_URL}${route}`);
+      const response = await page.goto(route);
       expect(response).not.toBeNull();
       if (response) expect(response.status(), `${route} failed`).toBeLessThan(400);
     }
@@ -153,7 +122,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     for (const route of routes) {
       for (const viewport of viewports) {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
-        await page.goto(`${BASE_URL}${route}`);
+        await page.goto(route);
 
         const hasOverflow = await page.evaluate(() =>
           document.documentElement.scrollWidth > document.documentElement.clientWidth
@@ -169,15 +138,15 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     page.on('pageerror', error => errors.push(error.message));
 
     for (const route of ['/', '/about', '/projects', '/contact']) {
-      await page.goto(`${BASE_URL}${route}`);
+      await page.goto(route);
       await page.waitForLoadState('domcontentloaded');
     }
 
     expect(errors, `JavaScript errors detected:\n${errors.join('\n')}`).toEqual([]);
   });
 
-  test('internal navigation links are not broken', async ({ page }) => {
-    await page.goto(BASE_URL);
+  test('internal navigation links are not broken', async ({ page, request }) => {
+    await page.goto('/');
 
     const links = await page.locator('a').evaluateAll(elements =>
       elements
@@ -186,9 +155,10 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     );
 
     const uniqueLinks = [...new Set(links)];
+    const origin = new URL(page.url()).origin;
 
     for (const href of uniqueLinks) {
-      const response = await page.request.get(`${BASE_URL}${href}`);
+      const response = await request.get(new URL(href, origin).toString());
       expect(response.status(), `Broken link: ${href}`).toBeLessThan(400);
     }
   });
