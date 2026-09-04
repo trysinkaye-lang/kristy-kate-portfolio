@@ -1,0 +1,94 @@
+/* Desktop-only breathing-room refinements for the portfolio hero.
+   Keeps the editorial concept while reducing visual crowding. */
+
+@media (min-width: 1024px) {
+  .cover-shell {
+    padding-top: 7.4rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .cover-title-wrap {
+    width: min(100%, 1080px);
+  }
+
+  .cover-identity {
+    margin-bottom: 1.45rem;
+    gap: .55rem .85rem;
+  }
+
+  .cover-name {
+    font-size: .72rem;
+    letter-spacing: .15em;
+  }
+
+  .cover-identity .cover-role {
+    font-size: .66rem;
+    letter-spacing: .105em;
+  }
+
+  .cover-title-wrap h1 {
+    font-size: clamp(4.2rem, 8.9vw, 9.7rem);
+    line-height: .79;
+    letter-spacing: -.067em;
+  }
+
+  .cover-line-b {
+    letter-spacing: -.047em;
+  }
+
+  .cover-signature {
+    max-width: 690px;
+    margin-top: 1.65rem;
+    font-size: clamp(.96rem, 1.08vw, 1.08rem);
+    line-height: 1.72;
+  }
+
+  .cover-actions {
+    margin-top: 1.75rem;
+    gap: .8rem;
+  }
+
+  .cover-actions .v2-button {
+    min-width: 132px;
+  }
+
+  .cover-rule {
+    margin-top: 2.65rem;
+  }
+
+  /* Keep secondary navigation present but quieter until the user scrolls. */
+  .cover-paths {
+    opacity: calc(.18 + var(--sp) * .82);
+  }
+
+  .cover-path {
+    min-height: 74px;
+  }
+
+  .cover-path-label {
+    font-size: clamp(1rem, 1.35vw, 1.28rem);
+  }
+
+  /* Decorative geometry should frame the content, not compete with it. */
+  .cover-depth-plane {
+    opacity: .48;
+  }
+
+  .cover-depth-ring {
+    opacity: .58;
+  }
+
+  .cover-orbit {
+    opacity: .62;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cover-title-wrap {
+    width: min(100%, 1120px);
+  }
+
+  .cover-signature {
+    max-width: 720px;
+  }
+}
