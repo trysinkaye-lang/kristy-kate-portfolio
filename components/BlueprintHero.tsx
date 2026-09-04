@@ -8,6 +8,7 @@ import { site } from "@/data/site";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import "./blueprint-hero.css";
 import "./home-scroll-fix.css";
+import "./home-hero-breathing-room.css";
 
 export function BlueprintHero() {
   const coverRef = useRef<HTMLElement>(null);
@@ -40,7 +41,7 @@ export function BlueprintHero() {
       cover.style.setProperty("--grid-y", `${eased * 48}px`);
       cover.style.setProperty("--grid-r", `${eased * 6}deg`);
       cover.style.setProperty("--orbit-r", `${eased * 22}deg`);
-      cover.style.setProperty("--paths-y", `${(1 - eased) * 34}px`);
+      cover.style.setProperty("--paths-y", `${(1 - eased) * 72}px`);
       cover.style.setProperty("--paths-z", `${eased * 54}px`);
       cover.style.setProperty("--plane-a-x", `${eased * -8}vw`);
       cover.style.setProperty("--plane-b-x", `${eased * 9}vw`);
