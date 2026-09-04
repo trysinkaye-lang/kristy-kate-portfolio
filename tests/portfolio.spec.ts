@@ -15,11 +15,12 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     const hero = page.locator('#home');
     await expect(hero).toBeVisible();
 
-    await page.getByRole('heading', { name: /Real systems, built around real workflows/i }).scrollIntoViewIfNeeded();
+    const selectedWorkHeading = page.getByRole('heading', { name: /Real systems, built around real workflows/i });
+    await selectedWorkHeading.scrollIntoViewIfNeeded();
 
     const scrollY = await page.evaluate(() => window.scrollY);
     expect(scrollY).toBeGreaterThan(0);
-    await expect(page.getByRole('heading', { name: /Real systems, built around real workflows/i })).toBeVisible();
+    await expect(selectedWorkHeading).toBeVisible();
   });
 
   test('desktop navigation works through real clicks', async ({ page }) => {
@@ -62,6 +63,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
 
     await menuButton.click();
     await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.getByRole('button', { name: 'Close navigation sidebar' })).toBeFocused();
 
     const mobileNavigation = page.getByRole('navigation', { name: 'Mobile navigation' });
     await expect(mobileNavigation).toBeVisible();
@@ -70,7 +72,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     await expect(page).toHaveURL(/\/projects$/);
   });
 
-  test('mobile sidebar closes with button and Escape', async ({ page }) => {
+  test('mobile sidebar traps focus and restores it after close', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
@@ -78,13 +80,14 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     await openButton.click();
 
     const closeButton = page.getByRole('button', { name: 'Close navigation sidebar' });
-    await expect(closeButton).toBeVisible();
-    await closeButton.click();
-    await expect(openButton).toBeVisible();
+    await expect(closeButton).toBeFocused();
 
-    await openButton.click();
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.getByRole('button', { name: /mode/i }).last()).toBeFocused();
+
     await page.keyboard.press('Escape');
     await expect(page.locator('#mobile-navigation-panel')).toHaveAttribute('aria-hidden', 'true');
+    await expect(openButton).toBeFocused();
   });
 
   test('RBIM project opens from Projects page', async ({ page }) => {
