@@ -12,24 +12,74 @@ const links = [
   ["Contact", "/contact"],
 ] as const;
 
+const focusableSelector = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const wasOpenRef = useRef(false);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
   useEffect(() => setOpen(false), [pathname]);
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
 
     if (open) {
-      window.setTimeout(() => closeButtonRef.current?.focus(), 40);
+      wasOpenRef.current = true;
+      window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+    } else if (wasOpenRef.current) {
+      menuButtonRef.current?.focus();
+      wasOpenRef.current = false;
     }
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (!open) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const panel = sidebarRef.current;
+      if (!panel) return;
+
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(focusableSelector),
+      ).filter((element) => !element.hasAttribute("disabled"));
+
+      if (focusable.length === 0) {
+        event.preventDefault();
+        panel.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || !panel.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || !panel.contains(active))) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -77,6 +127,7 @@ export function Nav() {
         <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-between sm:hidden">
           <a href="/" className="mobile-brand" aria-label="Go to home">KT</a>
           <button
+            ref={menuButtonRef}
             type="button"
             className="mobile-menu-button"
             onClick={() => setOpen(true)}
@@ -89,12 +140,16 @@ export function Nav() {
         </div>
       </header>
 
-      <div className={`mobile-sidebar-backdrop ${open ? "is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden={!open} />
+      <div className={`mobile-sidebar-backdrop ${open ? "is-open" : ""}`} onClick={() => setOpen(false)} aria-hidden="true" />
       <aside
+        ref={sidebarRef}
         id="mobile-navigation-panel"
         className={`mobile-sidebar ${open ? "is-open" : ""}`}
         aria-hidden={!open}
         aria-label="Mobile navigation panel"
+        aria-modal={open ? "true" : undefined}
+        role={open ? "dialog" : undefined}
+        tabIndex={-1}
       >
         <div className="mobile-sidebar-head">
           <div>
@@ -107,7 +162,7 @@ export function Nav() {
         <nav className="mobile-sidebar-links" aria-label="Mobile navigation">
           {links.map(([label, href]) => {
             const active = pathname === href || (href !== "/" && pathname.startsWith(href));
-            return <a key={href} href={href} className={active ? "is-active" : ""}><span>{label}</span><span aria-hidden="true">↗</span></a>;
+            return <a key={href} href={href} className={active ? "is-active" : ""} aria-current={active ? "page" : undefined}><span>{label}</span><span aria-hidden="true">↗</span></a>;
           })}
         </nav>
 
