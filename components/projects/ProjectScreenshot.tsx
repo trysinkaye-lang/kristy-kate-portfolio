@@ -8,6 +8,7 @@ type ProjectScreenshotProps = {
   className?: string;
   imageClassName?: string;
   showLabel?: boolean;
+  constrainToSourceWidth?: boolean;
 };
 
 export function ProjectScreenshot({
@@ -17,6 +18,7 @@ export function ProjectScreenshot({
   className = "",
   imageClassName = "",
   showLabel = true,
+  constrainToSourceWidth = true,
 }: ProjectScreenshotProps) {
   return (
     <figure
@@ -35,7 +37,7 @@ export function ProjectScreenshot({
         ) : null}
       </div>
 
-      <div className="flex items-center justify-center bg-[#090a0c] p-2.5 sm:p-4 md:p-5">
+      <div className="flex items-center justify-center bg-[#090a0c] p-2 sm:p-3 md:p-4">
         <Image
           src={project.image}
           alt={`${project.shortTitle} interface screenshot`}
@@ -44,8 +46,8 @@ export function ProjectScreenshot({
           priority={priority}
           unoptimized
           sizes={sizes}
-          className={`block h-auto w-full rounded-[.7rem] border border-white/[.06] object-contain ${imageClassName}`}
-          style={{ maxWidth: `${project.imageWidth}px` }}
+          className={`block h-auto w-full rounded-[.65rem] border border-white/[.06] object-contain ${imageClassName}`}
+          style={constrainToSourceWidth ? { maxWidth: `${project.imageWidth}px` } : undefined}
         />
       </div>
     </figure>
