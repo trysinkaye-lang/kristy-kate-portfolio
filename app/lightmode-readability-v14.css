@@ -1,0 +1,99 @@
+/* V14 — focused light-mode readability pass. Keeps the existing visual design while strengthening foreground contrast. */
+
+.light .home-cover .cover-signature {
+  color: #5f5261 !important;
+}
+
+.light .cover-name {
+  color: #3f3340 !important;
+}
+
+.light .cover-identity .cover-role,
+.light .cover-role {
+  color: #5d5060 !important;
+}
+
+.light .cover-paths {
+  opacity: calc(.84 + var(--sp) * .16) !important;
+  border-color: rgba(86, 61, 82, .16) !important;
+}
+
+.light .cover-path {
+  color: #352b37 !important;
+  border-color: rgba(86, 61, 82, .14) !important;
+}
+
+.light .cover-path-number {
+  color: #625466 !important;
+}
+
+.light .cover-path svg {
+  opacity: .88 !important;
+}
+
+.light .cover-scroll-cue,
+.light .cover-footer,
+.light .cover-coordinates {
+  color: #655868 !important;
+}
+
+.light .floating-nav-link,
+.light .floating-contact {
+  color: #56495a !important;
+}
+
+.light .theme-toggle {
+  color: #56495a !important;
+}
+
+.light .portfolio-v2 .text-zinc-300,
+.light .portfolio-v2 .text-zinc-400,
+.light .portfolio-v2 .text-zinc-500 {
+  color: #625666 !important;
+}
+
+.light .portfolio-v2 .text-zinc-600,
+.light .portfolio-v2 .text-zinc-700 {
+  color: #6a5c6d !important;
+}
+
+.light .page-intro,
+.light .project-full-title,
+.light .project-overview,
+.light .project-role,
+.light .contact-page p,
+.light .contact-page .text-zinc-400,
+.light .contact-page .text-zinc-500,
+.light .contact-page .text-zinc-600,
+.light .home-section-lede,
+.light .home-project-facts p,
+.light .home-about-copy {
+  color: #5f5361 !important;
+}
+
+.light .about-method-number,
+.light .project-index,
+.light .project-meta,
+.light .project-status,
+.light .project-overview-aside span,
+.light .page-back-link,
+.light .home-project-facts span {
+  color: #756679 !important;
+}
+
+.light .v2-kicker,
+.light .page-kicker,
+.light .editorial-page .v2-kicker {
+  color: #815e80 !important;
+}
+
+.light .footer-link,
+.light .site-footer {
+  color: #554858 !important;
+}
+
+@media (max-width: 760px) {
+  .light .cover-paths {
+    opacity: 1 !important;
+  }
+}
