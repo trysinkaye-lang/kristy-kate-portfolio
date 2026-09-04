@@ -99,6 +99,33 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     await expect(page).toHaveURL(/\/projects\/rbim$/);
   });
 
+  test('project screenshots remain within native source resolution across viewports', async ({ page }) => {
+    const viewports = [
+      { name: 'desktop', width: 1440, height: 900 },
+      { name: 'tablet', width: 768, height: 1024 },
+      { name: 'mobile', width: 390, height: 844 },
+    ];
+
+    for (const viewport of viewports) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto('/projects');
+
+      const screenshot = page.getByRole('img', { name: 'RBIM interface screenshot' }).first();
+      await expect(screenshot).toBeVisible();
+
+      const dimensions = await screenshot.evaluate((image: HTMLImageElement) => ({
+        renderedWidth: image.getBoundingClientRect().width,
+        naturalWidth: image.naturalWidth,
+      }));
+
+      expect(dimensions.naturalWidth, `RBIM source width missing at ${viewport.name}`).toBeGreaterThan(0);
+      expect(
+        dimensions.renderedWidth,
+        `RBIM screenshot is upscaled at ${viewport.name}`,
+      ).toBeLessThanOrEqual(dimensions.naturalWidth + 1);
+    }
+  });
+
   test('all project detail pages load successfully', async ({ page }) => {
     const projects = [
       '/projects/rbim',
