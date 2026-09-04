@@ -21,10 +21,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const nextProject = projects[(projectIndex + 1) % projects.length];
 
   return (
-    <main id="main-content" className="portfolio-v2 min-h-screen pb-20 pt-32">
+    <main id="main-content" className="portfolio-v2 project-detail-page min-h-screen pb-20 pt-32">
       <div className="portfolio-shell">
         <Link className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-white" href="/projects"><ArrowLeft size={16} /> All projects</Link>
-        <header className="mt-10 grid gap-10 border-b border-white/[.09] pb-14 lg:grid-cols-[1.2fr_.8fr] lg:items-end lg:pb-20">
+        <header className="case-hero mt-10 grid gap-10 border-b border-white/[.09] pb-14 lg:grid-cols-[1.2fr_.8fr] lg:items-end lg:pb-20">
           <div><div className="flex items-center gap-3 text-xs uppercase tracking-[.18em] text-zinc-600"><span>0{projectIndex + 1}</span><span className="h-px w-10 bg-white/10" /><span>{project.status}</span></div><h1 className="mt-7 max-w-5xl text-[clamp(4rem,8vw,7.5rem)] font-semibold leading-[.86] tracking-[-.065em] text-white">{project.shortTitle}</h1><p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-400">{project.title}</p></div>
           <div><p className="text-lg leading-8 text-zinc-500">{project.overview}</p><div className="mt-7 flex flex-wrap gap-2">{project.technologies.map((technology) => <span className="v2-chip" key={technology}>{technology}</span>)}</div></div>
         </header>

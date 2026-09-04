@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
@@ -63,21 +64,25 @@ export function PortfolioShowcaseCarousel() {
                 key={project.slug}
                 className="portfolio-carousel-slide"
                 aria-hidden={active !== index}
+                inert={active !== index}
               >
                 <div className="rb-electric-frame rounded-[2rem]">
                   <SpotlightCardLite className="rounded-[2rem]">
-                    <div className="overflow-hidden rounded-[2rem] border border-white/[.08] bg-[#0a0a0a]">
-                      <div className="grid lg:grid-cols-[1.12fr_.88fr]">
-                        <TiltCardLite className="rb-project-visual flex min-h-[340px] items-center justify-center border-b border-white/[.07] bg-[#0e0e0e] p-5 sm:min-h-[480px] sm:p-8 lg:min-h-[610px] lg:border-b-0 lg:border-r">
-                          <img
+                    <div className="portfolio-carousel-card overflow-hidden rounded-[2rem] border border-white/[.08] bg-[#0a0a0a]">
+                      <div className="portfolio-carousel-card-grid grid lg:grid-cols-[1.12fr_.88fr]">
+                        <TiltCardLite className="portfolio-carousel-visual rb-project-visual flex min-h-[340px] items-center justify-center border-b border-white/[.07] bg-[#0e0e0e] p-5 sm:min-h-[480px] sm:p-8 lg:min-h-[610px] lg:border-b-0 lg:border-r">
+                          <Image
                             src={project.image}
                             alt={`${project.shortTitle} interface`}
                             className="max-h-[550px] w-full rounded-xl object-contain"
                             draggable={false}
+                            width={1600}
+                            height={1000}
+                            sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 55vw, 700px"
                           />
                         </TiltCardLite>
 
-                        <div className="flex min-w-0 flex-col p-7 sm:p-10 lg:p-12">
+                        <div className="portfolio-carousel-copy flex min-w-0 flex-col p-7 sm:p-10 lg:p-12">
                           <div className="flex items-center justify-between gap-4">
                             <span className="text-xs uppercase tracking-[.2em] text-zinc-600">{project.status}</span>
                             <span className="text-sm tabular-nums text-zinc-600">
@@ -111,7 +116,7 @@ export function PortfolioShowcaseCarousel() {
                           </div>
 
                           <div className="mt-auto flex items-center justify-between pt-10">
-                            <div className="flex items-center gap-2" aria-label="Carousel pagination">
+                            <div className="flex items-center gap-2" role="group" aria-label="Carousel pagination">
                               {softwareProjects.map((item, dotIndex) => (
                                 <button
                                   key={item.slug}
@@ -144,7 +149,7 @@ export function PortfolioShowcaseCarousel() {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-3" aria-label="Choose project">
+      <div className="mt-5 grid gap-3 sm:grid-cols-3" role="group" aria-label="Choose project">
         {softwareProjects.map((project, index) => (
           <button
             key={project.slug}

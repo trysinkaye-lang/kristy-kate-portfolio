@@ -382,7 +382,16 @@
 /* Contact remains the visual reference, now explicitly sharing the same tokens. */
 .light .contact-orb-one { background: rgba(91,91,214,.08) !important; }
 .light .contact-orb-two { background: rgba(42,157,206,.07) !important; }
-.light .contact-outline-text { -webkit-text-stroke-color: rgba(32,39,51,.34) !important; }
+.light .contact-outline-text {
+  color: rgba(45, 52, 68, .14) !important;
+  -webkit-text-fill-color: rgba(45, 52, 68, .14) !important;
+  -webkit-text-stroke: 2px rgba(32, 39, 51, .66) !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.dark .contact-outline-text {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
 .light .contact-email-link { border-color: rgba(32,39,51,.16) !important; color: var(--uniform-ink) !important; }
 .light .contact-email-link:hover { border-color: var(--uniform-ink) !important; }
 

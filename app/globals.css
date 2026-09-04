@@ -3,11 +3,12 @@
 :root { color-scheme: light; --bg:#f7f9ff; --fg:#121827; }
 .dark { color-scheme: dark; --bg:#080808; --fg:#f7f7f7; }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--bg); overflow-x: hidden; }
-body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--bg); color: var(--fg); font-family: Arial, Helvetica, sans-serif; }
+html { max-width: 100%; scroll-behavior: smooth; background: var(--bg); }
+body { margin: 0; min-width: 0; max-width: 100%; background: var(--bg); color: var(--fg); font-family: Arial, Helvetica, sans-serif; }
 a { text-decoration: none; }
 button, a, input, textarea { font: inherit; }
-img, video, canvas { max-width: 100%; }
+img, video, canvas, svg { max-width: 100%; }
+img, video { height: auto; }
 section[id] { scroll-margin-top: 72px; }
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; border-radius: .75rem; background: white; color: black; padding: .7rem 1rem; }
 .skip-link:focus { top: 1rem; }
@@ -47,7 +48,7 @@ section[id] { scroll-margin-top: 72px; }
 .case-hero-visual { background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.11),transparent 60%),#101010; box-shadow:0 40px 120px rgba(0,0,0,.32); }
 .case-feature { background:rgba(255,255,255,.025); transition:.22s ease; }
 .case-feature:hover { border-color:rgba(255,255,255,.17); background:rgba(255,255,255,.045); transform:translateY(-2px); }
-.project-editorial-row,.case-editorial-section { content-visibility:auto; contain-intrinsic-size:auto 640px; }
+.project-editorial-row,.case-editorial-section { content-visibility:auto; contain-intrinsic-inline-size:auto 0; contain-intrinsic-block-size:auto 640px; }
 .portfolio-hero { background: linear-gradient(to bottom, rgba(8,8,8,.76), rgba(8,8,8,.95)); }
 .portfolio-hero-3d { background: radial-gradient(circle at 65% 20%, rgba(88,28,135,.19), transparent 30%), radial-gradient(circle at 88% 75%, rgba(6,95,70,.16), transparent 28%), linear-gradient(180deg,#080808 0%,#0b0a0d 55%,#080808 100%); }
 .reference-hero { background:radial-gradient(ellipse 43% 40% at 58% 18%,rgba(255,255,255,.72),rgba(174,174,174,.36) 42%,transparent 72%),linear-gradient(180deg,#929292 0%,#4b4b4b 41%,#090909 87%); }

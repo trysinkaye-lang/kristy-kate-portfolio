@@ -45,8 +45,10 @@ const MaskedHeading = ({
   const clipId = `mh-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const words = useMemo(() => String(text).split(/\s+/).filter(Boolean), [text]);
 
-  const settingsRef = useRef({});
-  settingsRef.current = { fillScale, parallax, drift, brightness, saturation, grayscale, textScale };
+  const settingsRef = useRef({ fillScale, parallax, drift, brightness, saturation, grayscale, textScale });
+  useEffect(() => {
+    settingsRef.current = { fillScale, parallax, drift, brightness, saturation, grayscale, textScale };
+  }, [fillScale, parallax, drift, brightness, saturation, grayscale, textScale]);
 
   const place = useCallback(() => {
     const root = rootRef.current;

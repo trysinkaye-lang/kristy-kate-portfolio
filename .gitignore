@@ -12,3 +12,7 @@ out
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+/screenshots/
+# Playwright CLI output (may contain credentials)
+.playwright-cli/

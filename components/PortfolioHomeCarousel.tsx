@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Github, Mail } from "lucide-react";
 import { site } from "@/data/site";
@@ -18,6 +19,8 @@ function Hero3DStage() {
 
   useEffect(() => {
     let frame = 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const compactViewport = window.matchMedia("(max-width: 767px)");
 
     const updateScrollMotion = () => {
       const stage = stageRef.current;
@@ -40,6 +43,8 @@ function Hero3DStage() {
       frame = requestAnimationFrame(updateScrollMotion);
     };
 
+    if (reducedMotion.matches || compactViewport.matches) return;
+
     updateScrollMotion();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -53,7 +58,7 @@ function Hero3DStage() {
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     const stage = stageRef.current;
-    if (!stage) return;
+    if (!stage || event.pointerType !== "mouse" || !window.matchMedia("(hover: hover)").matches) return;
 
     const rect = stage.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
@@ -80,21 +85,18 @@ function Hero3DStage() {
       className="hero3d-stage"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
-      aria-label="Interactive portrait and featured systems"
     >
       <div className="hero3d-scene">
         <div className="hero3d-card hero3d-photo-card reference-portrait-card">
           <div className="hero3d-photo-shell">
-            <img
+            <Image
               src="/media/kristy-kate-professional-portrait-v2.webp"
               alt="Kristy Kate Taylor"
               className="hero3d-photo"
               draggable={false}
-              width={960}
-              height={960}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
+              fill
+              priority
+              sizes="(max-width: 767px) 88vw, (max-width: 1023px) 42vw, 440px"
             />
           </div>
         </div>
@@ -111,7 +113,7 @@ export function PortfolioHomeCarousel() {
         <div className="hero3d-bg hero3d-bg-one" aria-hidden="true" />
         <div className="hero3d-bg hero3d-bg-two" aria-hidden="true" />
 
-        <div className="portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
+        <div className="home-hero-layout portfolio-shell relative z-10 grid min-h-[calc(100vh-72px)] items-center gap-12 py-14 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:py-16">
           <div className="hero-copy-panel min-w-0">
             <p className="reference-intro hero-intro-motion mb-7 text-xl font-semibold text-white">Hey <span aria-hidden="true">👋</span>, I’m Kristy</p>
 
@@ -145,7 +147,7 @@ export function PortfolioHomeCarousel() {
 
       <section id="portfolio" className="portfolio-section border-t border-white/[.06]">
         <div className="portfolio-shell py-24 lg:py-28">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="home-showcase-head flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="v2-kicker">Featured work</p>
               <h2 className="v2-heading mt-4">Systems built for real work.</h2>

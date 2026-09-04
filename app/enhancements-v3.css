@@ -86,7 +86,7 @@
 
 .projects-page .portfolio-shell,
 .about-page .portfolio-shell,
-.contact-page > div {
+.contact-shell {
   position: relative;
 }
 
@@ -353,122 +353,6 @@
 
 .light .contact-option:hover {
   box-shadow: 0 20px 50px rgba(48,58,84,.12);
-}
-
-/* ---------- mobile ---------- */
-.mobile-nav-trigger {
-  gap: .75rem;
-}
-
-.mobile-brand {
-  width: auto !important;
-  min-width: 0 !important;
-  padding: 0 .9rem;
-  font-size: .78rem !important;
-  letter-spacing: .01em !important;
-  white-space: nowrap;
-}
-
-.mobile-menu-button {
-  flex: 0 0 auto;
-}
-
-.mobile-sidebar {
-  width: min(88vw, 370px) !important;
-  padding: 1.15rem !important;
-}
-
-.mobile-sidebar-links {
-  gap: .55rem !important;
-}
-
-.mobile-sidebar-links a {
-  min-height: 58px !important;
-  border-radius: 17px !important;
-  padding: 0 1rem !important;
-}
-
-.mobile-sidebar-links a.is-active {
-  box-shadow: inset 3px 0 0 var(--v3-purple);
-}
-
-@media (max-width: 639px) {
-  .projects-page,
-  .about-page,
-  .contact-page {
-    padding-top: 6.8rem !important;
-  }
-
-  .projects-page .portfolio-shell,
-  .about-page .portfolio-shell {
-    width: min(100% - 24px, 1240px) !important;
-  }
-
-  .projects-hero,
-  .about-hero {
-    padding-bottom: 2rem !important;
-  }
-
-  .projects-heading,
-  .about-hero h1 {
-    font-size: clamp(2.8rem, 14vw, 4rem) !important;
-    line-height: .93 !important;
-    letter-spacing: -.055em !important;
-  }
-
-  .projects-subtitle,
-  .about-hero > div {
-    font-size: 1rem !important;
-    line-height: 1.75 !important;
-  }
-
-  .projects-list {
-    gap: 1rem;
-  }
-
-  .project-editorial-row {
-    border-radius: 1.55rem;
-    padding: .85rem !important;
-    gap: 1.45rem !important;
-  }
-
-  .project-editorial-visual {
-    border-radius: 1.15rem !important;
-  }
-
-  .project-copy {
-    padding: .3rem .35rem .7rem !important;
-    border: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  .project-title {
-    font-size: clamp(2rem, 10vw, 2.65rem) !important;
-  }
-
-  .project-overview {
-    font-size: .98rem !important;
-    line-height: 1.7 !important;
-  }
-
-  .about-hero {
-    border-radius: 1.55rem;
-    gap: 1.4rem !important;
-  }
-
-  .about-section {
-    padding-top: 2.8rem !important;
-    padding-bottom: 2.8rem !important;
-  }
-
-  .about-service-card {
-    min-height: 155px;
-  }
-
-  .contact-page h1 {
-    font-size: clamp(3.2rem, 16vw, 5rem) !important;
-  }
 }
 
 /* ---------- readability and accessibility ---------- */

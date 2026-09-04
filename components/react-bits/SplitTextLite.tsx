@@ -18,8 +18,8 @@ export function SplitTextLite({ text, className = "", delay = 45 }: SplitTextLit
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      setVisible(true);
-      return;
+      const frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
     }
 
     const observer = new IntersectionObserver(
@@ -37,7 +37,8 @@ export function SplitTextLite({ text, className = "", delay = 45 }: SplitTextLit
   }, []);
 
   return (
-    <span ref={rootRef} className={className} aria-label={text}>
+    <span ref={rootRef} className={className}>
+      <span className="sr-only">{text}</span>
       {text.split(" ").map((word, wordIndex) => (
         <span key={`${word}-${wordIndex}`} className="split-word" aria-hidden="true">
           {word.split("").map((letter, letterIndex) => {

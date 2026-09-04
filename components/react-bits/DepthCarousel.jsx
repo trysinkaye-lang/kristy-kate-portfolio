@@ -52,7 +52,7 @@ const DepthCarousel = ({
   const focusRef = useRef(0);
   const tweenRef = useRef(null);
   const scaleRef = useRef(1);
-  const cfgRef = useRef({});
+  const cfgRef = useRef({ count, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, duration, ease, loop, cardWidth, autoplayDelay });
   const onChangeRef = useRef(onChange);
 
   const dragRef = useRef(null);
@@ -62,22 +62,10 @@ const DepthCarousel = ({
 
   const [active, setActive] = useState(0);
 
-  onChangeRef.current = onChange;
-  cfgRef.current = {
-    count,
-    depth,
-    spread,
-    tilt,
-    tiltDirection,
-    visibleCards,
-    falloff,
-    blur,
-    duration,
-    ease,
-    loop,
-    cardWidth,
-    autoplayDelay
-  };
+  useEffect(() => { onChangeRef.current = onChange; }, [onChange]);
+  useEffect(() => {
+    cfgRef.current = { count, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, duration, ease, loop, cardWidth, autoplayDelay };
+  }, [count, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, duration, ease, loop, cardWidth, autoplayDelay]);
 
   const layout = useCallback(pos => {
     const cfg = cfgRef.current;
