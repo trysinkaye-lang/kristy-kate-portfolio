@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
 import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
@@ -34,22 +34,14 @@ export default function ProjectsPage() {
                 eventName="project_case_study_click"
                 eventData={{ project: project.slug, source: "projects_visual" }}
                 aria-label={`View ${project.shortTitle} case study`}
-                className={`project-editorial-visual project-visual-shell group relative aspect-[16/10] overflow-hidden border border-white/[.09] ${index % 2 ? "lg:order-2" : ""}`}
+                className={`group block min-w-0 ${index % 2 ? "lg:order-2" : ""}`}
               >
-                <div className="project-visual-glow" aria-hidden="true" />
-                <Image
-                  src={project.image}
-                  alt={`${project.shortTitle} interface`}
-                  fill
-                  className="project-interface-image object-contain p-2 transition duration-500 group-hover:scale-[1.018] motion-reduce:transform-none motion-reduce:transition-none sm:p-3"
-                  sizes="(max-width: 1100px) 100vw, 54vw"
+                <ProjectScreenshot
+                  project={project}
+                  priority={index === 0}
+                  sizes="(max-width: 1100px) calc(100vw - 48px), 54vw"
+                  className="transition-colors duration-200 group-hover:border-white/[.16] group-focus-visible:border-white/[.22] group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-violet-400/60"
                 />
-                <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-[.65rem] font-bold tracking-[.14em] text-zinc-300 backdrop-blur-md">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="project-open-button absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/10 text-white backdrop-blur-xl transition group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none">
-                  <ArrowUpRight size={18} />
-                </span>
               </TrackedLink>
 
               <div className={`project-copy min-w-0 py-2 ${index % 2 ? "lg:order-1" : ""}`}>
