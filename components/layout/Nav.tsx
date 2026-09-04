@@ -30,6 +30,7 @@ export function Nav() {
   const wasOpenRef = useRef(false);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
+  const isDark = mounted && resolvedTheme === "dark";
 
   useEffect(() => setMounted(true), []);
   useEffect(() => setOpen(false), [pathname]);
@@ -119,8 +120,13 @@ export function Nav() {
             {links.slice(0, 3).map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
           </div>
           <a href="/contact" className={`floating-contact inline-flex ${pathname.startsWith('/contact') ? 'is-home' : ''}`}>Contact</a>
-          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={resolvedTheme === "dark" ? "Use light mode" : "Use dark mode"}>
-            {mounted && resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={mounted ? (isDark ? "Use light mode" : "Use dark mode") : "Toggle color theme"}
+          >
+            {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Moon size={18} />}
           </button>
         </nav>
 
@@ -168,8 +174,8 @@ export function Nav() {
 
         <div className="mobile-sidebar-footer">
           <button type="button" className="mobile-theme-row" onClick={toggleTheme}>
-            <span>{resolvedTheme === "dark" ? "Light mode" : "Dark mode"}</span>
-            {mounted && resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <span>{mounted ? (isDark ? "Light mode" : "Dark mode") : "Theme"}</span>
+            {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Moon size={18} />}
           </button>
         </div>
       </aside>
