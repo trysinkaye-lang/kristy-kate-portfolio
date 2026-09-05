@@ -7,6 +7,11 @@
   background: rgba(8, 8, 8, .96);
 }
 
+.home-selected-work {
+  border-top: 0;
+  background: #080808;
+}
+
 .home-section-heading,
 .home-about-grid,
 .home-conversion-grid {
@@ -220,6 +225,11 @@
 .light .home-flow-section {
   border-top-color: rgba(76, 60, 73, .1);
   background: rgba(248, 243, 239, .97);
+}
+
+.light .home-selected-work {
+  border-top: 0;
+  background: #f8f3ef;
 }
 
 .light .home-section-lede,
