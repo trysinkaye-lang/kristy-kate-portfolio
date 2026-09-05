@@ -4,27 +4,54 @@
   .home-cover {
     height: 134svh !important;
   }
-}
 
-/* Blend the sticky hero into the recruiter-focused homepage content. */
-.home-cover::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: clamp(70px, 9vh, 120px);
-  pointer-events: none;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(18, 15, 22, 0), rgba(8, 8, 8, 0.92));
-}
+  /* The hero has ~34svh of trailing scroll space after the sticky viewport.
+     Fade across that entire zone so the hero and Selected Work read as one surface. */
+  .home-cover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34svh;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(
+      180deg,
+      rgba(18, 15, 22, 0) 0%,
+      rgba(17, 14, 20, .10) 18%,
+      rgba(14, 12, 17, .32) 42%,
+      rgba(11, 10, 13, .68) 70%,
+      rgba(8, 8, 8, 1) 100%
+    );
+  }
 
-.light .home-cover::after {
-  background: linear-gradient(180deg, rgba(248, 243, 239, 0), rgba(248, 243, 239, 0.96));
+  .light .home-cover::after {
+    background: linear-gradient(
+      180deg,
+      rgba(248, 243, 239, 0) 0%,
+      rgba(248, 243, 239, .18) 18%,
+      rgba(248, 243, 239, .46) 42%,
+      rgba(248, 243, 239, .76) 70%,
+      rgba(248, 243, 239, 1) 100%
+    );
+  }
 }
 
 @media (max-width: 760px) {
   .home-cover::after {
-    height: 64px;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 96px;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(18, 15, 22, 0), rgba(8, 8, 8, 1));
+  }
+
+  .light .home-cover::after {
+    background: linear-gradient(180deg, rgba(248, 243, 239, 0), rgba(248, 243, 239, 1));
   }
 }
