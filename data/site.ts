@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
   title: "Software Developer & UI/UX Designer",
-  headline: "I build information systems, web applications, and offline-first software that turn complex workflows into clear, reliable digital tools.",
+  headline: "I design and build information systems, offline-first applications, and web experiences that turn complex operational workflows into clear, reliable tools.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { site } from "@/data/site";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
@@ -41,8 +40,6 @@ export function BlueprintHero() {
       cover.style.setProperty("--grid-y", `${eased * 48}px`);
       cover.style.setProperty("--grid-r", `${eased * 6}deg`);
       cover.style.setProperty("--orbit-r", `${eased * 22}deg`);
-      cover.style.setProperty("--paths-y", `${(1 - eased) * 72}px`);
-      cover.style.setProperty("--paths-z", `${eased * 54}px`);
       cover.style.setProperty("--plane-a-x", `${eased * -8}vw`);
       cover.style.setProperty("--plane-b-x", `${eased * 9}vw`);
       cover.style.setProperty("--plane-r", `${eased * 16}deg`);
@@ -164,24 +161,6 @@ export function BlueprintHero() {
               <div className="cover-rule" aria-hidden="true"><i /></div>
             </div>
           </div>
-
-          <nav className="cover-paths" aria-label="Explore portfolio">
-            <Link href="/projects" className="cover-path">
-              <span className="cover-path-number">01</span>
-              <span className="cover-path-label">WORK</span>
-              <ArrowUpRight size={20} />
-            </Link>
-            <Link href="/about" className="cover-path">
-              <span className="cover-path-number">02</span>
-              <span className="cover-path-label">ABOUT</span>
-              <ArrowUpRight size={20} />
-            </Link>
-            <Link href="/contact" className="cover-path">
-              <span className="cover-path-number">03</span>
-              <span className="cover-path-label">CONTACT</span>
-              <ArrowUpRight size={20} />
-            </Link>
-          </nav>
         </div>
 
         <div className="cover-scroll-cue" aria-hidden="true">

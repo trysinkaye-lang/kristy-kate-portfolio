@@ -9,12 +9,15 @@ export type Project = {
   solution: string;
   role: string;
   technologies: string[];
+  highlights: string[];
+  impact: string[];
   features: string[];
   challenges: string[];
   lessons: string[];
   image: string;
   imageWidth: number;
   imageHeight: number;
+  flagship?: boolean;
   github?: string;
   live?: string;
 };
@@ -31,12 +34,19 @@ export const projects: Project[] = [
     solution: "RBIM combines questionnaire-driven data entry, household and individual profiles, certificates, reports, data management, validation, and an offline-first local workflow with ongoing hybrid system development.",
     role: "Software Developer / UI Designer",
     technologies: ["React", "TypeScript", "Tailwind CSS", "PostgreSQL", "SQLite", "Tauri", "Rust"],
+    highlights: ["Q1–Q62 workflow", "7-step questionnaire", "Offline-first"],
+    impact: [
+      "Structured the current RBIM questionnaire into a seven-step Q1–Q62 encoding workflow with blocking validation before submission.",
+      "Supports offline-first desktop records with SQLite while the hybrid architecture adds PostgreSQL-backed municipal visibility.",
+      "Brings household, individual, migration, certificate, reporting, and data-management workflows into one operational system."
+    ],
     features: ["Household and individual profiles", "Questionnaire workflows", "Certificates", "Reports", "Data validation", "Migration classification", "Offline-first records", "Data management"],
     challenges: ["Designing complex forms without overwhelming encoders", "Maintaining accurate household and individual relationships", "Balancing offline desktop workflows with online municipal visibility"],
     lessons: ["Model operational rules explicitly", "Design validation around real data-entry behavior", "Treat usability and data integrity as one system problem"],
     image: "/media/rbim-dashboard.webp",
     imageWidth: 640,
-    imageHeight: 341
+    imageHeight: 341,
+    flagship: true
   },
   {
     slug: "ahdis",
@@ -49,6 +59,12 @@ export const projects: Project[] = [
     solution: "AHDIS organizes profile management, local reporting, dashboard analytics, imports and exports, controlled updates, and account-level access in a focused desktop application.",
     role: "Software Developer / UI Designer",
     technologies: ["PHP", "JavaScript", "HTML", "CSS", "SQLite", "PHP Desktop"],
+    highlights: ["Ages 10–19 reporting", "Desktop application", "Local analytics"],
+    impact: [
+      "Separates adolescent reporting for ages 10–19 from older records so dashboards and exports stay aligned with the program scope.",
+      "Combines profile management, barangay-level analytics, import/export, reporting, and account settings in one desktop workflow.",
+      "Designed for practical office use with local data storage, controlled updates, and clear age-aware reporting behavior."
+    ],
     features: ["Adolescent profile management", "Barangay-level insights", "Age distribution reporting", "Civil status and enrollment analytics", "Pregnancy-history tracking", "Import and export workflows", "Reports", "Account settings"],
     challenges: ["Maintaining a desktop-focused stack", "Separating age-specific reporting behavior", "Protecting local data during installation and updates"],
     lessons: ["Small workflow details strongly affect data-entry quality", "Deployment and upgrade safety are part of application design", "Clear UI states reduce operator errors"],
@@ -67,6 +83,12 @@ export const projects: Project[] = [
     solution: "The ERP interface brings key operational modules and business metrics into one system with quick actions, transaction visibility, inventory status, alerts, and reporting views.",
     role: "Software Developer / UI Designer",
     technologies: ["ERP", "Business System", "Dashboard UI"],
+    highlights: ["Unified operations", "Dashboard-led workflow", "Cross-module visibility"],
+    impact: [
+      "Brings sales, inventory, purchasing, HR and payroll, accounting, and reporting into a unified dashboard-led workflow.",
+      "Surfaces operational metrics, quick actions, alerts, inventory status, and recent transactions for faster scanning.",
+      "Uses consistent cross-module navigation to reduce friction across dense business workflows."
+    ],
     features: ["Executive dashboard", "Inventory management", "Sales workflows", "Purchasing workflows", "HR & payroll", "Accounting", "Reports", "Alerts and notifications", "Recent transactions"],
     challenges: ["Designing a dense dashboard without sacrificing scanability", "Keeping cross-module navigation clear", "Presenting operational metrics and exceptions in one view"],
     lessons: ["Dashboards should prioritize decision-making over decoration", "Cross-module consistency matters in business systems", "Alerts and quick actions reduce navigation cost"],
@@ -85,6 +107,12 @@ export const projects: Project[] = [
     solution: "Design work is approached through problem definition, layout, interface logic, visual direction, feedback, and refinement.",
     role: "UI/UX Designer / Digital Designer",
     technologies: ["Figma", "Canva", "Web UI", "Design Systems"],
+    highlights: ["Reusable patterns", "Responsive UI", "Visual hierarchy"],
+    impact: [
+      "Applies consistent hierarchy and reusable interface patterns across dashboards, web interfaces, and digital assets.",
+      "Balances expressive visuals with readability so design decisions continue to support the user task.",
+      "Translates system requirements and communication goals into clearer layouts, interactions, and visual direction."
+    ],
     features: ["Dashboard layouts", "Web interfaces", "Carousel concepts", "Visual hierarchy", "Responsive UI", "Reusable patterns"],
     challenges: ["Keeping visuals expressive without reducing readability", "Translating system requirements into simple interfaces"],
     lessons: ["Design decisions should map back to user tasks", "Consistency creates speed for both users and developers"],
