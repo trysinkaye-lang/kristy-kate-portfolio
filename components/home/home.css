@@ -7,6 +7,18 @@
   background: rgba(8, 8, 8, .96);
 }
 
+.home-selected-work {
+  border-top: 0;
+  background:
+    linear-gradient(
+      180deg,
+      #120f16 0%,
+      #0f0d11 18%,
+      rgba(8, 8, 8, .98) 48%,
+      rgba(8, 8, 8, .96) 100%
+    );
+}
+
 .home-section-heading,
 .home-about-grid,
 .home-conversion-grid {
@@ -220,6 +232,18 @@
 .light .home-flow-section {
   border-top-color: rgba(76, 60, 73, .1);
   background: rgba(248, 243, 239, .97);
+}
+
+.light .home-selected-work {
+  border-top: 0;
+  background:
+    linear-gradient(
+      180deg,
+      #f8f3ef 0%,
+      #f8f3ef 16%,
+      rgba(248, 243, 239, .985) 48%,
+      rgba(248, 243, 239, .97) 100%
+    );
 }
 
 .light .home-section-lede,
