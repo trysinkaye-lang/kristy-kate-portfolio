@@ -19,12 +19,10 @@ export const services = [
 ];
 
 export const stack = {
-  "Website Design": ["UI/UX", "Responsive Design", "Interaction Design", "Design Systems"],
   Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vite", "Tailwind CSS"],
   Backend: ["PHP", "Node.js", "REST APIs"],
   Database: ["PostgreSQL", "SQLite", "MySQL"],
   "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
-  "Creative Development": ["GSAP", "Three.js", "WebGL", "Higgsfield"],
   "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
   "Design Tools": ["Figma", "Canva"]
 };
