@@ -9,6 +9,7 @@ const links = [
   ["Home", "/"],
   ["Projects", "/projects"],
   ["About", "/about"],
+  ["Packages", "/packages"],
   ["Contact", "/contact"],
 ] as const;
 
@@ -117,7 +118,7 @@ export function Nav() {
       <header className="fixed inset-x-0 top-5 z-50 px-4">
         <nav className="floating-nav mx-auto hidden h-14 w-fit items-center rounded-full p-1.5 sm:flex" aria-label="Main navigation">
           <div className="flex items-center">
-            {links.slice(0, 3).map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
+            {links.slice(0, 4).map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
           </div>
           <a href="/contact" className={`floating-contact inline-flex ${pathname.startsWith('/contact') ? 'is-home' : ''}`}>Contact</a>
           <button
