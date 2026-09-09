@@ -100,7 +100,7 @@ export function WebsitePackages() {
               </ul>
 
               <TrackedLink
-                href={`/packages#${item.name.toLowerCase()}`}
+                href="/packages"
                 eventName="website_package_contact_click"
                 eventData={{ package: item.name.toLowerCase(), source: "packages_home" }}
                 className={item.featured ? "v2-button v2-button-primary home-package-cta" : "v2-button home-package-cta"}
