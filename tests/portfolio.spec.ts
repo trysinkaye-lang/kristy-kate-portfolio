@@ -15,7 +15,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     const hero = page.locator('#home');
     await expect(hero).toBeVisible();
 
-    const selectedWorkHeading = page.getByRole('heading', { name: /Real systems, built around real workflows/i });
+    const selectedWorkHeading = page.getByRole('heading', { name: /Digital experiences built for real use/i });
     await selectedWorkHeading.scrollIntoViewIfNeeded();
 
     const scrollY = await page.evaluate(() => window.scrollY);
@@ -130,6 +130,8 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     const projects = [
       '/projects/rbim',
       '/projects/ahdis',
+      '/projects/lacomus-revamp',
+      '/projects/co-designs-website',
       '/projects/erp-system',
       '/projects/design-systems',
     ];
