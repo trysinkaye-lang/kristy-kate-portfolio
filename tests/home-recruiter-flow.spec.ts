@@ -17,6 +17,10 @@ test.describe("Homepage recruiter journey", () => {
     await expect(page.getByRole("heading", { name: "C.O. DESIGNS" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "MARCI METZGER" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Clear options for different website needs/i })).toBeVisible();
+    await expect(page.getByText("₱15,000", { exact: true })).toBeVisible();
+    await expect(page.getByText("₱25,000", { exact: true })).toBeVisible();
+    await expect(page.getByText("₱35,000–₱40,000", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: /The stack behind my strongest work/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
   });
@@ -32,6 +36,16 @@ test.describe("Homepage recruiter journey", () => {
     await expect(previews.nth(0)).toHaveAttribute("src", "https://co-designs-website.vercel.app/");
     await expect(previews.nth(1)).toHaveAttribute("src", "https://marci-metzger-redesign-2026.vercel.app/");
     await expect(previews.nth(2)).toHaveAttribute("src", "https://lacomus-revamp.vercel.app/");
+  });
+
+  test("website packages offer direct contact actions", async ({ page }) => {
+    await page.goto("/");
+
+    const packages = page.locator(".home-package-card");
+    await expect(packages).toHaveCount(3);
+    await expect(page.getByRole("link", { name: "Choose Basic" })).toHaveAttribute("href", "/contact");
+    await expect(page.getByRole("link", { name: "Choose Professional" })).toHaveAttribute("href", "/contact");
+    await expect(page.getByRole("link", { name: "Choose Premium" })).toHaveAttribute("href", "/contact");
   });
 
   test("primary recruiter CTA opens Projects", async ({ page }) => {
