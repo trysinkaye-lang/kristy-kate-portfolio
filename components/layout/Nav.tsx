@@ -160,8 +160,7 @@ export function Nav() {
           </button>
         </nav>
 
-        <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-between sm:hidden">
-          <a href="/" className="mobile-brand mobile-brand-wordmark" aria-label="Go to home">Kristy Kate</a>
+        <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-end sm:hidden">
           <button
             ref={menuButtonRef}
             type="button"
