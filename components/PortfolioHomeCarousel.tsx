@@ -7,6 +7,7 @@ import { CreativeLab } from "@/components/home/CreativeLab";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeCTA } from "@/components/home/HomeCTA";
 import "@/components/home/home.css";
+import "@/components/home/portfolio-2026.css";
 
 export function PortfolioHomeCarousel() {
   return (
