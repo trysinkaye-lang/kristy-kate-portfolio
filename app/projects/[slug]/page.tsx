@@ -20,6 +20,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projects[projectIndex];
   const nextProject = projects[(projectIndex + 1) % projects.length];
   const isAhdis = project.slug === "ahdis";
+  const isInDevelopment = project.status.toLowerCase().includes("development");
 
   return (
     <main id="main-content" className="portfolio-v2 editorial-page project-detail-page min-h-screen pb-20 pt-36">
@@ -28,9 +29,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <header className="page-hero mt-10 grid gap-10 border-b border-white/[.09] pb-14 lg:grid-cols-[1.2fr_.8fr] lg:items-end lg:pb-20">
           <div>
             <div className="project-meta flex flex-wrap items-center gap-3 text-xs uppercase tracking-[.18em] text-zinc-600">
-              <span>0{projectIndex + 1}</span>
-              <span className="h-px w-10 bg-white/10" />
-              <span>{project.status}</span>
+              <span>0{projectIndex + 1}</span><span className="h-px w-10 bg-white/10" /><span>{project.status}</span>
               {project.flagship ? <span className="rounded-full border border-white/[.14] px-3 py-1 text-[.62rem] font-bold tracking-[.16em] text-zinc-300">Flagship case study</span> : null}
             </div>
             <h1 className="page-title mt-7 max-w-5xl text-[clamp(4rem,8vw,7.5rem)] font-semibold leading-[.86] tracking-[-.065em] text-white">{project.shortTitle}</h1>
@@ -41,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <div className="mt-7 flex flex-wrap gap-2">{project.technologies.map((technology) => <span className="v2-chip" key={technology}>{technology}</span>)}</div>
             {(project.live || project.github) ? (
               <div className="mt-7 flex flex-wrap gap-3">
-                {project.live ? <a className="v2-button" href={project.live} target="_blank" rel="noreferrer">Live demo <ExternalLink size={15} /></a> : null}
+                {project.live ? <a className="v2-button" href={project.live} target="_blank" rel="noreferrer">{isInDevelopment ? "Live development" : "Live demo"} <ExternalLink size={15} /></a> : null}
                 {project.github ? <a className="v2-button" href={project.github} target="_blank" rel="noreferrer">GitHub <ExternalLink size={15} /></a> : null}
               </div>
             ) : null}
@@ -49,9 +48,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </header>
 
         <section className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Project highlights">
-          {project.highlights.map((item) => (
-            <div key={item} className="editorial-card rounded-2xl border border-white/[.08] px-5 py-4 text-sm font-medium text-zinc-300">{item}</div>
-          ))}
+          {project.highlights.map((item) => <div key={item} className="editorial-card rounded-2xl border border-white/[.08] px-5 py-4 text-sm font-medium text-zinc-300">{item}</div>)}
         </section>
 
         {isAhdis ? (
@@ -59,9 +56,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p id="ahdis-interface-preview-title" className="v2-kicker mb-4 sm:mb-5">AHDIS interface preview</p>
             <ProjectScreenshot project={project} priority showLabel={false} constrainToSourceWidth={false} sizes="(max-width: 760px) calc(100vw - 24px), (max-width: 1180px) calc(100vw - 40px), 1180px" className="w-full rounded-[1rem] sm:rounded-[1.2rem]" imageClassName="w-full rounded-[.45rem] sm:rounded-[.6rem]" />
           </section>
-        ) : (
-          <div className="mt-12 sm:mt-16"><ProjectScreenshot project={project} priority sizes="(max-width: 1180px) calc(100vw - 40px), 1180px" className="mx-auto" /></div>
-        )}
+        ) : <div className="mt-12 sm:mt-16"><ProjectScreenshot project={project} priority sizes="(max-width: 1180px) calc(100vw - 40px), 1180px" className="mx-auto" constrainToSourceWidth={false} /></div>}
 
         <div className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-[.35fr_.65fr] lg:gap-20">
           <aside className="project-overview-aside lg:sticky lg:top-28 lg:self-start">
@@ -86,4 +81,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   );
 }
 
-function CaseSection({ number, title, children }: { number: string; title: string; children: React.ReactNode }) { return <section className="case-editorial-section editorial-section"><div className="flex items-center gap-4"><span className="text-xs text-zinc-600">{number}</span><span className="h-px flex-1 bg-white/[.09]" /></div><h2 className="section-title mt-6 text-3xl font-semibold tracking-[-.04em] text-white sm:text-4xl">{title}</h2><div className="mt-6 text-lg leading-8 text-zinc-400">{children}</div></section>; }
+function CaseSection({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
+  return <section className="case-editorial-section editorial-section"><div className="flex items-center gap-4"><span className="text-xs text-zinc-600">{number}</span><span className="h-px flex-1 bg-white/[.09]" /></div><h2 className="section-title mt-6 text-3xl font-semibold tracking-[-.04em] text-white sm:text-4xl">{title}</h2><div className="mt-6 text-lg leading-8 text-zinc-400">{children}</div></section>;
+}
