@@ -1,0 +1,263 @@
+/* V16 — light-mode readability and visual comfort pass.
+   Keeps the current layout and brand accent while moving the light theme toward
+   a cleaner neutral canvas, stronger text contrast, and calmer surfaces. */
+
+.light {
+  --ui-page: #f7f7f8;
+  --ui-surface: #fbfbfc;
+  --ui-surface-2: #ffffff;
+  --ui-surface-3: #f1eff1;
+  --ui-text: #202024;
+  --ui-text-2: #3f3d43;
+  --ui-text-3: #55525a;
+  --ui-text-4: #69656e;
+  --ui-border: rgba(42, 38, 44, .11);
+  --ui-border-strong: rgba(42, 38, 44, .17);
+  --ui-accent: #95617f;
+  --ui-accent-strong: #7f4e6c;
+  --ui-accent-soft: rgba(149, 97, 127, .09);
+  --ui-shadow: 0 20px 56px rgba(39, 34, 38, .08);
+}
+
+.light body {
+  background: #f7f7f8 !important;
+  color: #202024 !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Stronger, more neutral typography in light mode. */
+.light .portfolio-v2 h1,
+.light .portfolio-v2 h2,
+.light .portfolio-v2 h3,
+.light .portfolio-v2 h4,
+.light .portfolio-v2 .section-title,
+.light .portfolio-v2 .page-title,
+.light .portfolio-v2 .v2-heading,
+.light .portfolio-v2 .text-white {
+  color: #202024 !important;
+}
+
+.light .portfolio-v2 .text-zinc-300,
+.light .portfolio-v2 .text-zinc-400,
+.light .portfolio-v2 .text-zinc-500,
+.light .portfolio-v2 .text-zinc-600,
+.light .portfolio-v2 .text-zinc-700 {
+  color: #59565e !important;
+}
+
+.light .portfolio-v2 .page-intro,
+.light .portfolio-v2 .home-section-lede,
+.light .portfolio-v2 .home-about-copy,
+.light .portfolio-v2 .project-full-title,
+.light .portfolio-v2 .project-overview,
+.light .portfolio-v2 .project-role,
+.light .portfolio-v2 .cover-signature,
+.light .portfolio-v2 .contact-classic-copy p,
+.light .portfolio-v2 .case-editorial-section p,
+.light .portfolio-v2 .case-editorial-section li {
+  color: #514e55 !important;
+}
+
+.light .portfolio-v2 .v2-kicker,
+.light .portfolio-v2 .page-kicker,
+.light .portfolio-v2 .about-identity-line,
+.light .portfolio-v2 .project-case-link {
+  color: #7d4f6b !important;
+}
+
+.light .portfolio-v2 .project-meta,
+.light .portfolio-v2 .project-status,
+.light .portfolio-v2 .project-index,
+.light .portfolio-v2 .page-back-link,
+.light .portfolio-v2 .project-overview-aside span,
+.light .portfolio-v2 .cover-role,
+.light .portfolio-v2 .cover-proof span,
+.light .portfolio-v2 .cover-scroll-cue,
+.light .portfolio-v2 .cover-name {
+  color: #5f5b63 !important;
+}
+
+/* Cleaner light canvas with less pink cast. */
+.light .portfolio-v2,
+.light .editorial-page,
+.light .portfolio-v2.projects-page,
+.light .portfolio-v2.project-detail-page,
+.light .portfolio-v2.about-page {
+  background-color: #f7f7f8 !important;
+  color: #202024 !important;
+}
+
+.light .portfolio-v2 .home-selected-work,
+.light .portfolio-v2 .home-web-work,
+.light .portfolio-v2 .home-about,
+.light .portfolio-v2 .home-cta,
+.light .portfolio-v2 .home-capabilities,
+.light .portfolio-v2 .home-conversion {
+  background: #f7f7f8 !important;
+}
+
+.light .portfolio-v2 .home-cover,
+.light .portfolio-v2 .cover-sticky {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(174, 126, 157, .12), transparent 30rem),
+    radial-gradient(circle at 12% 78%, rgba(126, 133, 169, .055), transparent 27rem),
+    linear-gradient(135deg, #fcfbfc 0%, #f3f1f3 58%, #fafafa 100%) !important;
+}
+
+.light .portfolio-v2 .cover-line-a {
+  color: #1f2024 !important;
+}
+
+.light .portfolio-v2 .cover-line-b {
+  color: #a56b8e !important;
+}
+
+/* Surfaces should feel white and crisp, not gray-pink. */
+.light .portfolio-v2 .editorial-card,
+.light .portfolio-v2 .about-method-card,
+.light .portfolio-v2 .about-education-card,
+.light .portfolio-v2 .about-service-card,
+.light .portfolio-v2 .case-feature,
+.light .portfolio-v2 .contact-option,
+.light .portfolio-v2 .project-copy,
+.light .portfolio-v2 .home-capability-card,
+.light .portfolio-v2 .home-system-project,
+.light .portfolio-v2 .home-conversion-panel {
+  background: #ffffff !important;
+  border-color: rgba(42, 38, 44, .105) !important;
+  box-shadow: 0 14px 38px rgba(39, 34, 38, .045) !important;
+}
+
+.light .portfolio-v2 .editorial-card:hover,
+.light .portfolio-v2 .about-method-card:hover,
+.light .portfolio-v2 .about-service-card:hover,
+.light .portfolio-v2 .contact-option:hover,
+.light .portfolio-v2 .home-capability-card:hover {
+  background: #ffffff !important;
+  border-color: rgba(126, 79, 107, .22) !important;
+  box-shadow: 0 16px 42px rgba(39, 34, 38, .07) !important;
+}
+
+.light .portfolio-v2 .v2-chip {
+  background: #ffffff !important;
+  border-color: rgba(42, 38, 44, .12) !important;
+  color: #49464c !important;
+}
+
+.light .portfolio-v2 .v2-button {
+  background: #ffffff !important;
+  border-color: rgba(42, 38, 44, .13) !important;
+  color: #333136 !important;
+}
+
+.light .portfolio-v2 .v2-button:hover {
+  background: #fbf9fa !important;
+  border-color: rgba(126, 79, 107, .25) !important;
+  color: #1f1f23 !important;
+}
+
+.light .portfolio-v2 .v2-button-primary,
+.light .portfolio-v2 .v2-button-primary:hover {
+  background: linear-gradient(135deg, #8f5a7a, #a96f92) !important;
+  color: #ffffff !important;
+}
+
+/* Project/browser frames stay clearly separated from the light page. */
+.light .portfolio-v2 .home-site-browser {
+  background: #ffffff !important;
+  border-color: rgba(42, 38, 44, .13) !important;
+}
+
+.light .portfolio-v2 .home-site-browser-bar {
+  background: #f4f3f4 !important;
+  color: #5e5a62 !important;
+  border-bottom-color: rgba(42, 38, 44, .1) !important;
+}
+
+.light .portfolio-v2 .home-site-browser-stage {
+  background: #eceaec !important;
+}
+
+/* Contact page: neutral base, restrained accent. */
+.light .portfolio-v2.contact-page {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(149, 97, 127, .08), transparent 28rem),
+    radial-gradient(circle at 13% 78%, rgba(115, 127, 170, .05), transparent 30rem),
+    linear-gradient(180deg, #fafafa, #f4f3f5 64%, #f8f8f9) !important;
+}
+
+.light .portfolio-v2 .contact-outline-text {
+  -webkit-text-stroke-color: #95617f !important;
+}
+
+/* Desktop navbar: cleaner, higher-contrast light treatment. */
+.light .premium-floating-nav {
+  border-color: rgba(42, 38, 44, .12) !important;
+  background: rgba(255, 255, 255, .92) !important;
+  box-shadow: 0 14px 42px rgba(35, 31, 34, .09), inset 0 1px 0 rgba(255,255,255,.96) !important;
+}
+
+.light .site-header.is-scrolled .premium-floating-nav {
+  background: rgba(255, 255, 255, .97) !important;
+}
+
+.light .premium-floating-nav .floating-nav-link,
+.light .premium-floating-nav .floating-contact,
+.light .theme-toggle {
+  color: #47434a !important;
+}
+
+.light .premium-floating-nav .floating-nav-link:hover,
+.light .premium-floating-nav .floating-contact:hover {
+  color: #222126 !important;
+  background: #f4f1f3 !important;
+}
+
+.light .premium-floating-nav .floating-nav-link.is-home,
+.light .premium-floating-nav .floating-contact.is-home {
+  color: #211f23 !important;
+  background: #eee8ec !important;
+}
+
+/* KT is intentionally removed. Mobile keeps a simple text wordmark instead. */
+.mobile-brand-wordmark {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  padding: .55rem .75rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(10, 8, 12, .72) !important;
+  color: rgba(255,255,255,.9) !important;
+  font-size: .78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em !important;
+  line-height: 1 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09) !important;
+}
+
+.light .mobile-brand-wordmark {
+  background: rgba(255,255,255,.92) !important;
+  color: #29262b !important;
+  box-shadow: inset 0 0 0 1px rgba(42,38,44,.1), 0 8px 24px rgba(35,31,34,.07) !important;
+}
+
+/* Footer text should remain comfortably readable. */
+.light .site-footer,
+.light .footer-link {
+  color: #4f4b52 !important;
+}
+
+.light .site-footer {
+  background: linear-gradient(180deg, #f2f1f2, #e9e7e9) !important;
+}
+
+@media (max-width: 760px) {
+  .light .portfolio-v2 .home-cover,
+  .light .portfolio-v2 .cover-sticky {
+    background:
+      radial-gradient(circle at 88% 8%, rgba(166, 109, 143, .10), transparent 18rem),
+      linear-gradient(180deg, #fcfbfc, #f3f2f4) !important;
+  }
+}
