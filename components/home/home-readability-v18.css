@@ -1,0 +1,209 @@
+/* V18 — research-driven readability and selected-work polish.
+   Priorities: WCAG AA contrast, clearer three-level type hierarchy, shorter line lengths,
+   and a smoother light-mode handoff from the animated hero into project content. */
+
+/* Keep the cinematic hero, but remove the long dead transition and black fade in light mode. */
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  .light .portfolio-v2 .home-cover {
+    height: 110svh !important;
+    min-height: 110svh !important;
+  }
+
+  html.light .portfolio-v2 .cover-sticky::after {
+    height: clamp(44px, 6vh, 76px) !important;
+    background: linear-gradient(180deg, rgba(247,245,247,0), rgba(247,245,247,.96)) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Selected Work: remove the washed-out transition and establish a clear editorial hierarchy. */
+html.light .portfolio-v2 .home-selected-work {
+  background: #f7f5f7 !important;
+  border-top: 1px solid rgba(54, 45, 54, .09);
+  padding-top: clamp(4.25rem, 6vw, 5.75rem) !important;
+}
+
+html.light .portfolio-v2 .home-selected-work::before {
+  display: none !important;
+  content: none !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-section-heading-wide {
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .65fr);
+  align-items: end;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding-bottom: clamp(2rem, 3vw, 2.75rem);
+  border-bottom: 1px solid rgba(54, 45, 54, .12);
+}
+
+html.light .portfolio-v2 .home-selected-work .v2-kicker {
+  color: #7a3f63 !important;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+html.light .portfolio-v2 .home-selected-work .v2-heading {
+  max-width: 760px;
+  color: #1f1b20 !important;
+  font-size: clamp(3.1rem, 5vw, 4.9rem);
+  font-weight: 680;
+  line-height: .96;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-section-lede {
+  max-width: 43ch;
+  justify-self: end;
+  color: #4b4650 !important;
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  font-weight: 430;
+  line-height: 1.72;
+}
+
+/* System cards: stronger contrast without making the page visually heavy. */
+html.light .portfolio-v2 .home-selected-work .home-system-project {
+  background: #ffffff !important;
+  border: 1px solid rgba(54, 45, 54, .12) !important;
+  box-shadow: 0 16px 42px rgba(42, 34, 41, .065) !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-project:hover {
+  border-color: rgba(122, 63, 99, .25) !important;
+  box-shadow: 0 22px 54px rgba(42, 34, 41, .095) !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-copy h3 {
+  color: #1f1b20 !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-title {
+  color: #5a535d !important;
+  font-weight: 650;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-overview {
+  color: #4b4650 !important;
+  max-width: 62ch;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-eyebrow,
+html.light .portfolio-v2 .home-selected-work .project-status,
+html.light .portfolio-v2 .home-selected-work .home-system-meta span {
+  color: #5a535d !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-meta strong {
+  color: #29252a !important;
+  font-weight: 650;
+}
+
+html.light .portfolio-v2 .home-selected-work .home-system-eyebrow {
+  border-bottom-color: rgba(54, 45, 54, .10) !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .v2-chip {
+  background: #f7f4f6 !important;
+  border-color: rgba(54, 45, 54, .12) !important;
+  color: #49434b !important;
+}
+
+html.light .portfolio-v2 .home-selected-work .project-case-link {
+  color: #763c60 !important;
+  font-weight: 750;
+}
+
+html.light .portfolio-v2 .home-selected-work .project-case-link:hover {
+  color: #5f2d4b !important;
+}
+
+/* Homepage-wide light-mode text hierarchy. These are deliberately stronger than
+   earlier muted values so supporting text stays readable on bright displays. */
+html.light .portfolio-v2 :is(
+  .home-web-project-overview,
+  .home-web-project-title,
+  .home-about-copy,
+  .home-about-copy p,
+  .home-capabilities .home-section-lede,
+  .home-cta p
+) {
+  color: #4b4650 !important;
+}
+
+html.light .portfolio-v2 :is(
+  .home-web-project-copy h3,
+  .home-capability-card h3,
+  .home-about .v2-heading,
+  .home-capabilities .v2-heading,
+  .home-cta .v2-heading
+) {
+  color: #1f1b20 !important;
+}
+
+html.light .portfolio-v2 :is(
+  .home-web-project-meta,
+  .home-capability-index,
+  .home-capability-meta
+) {
+  color: #5a535d !important;
+}
+
+/* Improve scanability: restrained line length and distinct section rhythm. */
+.portfolio-v2 .home-section-lede,
+.portfolio-v2 .home-system-overview,
+.portfolio-v2 .home-web-project-overview,
+.portfolio-v2 .home-about-copy {
+  text-wrap: pretty;
+}
+
+.portfolio-v2 .home-system-meta strong,
+.portfolio-v2 .home-system-title,
+.portfolio-v2 .home-web-project-title {
+  line-height: 1.5;
+}
+
+/* Keep section labels visible but subordinate. */
+html.light .portfolio-v2 .home-flow-section .v2-kicker {
+  color: #7a3f63 !important;
+  font-weight: 800;
+}
+
+/* Keyboard focus must remain obvious in the lighter palette. */
+html.light .portfolio-v2 a:focus-visible,
+html.light .portfolio-v2 button:focus-visible {
+  outline: 3px solid rgba(122, 63, 99, .62) !important;
+  outline-offset: 4px !important;
+}
+
+@media (max-width: 1024px) {
+  html.light .portfolio-v2 .home-selected-work .home-section-heading-wide {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  html.light .portfolio-v2 .home-selected-work .home-section-lede {
+    justify-self: start;
+    max-width: 58ch;
+  }
+}
+
+@media (max-width: 640px) {
+  html.light .portfolio-v2 .home-selected-work {
+    padding-top: 3.75rem !important;
+  }
+
+  html.light .portfolio-v2 .home-selected-work .v2-heading {
+    font-size: clamp(2.65rem, 13vw, 4rem);
+    line-height: .98;
+  }
+
+  html.light .portfolio-v2 .home-selected-work .home-section-heading-wide {
+    padding-bottom: 1.75rem;
+  }
+
+  html.light .portfolio-v2 .home-selected-work .home-section-lede {
+    font-size: 1rem;
+    line-height: 1.66;
+  }
+}
