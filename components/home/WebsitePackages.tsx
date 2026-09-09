@@ -64,12 +64,12 @@ export function WebsitePackages() {
               Choose a starting package based on the size and complexity of the website. Final scope is confirmed before development begins.
             </p>
             <TrackedLink
-              href="/contact"
+              href="/packages"
               eventName="website_package_contact_click"
-              eventData={{ source: "packages_intro" }}
+              eventData={{ source: "packages_intro", destination: "packages_page" }}
               className="project-case-link"
             >
-              Discuss a website project <ArrowUpRight size={16} />
+              View full packages & currency options <ArrowUpRight size={16} />
             </TrackedLink>
           </div>
         </div>
@@ -100,12 +100,12 @@ export function WebsitePackages() {
               </ul>
 
               <TrackedLink
-                href="/contact"
+                href={`/packages#${item.name.toLowerCase()}`}
                 eventName="website_package_contact_click"
-                eventData={{ package: item.name.toLowerCase(), source: "packages" }}
+                eventData={{ package: item.name.toLowerCase(), source: "packages_home" }}
                 className={item.featured ? "v2-button v2-button-primary home-package-cta" : "v2-button home-package-cta"}
               >
-                Choose {item.name} <ArrowUpRight size={15} />
+                View {item.name} <ArrowUpRight size={15} />
               </TrackedLink>
             </article>
           ))}
