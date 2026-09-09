@@ -10,17 +10,7 @@ const websiteProjects = projects.filter((project) => ["co-designs-website", "mar
 const designProjects = projects.filter((project) => ["design-systems"].includes(project.slug));
 
 function LivePreview({ project }: { project: Project }) {
-  if (!project.live) {
-    return (
-      <ProjectScreenshot
-        project={project}
-        sizes="(max-width: 980px) calc(100vw - 56px), 52vw"
-        constrainToSourceWidth={false}
-        className="h-full border-0 bg-transparent shadow-none"
-        imageClassName="h-full w-full object-contain"
-      />
-    );
-  }
+  if (!project.live) return null;
 
   const domain = project.live.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
@@ -49,16 +39,16 @@ function ProjectCard({ project, priority = false }: { project: Project; priority
   return (
     <article className={styles.card}>
       <div className={styles.visual}>
-        <TrackedLink
-          href={`/projects/${project.slug}`}
-          eventName="project_case_study_click"
-          eventData={{ project: project.slug, source: "projects_visual" }}
-          aria-label={`View ${project.shortTitle} case study`}
-          className={styles.visualLink}
-        >
-          {project.live ? (
-            <LivePreview project={project} />
-          ) : (
+        {project.live ? (
+          <LivePreview project={project} />
+        ) : (
+          <TrackedLink
+            href={`/projects/${project.slug}`}
+            eventName="project_case_study_click"
+            eventData={{ project: project.slug, source: "projects_visual" }}
+            aria-label={`View ${project.shortTitle} case study`}
+            className={styles.visualLink}
+          >
             <ProjectScreenshot
               project={project}
               priority={priority}
@@ -67,8 +57,8 @@ function ProjectCard({ project, priority = false }: { project: Project; priority
               className="h-full border-0 bg-transparent shadow-none"
               imageClassName="w-full object-contain"
             />
-          )}
-        </TrackedLink>
+          </TrackedLink>
+        )}
       </div>
 
       <div className={styles.copy}>
