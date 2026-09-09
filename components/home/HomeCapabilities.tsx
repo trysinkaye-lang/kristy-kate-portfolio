@@ -25,7 +25,7 @@ const capabilityGroups: Array<{
   icon: LucideIcon;
   items: string[];
 }> = [
-  { label: "Website Design", icon: PenTool, items: stack["Website Design"] },
+  { label: "Website Design", icon: PenTool, items: ["UI/UX", "Responsive Design", "Interaction Design", "Design Systems"] },
   {
     label: "Frontend",
     icon: Code2,
@@ -36,7 +36,7 @@ const capabilityGroups: Array<{
   { label: "Backend", icon: Server, items: stack.Backend },
   { label: "Database", icon: Database, items: stack.Database },
   { label: "Application / Desktop", icon: AppWindow, items: stack["Desktop / Applications"] },
-  { label: "Creative Development", icon: Sparkles, items: stack["Creative Development"] },
+  { label: "Creative Development", icon: Sparkles, items: ["GSAP", "Three.js", "WebGL", "Higgsfield"] },
   {
     label: "Tools",
     icon: Wrench,
