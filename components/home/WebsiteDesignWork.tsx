@@ -57,16 +57,14 @@ export function WebsiteDesignWork() {
                   </TrackedLink>
 
                   {project.live ? (
-                    <TrackedLink
+                    <a
                       href={project.live}
-                      eventName="project_live_click"
-                      eventData={{ project: project.slug, source: "website_work" }}
                       className="project-live-link"
                       target="_blank"
                       rel="noreferrer"
                     >
                       Live Development <ExternalLink size={15} />
-                    </TrackedLink>
+                    </a>
                   ) : null}
                 </div>
               </div>
