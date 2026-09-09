@@ -11,6 +11,7 @@ import "@/components/home/creative-2026.css";
 import "@/components/home/professional-home.css";
 import "@/components/home/home-visual-polish.css";
 import "@/components/home/home-experience-v17.css";
+import "@/components/home/home-readability-v18.css";
 
 export function PortfolioHomeCarousel() {
   return (
