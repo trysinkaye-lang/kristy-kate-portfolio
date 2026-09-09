@@ -8,13 +8,15 @@ test.describe("Homepage recruiter journey", () => {
     const hero = page.locator("#home");
     await expect(hero).toBeVisible();
     await expect(hero.getByText("Kristy Kate Taylor", { exact: true })).toBeVisible();
-    await expect(hero.getByText("Software Developer & UI/UX Designer", { exact: true })).toBeVisible();
+    await expect(hero.getByText("Website Designer & Developer · Full-Stack Developer", { exact: true })).toBeVisible();
     await expect(hero.getByRole("heading", { name: /developer.*designer/i })).toBeVisible();
     await expect(hero.getByRole("link", { name: /View My Work/i })).toBeVisible();
 
     await expect(page.getByRole("heading", { name: "RBIM" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AHDIS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /The stack behind my strongest systems/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "C.O. DESIGNS" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /The stack behind my strongest work/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
   });
 
