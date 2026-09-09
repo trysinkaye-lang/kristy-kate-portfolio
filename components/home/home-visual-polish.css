@@ -1,0 +1,102 @@
+/* Final homepage visual pass: compact hero, readable light mode, and cleaner section handoffs. */
+
+.portfolio-v2 .home-selected-work,
+.portfolio-v2 .home-web-work,
+.portfolio-v2 .home-about {
+  position: relative;
+}
+
+.portfolio-v2 .home-selected-work::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -72px;
+  height: 72px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(9, 9, 10, 0), #09090a);
+}
+
+/* These sections intentionally stay dark in both themes, so their typography must stay light. */
+.portfolio-v2 .home-selected-work .v2-heading,
+.portfolio-v2 .home-web-work .v2-heading,
+.portfolio-v2 .home-about .v2-heading {
+  color: #f5eef3 !important;
+}
+
+.portfolio-v2 .home-selected-work .v2-kicker,
+.portfolio-v2 .home-web-work .v2-kicker,
+.portfolio-v2 .home-about .v2-kicker {
+  color: #c99fba !important;
+}
+
+.portfolio-v2 .home-selected-work .home-section-lede,
+.portfolio-v2 .home-web-work .home-section-lede,
+.portfolio-v2 .home-about .home-about-copy,
+.portfolio-v2 .home-about .home-about-copy p {
+  color: rgba(255, 255, 255, .64) !important;
+}
+
+/* Light mode remains available, but the hero now has deliberate contrast instead of white-on-cream text. */
+.light .portfolio-v2 .home-cover {
+  background: #f4edf2 !important;
+}
+
+.light .portfolio-v2 .cover-light {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(166, 107, 146, .12), transparent 25%),
+    radial-gradient(circle at 16% 76%, rgba(128, 98, 166, .08), transparent 30%),
+    linear-gradient(165deg, #f8f2f5 0%, #f2e8ef 54%, #f7f1f4 100%) !important;
+}
+
+.light .portfolio-v2 .cover-line-a {
+  color: #211920 !important;
+}
+
+.light .portfolio-v2 .cover-line-b {
+  color: #a75f8d !important;
+}
+
+.light .portfolio-v2 .cover-name {
+  color: #342733 !important;
+}
+
+.light .portfolio-v2 .cover-role,
+.light .portfolio-v2 .cover-signature {
+  color: rgba(52, 39, 51, .72) !important;
+}
+
+.light .portfolio-v2 .cover-identity-divider,
+.light .portfolio-v2 .cover-proof {
+  border-color: rgba(79, 54, 72, .15) !important;
+}
+
+.light .portfolio-v2 .cover-proof span,
+.light .portfolio-v2 .cover-scroll-cue {
+  color: rgba(52, 39, 51, .56) !important;
+}
+
+/* Keep buttons legible when a light-theme visitor reaches a dark section. */
+.light .portfolio-v2 .home-about .v2-button,
+.light .portfolio-v2 .home-selected-work .v2-button,
+.light .portfolio-v2 .home-web-work .v2-button {
+  border-color: rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .055);
+  color: #f5eef3;
+  box-shadow: none;
+}
+
+.light .portfolio-v2 .home-about .v2-button:hover,
+.light .portfolio-v2 .home-selected-work .v2-button:hover,
+.light .portfolio-v2 .home-web-work .v2-button:hover {
+  border-color: rgba(222, 179, 207, .34);
+  background: rgba(222, 179, 207, .09);
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .portfolio-v2 .home-selected-work::before {
+    top: -36px;
+    height: 36px;
+  }
+}
