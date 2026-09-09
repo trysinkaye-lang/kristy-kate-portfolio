@@ -126,12 +126,6 @@ export function Nav() {
     <>
       <header className={`site-header fixed inset-x-0 top-5 z-50 px-4${scrolled ? " is-scrolled" : ""}`}>
         <nav className="floating-nav premium-floating-nav mx-auto hidden h-14 w-fit items-center rounded-full sm:flex" aria-label="Main navigation">
-          <a href="/" className="floating-brand-mark" aria-label="Kristy Kate Taylor — Home">
-            <span>KT</span>
-            <span className="floating-brand-status" aria-hidden="true" />
-          </a>
-          <span className="premium-nav-divider" aria-hidden="true" />
-
           <div className="flex items-center">
             {links.slice(0, 4).map(([label, href]) => {
               const active = pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -167,7 +161,7 @@ export function Nav() {
         </nav>
 
         <div className="mobile-nav-trigger mx-auto flex w-full max-w-[calc(100vw-2rem)] items-center justify-between sm:hidden">
-          <a href="/" className="mobile-brand" aria-label="Go to home">KT</a>
+          <a href="/" className="mobile-brand mobile-brand-wordmark" aria-label="Go to home">Kristy Kate</a>
           <button
             ref={menuButtonRef}
             type="button"
