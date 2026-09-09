@@ -1,8 +1,10 @@
-/* Final homepage visual pass: compact hero, readable light mode, and cleaner section handoffs. */
+/* Homepage visual polish: compact spacing, stronger hierarchy, and true light/dark theme behavior. */
 
 .portfolio-v2 .home-selected-work,
 .portfolio-v2 .home-web-work,
-.portfolio-v2 .home-about {
+.portfolio-v2 .home-about,
+.portfolio-v2 .home-capabilities,
+.portfolio-v2 .home-cta {
   position: relative;
 }
 
@@ -17,86 +19,217 @@
   background: linear-gradient(180deg, rgba(9, 9, 10, 0), #09090a);
 }
 
-/* These sections intentionally stay dark in both themes, so their typography must stay light. */
+/* Dark-mode section typography. */
 .portfolio-v2 .home-selected-work .v2-heading,
 .portfolio-v2 .home-web-work .v2-heading,
-.portfolio-v2 .home-about .v2-heading {
+.portfolio-v2 .home-about .v2-heading,
+.portfolio-v2 .home-capabilities .v2-heading,
+.portfolio-v2 .home-cta .v2-heading {
   color: #f5eef3 !important;
 }
 
 .portfolio-v2 .home-selected-work .v2-kicker,
 .portfolio-v2 .home-web-work .v2-kicker,
-.portfolio-v2 .home-about .v2-kicker {
+.portfolio-v2 .home-about .v2-kicker,
+.portfolio-v2 .home-capabilities .v2-kicker,
+.portfolio-v2 .home-cta .v2-kicker {
   color: #c99fba !important;
 }
 
 .portfolio-v2 .home-selected-work .home-section-lede,
 .portfolio-v2 .home-web-work .home-section-lede,
 .portfolio-v2 .home-about .home-about-copy,
-.portfolio-v2 .home-about .home-about-copy p {
-  color: rgba(255, 255, 255, .64) !important;
+.portfolio-v2 .home-about .home-about-copy p,
+.portfolio-v2 .home-capabilities .home-section-lede,
+.portfolio-v2 .home-cta p {
+  color: rgba(255, 255, 255, .68) !important;
 }
 
-/* Light mode remains available, but the hero now has deliberate contrast instead of white-on-cream text. */
-.light .portfolio-v2 .home-cover {
-  background: #f4edf2 !important;
+/* Hero — restrained gradient with readable supporting text. */
+.light .portfolio-v2 .home-cover,
+.light .portfolio-v2 .cover-sticky {
+  background:
+    radial-gradient(circle at 84% 16%, rgba(165, 110, 144, .10), transparent 28rem),
+    radial-gradient(circle at 14% 82%, rgba(118, 128, 171, .045), transparent 26rem),
+    linear-gradient(165deg, #fbfafb 0%, #f2f1f3 56%, #f8f8f9 100%) !important;
 }
 
 .light .portfolio-v2 .cover-light {
   background:
-    radial-gradient(circle at var(--mx) var(--my), rgba(166, 107, 146, .12), transparent 25%),
-    radial-gradient(circle at 16% 76%, rgba(128, 98, 166, .08), transparent 30%),
-    linear-gradient(165deg, #f8f2f5 0%, #f2e8ef 54%, #f7f1f4 100%) !important;
+    radial-gradient(circle at var(--mx) var(--my), rgba(154, 96, 131, .09), transparent 24%),
+    radial-gradient(circle at 16% 76%, rgba(118, 128, 171, .05), transparent 30%),
+    linear-gradient(165deg, #fbfafb 0%, #f2f1f3 54%, #f8f8f9 100%) !important;
 }
 
 .light .portfolio-v2 .cover-line-a {
-  color: #211920 !important;
+  color: #1e1f23 !important;
 }
 
 .light .portfolio-v2 .cover-line-b {
-  color: #a75f8d !important;
+  color: #9b6384 !important;
 }
 
 .light .portfolio-v2 .cover-name {
-  color: #342733 !important;
+  color: #302d32 !important;
 }
 
 .light .portfolio-v2 .cover-role,
 .light .portfolio-v2 .cover-signature {
-  color: rgba(52, 39, 51, .72) !important;
+  color: #4c4950 !important;
 }
 
 .light .portfolio-v2 .cover-identity-divider,
 .light .portfolio-v2 .cover-proof {
-  border-color: rgba(79, 54, 72, .15) !important;
+  border-color: rgba(43, 39, 45, .14) !important;
 }
 
 .light .portfolio-v2 .cover-proof span,
 .light .portfolio-v2 .cover-scroll-cue {
-  color: rgba(52, 39, 51, .56) !important;
+  color: #625e66 !important;
 }
 
-/* Keep buttons legible when a light-theme visitor reaches a dark section. */
+/* Light-mode homepage section hierarchy. These selectors intentionally match the
+   component-level specificity so old dark-only rules can no longer win. */
+.light .portfolio-v2 .home-selected-work,
+.light .portfolio-v2 .home-capabilities,
+.light .portfolio-v2 .home-cta {
+  background: #f7f7f8 !important;
+}
+
+.light .portfolio-v2 .home-web-work,
+.light .portfolio-v2 .home-about {
+  background: #f1f1f3 !important;
+}
+
+.light .portfolio-v2 .home-selected-work::before {
+  background: linear-gradient(180deg, rgba(247,247,248,0), #f7f7f8) !important;
+}
+
+.light .portfolio-v2 .home-selected-work .v2-heading,
+.light .portfolio-v2 .home-web-work .v2-heading,
+.light .portfolio-v2 .home-about .v2-heading,
+.light .portfolio-v2 .home-capabilities .v2-heading,
+.light .portfolio-v2 .home-cta .v2-heading {
+  color: #202024 !important;
+}
+
+.light .portfolio-v2 .home-selected-work .v2-kicker,
+.light .portfolio-v2 .home-web-work .v2-kicker,
+.light .portfolio-v2 .home-about .v2-kicker,
+.light .portfolio-v2 .home-capabilities .v2-kicker,
+.light .portfolio-v2 .home-cta .v2-kicker {
+  color: #7b4e69 !important;
+}
+
+.light .portfolio-v2 .home-selected-work .home-section-lede,
+.light .portfolio-v2 .home-web-work .home-section-lede,
+.light .portfolio-v2 .home-about .home-about-copy,
+.light .portfolio-v2 .home-about .home-about-copy p,
+.light .portfolio-v2 .home-capabilities .home-section-lede,
+.light .portfolio-v2 .home-cta p,
+.light .portfolio-v2 .home-system-overview,
+.light .portfolio-v2 .home-web-project-overview,
+.light .portfolio-v2 .home-web-project-title {
+  color: #4d4a51 !important;
+}
+
+.light .portfolio-v2 .home-system-eyebrow,
+.light .portfolio-v2 .home-system-meta,
+.light .portfolio-v2 .home-web-project-meta,
+.light .portfolio-v2 .home-capability-index,
+.light .portfolio-v2 .home-capability-meta {
+  color: #625e66 !important;
+}
+
+.light .portfolio-v2 .home-system-project,
+.light .portfolio-v2 .home-capability-card {
+  background: #ffffff !important;
+  border-color: rgba(43, 39, 45, .12) !important;
+  box-shadow: 0 14px 36px rgba(38, 34, 39, .045) !important;
+}
+
+.light .portfolio-v2 .home-system-project:hover,
+.light .portfolio-v2 .home-capability-card:hover {
+  border-color: rgba(127, 78, 108, .24) !important;
+  box-shadow: 0 18px 44px rgba(38, 34, 39, .075) !important;
+}
+
+.light .portfolio-v2 .home-web-project {
+  border-color: rgba(43, 39, 45, .10) !important;
+  background: rgba(255,255,255,.72) !important;
+  box-shadow: 0 14px 34px rgba(38, 34, 39, .035) !important;
+}
+
+.light .portfolio-v2 .home-site-browser {
+  border-color: rgba(43, 39, 45, .14) !important;
+  box-shadow: 0 24px 64px rgba(38, 34, 39, .10) !important;
+}
+
+.light .portfolio-v2 .home-site-browser-bar {
+  background: #f1f1f2 !important;
+  color: #5a565e !important;
+  border-bottom-color: rgba(43, 39, 45, .10) !important;
+}
+
+.light .portfolio-v2 .home-site-browser-stage {
+  background: #e9e9eb !important;
+}
+
+/* Buttons remain readable on light sections. */
 .light .portfolio-v2 .home-about .v2-button,
 .light .portfolio-v2 .home-selected-work .v2-button,
-.light .portfolio-v2 .home-web-work .v2-button {
-  border-color: rgba(255, 255, 255, .14);
-  background: rgba(255, 255, 255, .055);
-  color: #f5eef3;
-  box-shadow: none;
+.light .portfolio-v2 .home-web-work .v2-button,
+.light .portfolio-v2 .home-capabilities .v2-button,
+.light .portfolio-v2 .home-cta .v2-button {
+  border-color: rgba(43, 39, 45, .13) !important;
+  background: #ffffff !important;
+  color: #302d32 !important;
+  box-shadow: 0 7px 18px rgba(38, 34, 39, .045) !important;
 }
 
 .light .portfolio-v2 .home-about .v2-button:hover,
 .light .portfolio-v2 .home-selected-work .v2-button:hover,
-.light .portfolio-v2 .home-web-work .v2-button:hover {
-  border-color: rgba(222, 179, 207, .34);
-  background: rgba(222, 179, 207, .09);
-  color: #fff;
+.light .portfolio-v2 .home-web-work .v2-button:hover,
+.light .portfolio-v2 .home-capabilities .v2-button:hover,
+.light .portfolio-v2 .home-cta .v2-button:hover {
+  border-color: rgba(127, 78, 108, .25) !important;
+  background: #fbf8fa !important;
+  color: #1f1e22 !important;
+}
+
+.light .portfolio-v2 .home-about .v2-button-primary,
+.light .portfolio-v2 .home-selected-work .v2-button-primary,
+.light .portfolio-v2 .home-web-work .v2-button-primary,
+.light .portfolio-v2 .home-capabilities .v2-button-primary,
+.light .portfolio-v2 .home-cta .v2-button-primary {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, #8e5878, #a66d8f) !important;
+  color: #fff !important;
+}
+
+/* Improve keyboard navigation clarity in both themes. */
+.portfolio-v2 a:focus-visible,
+.portfolio-v2 button:focus-visible {
+  outline: 2px solid rgba(222, 179, 207, .78);
+  outline-offset: 3px;
+}
+
+.light .portfolio-v2 a:focus-visible,
+.light .portfolio-v2 button:focus-visible {
+  outline-color: rgba(127, 78, 108, .72);
 }
 
 @media (max-width: 760px) {
   .portfolio-v2 .home-selected-work::before {
     top: -36px;
     height: 36px;
+  }
+
+  .light .portfolio-v2 .home-cover,
+  .light .portfolio-v2 .cover-sticky,
+  .light .portfolio-v2 .cover-light {
+    background:
+      radial-gradient(circle at 88% 8%, rgba(154, 96, 131, .08), transparent 18rem),
+      linear-gradient(180deg, #fbfafb, #f2f1f3) !important;
   }
 }
