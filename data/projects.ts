@@ -73,6 +73,55 @@ export const projects: Project[] = [
     imageHeight: 256
   },
   {
+    slug: "lacomus-revamp",
+    title: "Lacomus Website Revamp",
+    shortTitle: "LACOMUS",
+    category: ["Web", "Website Design", "UI/UX"],
+    status: "Currently in development",
+    overview: "An ongoing website redesign and development project focused on transforming Lacomus into a more premium, editorial, product-driven web experience with stronger visual storytelling and interaction design.",
+    problem: "The brand needs a digital presentation that gives its perfume products more visual presence while keeping product discovery, readability, and responsive behavior clear.",
+    solution: "The revamp uses an editorial dark visual system, product-first composition, responsive layouts, and cinematic interaction concepts to create a more distinctive premium experience.",
+    role: "Website Designer & Developer",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Higgsfield"],
+    highlights: ["Website redesign", "Responsive UI", "Cinematic storytelling"],
+    impact: [
+      "Expands my portfolio from information systems into consumer-facing website design and development.",
+      "Explores product storytelling through stronger typography, layout rhythm, motion, and premium visual direction.",
+      "The public preview is intentionally marked as work in progress while the experience continues to evolve."
+    ],
+    features: ["Editorial product layout", "Responsive website", "Product storytelling", "Interaction design", "Motion concepts", "Premium dark visual direction"],
+    challenges: ["Balancing cinematic presentation with usability", "Keeping product visuals premium across screen sizes", "Designing motion that supports rather than distracts from the product"],
+    lessons: ["Premium design depends on restraint and hierarchy", "Motion should clarify the story", "A work-in-progress can still demonstrate design thinking when status is transparent"],
+    image: "/media/lacomus-concept.svg",
+    imageWidth: 1600,
+    imageHeight: 900,
+    live: "https://lacomus-revamp.vercel.app/"
+  },
+  {
+    slug: "co-designs-website",
+    title: "C.O. Designs Architecture Website",
+    shortTitle: "C.O. DESIGNS",
+    category: ["Web", "Website Design", "UI/UX"],
+    status: "Currently in development",
+    overview: "An architecture portfolio website in development for presenting residential houses, buildings, architectural concepts, interiors, construction work, plans, renders, and completed projects through an interactive visual experience.",
+    problem: "Architecture work benefits from more than a static gallery: the website needs to communicate progression, spatial thinking, and project craft while remaining usable across devices.",
+    solution: "The concept combines an editorial architecture portfolio with a scroll-controlled 3D house construction sequence that progresses from site and structural stages toward a completed building.",
+    role: "Website Designer & Developer",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Three.js", "React Three Fiber", "GSAP", "ScrollTrigger"],
+    highlights: ["Architecture portfolio", "Scroll-driven 3D", "Interactive storytelling"],
+    impact: [
+      "Demonstrates my ability to adapt visual direction to a professional architecture brand rather than using one style for every website.",
+      "Uses scroll as part of the narrative so the experience can show architectural progression rather than only finished images.",
+      "Currently uses an editable procedural house concept while the final architectural 3D model is still being prepared."
+    ],
+    features: ["Architecture project portfolio", "Scroll-controlled 3D scene", "Construction progression", "Responsive layout", "Project storytelling", "Interactive visual direction"],
+    challenges: ["Keeping 3D performant on mobile", "Designing reversible scroll progression", "Preparing the experience for a future final GLB architecture model"],
+    lessons: ["3D should serve the project story", "Progressive enhancement is essential for mobile", "A flexible scene structure makes later model replacement safer"],
+    image: "/media/co-designs-concept.svg",
+    imageWidth: 1600,
+    imageHeight: 900
+  },
+  {
     slug: "erp-system",
     title: "Enterprise Resource Planning (ERP) System",
     shortTitle: "ERP System",
@@ -122,4 +171,4 @@ export const projects: Project[] = [
   }
 ];
 
-export const projectCategories = ["All", "Web", "Desktop", "Information Systems", "Full Stack", "UI/UX", "Business Systems"];
+export const projectCategories = ["All", "Web", "Website Design", "Desktop", "Information Systems", "Full Stack", "UI/UX", "Business Systems"];
