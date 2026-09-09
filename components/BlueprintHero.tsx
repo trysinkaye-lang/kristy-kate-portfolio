@@ -9,6 +9,9 @@ import "./blueprint-hero.css";
 import "./home-scroll-fix.css";
 import "./home-hero-breathing-room.css";
 
+const HIGGSFIELD_HERO_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/hf_20260909_164047_d56032a8-3616-4ad0-8353-4f0b9a422940.mp4";
+
 export function BlueprintHero() {
   const coverRef = useRef<HTMLElement>(null);
 
@@ -100,6 +103,18 @@ export function BlueprintHero() {
       onPointerLeave={resetPointer}
     >
       <div className="cover-sticky">
+        <video
+          className="cover-cinematic-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src={HIGGSFIELD_HERO_VIDEO} type="video/mp4" />
+        </video>
+        <div className="cover-cinematic-shade" aria-hidden="true" />
         <div className="cover-noise" aria-hidden="true" />
         <div className="cover-grid" aria-hidden="true" />
         <div className="cover-light" aria-hidden="true" />

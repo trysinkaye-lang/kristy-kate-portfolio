@@ -11,10 +11,10 @@ export function SelectedWork() {
       <div className="portfolio-shell">
         <div className="home-section-heading">
           <div>
-            <p className="v2-kicker">Selected work</p>
-            <h2 id="selected-work-title" className="v2-heading mt-4">Real systems, built around real workflows.</h2>
+            <p className="v2-kicker">Selected work / systems</p>
+            <h2 id="selected-work-title" className="v2-heading mt-4">Digital experiences built for real use.</h2>
           </div>
-          <p className="home-section-lede">A focused look at the information systems that best represent my software development, data-workflow, and interface work.</p>
+          <p className="home-section-lede">Real systems, built around real workflows. RBIM and AHDIS represent my strongest information-system, application, data-workflow, and interface work.</p>
         </div>
 
         <div className="projects-list mt-12">
