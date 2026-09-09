@@ -1,7 +1,6 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { projects } from "@/data/projects";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
-import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
 
 const websiteProjects = projects.filter((project) =>
   ["lacomus-revamp", "co-designs-website"].includes(project.slug),
@@ -14,23 +13,44 @@ export function WebsiteDesignWork() {
         <div className="home-web-work-intro">
           <p className="v2-kicker">Website design & development</p>
           <h2 id="website-work-title" className="v2-heading mt-4">
-            I don&apos;t only build systems. I design experiences for the web.
+            I design websites as carefully as I develop them.
           </h2>
           <p className="home-section-lede mt-5">
-            Current website work spanning luxury product storytelling and architecture-focused interactive design. These projects are openly marked as in development while I continue refining them.
+            Current website work across luxury product storytelling and architecture. Both are shown with real project imagery and are clearly marked as in development.
           </p>
         </div>
 
         <div className="home-web-projects">
           {websiteProjects.map((project, index) => (
             <article className="home-web-project" key={project.slug}>
-              <div className="home-web-project-number">0{index + 3}</div>
               <div className="home-web-project-visual">
-                <ProjectScreenshot
-                  project={project}
-                  sizes="(max-width: 1024px) calc(100vw - 48px), 55vw"
-                  constrainToSourceWidth={false}
-                />
+                {project.live ? (
+                  <a href={project.live} target="_blank" rel="noreferrer" aria-label={`Open ${project.shortTitle} live development`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.image}
+                      alt={`${project.shortTitle} current project preview`}
+                      width={project.imageWidth}
+                      height={project.imageHeight}
+                      loading="lazy"
+                      className="home-web-project-image"
+                    />
+                  </a>
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={project.image}
+                    alt={`${project.shortTitle} current project preview`}
+                    width={project.imageWidth}
+                    height={project.imageHeight}
+                    loading="lazy"
+                    className="home-web-project-image"
+                  />
+                )}
+                <div className="home-web-project-visual-meta" aria-hidden="true">
+                  <span>0{index + 3}</span>
+                  <span>{project.shortTitle}</span>
+                </div>
               </div>
 
               <div className="home-web-project-copy">
@@ -42,8 +62,14 @@ export function WebsiteDesignWork() {
                 <p className="home-web-project-overview">{project.overview}</p>
 
                 <div className="home-web-project-meta">
-                  <div><span>Role</span><strong>{project.role}</strong></div>
-                  <div><span>Focus</span><strong>{project.highlights.join(" · ")}</strong></div>
+                  <div>
+                    <span>Role</span>
+                    <strong>{project.role}</strong>
+                  </div>
+                  <div>
+                    <span>Focus</span>
+                    <strong>{project.highlights.join(" · ")}</strong>
+                  </div>
                 </div>
 
                 <div className="home-web-project-actions">

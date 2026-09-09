@@ -20,6 +20,10 @@ export function ProjectScreenshot({
   showLabel = true,
   constrainToSourceWidth = true,
 }: ProjectScreenshotProps) {
+  const isRemote = /^https?:\/\//.test(project.image);
+  const imageStyle = constrainToSourceWidth ? { maxWidth: `${project.imageWidth}px` } : undefined;
+  const imageClasses = `block h-auto w-full rounded-[.65rem] border border-white/[.06] object-contain ${imageClassName}`;
+
   return (
     <figure
       className={`overflow-hidden rounded-[1.35rem] border border-white/[.10] bg-[#08090b] shadow-[0_18px_48px_rgba(0,0,0,.24)] ${className}`}
@@ -38,17 +42,31 @@ export function ProjectScreenshot({
       </div>
 
       <div className="flex items-center justify-center bg-[#090a0c] p-2 sm:p-3 md:p-4">
-        <Image
-          src={project.image}
-          alt={`${project.shortTitle} interface screenshot`}
-          width={project.imageWidth}
-          height={project.imageHeight}
-          priority={priority}
-          unoptimized
-          sizes={sizes}
-          className={`block h-auto w-full rounded-[.65rem] border border-white/[.06] object-contain ${imageClassName}`}
-          style={constrainToSourceWidth ? { maxWidth: `${project.imageWidth}px` } : undefined}
-        />
+        {isRemote ? (
+          // Remote project imagery is intentionally rendered directly so the portfolio can use the exact live-project asset without Next image-host restrictions.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.image}
+            alt={`${project.shortTitle} interface screenshot`}
+            width={project.imageWidth}
+            height={project.imageHeight}
+            loading={priority ? "eager" : "lazy"}
+            className={imageClasses}
+            style={imageStyle}
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={`${project.shortTitle} interface screenshot`}
+            width={project.imageWidth}
+            height={project.imageHeight}
+            priority={priority}
+            unoptimized
+            sizes={sizes}
+            className={imageClasses}
+            style={imageStyle}
+          />
+        )}
       </div>
     </figure>
   );

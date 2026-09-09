@@ -20,6 +20,37 @@ test.describe("Homepage recruiter journey", () => {
     await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
   });
 
+  test("shows a visible Higgsfield hero reel and verified website imagery", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+
+    const reel = page.locator("video.cover-reel-video");
+    await expect(reel).toBeVisible();
+    await expect(reel.locator("source")).toHaveAttribute("src", /hf_20260909_164047_d56032a8/);
+
+    const videoPresentation = await reel.evaluate((video) => {
+      const styles = getComputedStyle(video);
+      const rect = video.getBoundingClientRect();
+      return {
+        opacity: styles.opacity,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
+
+    expect(Number(videoPresentation.opacity)).toBeGreaterThanOrEqual(0.95);
+    expect(videoPresentation.width).toBeGreaterThan(300);
+    expect(videoPresentation.height).toBeGreaterThan(180);
+
+    const lacomusPreview = page.getByAltText("LACOMUS current project preview");
+    await expect(lacomusPreview).toBeVisible();
+    await expect(lacomusPreview).toHaveAttribute("src", /3a2421a2-54a6-4574-9e9d-d883afdd3644\.png/);
+
+    const architecturePreview = page.getByAltText("C.O. DESIGNS current project preview");
+    await expect(architecturePreview).toBeVisible();
+    await expect(architecturePreview).toHaveAttribute("src", /contemporary-home\.webp/);
+  });
+
   test("primary recruiter CTA opens Projects", async ({ page }) => {
     await page.goto("/");
     await page.locator("#home").getByRole("link", { name: /View My Work/i }).click();

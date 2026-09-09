@@ -92,7 +92,7 @@ export const projects: Project[] = [
     features: ["Editorial product layout", "Responsive website", "Product storytelling", "Interaction design", "Motion concepts", "Premium dark visual direction"],
     challenges: ["Balancing cinematic presentation with usability", "Keeping product visuals premium across screen sizes", "Designing motion that supports rather than distracts from the product"],
     lessons: ["Premium design depends on restraint and hierarchy", "Motion should clarify the story", "A work-in-progress can still demonstrate design thinking when status is transparent"],
-    image: "/media/lacomus-concept.svg",
+    image: "https://d2ol7oe51mr4n9.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/3a2421a2-54a6-4574-9e9d-d883afdd3644.png",
     imageWidth: 1600,
     imageHeight: 900,
     live: "https://lacomus-revamp.vercel.app/"
@@ -117,7 +117,7 @@ export const projects: Project[] = [
     features: ["Architecture project portfolio", "Scroll-controlled 3D scene", "Construction progression", "Responsive layout", "Project storytelling", "Interactive visual direction"],
     challenges: ["Keeping 3D performant on mobile", "Designing reversible scroll progression", "Preparing the experience for a future final GLB architecture model"],
     lessons: ["3D should serve the project story", "Progressive enhancement is essential for mobile", "A flexible scene structure makes later model replacement safer"],
-    image: "/media/co-designs-concept.svg",
+    image: "https://raw.githubusercontent.com/trysinkaye-lang/co-designs-website/main/public/images/co-designs/contemporary-home.webp",
     imageWidth: 1600,
     imageHeight: 900
   },
