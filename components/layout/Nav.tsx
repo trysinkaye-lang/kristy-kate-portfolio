@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
+import "./nav-premium.css";
 
 const links = [
   ["Home", "/"],
@@ -25,6 +26,7 @@ const focusableSelector = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
@@ -35,6 +37,13 @@ export function Nav() {
 
   useEffect(() => setMounted(true), []);
   useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const updateScrolledState = () => setScrolled(window.scrollY > 24);
+    updateScrolledState();
+    window.addEventListener("scroll", updateScrolledState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolledState);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -115,12 +124,38 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-5 z-50 px-4">
-        <nav className="floating-nav mx-auto hidden h-14 w-fit items-center rounded-full p-1.5 sm:flex" aria-label="Main navigation">
+      <header className={`site-header fixed inset-x-0 top-5 z-50 px-4${scrolled ? " is-scrolled" : ""}`}>
+        <nav className="floating-nav premium-floating-nav mx-auto hidden h-14 w-fit items-center rounded-full sm:flex" aria-label="Main navigation">
+          <a href="/" className="floating-brand-mark" aria-label="Kristy Kate Taylor — Home">
+            <span>KT</span>
+            <span className="floating-brand-status" aria-hidden="true" />
+          </a>
+          <span className="premium-nav-divider" aria-hidden="true" />
+
           <div className="flex items-center">
-            {links.slice(0, 4).map(([label, href]) => <a key={href} href={href} className={`floating-nav-link ${pathname === href || (href !== "/" && pathname.startsWith(href)) ? "is-home" : ""}`}>{label}</a>)}
+            {links.slice(0, 4).map(([label, href]) => {
+              const active = pathname === href || (href !== "/" && pathname.startsWith(href));
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  className={`floating-nav-link ${active ? "is-home" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {label}
+                </a>
+              );
+            })}
           </div>
-          <a href="/contact" className={`floating-contact inline-flex ${pathname.startsWith('/contact') ? 'is-home' : ''}`}>Contact</a>
+
+          <a
+            href="/contact"
+            className={`floating-contact inline-flex ${pathname.startsWith("/contact") ? "is-home" : ""}`}
+            aria-current={pathname.startsWith("/contact") ? "page" : undefined}
+          >
+            Contact
+          </a>
+
           <button
             type="button"
             className="theme-toggle"

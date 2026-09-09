@@ -1,0 +1,77 @@
+/* Restores the short cinematic scroll sequence while preserving the current professional hero layout. */
+
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  .portfolio-v2 .home-cover {
+    height: 138svh !important;
+    min-height: 138svh !important;
+  }
+
+  .portfolio-v2 .cover-sticky {
+    position: sticky !important;
+    top: 0;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden;
+  }
+
+  .portfolio-v2 .cover-shell {
+    min-height: 100svh !important;
+  }
+
+  .portfolio-v2 .cover-professional-layout {
+    transform: translate3d(0, var(--hero-y, 0px), 0) scale(var(--hero-scale, 1));
+    transform-origin: center 48%;
+    opacity: var(--hero-opacity, 1);
+    will-change: transform, opacity;
+  }
+
+  .portfolio-v2 .cover-identity {
+    transform: translate3d(0, var(--identity-y, 0px), 0);
+    opacity: var(--identity-opacity, 1);
+    will-change: transform, opacity;
+  }
+
+  .portfolio-v2 .cover-headline-block h1 .cover-line-a {
+    transform: translate3d(var(--line-a-x, 0vw), var(--line-a-y, 0px), 0) !important;
+    will-change: transform;
+  }
+
+  .portfolio-v2 .cover-headline-block h1 .cover-line-b {
+    transform: translate3d(var(--line-b-x, 0vw), var(--line-b-y, 0px), 0) !important;
+    will-change: transform;
+  }
+
+  .portfolio-v2 .cover-intro-column {
+    transform: translate3d(var(--intro-x, 0vw), var(--intro-y, 0px), 0);
+    opacity: var(--intro-opacity, 1);
+    will-change: transform, opacity;
+  }
+
+  .portfolio-v2 .cover-proof {
+    transform: translate3d(0, var(--proof-y, 0px), 0);
+    opacity: var(--proof-opacity, 1);
+    will-change: transform, opacity;
+  }
+}
+
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  .portfolio-v2 .home-cover,
+  .portfolio-v2 .cover-sticky {
+    height: auto !important;
+    min-height: 92svh;
+  }
+
+  .portfolio-v2 .cover-sticky {
+    position: relative !important;
+  }
+
+  .portfolio-v2 .cover-professional-layout,
+  .portfolio-v2 .cover-identity,
+  .portfolio-v2 .cover-headline-block h1 .cover-line-a,
+  .portfolio-v2 .cover-headline-block h1 .cover-line-b,
+  .portfolio-v2 .cover-intro-column,
+  .portfolio-v2 .cover-proof {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
