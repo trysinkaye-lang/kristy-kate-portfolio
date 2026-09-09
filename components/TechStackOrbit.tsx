@@ -1,17 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  ArrowUpRight,
-  Braces,
-  Code2,
-  Database,
-  MonitorCog,
-  Palette,
-  ServerCog,
-  Sparkles,
-  Wrench,
-} from "lucide-react";
+import { ArrowUpRight, Braces, Code2, Database, MonitorCog, Palette, ServerCog, Sparkles, Wrench } from "lucide-react";
 import { stack } from "@/data/site";
 import { ScrollVelocityLite } from "@/components/react-bits/ScrollVelocityLite";
 import { TechLogo } from "@/components/ui/TechLogo";
@@ -20,6 +10,11 @@ import "./TechStackOrbit.css";
 const categories = Object.keys(stack) as Array<keyof typeof stack>;
 
 const categoryMeta: Record<keyof typeof stack, { description: string; capabilities: string[]; icon: React.ReactNode }> = {
+  "Website Design": {
+    description: "Shaping responsive websites with clear hierarchy, thoughtful interaction, and reusable interface systems.",
+    capabilities: ["UI / UX", "Responsive Design", "Interaction Design"],
+    icon: <Palette size={19} strokeWidth={1.7} />,
+  },
   Frontend: {
     description: "Building responsive, accessible and interactive interfaces for modern web applications.",
     capabilities: ["UI Engineering", "Responsive Design", "Web Applications"],
@@ -40,9 +35,14 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
     capabilities: ["Desktop Apps", "Offline Workflows", "Native Systems"],
     icon: <MonitorCog size={19} strokeWidth={1.7} />,
   },
+  "Creative Development": {
+    description: "Using motion, WebGL, 3D and AI-assisted visual direction to create distinctive web experiences without sacrificing usability.",
+    capabilities: ["GSAP Motion", "Three.js / WebGL", "Higgsfield Visuals"],
+    icon: <Sparkles size={19} strokeWidth={1.7} />,
+  },
   "Development Tools": {
     description: "The tools I rely on to build, version, validate and ship software with a reliable workflow.",
-    capabilities: ["Version Control", "Build Workflow", "Automation"],
+    capabilities: ["Version Control", "Build Workflow", "Deployment"],
     icon: <Wrench size={19} strokeWidth={1.7} />,
   },
   "Design Tools": {
@@ -52,19 +52,22 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
   },
 };
 
-type TechMeta = {
-  tag: string;
-  fallback?: React.ReactNode;
-};
+type TechMeta = { tag: string; fallback?: React.ReactNode };
 
 const techMeta: Record<string, TechMeta> = {
+  "UI/UX Design": { tag: "Design" },
+  "Responsive Design": { tag: "Design" },
+  "Interaction Design": { tag: "Design" },
+  "Design Systems": { tag: "Design" },
   HTML: { tag: "Markup" },
   CSS: { tag: "Styling" },
   JavaScript: { tag: "Language" },
   TypeScript: { tag: "Language" },
   React: { tag: "UI Framework" },
+  "Next.js": { tag: "Web Framework" },
   Vite: { tag: "Build Tool" },
   "Tailwind CSS": { tag: "Styling" },
+  GSAP: { tag: "Motion" },
   PHP: { tag: "Backend" },
   "Node.js": { tag: "Runtime" },
   "REST APIs": { tag: "Integration", fallback: <Braces size={20} strokeWidth={1.8} /> },
@@ -74,42 +77,31 @@ const techMeta: Record<string, TechMeta> = {
   Tauri: { tag: "Desktop Framework" },
   Rust: { tag: "Language" },
   "PHP Desktop": { tag: "Desktop Runtime" },
+  "Three.js": { tag: "3D / WebGL" },
+  "React Three Fiber": { tag: "3D / React" },
+  WebGL: { tag: "Graphics" },
+  Higgsfield: { tag: "AI Visuals" },
   Git: { tag: "Version Control" },
   GitHub: { tag: "Repository" },
   "VS Code": { tag: "Editor" },
   npm: { tag: "Package Manager" },
   "GitHub Actions": { tag: "Automation" },
+  Vercel: { tag: "Deployment" },
   Figma: { tag: "Interface Design" },
   Canva: { tag: "Visual Design" },
 };
 
 export function TechStackOrbit() {
   const [activeCategory, setActiveCategory] = useState<keyof typeof stack>(categories[0]);
-
-  const items = useMemo(
-    () => stack[activeCategory].filter((item) => !item.includes("replace with")),
-    [activeCategory],
-  );
-
-  const capabilities = useMemo(
-    () => ["Web Applications", "System Design", "REST APIs", "Database Design", "UI / UX", "Desktop Apps", "Deployment"],
-    [],
-  );
-
+  const items = useMemo(() => stack[activeCategory].filter((item) => !item.includes("replace with")), [activeCategory]);
+  const capabilities = useMemo(() => ["Website Design", "Web Applications", "System Design", "REST APIs", "Database Design", "UI / UX", "Motion", "Desktop Apps", "Deployment"], []);
   const selectedMeta = categoryMeta[activeCategory];
 
   return (
     <div className="mt-12 tech-showcase-wrap">
       <div className="tech-showcase-tabs" role="tablist" aria-label="Technology categories">
         {categories.map((category, index) => (
-          <button
-            key={category}
-            type="button"
-            role="tab"
-            aria-selected={activeCategory === category}
-            onClick={() => setActiveCategory(category)}
-            className={`tech-showcase-tab ${activeCategory === category ? "is-active" : ""}`}
-          >
+          <button key={category} type="button" role="tab" aria-selected={activeCategory === category} onClick={() => setActiveCategory(category)} className={`tech-showcase-tab ${activeCategory === category ? "is-active" : ""}`}>
             <span className="tech-showcase-tab-number">{String(index + 1).padStart(2, "0")}</span>
             <span className="tech-showcase-tab-label">{category}</span>
           </button>
@@ -118,68 +110,33 @@ export function TechStackOrbit() {
 
       <section className="tech-showcase-panel" aria-live="polite">
         <div className="tech-showcase-ambient" aria-hidden="true" />
-        <div className="tech-showcase-watermark" aria-hidden="true">
-          {String(categories.indexOf(activeCategory) + 1).padStart(2, "0")}
-        </div>
+        <div className="tech-showcase-watermark" aria-hidden="true">{String(categories.indexOf(activeCategory) + 1).padStart(2, "0")}</div>
 
         <div className="tech-showcase-copy">
-          <div className="tech-showcase-kicker-row">
-            <span className="tech-showcase-icon">{selectedMeta.icon}</span>
-            <p className="tech-showcase-kicker">Selected category</p>
-          </div>
-
+          <div className="tech-showcase-kicker-row"><span className="tech-showcase-icon">{selectedMeta.icon}</span><p className="tech-showcase-kicker">Selected category</p></div>
           <h3>{activeCategory}</h3>
           <p className="tech-showcase-description">{selectedMeta.description}</p>
-
-          <div className="tech-showcase-meta">
-            <strong>{String(items.length).padStart(2, "0")}</strong>
-            <span>technologies</span>
-          </div>
-
-          <div className="tech-showcase-capabilities">
-            {selectedMeta.capabilities.map((capability) => (
-              <span key={capability}>{capability}</span>
-            ))}
-          </div>
+          <div className="tech-showcase-meta"><strong>{String(items.length).padStart(2, "0")}</strong><span>technologies</span></div>
+          <div className="tech-showcase-capabilities">{selectedMeta.capabilities.map((capability) => <span key={capability}>{capability}</span>)}</div>
         </div>
 
         <div className="tech-showcase-bento" key={activeCategory}>
           {items.map((item, index) => {
             const meta = techMeta[item] ?? { tag: "Technology", fallback: <Code2 size={20} strokeWidth={1.8} /> };
             const featured = index === 0 || item === "React" || (items.length <= 3 && index === 0);
-
             return (
-              <article
-                className={`tech-card ${featured ? "is-featured" : ""}`}
-                key={item}
-                style={{ "--tech-delay": `${index * 70}ms` } as React.CSSProperties}
-              >
-                <div className="tech-card-topline">
-                  <span className="tech-card-mark" aria-hidden="true">
-                    {techMeta[item] ? <TechLogo name={item} size={24} /> : meta.fallback}
-                  </span>
-                  <ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} />
-                </div>
-                <div className="tech-card-copy">
-                  <span>{meta.tag}</span>
-                  <h4>{item}</h4>
-                </div>
+              <article className={`tech-card ${featured ? "is-featured" : ""}`} key={item} style={{ "--tech-delay": `${index * 70}ms` } as React.CSSProperties}>
+                <div className="tech-card-topline"><span className="tech-card-mark" aria-hidden="true">{techMeta[item] ? <TechLogo name={item} size={24} /> : meta.fallback}</span><ArrowUpRight className="tech-card-arrow" size={17} strokeWidth={1.7} /></div>
+                <div className="tech-card-copy"><span>{meta.tag}</span><h4>{item}</h4></div>
                 <div className="tech-card-sheen" aria-hidden="true" />
               </article>
             );
           })}
-
-          <div className="tech-bento-note" aria-hidden="true">
-            <Sparkles size={18} strokeWidth={1.6} />
-            <span>Built around practical, production-focused workflows.</span>
-          </div>
+          <div className="tech-bento-note" aria-hidden="true"><Sparkles size={18} strokeWidth={1.6} /><span>Built around practical, production-focused workflows.</span></div>
         </div>
       </section>
 
-      <div className="tech-showcase-marquee" aria-label="Development capabilities">
-        <div className="tech-showcase-marquee-label"><Braces size={15} />Capabilities</div>
-        <ScrollVelocityLite items={capabilities} />
-      </div>
+      <div className="tech-showcase-marquee" aria-label="Development capabilities"><div className="tech-showcase-marquee-label"><Braces size={15} />Capabilities</div><ScrollVelocityLite items={capabilities} /></div>
     </div>
   );
 }

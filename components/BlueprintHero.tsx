@@ -9,23 +9,20 @@ import "./blueprint-hero.css";
 import "./home-scroll-fix.css";
 import "./home-hero-breathing-room.css";
 
+const heroAtmosphere = "https://d2ol7oe51mr4n9.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/1783e033-e70e-41d9-9267-a40dadfec569.webp";
+
 export function BlueprintHero() {
   const coverRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let frame = 0;
     let resizeObserver: ResizeObserver | null = null;
-
     const updateScroll = () => {
       const cover = coverRef.current;
       if (!cover) return;
-
       const travel = Math.max(1, cover.offsetHeight - window.innerHeight);
-      const sectionTop = cover.offsetTop;
-      const scrolledThroughSection = window.scrollY - sectionTop;
-      const progress = Math.min(1, Math.max(0, scrolledThroughSection / travel));
+      const progress = Math.min(1, Math.max(0, (window.scrollY - cover.offsetTop) / travel));
       const eased = 1 - Math.pow(1 - progress, 3);
-
       cover.style.setProperty("--sp", progress.toFixed(4));
       cover.style.setProperty("--se", eased.toFixed(4));
       cover.style.setProperty("--title-y", `${eased * -54}px`);
@@ -44,22 +41,15 @@ export function BlueprintHero() {
       cover.style.setProperty("--plane-b-x", `${eased * 9}vw`);
       cover.style.setProperty("--plane-r", `${eased * 16}deg`);
     };
-
-    const queueUpdate = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(updateScroll);
-    };
-
+    const queueUpdate = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(updateScroll); };
     queueUpdate();
     window.addEventListener("scroll", queueUpdate, { passive: true });
     window.addEventListener("resize", queueUpdate);
     window.addEventListener("pageshow", queueUpdate);
-
     if (typeof ResizeObserver !== "undefined" && coverRef.current) {
       resizeObserver = new ResizeObserver(queueUpdate);
       resizeObserver.observe(coverRef.current);
     }
-
     return () => {
       cancelAnimationFrame(frame);
       resizeObserver?.disconnect();
@@ -91,15 +81,12 @@ export function BlueprintHero() {
   };
 
   return (
-    <section
-      ref={coverRef}
-      id="home"
-      className="home-cover home-cover-clean"
-      aria-label="Portfolio home"
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetPointer}
-    >
+    <section ref={coverRef} id="home" className="home-cover home-cover-clean" aria-label="Portfolio home" onPointerMove={handlePointerMove} onPointerLeave={resetPointer}>
       <div className="cover-sticky">
+        <div className="cover-cinematic" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="cover-cinematic-media" src={heroAtmosphere} alt="" />
+        </div>
         <div className="cover-noise" aria-hidden="true" />
         <div className="cover-grid" aria-hidden="true" />
         <div className="cover-light" aria-hidden="true" />
@@ -117,55 +104,18 @@ export function BlueprintHero() {
                 <span className="cover-identity-divider" aria-hidden="true" />
                 <span className="cover-role">{site.title}</span>
               </div>
-
-              <h1>
-                <span className="cover-line-a">DEVELOPER</span>
-                <em className="cover-line-b">&amp; DESIGNER.</em>
-              </h1>
-
+              <h1><span className="cover-line-a">DEVELOPER</span><em className="cover-line-b">&amp; DESIGNER.</em></h1>
               <p className="cover-signature">{site.headline}</p>
-
               <div className="cover-actions">
-                <TrackedLink
-                  href="/projects"
-                  eventName="home_view_projects"
-                  eventData={{ source: "hero" }}
-                  className="v2-button v2-button-primary"
-                >
-                  View My Work <ArrowUpRight size={16} />
-                </TrackedLink>
-
-                {site.resume ? (
-                  <TrackedLink
-                    href={site.resume}
-                    eventName="home_resume_click"
-                    eventData={{ source: "hero" }}
-                    className="v2-button"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View Resume
-                  </TrackedLink>
-                ) : null}
-
-                <TrackedLink
-                  href="/contact"
-                  eventName="home_contact_click"
-                  eventData={{ source: "hero" }}
-                  className="v2-button"
-                >
-                  Contact Me
-                </TrackedLink>
+                <TrackedLink href="/projects" eventName="home_view_projects" eventData={{ source: "hero" }} className="v2-button v2-button-primary">View My Work <ArrowUpRight size={16} /></TrackedLink>
+                {site.resume ? <TrackedLink href={site.resume} eventName="home_resume_click" eventData={{ source: "hero" }} className="v2-button" target="_blank" rel="noreferrer">View Resume</TrackedLink> : null}
+                <TrackedLink href="/contact" eventName="home_contact_click" eventData={{ source: "hero" }} className="v2-button">Contact Me</TrackedLink>
               </div>
-
               <div className="cover-rule" aria-hidden="true"><i /></div>
             </div>
           </div>
         </div>
-
-        <div className="cover-scroll-cue" aria-hidden="true">
-          <ArrowDown size={16} />
-        </div>
+        <div className="cover-scroll-cue" aria-hidden="true"><ArrowDown size={16} /></div>
       </div>
     </section>
   );

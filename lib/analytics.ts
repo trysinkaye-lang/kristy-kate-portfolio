@@ -5,15 +5,13 @@ export type PortfolioEventName =
   | "home_resume_click"
   | "home_contact_click"
   | "project_case_study_click"
+  | "project_live_click"
   | "contact_email_click"
   | "github_click";
 
 type EventProperties = Record<string, string | number | boolean | null>;
 
-export function trackPortfolioEvent(
-  eventName: PortfolioEventName,
-  properties?: EventProperties,
-) {
+export function trackPortfolioEvent(eventName: PortfolioEventName, properties?: EventProperties) {
   try {
     track(eventName, properties);
   } catch {

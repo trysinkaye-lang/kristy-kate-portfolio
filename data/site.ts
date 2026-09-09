@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Software Developer & UI/UX Designer",
-  headline: "I design and build information systems, offline-first applications, and web experiences that turn complex operational workflows into clear, reliable tools.",
+  title: "Website Designer & Developer · Full-Stack Developer",
+  headline: "I design and develop modern websites, web applications, desktop systems, and digital experiences built around real-world needs.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
@@ -12,23 +12,26 @@ export const site = {
 };
 
 export const services = [
-  { title: "Software Development", items: ["Information Systems", "Desktop Applications", "Business Systems", "Database Applications", "System Automation", "Application Development"] },
-  { title: "Web Development", items: ["Responsive Websites", "Web Applications", "Frontend Development", "Backend Development", "REST APIs", "Database Integration"] },
-  { title: "UI/UX Design", items: ["Dashboard Design", "Web Interfaces", "System Interfaces", "Wireframes", "Prototypes", "UX Improvement"] },
-  { title: "Graphic & Digital Design", items: ["Social Media", "Carousel Posts", "Marketing Materials", "Posters", "Branding", "Digital Graphics"] },
+  { title: "Website Design & Development", items: ["Website Design", "Responsive Websites", "Frontend Development", "Interaction Design", "UI/UX Design", "Design Systems"] },
+  { title: "Full-Stack Development", items: ["Web Applications", "Information Systems", "REST APIs", "Database Integration", "Authentication", "Application Architecture"] },
+  { title: "Desktop & Information Systems", items: ["Desktop Applications", "Offline-first Workflows", "Business Systems", "Database Applications", "Reporting", "System Automation"] },
+  { title: "Creative Development", items: ["GSAP Motion", "Three.js / WebGL", "Interactive Experiences", "Higgsfield Visuals", "Prototyping", "Creative Direction"] },
 ];
 
 export const stack = {
-  Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vite", "Tailwind CSS"],
+  "Website Design": ["UI/UX Design", "Responsive Design", "Interaction Design", "Design Systems", "Figma"],
+  Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "GSAP"],
   Backend: ["PHP", "Node.js", "REST APIs"],
   Database: ["PostgreSQL", "SQLite", "MySQL"],
   "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
-  "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
-  "Design Tools": ["Figma", "Canva"]
+  "Creative Development": ["GSAP", "Three.js", "React Three Fiber", "WebGL", "Higgsfield"],
+  "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions", "Vercel"],
+  "Design Tools": ["Figma", "Canva"],
 };
 
 export const skills = {
-  Development: ["Software Development", "Web Development", "Database Design", "REST API Development", "Debugging", "System Architecture", "Git", "Application Security", "Responsive Development"],
-  Design: ["UI Design", "UX Design", "Dashboard Design", "Graphic Design", "Layout Design", "Visual Communication", "Social Media Design", "Branding"],
-  Professional: ["Problem Solving", "Technical Documentation", "Requirements Analysis", "Communication", "Research", "Continuous Learning"]
+  Development: ["Full-Stack Development", "Web Development", "Database Design", "REST API Development", "Debugging", "System Architecture", "Git", "Responsive Development"],
+  Design: ["Website Design", "UI Design", "UX Design", "Interaction Design", "Dashboard Design", "Design Systems", "Visual Communication"],
+  Creative: ["GSAP Motion", "Three.js / WebGL", "Higgsfield Visuals", "Creative Prototyping", "Art Direction"],
+  Professional: ["Problem Solving", "Technical Documentation", "Requirements Analysis", "Communication", "Research", "Continuous Learning"],
 };

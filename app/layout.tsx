@@ -29,52 +29,37 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: `${site.name} | ${site.title}`,
-  description: `Portfolio of ${site.name}, a ${site.title} building information systems, web applications, and desktop/offline-first software with usable interfaces and reliable data workflows.`,
+  description: `Portfolio of ${site.name}, a website designer and developer and full-stack developer building modern websites, information systems, web applications, and desktop software.`,
   keywords: [
     "Kristy Kate Taylor",
+    "Website Designer",
+    "Website Developer",
+    "Full-Stack Developer",
+    "Creative Developer",
     "Software Developer",
     "UI/UX Designer",
+    "Next.js",
+    "GSAP",
     "Information Systems",
     "Web Development",
     "Application Development",
     "Portfolio",
     "Philippines",
   ],
-  openGraph: {
-    title: `${site.name} | ${site.title}`,
-    description: site.headline,
-    siteName: site.name,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} | ${site.title}`,
-    description: site.headline,
-  },
+  openGraph: { title: `${site.name} | ${site.title}`, description: site.headline, siteName: site.name, type: "website" },
+  twitter: { card: "summary_large_image", title: `${site.name} | ${site.title}`, description: site.headline },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
-          <a className="skip-link" href="#main-content">
-            Skip to content
-          </a>
-
+          <a className="skip-link" href="#main-content">Skip to content</a>
           <Nav />
-
-          <RouteEffects>
-            {children}
-          </RouteEffects>
-
+          <RouteEffects>{children}</RouteEffects>
           <SiteFooter />
         </Providers>
-
         <Analytics />
         <SpeedInsights />
       </body>

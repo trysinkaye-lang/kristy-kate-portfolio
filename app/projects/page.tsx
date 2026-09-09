@@ -11,10 +11,10 @@ export default function ProjectsPage() {
         <header className="page-hero-panel projects-refined-hero flex flex-col justify-center" style={{ minHeight: "clamp(270px, 23vw, 320px)" }}>
           <p className="v2-kicker mb-5">Selected case studies</p>
           <h1 className="section-title max-w-4xl text-[clamp(3.5rem,6vw,5.85rem)] font-semibold leading-[.9] tracking-[-.06em]">
-            Systems built for <span className="page-title-accent">real workflows.</span>
+            Systems, websites, and interfaces <span className="page-title-accent">built for real use.</span>
           </h1>
-          <p className="page-intro mt-5 max-w-[680px] text-[1.05rem] leading-7 sm:text-lg sm:leading-8">
-            Information systems, desktop applications, and interfaces shaped around data integrity, usability, and day-to-day operations.
+          <p className="page-intro mt-5 max-w-[720px] text-[1.05rem] leading-7 sm:text-lg sm:leading-8">
+            Information systems, website design, desktop applications, and interactive web experiences shaped around usability, clear visual direction, and practical implementation.
           </p>
         </header>
 
@@ -37,9 +37,7 @@ export default function ProjectsPage() {
                 <p className="project-full-title mt-3 max-w-xl text-sm font-medium leading-6 text-zinc-400">{project.title}</p>
                 <p className="project-overview mt-5 max-w-[62ch] text-[1rem] leading-7 text-zinc-400">{project.overview}</p>
 
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.highlights.map((item) => <span className="v2-chip" key={item}>{item}</span>)}
-                </div>
+                <div className="mt-5 flex flex-wrap gap-2">{project.highlights.map((item) => <span className="v2-chip" key={item}>{item}</span>)}</div>
 
                 <div className="mt-6 grid gap-5 border-t border-white/[.08] pt-5 sm:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
                   <div><span className="text-[.66rem] font-bold uppercase tracking-[.14em] text-zinc-500">Role</span><p className="mt-2 text-sm leading-6 text-zinc-300">{project.role}</p></div>

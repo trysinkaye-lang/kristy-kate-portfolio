@@ -17,6 +17,8 @@ export type Project = {
   image: string;
   imageWidth: number;
   imageHeight: number;
+  imageLabel?: string;
+  imageAlt?: string;
   flagship?: boolean;
   github?: string;
   live?: string;
@@ -73,6 +75,59 @@ export const projects: Project[] = [
     imageHeight: 256
   },
   {
+    slug: "lacomus-revamp",
+    title: "Lacomus Website Revamp",
+    shortTitle: "Lacomus",
+    category: ["Website Design", "Web", "Frontend", "UI/UX"],
+    status: "Currently in development",
+    overview: "An ongoing redesign and development project focused on turning the Lacomus fragrance website into a more premium, editorial, product-led digital experience.",
+    problem: "The project explores how fragrance products can be presented with stronger visual storytelling while keeping product information, navigation, and responsive behavior clear and usable.",
+    solution: "The in-development direction combines large editorial typography, product-led layouts, responsive Next.js development, and GSAP-driven motion to create a more distinctive browsing experience.",
+    role: "Website Designer & Developer",
+    technologies: ["Next.js", "React", "TypeScript", "GSAP", "Responsive Design", "Vercel"],
+    highlights: ["Website redesign", "Editorial product UI", "In development"],
+    impact: [
+      "Establishes a premium product-first homepage direction with clearer visual hierarchy and a more deliberate editorial rhythm.",
+      "Combines website design and front-end implementation in one workflow using Next.js, React, TypeScript, and GSAP.",
+      "The project is still in development, so the live preview is presented as ongoing work rather than a finished client delivery."
+    ],
+    features: ["Responsive homepage", "Editorial product presentation", "GSAP motion", "Product-focused sections", "Interaction design", "Mobile adaptation"],
+    challenges: ["Balancing luxury visual direction with readability", "Keeping motion supportive rather than distracting", "Designing responsive product storytelling across screen sizes"],
+    lessons: ["Premium visuals still need clear product hierarchy", "Motion should reinforce pacing and focus", "Showing work in progress requires transparent status and scope"],
+    image: "https://d2ol7oe51mr4n9.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/68b5de49-7a54-416a-8ea5-4406956580ec.webp",
+    imageWidth: 1600,
+    imageHeight: 1000,
+    imageLabel: "Live development preview",
+    imageAlt: "Lacomus revamp website development preview",
+    live: "https://lacomus-revamp.vercel.app/"
+  },
+  {
+    slug: "co-designs",
+    title: "C.O. Designs Architecture Website",
+    shortTitle: "C.O. Designs",
+    category: ["Website Design", "Web", "Creative Development", "3D"],
+    status: "Currently in development",
+    overview: "An in-development architecture studio website concept built around a scroll-driven house construction experience and a refined editorial studio presentation.",
+    problem: "Architecture portfolios need to communicate both the finished work and the thinking behind it without turning the website into a static gallery or an overly heavy 3D demo.",
+    solution: "The current concept uses a reversible construction sequence, editorial project storytelling, responsive layouts, and a performance-aware Three.js scene to let visitors move from plan to completed house through native scrolling.",
+    role: "Website Designer & Developer",
+    technologies: ["Next.js", "React", "Three.js", "React Three Fiber", "GSAP", "ScrollTrigger"],
+    highlights: ["Scroll-driven architecture", "Three.js experience", "In development"],
+    impact: [
+      "Establishes a clear interactive concept where architectural systems appear progressively from plan to completed house.",
+      "Pairs 3D storytelling with accessible HTML descriptions, reduced-motion behavior, and performance-aware rendering decisions.",
+      "The current phase is a conceptual prototype; final real project photography, approved studio copy, and production content remain pending."
+    ],
+    features: ["Scroll-driven construction", "Responsive architecture presentation", "Three.js scene", "Editorial studio sections", "Reduced-motion support", "WebGL fallback"],
+    challenges: ["Keeping 3D interaction performant on smaller devices", "Synchronizing construction stages and camera movement", "Separating conceptual visuals from confirmed studio project content"],
+    lessons: ["3D should serve the project narrative", "Native scrolling is easier to understand than custom wheel behavior", "Concept content must remain clearly distinguished from verified project work"],
+    image: "https://d2ol7oe51mr4n9.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/eba8d838-3e61-49d1-b0d3-b20489842b48.webp",
+    imageWidth: 1600,
+    imageHeight: 1000,
+    imageLabel: "Concept visual · website in development",
+    imageAlt: "Concept visual for the C.O. Designs architecture website"
+  },
+  {
     slug: "erp-system",
     title: "Enterprise Resource Planning (ERP) System",
     shortTitle: "ERP System",
@@ -122,4 +177,4 @@ export const projects: Project[] = [
   }
 ];
 
-export const projectCategories = ["All", "Web", "Desktop", "Information Systems", "Full Stack", "UI/UX", "Business Systems"];
+export const projectCategories = ["All", "Website Design", "Web", "Desktop", "Information Systems", "Full Stack", "UI/UX", "Creative Development", "Business Systems"];
