@@ -26,6 +26,7 @@ export const stack = {
   "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
   "Creative Development": ["GSAP", "Three.js", "React Three Fiber", "WebGL", "Higgsfield"],
   "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions", "Vercel"],
+  "Design Tools": ["Figma", "Canva"],
 };
 
 export const skills = {
