@@ -4,11 +4,11 @@ import { BlueprintHero } from "@/components/BlueprintHero";
 import { SelectedWork } from "@/components/home/SelectedWork";
 import { WebsiteDesignWork } from "@/components/home/WebsiteDesignWork";
 import { HomeCapabilities } from "@/components/home/HomeCapabilities";
-import { CreativeLab } from "@/components/home/CreativeLab";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeCTA } from "@/components/home/HomeCTA";
 import "@/components/home/home.css";
 import "@/components/home/creative-2026.css";
+import "@/components/home/professional-home.css";
 
 export function PortfolioHomeCarousel() {
   return (
@@ -17,7 +17,6 @@ export function PortfolioHomeCarousel() {
       <SelectedWork />
       <WebsiteDesignWork />
       <HomeCapabilities />
-      <CreativeLab />
       <HomeAbout />
       <HomeCTA />
     </main>

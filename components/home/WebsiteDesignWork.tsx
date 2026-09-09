@@ -2,21 +2,23 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { projects } from "@/data/projects";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 
-const websiteProjects = projects.filter((project) =>
-  ["lacomus-revamp", "co-designs-website"].includes(project.slug),
-);
+const websiteProjects = ["co-designs-website", "marci-metzger-redesign", "lacomus-revamp"]
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is NonNullable<typeof project> => Boolean(project));
 
 export function WebsiteDesignWork() {
   return (
     <section className="home-flow-section home-web-work" aria-labelledby="website-work-title">
       <div className="portfolio-shell">
         <div className="home-web-work-intro">
-          <p className="v2-kicker">Website design & development</p>
-          <h2 id="website-work-title" className="v2-heading mt-4">
-            I design websites as carefully as I develop them.
-          </h2>
-          <p className="home-section-lede mt-5">
-            Current website work across luxury product storytelling and architecture. Both are shown with real project imagery and are clearly marked as in development.
+          <div>
+            <p className="v2-kicker">Website design & development</p>
+            <h2 id="website-work-title" className="v2-heading mt-4">
+              Websites I&apos;m designing and building.
+            </h2>
+          </div>
+          <p className="home-section-lede">
+            Real website work, shown from the live deployments. Each project has a different visual direction, audience, and interaction model.
           </p>
         </div>
 
@@ -24,32 +26,43 @@ export function WebsiteDesignWork() {
           {websiteProjects.map((project, index) => (
             <article className="home-web-project" key={project.slug}>
               <div className="home-web-project-visual">
-                {project.live ? (
-                  <a href={project.live} target="_blank" rel="noreferrer" aria-label={`Open ${project.shortTitle} live development`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                <div className="home-site-browser" aria-label={`${project.shortTitle} live website preview`}>
+                  <div className="home-site-browser-bar" aria-hidden="true">
+                    <span className="home-site-browser-dots"><i /><i /><i /></span>
+                    <span className="home-site-browser-domain">
+                      {project.live?.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                    </span>
+                    <span>0{index + 1}</span>
+                  </div>
+
+                  {project.live ? (
+                    <div className="home-site-browser-stage">
+                      <iframe
+                        src={project.live}
+                        title={`${project.shortTitle} live website preview`}
+                        loading="lazy"
+                        tabIndex={-1}
+                        className="home-site-browser-frame"
+                      />
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="home-site-browser-hitarea"
+                        aria-label={`Open ${project.shortTitle} live website`}
+                      />
+                    </div>
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={project.image}
-                      alt={`${project.shortTitle} current project preview`}
+                      alt={`${project.shortTitle} project preview`}
                       width={project.imageWidth}
                       height={project.imageHeight}
                       loading="lazy"
                       className="home-web-project-image"
                     />
-                  </a>
-                ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={project.image}
-                    alt={`${project.shortTitle} current project preview`}
-                    width={project.imageWidth}
-                    height={project.imageHeight}
-                    loading="lazy"
-                    className="home-web-project-image"
-                  />
-                )}
-                <div className="home-web-project-visual-meta" aria-hidden="true">
-                  <span>0{index + 3}</span>
-                  <span>{project.shortTitle}</span>
+                  )}
                 </div>
               </div>
 
@@ -79,7 +92,7 @@ export function WebsiteDesignWork() {
                     eventData={{ project: project.slug, source: "website_work" }}
                     className="project-case-link"
                   >
-                    Explore Project <ArrowRight size={16} />
+                    View Project Details <ArrowRight size={16} />
                   </TrackedLink>
 
                   {project.live ? (
@@ -89,7 +102,7 @@ export function WebsiteDesignWork() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Live Development <ExternalLink size={15} />
+                      Visit Live Site <ExternalLink size={15} />
                     </a>
                   ) : null}
                 </div>
