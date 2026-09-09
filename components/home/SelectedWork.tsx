@@ -12,10 +12,10 @@ export function SelectedWork() {
         <div className="home-section-heading home-section-heading-wide">
           <div>
             <p className="v2-kicker">Selected work / systems</p>
-            <h2 id="selected-work-title" className="v2-heading mt-4">Systems designed around real workflows.</h2>
+            <h2 id="selected-work-title" className="v2-heading mt-4">Systems built for real-world operations.</h2>
           </div>
           <p className="home-section-lede">
-            RBIM and AHDIS show the application side of my work: structured data, operational workflows, reporting, desktop software, and interfaces built for actual day-to-day use.
+            RBIM and AHDIS show how I turn complex data and day-to-day workflows into reliable software, with structured records, validation, reporting, and desktop-first usability built in.
           </p>
         </div>
 
