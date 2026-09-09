@@ -130,8 +130,9 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     const projects = [
       '/projects/rbim',
       '/projects/ahdis',
-      '/projects/lacomus-revamp',
       '/projects/co-designs-website',
+      '/projects/marci-metzger-redesign',
+      '/projects/lacomus-revamp',
       '/projects/erp-system',
       '/projects/design-systems',
     ];
