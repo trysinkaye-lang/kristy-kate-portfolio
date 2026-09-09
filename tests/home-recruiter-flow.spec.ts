@@ -14,41 +14,24 @@ test.describe("Homepage recruiter journey", () => {
 
     await expect(page.getByRole("heading", { name: "RBIM" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AHDIS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "C.O. DESIGNS" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "MARCI METZGER" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
     await expect(page.getByRole("heading", { name: /The stack behind my strongest work/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
   });
 
-  test("shows a visible Higgsfield hero reel and verified website imagery", async ({ page }) => {
+  test("removes the hero video and shows real live website previews in Works", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
 
-    const reel = page.locator("video.cover-reel-video");
-    await expect(reel).toBeVisible();
-    await expect(reel.locator("source")).toHaveAttribute("src", /hf_20260909_164047_d56032a8/);
+    await expect(page.locator("#home video")).toHaveCount(0);
 
-    const videoPresentation = await reel.evaluate((video) => {
-      const styles = getComputedStyle(video);
-      const rect = video.getBoundingClientRect();
-      return {
-        opacity: styles.opacity,
-        width: rect.width,
-        height: rect.height,
-      };
-    });
-
-    expect(Number(videoPresentation.opacity)).toBeGreaterThanOrEqual(0.95);
-    expect(videoPresentation.width).toBeGreaterThan(300);
-    expect(videoPresentation.height).toBeGreaterThan(180);
-
-    const lacomusPreview = page.getByAltText("LACOMUS current project preview");
-    await expect(lacomusPreview).toBeVisible();
-    await expect(lacomusPreview).toHaveAttribute("src", /3a2421a2-54a6-4574-9e9d-d883afdd3644\.png/);
-
-    const architecturePreview = page.getByAltText("C.O. DESIGNS current project preview");
-    await expect(architecturePreview).toBeVisible();
-    await expect(architecturePreview).toHaveAttribute("src", /contemporary-home\.webp/);
+    const previews = page.locator(".home-site-browser-frame");
+    await expect(previews).toHaveCount(3);
+    await expect(previews.nth(0)).toHaveAttribute("src", "https://co-designs-website.vercel.app/");
+    await expect(previews.nth(1)).toHaveAttribute("src", "https://marci-metzger-redesign-2026.vercel.app/");
+    await expect(previews.nth(2)).toHaveAttribute("src", "https://lacomus-revamp.vercel.app/");
   });
 
   test("primary recruiter CTA opens Projects", async ({ page }) => {
