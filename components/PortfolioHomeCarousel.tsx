@@ -10,6 +10,7 @@ import { HomeCTA } from "@/components/home/HomeCTA";
 import "@/components/home/home.css";
 import "@/components/home/creative-2026.css";
 import "@/components/home/professional-home.css";
+import "@/components/home/website-packages.css";
 
 export function PortfolioHomeCarousel() {
   return (
