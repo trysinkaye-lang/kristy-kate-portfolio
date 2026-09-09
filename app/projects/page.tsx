@@ -1,170 +1,61 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
-import { projects, type Project } from "@/data/projects";
-import styles from "./projects.module.css";
-
-const systemProjects = projects.filter((project) => ["rbim", "ahdis", "erp-system"].includes(project.slug));
-const websiteProjects = projects.filter((project) => ["co-designs-website", "marci-metzger-redesign", "lacomus-revamp"].includes(project.slug));
-const designProjects = projects.filter((project) => ["design-systems"].includes(project.slug));
-
-function LivePreview({ project }: { project: Project }) {
-  if (!project.live) return null;
-
-  const domain = project.live.replace(/^https?:\/\//, "").replace(/\/$/, "");
-
-  return (
-    <div className={styles.preview}>
-      <div className={styles.browserBar}>
-        <div className={styles.dots} aria-hidden="true"><i /><i /><i /></div>
-        <div className={styles.domain}>{domain}</div>
-        <ExternalLink size={12} aria-hidden="true" />
-      </div>
-      <div className={styles.stage}>
-        <iframe
-          src={project.live}
-          title={`${project.shortTitle} live website preview`}
-          className={styles.frame}
-          loading="lazy"
-          tabIndex={-1}
-        />
-        <a className={styles.frameHit} href={project.live} target="_blank" rel="noreferrer" aria-label={`Open ${project.shortTitle} live website`} />
-      </div>
-    </div>
-  );
-}
-
-function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
-  return (
-    <article className={styles.card}>
-      <div className={styles.visual}>
-        {project.live ? (
-          <LivePreview project={project} />
-        ) : (
-          <TrackedLink
-            href={`/projects/${project.slug}`}
-            eventName="project_case_study_click"
-            eventData={{ project: project.slug, source: "projects_visual" }}
-            aria-label={`View ${project.shortTitle} case study`}
-            className={styles.visualLink}
-          >
-            <ProjectScreenshot
-              project={project}
-              priority={priority}
-              sizes="(max-width: 980px) calc(100vw - 56px), 52vw"
-              constrainToSourceWidth={false}
-              className="h-full border-0 bg-transparent shadow-none"
-              imageClassName="w-full object-contain"
-            />
-          </TrackedLink>
-        )}
-      </div>
-
-      <div className={styles.copy}>
-        <div className={styles.meta}>
-          <span className={styles.status}>{project.status}</span>
-          {project.flagship ? <span>Flagship</span> : null}
-          <span>•</span>
-          <span>{project.category.slice(0, 2).join(" · ")}</span>
-        </div>
-
-        <h2 className={styles.title}>{project.shortTitle}</h2>
-        <p className={styles.fullTitle}>{project.title}</p>
-        <p className={styles.overview}>{project.overview}</p>
-
-        <div className={styles.chips}>
-          {project.highlights.map((item) => <span className="v2-chip" key={item}>{item}</span>)}
-        </div>
-
-        <div className={styles.facts}>
-          <div>
-            <span className={styles.factLabel}>Role</span>
-            <p className={styles.role}>{project.role}</p>
-          </div>
-          <div>
-            <span className={styles.factLabel}>Technology</span>
-            <div className={styles.tech}>
-              {project.technologies.slice(0, 5).map((item) => <span className="v2-chip" key={item}>{item}</span>)}
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.actions}>
-          <TrackedLink
-            href={`/projects/${project.slug}`}
-            eventName="project_case_study_click"
-            eventData={{ project: project.slug, source: "projects_cta" }}
-            className={styles.caseLink}
-          >
-            View Case Study <ArrowRight size={16} />
-          </TrackedLink>
-          {project.live ? (
-            <a href={project.live} target="_blank" rel="noreferrer" className={styles.liveLink}>
-              Visit Live Site <ExternalLink size={14} />
-            </a>
-          ) : null}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function ProjectGroup({ kicker, title, description, items, first = false }: { kicker: string; title: string; description: string; items: Project[]; first?: boolean }) {
-  return (
-    <section className={styles.group}>
-      <div className={styles.groupHeader}>
-        <div>
-          <p className="v2-kicker">{kicker}</p>
-          <h2 className={styles.groupTitle}>{title}</h2>
-        </div>
-        <p className={styles.groupText}>{description}</p>
-      </div>
-      <div className={styles.list}>
-        {items.map((project, index) => <ProjectCard project={project} key={project.slug} priority={first && index === 0} />)}
-      </div>
-    </section>
-  );
-}
+import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
-    <main id="main-content" className={`portfolio-v2 ${styles.page}`}>
-      <div className={styles.shell}>
-        <header className={styles.hero}>
-          <div className={styles.heroCopy}>
-            <p className="v2-kicker">Selected work</p>
-            <h1 className={styles.heroTitle}>Systems, websites, and interfaces built for real use.</h1>
-          </div>
-          <p className={styles.heroText}>
-            A cleaner view of my strongest work across information systems, website design and development, and interface design—organized by what the project is meant to accomplish.
+    <main id="main-content" className="portfolio-v2 projects-page editorial-page min-h-screen pb-20 pt-36">
+      <div className="portfolio-shell">
+        <header className="page-hero-panel projects-refined-hero flex flex-col justify-center" style={{ minHeight: "clamp(270px, 23vw, 320px)" }}>
+          <p className="v2-kicker mb-5">Selected case studies</p>
+          <h1 className="section-title max-w-4xl text-[clamp(3.5rem,6vw,5.85rem)] font-semibold leading-[.9] tracking-[-.06em]">
+            Systems built for <span className="page-title-accent">real workflows.</span>
+          </h1>
+          <p className="page-intro mt-5 max-w-[680px] text-[1.05rem] leading-7 sm:text-lg sm:leading-8">
+            Information systems, desktop applications, and interfaces shaped around data integrity, usability, and day-to-day operations.
           </p>
         </header>
 
-        <ProjectGroup
-          kicker="Systems & applications"
-          title="Operational software built around real workflows."
-          description="Projects focused on structured data, day-to-day operations, reporting, validation, and usable interfaces."
-          items={systemProjects}
-          first
-        />
+        <div className="mt-6 grid gap-5 sm:mt-8">
+          {projects.map((project, index) => (
+            <article key={project.slug} className={`project-editorial-row project-accent-${index % 3} editorial-section grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-10 xl:gap-12`}>
+              <TrackedLink href={`/projects/${project.slug}`} eventName="project_case_study_click" eventData={{ project: project.slug, source: "projects_visual" }} aria-label={`View ${project.shortTitle} case study`} className={`group block min-w-0 ${index % 2 ? "lg:order-2" : ""}`}>
+                <ProjectScreenshot project={project} priority={index === 0} sizes="(max-width: 1100px) calc(100vw - 48px), 54vw" className="transition-colors duration-200 group-hover:border-white/[.16] group-focus-visible:border-white/[.22] group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-violet-400/60" />
+              </TrackedLink>
 
-        <ProjectGroup
-          kicker="Website design & development"
-          title="Web experiences shaped around each client and brand."
-          description="Live website projects presented consistently, with direct access to the working site and a separate project case study."
-          items={websiteProjects}
-        />
+              <div className={`project-copy min-w-0 py-2 ${index % 2 ? "lg:order-1" : ""}`}>
+                <div className="project-meta flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[.14em] text-zinc-500">
+                  <span className="project-status"><i aria-hidden="true" />{project.status}</span>
+                  {project.flagship ? <span className="rounded-full border border-white/[.14] px-2.5 py-1 text-[.6rem] font-bold tracking-[.13em] text-zinc-300">Flagship</span> : null}
+                  <span aria-hidden="true" className="h-px w-8 bg-white/10" />
+                  <span>{project.category.slice(0, 2).join(" · ")}</span>
+                </div>
 
-        <ProjectGroup
-          kicker="Interface & visual work"
-          title="Design systems and digital interface work."
-          description="Supporting design work focused on hierarchy, consistency, responsive layouts, and clear communication."
-          items={designProjects}
-        />
+                <h2 className="section-title project-title mt-4 text-[clamp(2.45rem,4vw,4.1rem)] font-semibold leading-[.96] tracking-[-.05em]">{project.shortTitle}</h2>
+                <p className="project-full-title mt-3 max-w-xl text-sm font-medium leading-6 text-zinc-400">{project.title}</p>
+                <p className="project-overview mt-5 max-w-[62ch] text-[1rem] leading-7 text-zinc-400">{project.overview}</p>
 
-        <section className={styles.footerCta}>
-          <h2 className={styles.footerTitle}>Have a system, website, or interface in mind?</h2>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.highlights.map((item) => <span className="v2-chip" key={item}>{item}</span>)}
+                </div>
+
+                <div className="mt-6 grid gap-5 border-t border-white/[.08] pt-5 sm:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]">
+                  <div><span className="text-[.66rem] font-bold uppercase tracking-[.14em] text-zinc-500">Role</span><p className="mt-2 text-sm leading-6 text-zinc-300">{project.role}</p></div>
+                  <div><span className="text-[.66rem] font-bold uppercase tracking-[.14em] text-zinc-500">Technology</span><div className="mt-2 flex flex-wrap gap-1.5">{project.technologies.slice(0, 5).map((item) => <span className="v2-chip" key={item}>{item}</span>)}</div></div>
+                </div>
+
+                <TrackedLink href={`/projects/${project.slug}`} eventName="project_case_study_click" eventData={{ project: project.slug, source: "projects_cta" }} className="project-case-link group mt-6 inline-flex items-center gap-2 text-sm font-semibold">
+                  View Case Study <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" size={16} />
+                </TrackedLink>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <section className="projects-cta page-cta editorial-section py-20 text-center sm:py-24">
+          <h2 className="section-title mx-auto max-w-3xl text-4xl font-semibold tracking-[-.045em] sm:text-5xl">Have a system, website, or interface in mind?</h2>
           <Link href="/contact" className="v2-button v2-button-primary mt-8">Contact me <ArrowUpRight size={16} /></Link>
         </section>
       </div>
