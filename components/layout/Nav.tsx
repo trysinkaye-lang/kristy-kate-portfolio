@@ -5,6 +5,7 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import "./nav-premium.css";
+import "./nav-v17.css";
 
 const links = [
   ["Home", "/"],
