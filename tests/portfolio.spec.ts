@@ -15,7 +15,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     const hero = page.locator('#home');
     await expect(hero).toBeVisible();
 
-    const selectedWorkHeading = page.getByRole('heading', { name: /Digital experiences built for real use/i });
+    const selectedWorkHeading = page.getByRole('heading', { name: /Systems designed around real workflows/i });
     await selectedWorkHeading.scrollIntoViewIfNeeded();
 
     const scrollY = await page.evaluate(() => window.scrollY);
