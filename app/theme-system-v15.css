@@ -1,0 +1,408 @@
+/* V15 — unified theme system.
+   Loaded last so older component-specific dark colors cannot block the theme toggle. */
+
+:root,
+.dark {
+  --ui-page: #070708;
+  --ui-surface: #09090a;
+  --ui-surface-2: #0d0d0f;
+  --ui-surface-3: #111114;
+  --ui-text: #f4f0f3;
+  --ui-text-2: rgba(255,255,255,.72);
+  --ui-text-3: rgba(255,255,255,.56);
+  --ui-text-4: rgba(255,255,255,.39);
+  --ui-border: rgba(255,255,255,.09);
+  --ui-border-strong: rgba(255,255,255,.14);
+  --ui-accent: #deb3cf;
+  --ui-accent-strong: #e8c2d9;
+  --ui-accent-soft: rgba(222,179,207,.09);
+  --ui-shadow: 0 22px 70px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+.light {
+  --ui-page: #f7f4f6;
+  --ui-surface: #fbf9fa;
+  --ui-surface-2: #ffffff;
+  --ui-surface-3: #f4eef2;
+  --ui-text: #251f23;
+  --ui-text-2: #514850;
+  --ui-text-3: #6c616a;
+  --ui-text-4: #887c85;
+  --ui-border: rgba(73,50,66,.11);
+  --ui-border-strong: rgba(73,50,66,.17);
+  --ui-accent: #9d6688;
+  --ui-accent-strong: #81516f;
+  --ui-accent-soft: rgba(157,102,136,.10);
+  --ui-shadow: 0 22px 70px rgba(79,55,71,.09);
+  color-scheme: light;
+}
+
+body,
+.portfolio-v2,
+.editorial-page,
+.home-cover,
+.home-flow-section,
+.editorial-card,
+.contact-option,
+.project-copy,
+.v2-button,
+.v2-chip {
+  transition:
+    background-color .35s ease,
+    color .28s ease,
+    border-color .3s ease,
+    box-shadow .35s ease;
+}
+
+/* Global light canvas. */
+.light body {
+  background: var(--ui-page) !important;
+  color: var(--ui-text) !important;
+}
+
+.light .portfolio-v2,
+.light .editorial-page {
+  --portfolio-bg: var(--ui-page);
+  --portfolio-panel: var(--ui-surface-2);
+  --portfolio-panel-2: var(--ui-surface-3);
+  --portfolio-border: var(--ui-border);
+  --portfolio-muted: var(--ui-text-3);
+  --portfolio-dim: var(--ui-text-4);
+  --portfolio-accent: var(--ui-accent);
+  background-color: var(--ui-page) !important;
+  color: var(--ui-text) !important;
+}
+
+.light .editorial-page {
+  background-image:
+    radial-gradient(circle at 14% 4%, rgba(157,102,136,.055), transparent 27rem),
+    radial-gradient(circle at 92% 14%, rgba(117,132,188,.04), transparent 24rem) !important;
+}
+
+/* Typography: neutralize dark-only Tailwind utility colors inside portfolio pages. */
+.light .portfolio-v2 h1,
+.light .portfolio-v2 h2,
+.light .portfolio-v2 h3,
+.light .portfolio-v2 h4,
+.light .portfolio-v2 .section-title,
+.light .portfolio-v2 .page-title,
+.light .portfolio-v2 .v2-heading,
+.light .portfolio-v2 .text-white {
+  color: var(--ui-text) !important;
+}
+
+.light .portfolio-v2 .text-zinc-300 {
+  color: #514850 !important;
+}
+
+.light .portfolio-v2 .text-zinc-400 {
+  color: #625861 !important;
+}
+
+.light .portfolio-v2 .text-zinc-500 {
+  color: #746872 !important;
+}
+
+.light .portfolio-v2 .text-zinc-600,
+.light .portfolio-v2 .text-zinc-700 {
+  color: #81757f !important;
+}
+
+.light .portfolio-v2 .page-intro,
+.light .portfolio-v2 .home-section-lede,
+.light .portfolio-v2 .home-about-copy,
+.light .portfolio-v2 .project-full-title,
+.light .portfolio-v2 .project-overview,
+.light .portfolio-v2 .project-role,
+.light .portfolio-v2 .cover-signature {
+  color: var(--ui-text-3) !important;
+}
+
+.light .portfolio-v2 .v2-kicker,
+.light .portfolio-v2 .page-kicker,
+.light .portfolio-v2 .page-title-accent,
+.light .portfolio-v2 .project-case-link {
+  color: var(--ui-accent-strong) !important;
+}
+
+/* Tailwind border utilities are still present in many page components. */
+.light .portfolio-v2 [class*="border-white/"] {
+  border-color: var(--ui-border) !important;
+}
+
+.light .portfolio-v2 [class*="bg-white/10"],
+.light .portfolio-v2 [class*="bg-white/[.09]"],
+.light .portfolio-v2 [class*="bg-white/[.08]"] {
+  background-color: rgba(73,50,66,.10) !important;
+}
+
+/* Shared cards / controls. */
+.light .portfolio-v2 .editorial-card,
+.light .portfolio-v2 .about-method-card,
+.light .portfolio-v2 .about-education-card,
+.light .portfolio-v2 .about-service-card,
+.light .portfolio-v2 .case-feature,
+.light .portfolio-v2 .contact-option,
+.light .portfolio-v2 .project-copy,
+.light .portfolio-v2 .home-capability-card,
+.light .portfolio-v2 .home-system-project,
+.light .portfolio-v2 .home-conversion-panel {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-surface-2) !important;
+  color: var(--ui-text) !important;
+  box-shadow: 0 16px 46px rgba(79,55,71,.055) !important;
+}
+
+.light .portfolio-v2 .editorial-card:hover,
+.light .portfolio-v2 .about-method-card:hover,
+.light .portfolio-v2 .about-service-card:hover,
+.light .portfolio-v2 .contact-option:hover,
+.light .portfolio-v2 .home-capability-card:hover {
+  border-color: rgba(157,102,136,.24) !important;
+  background: #fff !important;
+}
+
+.light .portfolio-v2 .v2-chip {
+  border-color: rgba(91,70,84,.14) !important;
+  background: rgba(255,255,255,.78) !important;
+  color: #4e444c !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.86) !important;
+}
+
+.light .portfolio-v2 .v2-button {
+  border-color: rgba(91,70,84,.14) !important;
+  background: rgba(255,255,255,.75) !important;
+  color: #453b43 !important;
+  box-shadow: 0 8px 24px rgba(79,55,71,.055) !important;
+}
+
+.light .portfolio-v2 .v2-button:hover {
+  border-color: rgba(157,102,136,.27) !important;
+  background: #fff !important;
+  color: #2e272c !important;
+}
+
+.light .portfolio-v2 .v2-button-primary,
+.light .portfolio-v2 .v2-button-primary:hover {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, #9d6688, #b7789e) !important;
+  color: #fff !important;
+  box-shadow: 0 13px 28px rgba(157,102,136,.23) !important;
+}
+
+/* Homepage hero. */
+.light .portfolio-v2 .home-cover,
+.light .portfolio-v2 .cover-sticky {
+  background:
+    radial-gradient(circle at 78% 20%, rgba(180,137,166,.17), transparent 32rem),
+    radial-gradient(circle at 12% 76%, rgba(145,126,176,.08), transparent 28rem),
+    linear-gradient(135deg, #fbf7f9 0%, #f3edf1 55%, #faf7f9 100%) !important;
+}
+
+.light .portfolio-v2 .cover-line-a {
+  color: #2b2429 !important;
+}
+
+.light .portfolio-v2 .cover-line-b {
+  color: #b47a9e !important;
+}
+
+.light .portfolio-v2 .cover-name {
+  color: #3d323a !important;
+}
+
+.light .portfolio-v2 .cover-role,
+.light .portfolio-v2 .cover-proof span,
+.light .portfolio-v2 .cover-scroll-cue {
+  color: #71636d !important;
+}
+
+.light .portfolio-v2 .cover-identity-divider,
+.light .portfolio-v2 .cover-proof {
+  border-color: rgba(73,50,66,.12) !important;
+}
+
+/* Homepage sections that previously stayed dark. */
+.light .portfolio-v2 .home-selected-work,
+.light .portfolio-v2 .home-web-work,
+.light .portfolio-v2 .home-about,
+.light .portfolio-v2 .home-cta,
+.light .portfolio-v2 .home-capabilities,
+.light .portfolio-v2 .home-conversion {
+  background: var(--ui-page) !important;
+  color: var(--ui-text) !important;
+}
+
+.light .portfolio-v2 .home-flow-section {
+  border-top-color: var(--ui-border) !important;
+}
+
+.light .portfolio-v2 .home-system-screenshot,
+.light .portfolio-v2 .home-site-browser {
+  border-color: var(--ui-border-strong) !important;
+  box-shadow: var(--ui-shadow) !important;
+}
+
+.light .portfolio-v2 .home-site-browser {
+  background: #f3eef1 !important;
+}
+
+.light .portfolio-v2 .home-site-browser-bar {
+  border-bottom-color: var(--ui-border) !important;
+  background: #f7f2f5 !important;
+  color: #7c6e78 !important;
+}
+
+.light .portfolio-v2 .home-site-browser-stage {
+  background: #eee8ec !important;
+}
+
+.light .portfolio-v2 .home-site-browser-dots i {
+  background: rgba(73,50,66,.22) !important;
+}
+
+/* Projects list + case studies. */
+.light .portfolio-v2.projects-page,
+.light .portfolio-v2.project-detail-page {
+  background-color: var(--ui-page) !important;
+}
+
+.light .portfolio-v2 .project-editorial-row,
+.light .portfolio-v2 .page-hero,
+.light .portfolio-v2 .project-overview-aside > div,
+.light .portfolio-v2 .next-project,
+.light .portfolio-v2 .about-section {
+  border-color: var(--ui-border) !important;
+}
+
+.light .portfolio-v2 .project-meta,
+.light .portfolio-v2 .project-status,
+.light .portfolio-v2 .project-index,
+.light .portfolio-v2 .page-back-link,
+.light .portfolio-v2 .project-overview-aside span,
+.light .portfolio-v2 .case-editorial-section > div > span:first-child {
+  color: var(--ui-text-4) !important;
+}
+
+.light .portfolio-v2 .case-editorial-section > div > span:last-child {
+  background: var(--ui-border) !important;
+}
+
+.light .portfolio-v2 .case-check {
+  background: #3b3037 !important;
+  color: #fff !important;
+}
+
+.light .portfolio-v2 .next-project-arrow {
+  border-color: var(--ui-border-strong) !important;
+  color: #3a3036 !important;
+}
+
+.light .portfolio-v2 .next-project:hover .next-project-arrow {
+  background: #3a3036 !important;
+  color: #fff !important;
+}
+
+/* About page. */
+.light .portfolio-v2.about-page {
+  background: var(--ui-page) !important;
+}
+
+.light .portfolio-v2 .about-identity-line {
+  color: var(--ui-accent-strong) !important;
+}
+
+.light .portfolio-v2 .about-method-number,
+.light .portfolio-v2 .about-service-card > div,
+.light .portfolio-v2 .about-education-card > div:first-child {
+  border-color: var(--ui-border) !important;
+  background: var(--ui-accent-soft) !important;
+  color: var(--ui-accent-strong) !important;
+}
+
+/* Contact page. */
+.light .portfolio-v2.contact-page {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(157,102,136,.10), transparent 28rem),
+    radial-gradient(circle at 13% 78%, rgba(121,138,188,.07), transparent 32rem),
+    linear-gradient(180deg, #f8f5f7, #f3eef2 64%, #f7f4f6) !important;
+}
+
+.light .portfolio-v2 .contact-classic-heading h1,
+.light .portfolio-v2 .contact-email-link,
+.light .portfolio-v2 .contact-option strong {
+  color: var(--ui-text) !important;
+}
+
+.light .portfolio-v2 .contact-outline-text {
+  color: transparent !important;
+  -webkit-text-stroke-color: #aa7294 !important;
+}
+
+.light .portfolio-v2 .contact-option svg,
+.light .portfolio-v2 .contact-email-link svg {
+  color: var(--ui-accent-strong) !important;
+}
+
+.light .portfolio-v2 .contact-orb {
+  opacity: .45 !important;
+  filter: blur(90px) !important;
+}
+
+/* Footer remains theme-aware even outside portfolio-v2. */
+.light .site-footer {
+  border-color: var(--ui-border) !important;
+  background: linear-gradient(180deg, #f2edf0, #ebe4e9) !important;
+  color: var(--ui-text-2) !important;
+}
+
+.light .footer-link {
+  border-color: var(--ui-border) !important;
+  background: rgba(255,255,255,.55) !important;
+  color: var(--ui-text-2) !important;
+}
+
+.light .footer-link:hover {
+  border-color: rgba(157,102,136,.23) !important;
+  background: #fff !important;
+  color: var(--ui-text) !important;
+}
+
+/* Form/select surfaces used by theme-aware pages. */
+.light input,
+.light textarea,
+.light select {
+  color-scheme: light;
+}
+
+/* Keep screenshots and embedded websites visually intact; only their frames change theme. */
+.light iframe,
+.light img,
+.light video {
+  color-scheme: normal;
+}
+
+@media (max-width: 760px) {
+  .light .portfolio-v2 .home-cover,
+  .light .portfolio-v2 .cover-sticky {
+    background:
+      radial-gradient(circle at 88% 8%, rgba(180,137,166,.13), transparent 18rem),
+      linear-gradient(180deg, #fbf7f9, #f4eef2) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .portfolio-v2,
+  .editorial-page,
+  .home-cover,
+  .home-flow-section,
+  .editorial-card,
+  .contact-option,
+  .project-copy,
+  .v2-button,
+  .v2-chip {
+    transition: none !important;
+  }
+}
