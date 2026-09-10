@@ -2,30 +2,50 @@
 .projectRegister > span:last-child { text-align: right; }
 .description { font-size: 15px; line-height: 1.9; max-width: 460px; color: var(--muted); }
 .projectStatement { font-size: 30px; line-height: 1.3; letter-spacing: -.045em; margin-block: 20px 28px; max-width: 400px; }
-.rbim { background: var(--inverse); color: var(--inverse-text); padding-block: 20px 48px; --muted: var(--inverse-muted); --line: #51574b; --accent: #e3977d; }
+
+.rbim { background: var(--inverse); color: var(--inverse-text); padding-block: 18px 64px; --muted: var(--inverse-muted); --line: #51574b; --accent: #e3977d; overflow: clip; }
 .rbim .projectRegister { border-top: 0; }
-.rbimHeading { display: flex; justify-content: space-between; align-items: end; gap: 40px; padding-block: 28px 42px; }
-.rbimHeading h3 { font-size: clamp(80px, 10vw, 140px); letter-spacing: -.065em; line-height: .9; }
-.rbimHeading > p { max-width: 350px; font-size: clamp(26px, 2.5vw, 36px); line-height: 1.3; letter-spacing: -.04em; }
-.rbimStage { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1fr); gap: 7%; align-items: center; border-block: 1px solid var(--line); padding-block: 44px; }
-.rbimCopy { max-width: 380px; }
-.rbimCopy > p:nth-child(2) { color: var(--inverse-muted); font-size: 14px; line-height: 1.9; margin-top: 22px; }
-.rbimCopy a { color: var(--inverse-text); }
-.rbimScreen { padding-block: 10px; }
-.systemRegister { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6%; padding-top: 34px; }
+.rbimOpening { display: grid; grid-template-columns: 1fr .72fr; grid-template-rows: auto auto; gap: 22px 8%; align-items: end; padding: 18px 0 42px; }
+.rbimOpening h3 { font-size: clamp(94px, 13vw, 190px); letter-spacing: -.075em; line-height: .78; }
+.rbimOpening > p:nth-child(2) { max-width: 420px; font-size: clamp(26px, 2.7vw, 42px); line-height: 1.1; letter-spacing: -.045em; }
+.rbimLead { grid-column: 2; max-width: 520px; color: var(--inverse-muted); font-size: 14px; line-height: 1.9; }
+.rbimJourney { min-height: 165vh; view-timeline-name: --rbim-journey; view-timeline-axis: block; }
+.rbimSticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-items: center; padding: 8vh 0; }
+.rbimStageShell { width: min(1440px, calc(100% - 8vw)); margin-inline: auto; display: grid; grid-template-columns: minmax(210px, .42fr) minmax(0, 1fr); gap: 5vw; align-items: center; }
+.rbimSideCopy { max-width: 330px; position: relative; z-index: 2; }
+.rbimSideCopy > p:nth-child(2) { margin-top: 22px; color: var(--inverse-muted); font-size: 13px; line-height: 1.85; }
+.rbimSideCopy a { color: var(--inverse-text); }
+.rbimVisual { min-width: 0; position: relative; display: grid; place-items: center; transform-origin: center right; }
+.rbimScreen { width: 100%; display: grid; place-items: center; transform-origin: center; }
+.rbimScreen :global(figure) { max-width: min(68vw, 980px) !important; width: 100%; margin: 0; }
+.rbimScreen :global(img) { width: 100%; box-shadow: 0 28px 90px rgba(0,0,0,.28); }
+.rbimScreen :global(figcaption) { color: var(--inverse-muted); }
+.rbimSignals { position: absolute; inset: auto 0 -34px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; font-size: 9px; letter-spacing: .12em; color: var(--inverse-muted); }
+.rbimSignals span:nth-child(2) { justify-self: center; color: var(--accent); }
+.rbimSignals span:last-child { justify-self: end; }
+.rbimAfter { padding-top: 12px; }
+.systemRegister { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6%; padding-top: 34px; border-top: 1px solid var(--line); }
 .systemRegister h4 { font-size: 14px; font-weight: 500; margin: 0 0 14px; }
 .systemRegister p { color: var(--inverse-muted); font-size: 13px; line-height: 1.9; }
-.architecture { padding-block: 110px 120px; }
-.archHeading { display: flex; justify-content: space-between; align-items: end; margin: 24px 0 52px; gap: 40px; }
-.archHeading h3 { font-size: clamp(42px, 5.7vw, 80px); }
-.archHeading > p { font-family: var(--font-editorial); font-size: 34px; max-width: 250px; line-height: 1.1; }
-.archGrid { display: grid; grid-template-columns: minmax(0, .38fr) minmax(0, 1fr); gap: 10%; align-items: start; }
-.archSide { padding-top: 60px; }
-.archSide figure { max-width: 250px; margin-bottom: 48px; }
-.archSide > p { font-size: 14px; color: var(--muted); line-height: 1.9; }
-.archPhoto { justify-self: end; }
-.archPhoto img { max-height: 660px; object-fit: contain; }
-.architecture figcaption, .marci figcaption, .lacomus figcaption, .archive figcaption { font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.6; }
+
+.architecture { padding-block: 92px 128px; overflow: clip; view-timeline-name: --architecture; view-timeline-axis: block; }
+.archHeading { display: grid; grid-template-columns: minmax(0, 1fr) 280px; align-items: end; gap: 8%; padding-block: 20px 36px; }
+.archHeading h3 { font-size: clamp(54px, 7.8vw, 116px); line-height: .9; letter-spacing: -.06em; white-space: nowrap; }
+.archHeading > p { font-family: var(--font-editorial); font-size: clamp(30px, 3vw, 48px); line-height: 1; }
+.archScene { position: relative; min-height: 120vh; width: min(1680px, 100%); margin-inline: auto; }
+.archGhost { position: absolute; top: 7%; left: -1vw; font-size: clamp(70px, 12vw, 220px); line-height: .82; letter-spacing: -.075em; font-weight: 720; color: color-mix(in srgb, var(--foreground) 5%, transparent); white-space: nowrap; user-select: none; }
+.archHeroImage { position: absolute; width: min(66vw, 980px); right: 3vw; top: 8%; z-index: 2; }
+.archHeroImage img { width: 100%; max-height: 760px; object-fit: cover; }
+.archDetailImage { position: absolute; width: min(27vw, 390px); left: 5vw; top: 40%; z-index: 4; }
+.archDetailImage img { width: 100%; }
+.archPreviewImage { position: absolute; width: min(35vw, 520px); right: 13vw; bottom: 0; z-index: 5; }
+.archPreviewImage img { width: 100%; box-shadow: 0 26px 70px rgba(22,22,19,.14); }
+.architecture figcaption, .marci figcaption, .lacomus figcaption, .archive figcaption { font-size: 10px; color: var(--muted); margin-top: 10px; line-height: 1.55; }
+.archClosing { display: grid; grid-template-columns: 1fr .58fr; gap: 12%; align-items: start; margin-top: 46px; }
+.archStatement { max-width: 720px; font-family: var(--font-editorial); font-size: clamp(34px, 4.6vw, 68px); line-height: 1.03; letter-spacing: -.035em; }
+.archCopy { max-width: 450px; justify-self: end; }
+.archCopy > p:first-child { color: var(--muted); font-size: 14px; line-height: 1.9; }
+
 .ahdis { padding-block: 10px 120px; }
 .ahdisGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10%; margin-top: 35px; align-items: start; }
 .ahdis h3 { font-size: clamp(52px, 6vw, 84px); }
@@ -63,43 +83,84 @@
 .archiveRail figure { flex: 0 0 min(420px, 78vw); scroll-snap-align: start; }
 .archiveRail img { width: 100%; }
 .archiveBottom { display: flex; justify-content: space-between; gap: 30px; }
+
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 1100px) {
-    .rbimScreen { animation: expand linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; transform-origin: right center; }
-    @keyframes expand { from { transform: scale(.94); } to { transform: scale(1); } }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+    .rbimVisual { animation: rbimExpand linear both; animation-timeline: --rbim-journey; animation-range: entry 8% exit 58%; }
+    .rbimSideCopy { animation: rbimCopy linear both; animation-timeline: --rbim-journey; animation-range: entry 8% exit 48%; }
+    .rbimSignals { animation: rbimSignals linear both; animation-timeline: --rbim-journey; animation-range: entry 15% exit 54%; }
+    @keyframes rbimExpand {
+      0% { transform: translate3d(6vw,0,0) scale(.78); }
+      42% { transform: translate3d(0,0,0) scale(.92); }
+      100% { transform: translate3d(-5vw,0,0) scale(1.04); }
+    }
+    @keyframes rbimCopy {
+      0%, 35% { opacity: 1; transform: translate3d(0,0,0); }
+      100% { opacity: .18; transform: translate3d(-18px,0,0); }
+    }
+    @keyframes rbimSignals {
+      0%, 20% { opacity: .2; transform: translate3d(0,10px,0); }
+      65%, 100% { opacity: 1; transform: translate3d(0,0,0); }
+    }
+    .archHeroImage { animation: archHero linear both; animation-timeline: --architecture; animation-range: entry 5% exit 75%; }
+    .archDetailImage { animation: archDetail linear both; animation-timeline: --architecture; animation-range: entry 8% exit 72%; }
+    .archPreviewImage { animation: archPreview linear both; animation-timeline: --architecture; animation-range: entry 22% exit 82%; }
+    @keyframes archHero { from { transform: translate3d(0,70px,0) scale(.96); } to { transform: translate3d(0,-45px,0) scale(1); } }
+    @keyframes archDetail { from { transform: translate3d(-22px,120px,0) rotate(-2deg); } to { transform: translate3d(12px,-38px,0) rotate(1deg); } }
+    @keyframes archPreview { from { transform: translate3d(30px,110px,0) rotate(1.2deg); } to { transform: translate3d(-12px,-24px,0) rotate(-1deg); } }
   }
 }
+
 @media (min-width: 768px) and (max-width: 1100px) {
-  .rbimStage { grid-template-columns: .7fr 1fr; gap: 5%; }
-  .archGrid { grid-template-columns: .55fr 1fr; gap: 7%; }
-  .archSide { padding-top: 0; }
+  .rbimOpening h3 { font-size: 112px; }
+  .rbimStageShell { width: calc(100% - 8vw); grid-template-columns: .42fr 1fr; gap: 4vw; }
+  .rbimScreen :global(figure) { max-width: 66vw !important; }
+  .archHeading { grid-template-columns: 1fr 220px; }
+  .archScene { min-height: 95vh; }
+  .archHeroImage { width: 68vw; right: 1vw; }
+  .archDetailImage { width: 30vw; left: 4vw; }
+  .archPreviewImage { width: 38vw; right: 9vw; }
+  .archClosing { gap: 8%; }
   .lacomusGrid { gap: 8%; }
   .lacomus h3 { font-size: 42px; }
 }
+
 @media (max-width: 767px) {
   .projectRegister { font-size: 10px; gap: 24px; line-height: 1.6; padding-block: 19px; }
   .projectRegister > span:first-child { max-width: 65%; }
   .projectRegister > span:last-child { max-width: 35%; }
-  .rbim { padding-block: 8px 32px; }
-  .rbimHeading { display: block; padding-block: 24px 30px; }
-  .rbimHeading h3 { font-size: 84px; }
-  .rbimHeading > p { margin-top: 24px; font-size: 28px; max-width: 310px; }
-  .rbimStage { display: flex; flex-direction: column-reverse; gap: 30px; padding-block: 24px 32px; align-items: stretch; }
-  .rbimCopy > p:first-child { font-size: 11px; }
-  .rbimCopy > p:nth-child(2) { margin-top: 16px; }
+  .rbim { padding-block: 8px 38px; }
+  .rbimOpening { grid-template-columns: 1fr; grid-template-rows: auto; gap: 20px; padding: 18px 0 24px; }
+  .rbimOpening h3 { font-size: 92px; line-height: .82; }
+  .rbimOpening > p:nth-child(2) { font-size: 29px; max-width: 320px; }
+  .rbimLead { grid-column: auto; font-size: 13px; }
+  .rbimJourney { min-height: auto; }
+  .rbimSticky { position: static; min-height: auto; display: block; padding: 20px 0 28px; }
+  .rbimStageShell { width: calc(100% - 12vw); display: flex; flex-direction: column-reverse; align-items: stretch; gap: 30px; }
+  .rbimVisual { display: block; }
+  .rbimScreen :global(figure) { max-width: 100% !important; }
+  .rbimSignals { position: static; margin-top: 16px; grid-template-columns: 1fr auto; gap: 10px; }
+  .rbimSignals span:nth-child(2) { justify-self: end; }
+  .rbimSignals span:last-child { grid-column: 1 / -1; justify-self: start; }
+  .rbimSideCopy { max-width: none; }
   .systemRegister { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; }
   .systemRegister > div { display: grid; grid-template-columns: .38fr 1fr; gap: 20px; }
   .systemRegister h4 { font-size: 12px; line-height: 1.7; }
   .systemRegister p { font-size: 13px; }
-  .architecture { padding-block: 70px; }
-  .archHeading { display: block; margin-block: 24px 32px; }
-  .archHeading h3 { font-size: clamp(36px, 10vw, 64px); }
-  .archHeading > p { margin: 18px 0 0 auto; font-size: 32px; max-width: 180px; }
-  .archGrid { display: flex; flex-direction: column-reverse; gap: 32px; }
-  .archSide { padding-top: 0; }
-  .archSide figure { float: right; width: 38%; margin: 0 0 20px 24px; }
-  .archSide > div:last-child { clear: both; }
-  .archSide > p { font-size: 14px; }
+
+  .architecture { padding-block: 68px 82px; }
+  .archHeading { grid-template-columns: 1fr; gap: 18px; padding-block: 18px 24px; }
+  .archHeading h3 { font-size: clamp(44px, 13vw, 66px); white-space: normal; }
+  .archHeading > p { width: 56%; margin-left: auto; font-size: 30px; }
+  .archScene { min-height: 760px; margin-top: 4px; }
+  .archGhost { top: 8%; left: -12vw; font-size: 23vw; }
+  .archHeroImage { width: 82vw; right: -3vw; top: 9%; }
+  .archDetailImage { width: 44vw; left: 5vw; top: 43%; }
+  .archPreviewImage { width: 61vw; right: 5vw; bottom: 3%; }
+  .archClosing { grid-template-columns: 1fr; gap: 32px; margin-top: 24px; }
+  .archStatement { font-size: 38px; }
+  .archCopy { justify-self: start; }
+
   .ahdis { padding-block: 0 70px; }
   .ahdisGrid { grid-template-columns: 1fr; gap: 40px; margin-top: 24px; }
   .ahdis h3 { font-size: 62px; }
@@ -129,4 +190,8 @@
   .archiveHeading h3 { font-size: 28px; }
   .archiveRail { gap: 20px; }
   .archiveBottom { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rbimVisual, .rbimSideCopy, .rbimSignals, .archHeroImage, .archDetailImage, .archPreviewImage { animation: none !important; transform: none !important; }
 }
