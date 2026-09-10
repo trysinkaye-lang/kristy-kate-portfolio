@@ -5,7 +5,6 @@ import { ArchitectureFeature } from "@/components/home/WebsiteWork";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeCapabilities } from "@/components/home/HomeCapabilities";
 import { ProjectStarter } from "@/components/home/ProjectStarter";
-import { HomeCTA } from "@/components/home/HomeCTA";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/data/site";
 
@@ -24,7 +23,6 @@ export default function Home() {
       <HomeAbout />
       <HomeCapabilities />
       <ProjectStarter />
-      <HomeCTA />
     </main>
   );
 }
