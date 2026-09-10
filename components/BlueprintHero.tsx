@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { site } from "@/data/site";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { DigitalCoreVisual } from "@/components/DigitalCoreVisual";
 import "./blueprint-hero.css";
 import "./home-scroll-fix.css";
 import "./home-hero-breathing-room.css";
@@ -106,6 +107,7 @@ export function BlueprintHero() {
         <div className="cover-noise" aria-hidden="true" />
         <div className="cover-grid" aria-hidden="true" />
         <div className="cover-light" aria-hidden="true" />
+        <DigitalCoreVisual />
         <div className="cover-orbit cover-orbit-a" aria-hidden="true" />
         <div className="cover-orbit cover-orbit-b" aria-hidden="true" />
 
