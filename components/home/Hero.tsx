@@ -95,11 +95,11 @@ export function Hero() {
           <p className={styles.worldStatement}>Art direction · interaction · UI/UX · web</p>
         </div>
 
-        <div className={styles.portraitPair} aria-hidden="true">
+        <div className={styles.portraitPair}>
           <div className={styles.portraitSystem}>
-            <Image src="/media/kristy-kate-professional-portrait-v2.webp" alt="" width={960} height={960} priority sizes="(max-width: 767px) 54vw, 420px" />
+            <Image src="/media/kristy-kate-professional-portrait-v2.webp" alt="Kristy Kate Taylor" width={960} height={960} priority sizes="(max-width: 767px) 54vw, 420px" />
           </div>
-          <div className={styles.portraitExperience}>
+          <div className={styles.portraitExperience} aria-hidden="true">
             <Image src="/media/kristy-kate-professional-portrait-v2.webp" alt="" width={960} height={960} priority sizes="(max-width: 767px) 54vw, 420px" />
           </div>
         </div>
@@ -122,6 +122,11 @@ export function Hero() {
           <p>I design and build</p>
           <strong>digital products</strong>
           <p>that have to work <em>and</em> feel right.</p>
+          <div className={styles.heroRoles}>
+            <span>Full-Stack Developer</span>
+            <span>UI/UX Designer</span>
+            <span>Creative Developer</span>
+          </div>
         </div>
 
         <p className={styles.dragHint}>Drag the line · use arrow keys · explore both sides</p>
