@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "lacomus", "erp-system", "design-systems"];
-const routes = ["/", "/projects", "/about", "/contact", ...projectSlugs.map((slug) => `/projects/${slug}`)];
+const routes = ["/", "/projects", "/about", "/packages", "/contact", ...projectSlugs.map((slug) => `/projects/${slug}`)];
 
 test("all pages load with one h1, complete images, and no JavaScript or resource errors", async ({ page }) => {
   const errors: string[] = [];
@@ -75,7 +75,7 @@ test("theme persists across routes and reload", async ({ page }) => {
 });
 
 test("every primary route avoids overflow at mobile, tablet, and desktop", async ({ page }) => {
-  test.setTimeout(90_000);
+  test.setTimeout(100_000);
   for (const viewport of [{ width: 375, height: 812 }, { width: 768, height: 1024 }, { width: 1440, height: 900 }]) {
     await page.setViewportSize(viewport);
     for (const route of routes) {
@@ -94,8 +94,18 @@ test("reduced motion keeps content and interactions available", async ({ page })
   await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
   const animations = await page.evaluate(() => document.getAnimations().filter((animation) => animation.playState === "running").length);
   expect(animations).toBe(0);
-  await page.getByRole("link", { name: "Read AHDIS case study" }).click();
+  await page.getByRole("navigation", { name: "Selected projects" }).getByRole("link", { name: "Open AHDIS case study" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("AHDIS");
+});
+
+test("interactive project starter recommends a route without hiding package comparison", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Information system" }).click();
+  await page.getByRole("button", { name: "Data & reporting" }).click();
+  await page.getByRole("button", { name: "Large" }).click();
+  await expect(page.getByText("Premium / custom scope", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Start this project" })).toHaveAttribute("href", /package=premium/);
+  await expect(page.getByRole("link", { name: "Compare packages & currencies" })).toHaveAttribute("href", "/packages");
 });
 
 test("skip link supports keyboard navigation", async ({ page }) => {
