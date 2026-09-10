@@ -1,34 +1,28 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Software Developer & UI/UX Designer",
-  headline: "I design and build information systems, offline-first applications, and web experiences that turn complex operational workflows into clear, reliable tools.",
+  title: "Full-Stack Developer / UI/UX Designer / Creative Developer",
+  headline: "Software systems, considered interfaces, and websites with a point of view. Design and engineering by Kristy Kate Taylor, based in the Philippines.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
   location: "Philippines",
   url: "https://kristy-kate-dev-portfolio.vercel.app",
-  // Set to "/resume/kristy-kate-taylor-resume.pdf" when that file is added under public/resume/.
   resume: null as string | null,
 };
 
 export const services = [
-  { title: "Software Development", items: ["Information Systems", "Desktop Applications", "Business Systems", "Database Applications", "System Automation", "Application Development"] },
-  { title: "Web Development", items: ["Responsive Websites", "Web Applications", "Frontend Development", "Backend Development", "REST APIs", "Database Integration"] },
-  { title: "UI/UX Design", items: ["Dashboard Design", "Web Interfaces", "System Interfaces", "Wireframes", "Prototypes", "UX Improvement"] },
-  { title: "Graphic & Digital Design", items: ["Social Media", "Carousel Posts", "Marketing Materials", "Posters", "Branding", "Digital Graphics"] },
+  { title: "Full-stack development", description: "The interface, the application logic, and the data behind it.", items: ["Frontend architecture", "Backend development", "REST APIs", "Authentication", "Database integration", "Application architecture"] },
+  { title: "Software & information systems", description: "Practical tools for records, reporting, and day-to-day operations.", items: ["Desktop applications", "Offline-first systems", "Business systems", "Database workflows", "Reporting", "Validation", "Automation"] },
+  { title: "UI/UX & website design", description: "Structure and visual direction, shaped around what people need to do.", items: ["Interface design", "Responsive design", "Interaction design", "Design systems", "Web experiences", "Dashboard UX"] },
+  { title: "Creative development", description: "Interaction and motion that help a story take shape on screen.", items: ["GSAP", "Three.js", "WebGL", "Motion systems", "Interactive prototypes", "Creative frontend"] },
 ];
 
 export const stack = {
   Frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Vite", "Tailwind CSS"],
-  Backend: ["PHP", "Node.js", "REST APIs"],
-  Database: ["PostgreSQL", "SQLite", "MySQL"],
-  "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
-  "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
-  "Design Tools": ["Figma", "Canva"]
-};
-
-export const skills = {
-  Development: ["Software Development", "Web Development", "Database Design", "REST API Development", "Debugging", "System Architecture", "Git", "Application Security", "Responsive Development"],
-  Design: ["UI Design", "UX Design", "Dashboard Design", "Graphic Design", "Layout Design", "Visual Communication", "Social Media Design", "Branding"],
-  Professional: ["Problem Solving", "Technical Documentation", "Requirements Analysis", "Communication", "Research", "Continuous Learning"]
+  Backend: ["Node.js", "PHP", "REST APIs"],
+  Databases: ["PostgreSQL", "SQLite", "MySQL"],
+  Desktop: ["Tauri", "Rust", "PHP Desktop"],
+  Development: ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
+  Design: ["Figma", "Canva"],
+  Creative: ["GSAP", "Three.js", "WebGL"],
 };

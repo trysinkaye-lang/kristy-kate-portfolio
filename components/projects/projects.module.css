@@ -1,0 +1,8 @@
+.screenshot { width: 100%; margin-inline: auto; }
+.screenshot img { width: 100%; height: auto; }
+.screenshot figcaption { margin-top: 12px; font-size: 12px; line-height: 1.6; opacity: .72; }
+.links { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 28px; margin-top: 24px; }
+.sourceLink { font-size: 12px; padding-block: 12px; text-decoration: underline; text-underline-offset: 5px; }
+.sourceLink:hover { color: var(--accent); }
+.facts { margin-top: 24px; display: grid; gap: 8px; font-size: 12px; line-height: 1.7; }
+.facts p:last-child { opacity: .7; }

@@ -1,22 +1,6 @@
 import { track } from "@vercel/analytics";
-
-export type PortfolioEventName =
-  | "home_view_projects"
-  | "home_resume_click"
-  | "home_contact_click"
-  | "project_case_study_click"
-  | "contact_email_click"
-  | "github_click";
-
+export type PortfolioEventName = "project_open" | "live_project_open" | "contact_start" | "contact_submit" | "github_open" | "package_open";
 type EventProperties = Record<string, string | number | boolean | null>;
-
-export function trackPortfolioEvent(
-  eventName: PortfolioEventName,
-  properties?: EventProperties,
-) {
-  try {
-    track(eventName, properties);
-  } catch {
-    // Analytics should never interrupt navigation or other recruiter actions.
-  }
+export function trackPortfolioEvent(event: PortfolioEventName, properties?: EventProperties) {
+  try { track(event, properties); } catch { /* Analytics must never interrupt an interaction. */ }
 }
