@@ -283,12 +283,6 @@ export function PackagePricingPage() {
                 </div>
                 <div className={styles.priceWrap}>
                   <p className={styles.price}>{displayPrice(item)}</p>
-                  {currency !== "PHP" ? (
-                    <p className={styles.basePrice}>
-                      Base: {formatMoney(item.priceMin, "PHP")}
-                      {item.priceMax ? `–${formatMoney(item.priceMax, "PHP")}` : ""}
-                    </p>
-                  ) : null}
                 </div>
               </div>
 
