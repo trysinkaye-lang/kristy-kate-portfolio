@@ -17,10 +17,6 @@ test.describe("Homepage recruiter journey", () => {
     await expect(page.getByRole("heading", { name: "C.O. DESIGNS" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "MARCI METZGER" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Clear options for different website needs/i })).toBeVisible();
-    await expect(page.getByText("₱15,000", { exact: true })).toBeVisible();
-    await expect(page.getByText("₱25,000", { exact: true })).toBeVisible();
-    await expect(page.getByText("₱35,000–₱40,000", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: /The stack behind my strongest work/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
   });
@@ -38,14 +34,27 @@ test.describe("Homepage recruiter journey", () => {
     await expect(previews.nth(2)).toHaveAttribute("src", "https://lacomus-revamp.vercel.app/");
   });
 
-  test("website packages offer direct contact actions", async ({ page }) => {
-    await page.goto("/");
+  test("website packages page offers direct contact actions", async ({ page }) => {
+    await page.goto("/packages");
 
-    const packages = page.locator(".home-package-card");
-    await expect(packages).toHaveCount(3);
-    await expect(page.getByRole("link", { name: "Choose Basic" })).toHaveAttribute("href", "/contact");
-    await expect(page.getByRole("link", { name: "Choose Professional" })).toHaveAttribute("href", "/contact");
-    await expect(page.getByRole("link", { name: "Choose Premium" })).toHaveAttribute("href", "/contact");
+    await expect(
+      page.getByRole("heading", { name: /Choose a package, then view it in your currency/i }),
+    ).toBeVisible();
+
+    await page.getByLabel("Currency").selectOption("PHP");
+
+    await expect(page.getByRole("link", { name: "Discuss Basic" })).toHaveAttribute(
+      "href",
+      "/contact?package=basic&currency=PHP",
+    );
+    await expect(page.getByRole("link", { name: "Discuss Professional" })).toHaveAttribute(
+      "href",
+      "/contact?package=professional&currency=PHP",
+    );
+    await expect(page.getByRole("link", { name: "Discuss Premium" })).toHaveAttribute(
+      "href",
+      "/contact?package=premium&currency=PHP",
+    );
   });
 
   test("primary recruiter CTA opens Projects", async ({ page }) => {
