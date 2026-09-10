@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Database, Figma, GraduationCap, Layers3, MonitorSmartphone } from "lucide-react";
 import { InteractiveToolGrid } from "@/components/InteractiveToolGrid";
+import styles from "./about.module.css";
 
 const methods = [
   {
@@ -35,27 +36,33 @@ const services = [
 
 export default function AboutPage() {
   return (
-    <main id="main-content" className="portfolio-v2 about-page editorial-page min-h-screen pb-20 pt-36">
-      <div className="portfolio-shell">
-        <header className="page-hero-panel about-hero about-hero-with-portrait">
-          <div className="about-portrait-wrap">
-            <Image
-              src="/media/kristy-kate-professional-portrait-v2.webp"
-              alt="Kristy Kate Taylor"
-              fill
-              priority
-              className="about-portrait object-cover"
-              sizes="(max-width: 760px) 320px, (max-width: 1100px) 240px, 285px"
-            />
+    <main id="main-content" className={`${styles.page} min-h-screen`}>
+      <div className={styles.shell}>
+        <header className={styles.hero}>
+          <div className={styles.portraitColumn}>
+            <div className={styles.portraitFrame}>
+              <Image
+                src="/media/kristy-kate-professional-portrait-v2.webp"
+                alt="Kristy Kate Taylor"
+                fill
+                priority
+                className={styles.portrait}
+                sizes="(max-width: 760px) 100vw, (max-width: 1100px) 36vw, 360px"
+              />
+              <div className={styles.portraitLabel} aria-hidden="true">
+                <strong>Kristy Kate Taylor</strong>
+                <span>Developer + Designer</span>
+              </div>
+            </div>
           </div>
 
-          <div className="about-refined-intro min-w-0">
-            <p className="about-identity-line">Software Developer · UI/UX Designer</p>
-            <h1 className="section-title about-refined-title mt-4 text-[clamp(3.35rem,5.6vw,5.8rem)] font-semibold leading-[.9] tracking-[-.06em]">
-              Hello, I&apos;m <span className="page-title-accent">Kristy Kate.</span>
+          <div className={styles.intro}>
+            <p className={styles.eyebrow}>Software Developer · UI/UX Designer</p>
+            <h1 className={styles.title}>
+              Hello, I&apos;m <span className={styles.titleAccent}>Kristy Kate.</span>
             </h1>
 
-            <div className="page-intro about-refined-copy mt-6 space-y-5">
+            <div className={styles.copy}>
               <p>I&apos;m a software developer and UI/UX designer passionate about building clear, reliable digital systems for real people and real workflows.</p>
               <p>My work combines requirements analysis, database design, application development, and interface design. I care about making powerful tools feel organized rather than overwhelming.</p>
               <p>I&apos;m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.</p>
@@ -63,86 +70,83 @@ export default function AboutPage() {
           </div>
         </header>
 
-        <section className="about-section editorial-section border-b border-white/[.09] py-16 lg:py-20">
-          <div className="grid gap-5 lg:grid-cols-[.58fr_.42fr] lg:items-end lg:gap-10">
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
             <div>
-              <p className="v2-kicker">How I work</p>
-              <h2 className="section-title mt-4 max-w-2xl text-3xl font-semibold tracking-[-.04em] sm:text-4xl">
-                From messy requirements to a usable system.
-              </h2>
+              <p className={styles.sectionLabel} data-index="01">How I work</p>
+              <h2 className={styles.sectionTitle}>From messy requirements to a usable system.</h2>
             </div>
-            <p className="max-w-lg text-sm leading-7 text-zinc-400 lg:justify-self-end">
+            <p className={styles.sectionLead}>
               A clear workflow, structured information, usable interaction, then careful implementation and refinement.
             </p>
           </div>
 
-          <div className="relative mt-8">
-            <div className="pointer-events-none absolute left-[8%] right-[8%] top-7 hidden h-px bg-gradient-to-r from-transparent via-white/10 to-transparent xl:block" aria-hidden="true" />
-            <div className="about-method-grid grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-              {methods.map((item) => (
-                <article className="about-method-card editorial-card group relative min-h-[220px] p-5 sm:p-6" key={item.number}>
-                  <span className="about-method-number relative z-10 inline-grid h-12 w-12 place-items-center rounded-full border border-white/[.1] bg-white/[.025] text-xs font-bold tracking-[.12em]">
-                    {item.number}
-                  </span>
-                  <h3 className="mt-9 text-[1.15rem] font-semibold leading-6 text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-zinc-400">{item.detail}</p>
-                  <span className="absolute inset-x-5 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#c99db8]/60 to-transparent transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none" aria-hidden="true" />
-                </article>
-              ))}
-            </div>
+          <div className={styles.methodGrid}>
+            {methods.map((item) => (
+              <article className={styles.methodCard} key={item.number}>
+                <span className={styles.methodNumber}>{item.number}</span>
+                <h3>{item.title}</h3>
+                <p>{item.detail}</p>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="about-section editorial-section border-b border-white/[.09] py-14 lg:py-20">
-          <div className="about-education-card editorial-card grid gap-5 rounded-[1.55rem] border border-white/[.09] p-6 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:p-8">
-            <div className="grid h-14 w-14 place-items-center rounded-2xl border border-white/[.09] bg-white/[.025] text-[#c6a0ba]">
-              <GraduationCap size={26} />
+        <section className={styles.section}>
+          <div className={styles.educationCard}>
+            <div className={styles.educationIcon}>
+              <GraduationCap size={26} aria-hidden="true" />
             </div>
-            <div>
-              <p className="v2-kicker">Education</p>
-              <h2 className="section-title mt-2 text-xl font-semibold leading-7 sm:text-2xl">University of Science and Technology of Southern Philippines</h2>
-              <p className="mt-2 text-sm text-zinc-400">Bachelor of Science in Information Technology</p>
+            <div className={styles.educationMeta}>
+              <p className={styles.sectionLabel} data-index="02">Education</p>
+              <h2>University of Science and Technology of Southern Philippines</h2>
+              <p>Bachelor of Science in Information Technology</p>
             </div>
+            <span className={styles.educationTag}>BS Information Technology</span>
           </div>
         </section>
 
-        <section className="about-section editorial-section py-14 lg:py-20">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
             <div>
-              <p className="v2-kicker">Capabilities</p>
-              <h2 className="section-title mt-3 max-w-xl text-3xl font-semibold tracking-[-.04em] sm:text-4xl">What I bring to a product.</h2>
+              <p className={styles.sectionLabel} data-index="03">Capabilities</p>
+              <h2 className={styles.sectionTitle}>What I bring to a product.</h2>
             </div>
-            <p className="max-w-md text-sm leading-7 text-zinc-400">Development and design treated as parts of the same workflow, not separate deliverables.</p>
+            <p className={styles.sectionLead}>Development and design treated as parts of the same workflow, not separate deliverables.</p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className={styles.serviceGrid}>
             {services.map(({ icon: Icon, label }) => (
-              <div className="about-service-card editorial-card group min-h-[168px] rounded-[1.4rem] border border-white/[.09] p-5 sm:p-6" key={label}>
-                <div className="grid h-11 w-11 place-items-center rounded-xl border border-white/[.09] bg-white/[.025] text-[#c6a0ba] transition-transform duration-200 group-hover:-translate-y-0.5 motion-reduce:transition-none">
-                  <Icon size={21} />
+              <div className={styles.serviceCard} key={label}>
+                <div className={styles.serviceIcon}>
+                  <Icon size={21} aria-hidden="true" />
                 </div>
-                <p className="mt-9 font-semibold leading-6 text-white">{label}</p>
+                <p>{label}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="about-section editorial-section border-y border-white/[.09] py-14 lg:py-20">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="v2-kicker">Toolbox</p>
-              <h2 className="section-title mt-3 text-3xl font-semibold tracking-[-.04em] sm:text-4xl">Tools I work with</h2>
+        <section className={styles.section}>
+          <div className={styles.toolboxPanel}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className={styles.sectionLabel} data-index="04">Toolbox</p>
+                <h2 className={styles.sectionTitle}>Tools I work with</h2>
+              </div>
+              <p className={styles.sectionLead}>Select a tool to see how it fits into my development and design workflow.</p>
             </div>
-            <p className="max-w-sm text-sm leading-7 text-zinc-400">Select a tool to see how it fits into my development and design workflow.</p>
+            <InteractiveToolGrid />
           </div>
-          <InteractiveToolGrid />
         </section>
 
-        <section className="about-section editorial-section page-cta py-20 text-center sm:py-24">
-          <h2 className="section-title mx-auto max-w-3xl text-4xl font-semibold tracking-[-.045em] sm:text-5xl">Want to see how this approach turns into real systems?</h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/projects" className="v2-button v2-button-primary">View projects <ArrowUpRight size={16} /></Link>
-            <Link href="/contact" className="v2-button">Contact me</Link>
+        <section className={styles.section}>
+          <div className={styles.cta}>
+            <h2 className={styles.ctaTitle}>Want to see how this approach turns into real systems?</h2>
+            <div className={styles.ctaActions}>
+              <Link href="/projects" className="v2-button v2-button-primary">View projects <ArrowUpRight size={16} /></Link>
+              <Link href="/contact" className="v2-button">Contact me</Link>
+            </div>
           </div>
         </section>
       </div>
