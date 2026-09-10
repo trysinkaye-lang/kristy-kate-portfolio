@@ -5,64 +5,48 @@ test.describe("Homepage recruiter journey", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
 
-    const hero = page.locator("#home");
+    const hero = page.locator(".cp26-hero");
     await expect(hero).toBeVisible();
     await expect(hero.getByText("Kristy Kate Taylor", { exact: true })).toBeVisible();
-    await expect(hero.getByText("Website Designer & Developer · Full-Stack Developer", { exact: true })).toBeVisible();
-    await expect(hero.getByRole("heading", { name: /developer.*designer/i })).toBeVisible();
-    await expect(hero.getByRole("link", { name: /View My Work/i })).toBeVisible();
+    await expect(page.getByText("FULL-STACK DEVELOPER", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("UI/UX DESIGNER", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("CREATIVE DEVELOPER", { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /I DESIGN DIGITAL EXPERIENCES/i })).toBeVisible();
 
-    await expect(page.getByRole("heading", { name: "RBIM" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "AHDIS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "C.O. DESIGNS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "MARCI METZGER" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "LACOMUS" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /The stack behind my strongest work/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Interested in working together/i })).toBeVisible();
+    for (const heading of ["RBIM", "C.O. DESIGNS", "AHDIS", "MARCI METZGER", "LACOMUS"]) {
+      await expect(page.getByRole("heading", { name: heading, exact: true })).toBeVisible();
+    }
+
+    await expect(page.getByRole("heading", { name: /WHAT I BRING TO A PROJECT/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /LET'S MAKE/i })).toBeVisible();
   });
 
-  test("removes the hero video and shows real live website previews in Works", async ({ page }) => {
+  test("homepage uses project imagery without a hero video", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
 
-    await expect(page.locator("#home video")).toHaveCount(0);
-
-    const previews = page.locator(".home-site-browser-frame");
-    await expect(previews).toHaveCount(3);
-    await expect(previews.nth(0)).toHaveAttribute("src", "https://co-designs-website.vercel.app/");
-    await expect(previews.nth(1)).toHaveAttribute("src", "https://marci-metzger-redesign-2026.vercel.app/");
-    await expect(previews.nth(2)).toHaveAttribute("src", "https://lacomus-revamp.vercel.app/");
+    await expect(page.locator(".cp26-hero video")).toHaveCount(0);
+    await expect(page.locator(".cp26-project-media img")).toHaveCount(5);
   });
 
   test("website packages page offers direct contact actions", async ({ page }) => {
     await page.goto("/packages");
-
-    await expect(
-      page.getByRole("heading", { name: /Choose a package, then view it in your currency/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Choose a package, then view it in your currency/i })).toBeVisible();
 
     const currencySelect = page.locator("#package-currency");
     await expect(currencySelect).toBeVisible();
     await currencySelect.selectOption("PHP");
 
-    await expect(page.getByRole("link", { name: "Discuss Basic" })).toHaveAttribute(
-      "href",
-      "/contact?package=basic&currency=PHP",
-    );
-    await expect(page.getByRole("link", { name: "Discuss Professional" })).toHaveAttribute(
-      "href",
-      "/contact?package=professional&currency=PHP",
-    );
-    await expect(page.getByRole("link", { name: "Discuss Premium" })).toHaveAttribute(
-      "href",
-      "/contact?package=premium&currency=PHP",
-    );
+    await expect(page.getByRole("link", { name: "Discuss Basic" })).toHaveAttribute("href", "/contact?package=basic&currency=PHP");
+    await expect(page.getByRole("link", { name: "Discuss Professional" })).toHaveAttribute("href", "/contact?package=professional&currency=PHP");
+    await expect(page.getByRole("link", { name: "Discuss Premium" })).toHaveAttribute("href", "/contact?package=premium&currency=PHP");
   });
 
-  test("primary recruiter CTA opens Projects", async ({ page }) => {
+  test("selected-work jump link reaches the featured work section", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#home").getByRole("link", { name: /View My Work/i }).click();
-    await expect(page).toHaveURL(/\/projects$/);
+    await page.getByRole("link", { name: /Selected work/i }).click();
+    await expect(page).toHaveURL(/#work$/);
+    await expect(page.locator("#work")).toBeVisible();
   });
 
   test("does not expose a broken resume link while no resume file exists", async ({ page }) => {
@@ -82,10 +66,8 @@ test.describe("Homepage recruiter journey", () => {
   ]) {
     test(`homepage has no horizontal overflow at ${viewport.name}`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto("/");
-      const hasOverflow = await page.evaluate(
-        () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
-      );
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      const hasOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
       expect(hasOverflow).toBe(false);
     });
   }

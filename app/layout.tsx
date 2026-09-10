@@ -21,6 +21,7 @@ import "./about-portrait-v12.css";
 import "./lightmode-readability-v14.css";
 import "./theme-system-v15.css";
 import "./lightmode-polish-v16.css";
+import "@/components/layout/nav-creative-2026.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
