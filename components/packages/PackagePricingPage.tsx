@@ -87,29 +87,8 @@ const packages: PackageDefinition[] = [
   },
 ];
 
-const regionCurrency: Partial<Record<string, CurrencyCode>> = {
-  PH: "PHP", US: "USD", GB: "GBP", CA: "CAD", AU: "AUD", SG: "SGD", JP: "JPY",
-  NZ: "NZD", CH: "CHF", IN: "INR", KR: "KRW", MY: "MYR", TH: "THB",
-  AT: "EUR", BE: "EUR", CY: "EUR", DE: "EUR", EE: "EUR", ES: "EUR", FI: "EUR",
-  FR: "EUR", GR: "EUR", HR: "EUR", IE: "EUR", IT: "EUR", LT: "EUR", LU: "EUR",
-  LV: "EUR", MT: "EUR", NL: "EUR", PT: "EUR", SI: "EUR", SK: "EUR",
-};
-
-function isCurrencyCode(value: string | null): value is CurrencyCode {
-  return Boolean(value && value in currencyMeta);
-}
-
-function detectCurrency(): CurrencyCode {
-  if (typeof navigator === "undefined") return "PHP";
-  for (const language of navigator.languages ?? [navigator.language]) {
-    try {
-      const region = new Intl.Locale(language).region;
-      if (region && regionCurrency[region]) return regionCurrency[region] as CurrencyCode;
-    } catch {
-      // Ignore malformed browser locale values and continue.
-    }
-  }
-  return "PHP";
+function isCurrencyCode(value: string): value is CurrencyCode {
+  return value in currencyMeta;
 }
 
 function formatMoney(amount: number, currency: CurrencyCode) {
@@ -128,14 +107,8 @@ export function PackagePricingPage() {
   const [rateStatus, setRateStatus] = useState<"loading" | "ready" | "error">("loading");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("portfolio-package-currency");
-    setCurrency(isCurrencyCode(saved) ? saved : detectCurrency());
-  }, []);
-
-  useEffect(() => {
     const controller = new AbortController();
     async function loadRates() {
-      setRateStatus("loading");
       try {
         const response = await fetch("/api/exchange-rates", {
           signal: controller.signal,
@@ -161,7 +134,6 @@ export function PackagePricingPage() {
   const changeCurrency = (value: string) => {
     if (!isCurrencyCode(value)) return;
     setCurrency(value);
-    window.localStorage.setItem("portfolio-package-currency", value);
   };
 
   const displayPrice = (item: PackageDefinition) => {
