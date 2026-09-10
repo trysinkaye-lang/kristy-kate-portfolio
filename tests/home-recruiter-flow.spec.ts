@@ -41,7 +41,9 @@ test.describe("Homepage recruiter journey", () => {
       page.getByRole("heading", { name: /Choose a package, then view it in your currency/i }),
     ).toBeVisible();
 
-    await page.getByLabel("Currency").selectOption("PHP");
+    const currencySelect = page.locator("#package-currency");
+    await expect(currencySelect).toBeVisible();
+    await currencySelect.selectOption("PHP");
 
     await expect(page.getByRole("link", { name: "Discuss Basic" })).toHaveAttribute(
       "href",
