@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
   title: "Full-Stack Developer / UI/UX Designer / Creative Developer",
-  headline: "Software systems, considered interfaces, and websites with a point of view. Design and engineering by Kristy Kate Taylor, based in the Philippines.",
+  headline: "I design and build digital products — from expressive websites to operational information systems — combining interface craft with full-stack engineering.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
