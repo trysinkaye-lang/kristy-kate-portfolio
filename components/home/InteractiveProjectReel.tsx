@@ -99,7 +99,7 @@ export function InteractiveProjectReel() {
                 className={`${styles.projectRow} ${active ? styles.projectRowActive : ""}`}
                 onPointerEnter={() => setActiveSlug(project.slug)}
                 onFocus={() => setActiveSlug(project.slug)}
-                aria-label={`Read ${project.shortTitle} case study`}
+                aria-label={`Open ${project.shortTitle} case study`}
               >
                 <span className={styles.projectNumber}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.projectTitle}>{project.shortTitle}</span>
