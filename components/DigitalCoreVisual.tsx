@@ -95,95 +95,143 @@ export function DigitalCoreVisual() {
     const host = hostRef.current;
     if (!host) return;
 
-    const renderer = new Renderer({
-      alpha: true,
-      antialias: true,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.75),
-    });
-
-    const gl = renderer.gl;
-    gl.canvas.setAttribute("aria-hidden", "true");
-    host.appendChild(gl.canvas);
-
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      transparent: true,
-      depthTest: false,
-      depthWrite: false,
-      uniforms: {
-        uTime: { value: 0 },
-        uResolution: { value: [1, 1] },
-        uMouse: { value: [0.5, 0.5] },
-        uMotion: { value: 1 },
-      },
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let motionEnabled = !reduceMotion.matches;
     let frame = 0;
-    let start = performance.now();
-    const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+    let observer: ResizeObserver | null = null;
+    let canvas: HTMLCanvasElement | null = null;
+    let failed = false;
 
-    const resize = () => {
-      const rect = host.getBoundingClientRect();
-      const width = Math.max(1, rect.width);
-      const height = Math.max(1, rect.height);
-      renderer.setSize(width, height);
-      program.uniforms.uResolution.value = [width, height];
-      renderer.render({ scene: mesh });
-    };
-
-    const render = (now: number) => {
-      mouse.x += (mouse.tx - mouse.x) * 0.055;
-      mouse.y += (mouse.ty - mouse.y) * 0.055;
-      program.uniforms.uMouse.value = [mouse.x, mouse.y];
-      program.uniforms.uMotion.value = motionEnabled ? 1 : 0;
-      program.uniforms.uTime.value = (now - start) / 1000;
-      renderer.render({ scene: mesh });
-      if (motionEnabled) frame = requestAnimationFrame(render);
-    };
-
-    const onPointerMove = (event: PointerEvent) => {
-      const rect = host.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      mouse.tx = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-      mouse.ty = Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height));
-    };
-
-    const onPointerLeave = () => {
-      mouse.tx = 0.5;
-      mouse.ty = 0.5;
-    };
-
-    const onMotionChange = () => {
-      motionEnabled = !reduceMotion.matches;
+    const useFallback = () => {
+      if (failed) return;
+      failed = true;
       cancelAnimationFrame(frame);
-      start = performance.now() - Number(program.uniforms.uTime.value || 0) * 1000;
-      if (motionEnabled) frame = requestAnimationFrame(render);
-      else render(performance.now());
+      observer?.disconnect();
+      host.dataset.renderMode = "fallback";
+      canvas?.remove();
     };
 
-    const observer = new ResizeObserver(resize);
-    observer.observe(host);
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-    window.addEventListener("blur", onPointerLeave);
-    reduceMotion.addEventListener("change", onMotionChange);
+    try {
+      const renderer = new Renderer({
+        alpha: true,
+        antialias: true,
+        dpr: Math.min(window.devicePixelRatio || 1, 1.75),
+      });
 
-    resize();
-    if (motionEnabled) frame = requestAnimationFrame(render);
-    else render(performance.now());
+      const gl = renderer.gl;
+      canvas = gl.canvas as HTMLCanvasElement;
+      canvas.setAttribute("aria-hidden", "true");
+      host.appendChild(canvas);
+      host.dataset.renderMode = "webgl";
 
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("blur", onPointerLeave);
-      reduceMotion.removeEventListener("change", onMotionChange);
-      gl.canvas.remove();
-    };
+      const geometry = new Triangle(gl);
+      const program = new Program(gl, {
+        vertex,
+        fragment,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        uniforms: {
+          uTime: { value: 0 },
+          uResolution: { value: [1, 1] },
+          uMouse: { value: [0.5, 0.5] },
+          uMotion: { value: 1 },
+        },
+      });
+
+      const mesh = new Mesh(gl, { geometry, program });
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let motionEnabled = !reduceMotion.matches;
+      let start = performance.now();
+      const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+
+      const draw = () => {
+        if (failed) return false;
+        try {
+          renderer.render({ scene: mesh });
+          return true;
+        } catch {
+          useFallback();
+          return false;
+        }
+      };
+
+      const resize = () => {
+        if (failed) return;
+        try {
+          const rect = host.getBoundingClientRect();
+          const width = Math.max(1, rect.width);
+          const height = Math.max(1, rect.height);
+          renderer.setSize(width, height);
+          program.uniforms.uResolution.value = [width, height];
+          draw();
+        } catch {
+          useFallback();
+        }
+      };
+
+      const render = (now: number) => {
+        if (failed) return;
+        mouse.x += (mouse.tx - mouse.x) * 0.055;
+        mouse.y += (mouse.ty - mouse.y) * 0.055;
+        program.uniforms.uMouse.value = [mouse.x, mouse.y];
+        program.uniforms.uMotion.value = motionEnabled ? 1 : 0;
+        program.uniforms.uTime.value = (now - start) / 1000;
+        if (!draw()) return;
+        if (motionEnabled) frame = requestAnimationFrame(render);
+      };
+
+      const onPointerMove = (event: PointerEvent) => {
+        if (failed) return;
+        const rect = host.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        mouse.tx = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+        mouse.ty = Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height));
+      };
+
+      const onPointerLeave = () => {
+        mouse.tx = 0.5;
+        mouse.ty = 0.5;
+      };
+
+      const onMotionChange = () => {
+        if (failed) return;
+        motionEnabled = !reduceMotion.matches;
+        cancelAnimationFrame(frame);
+        start = performance.now() - Number(program.uniforms.uTime.value || 0) * 1000;
+        if (motionEnabled) frame = requestAnimationFrame(render);
+        else render(performance.now());
+      };
+
+      if (typeof ResizeObserver !== "undefined") {
+        observer = new ResizeObserver(resize);
+        observer.observe(host);
+      } else {
+        window.addEventListener("resize", resize);
+      }
+
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("blur", onPointerLeave);
+      reduceMotion.addEventListener("change", onMotionChange);
+
+      resize();
+      if (!failed) {
+        if (motionEnabled) frame = requestAnimationFrame(render);
+        else render(performance.now());
+      }
+
+      return () => {
+        failed = true;
+        cancelAnimationFrame(frame);
+        observer?.disconnect();
+        window.removeEventListener("resize", resize);
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("blur", onPointerLeave);
+        reduceMotion.removeEventListener("change", onMotionChange);
+        canvas?.remove();
+      };
+    } catch {
+      useFallback();
+      return;
+    }
   }, []);
 
   return <div ref={hostRef} className="digital-core-shell" aria-hidden="true" />;
