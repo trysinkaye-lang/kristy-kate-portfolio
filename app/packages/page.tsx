@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
 import { PackagePricingPage } from "@/components/packages/PackagePricingPage";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Website Packages | Kristy Kate Taylor",
-  description:
-    "Website design and development packages with responsive pricing cards, detailed inclusions, and optional currency conversion.",
-};
+export const metadata = pageMetadata(
+  "Website Packages",
+  "Website design and development starting points from Kristy Kate Taylor, with detailed scope and optional reference currency conversion.",
+  "/packages",
+);
 
 export default function PackagesPage() {
   return <PackagePricingPage />;
