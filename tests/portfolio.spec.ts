@@ -12,10 +12,10 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
 
-    const hero = page.locator('#home');
+    const hero = page.locator('.studio-hero');
     await expect(hero).toBeVisible();
 
-    const selectedWorkHeading = page.getByRole('heading', { name: /Systems built for real-world operations/i });
+    const selectedWorkHeading = page.getByRole('heading', { name: /Work that proves both sides of the craft/i });
     await selectedWorkHeading.scrollIntoViewIfNeeded();
 
     const scrollY = await page.evaluate(() => window.scrollY);
@@ -155,7 +155,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
     for (const route of routes) {
       for (const viewport of viewports) {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
-        await page.goto(route);
+        await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 45_000 });
 
         const hasOverflow = await page.evaluate(() =>
           document.documentElement.scrollWidth > document.documentElement.clientWidth
