@@ -1,0 +1,26 @@
+:root {
+  --background: #f4f1eb;
+  --foreground: #252621;
+  --surface: #e8e5dd;
+  --muted: #67675f;
+  --accent: #a14332;
+  --line: #d3d0c8;
+  --inverse: #232722;
+  --inverse-text: #f4f1eb;
+  --inverse-muted: #b8bdb2;
+  --space: 8px;
+  --gutter: clamp(24px, 4.5vw, 72px);
+  --radius: 0px;
+  --font-display: var(--font-manrope), Arial, sans-serif;
+  --font-body: var(--font-manrope), Arial, sans-serif;
+  --font-editorial: var(--font-cormorant), Georgia, serif;
+}
+.dark {
+  --background: #20231f;
+  --foreground: #f4f1eb;
+  --surface: #2b2f29;
+  --muted: #b7b9b0;
+  --accent: #e3977d;
+  --line: #474c43;
+  --inverse: #171b17;
+}

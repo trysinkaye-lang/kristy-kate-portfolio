@@ -1,0 +1,59 @@
+.page { padding-block: 60px 110px; }
+.indexHeader { padding-bottom: 65px; }
+.indexHeader h1 { font-size: clamp(50px, 6vw, 86px); margin-block: 30px; }
+.indexHeader > p:last-child { margin-left: 43%; color: var(--muted); font-size: 17px; }
+.projectIndex article { display: grid; grid-template-columns: 50px 1fr 220px; gap: 40px; padding-block: 40px; border-top: 1px solid var(--line); align-items: center; }
+.indexNumber { color: var(--muted); font-size: 12px; align-self: start; }
+.indexCopy h2 { margin: 10px 0 18px; font-size: clamp(26px, 3vw, 40px); }
+.indexCopy h2 a:hover { color: var(--accent); }
+.indexCopy > p:not(:first-child) { max-width: 550px; color: var(--muted); font-size: 14px; }
+.status { display: block; margin-top: 18px; font-size: 11px; color: var(--accent); }
+.indexImage img { width: 100%; }
+.aboutOpening { display: grid; grid-template-columns: 1fr .44fr; gap: 8%; margin-top: 40px; align-items: center; }
+.aboutOpening h1 { font-size: clamp(52px, 5.3vw, 80px); line-height: 1.05; }
+.aboutOpening h1 span { font-family: var(--font-editorial); font-size: 1.12em; }
+.aboutOpening > div > p { margin-top: 40px; max-width: 420px; color: var(--muted); font-size: 18px; }
+.aboutOpening figure { max-width: 340px; justify-self: end; }
+.aboutOpening img { aspect-ratio: .8; object-fit: cover; }
+.aboutOpening figcaption { margin-top: 16px; font-size: 12px; color: var(--muted); }
+.biography { display: grid; grid-template-columns: 1fr 1fr; gap: 12%; padding-top: 120px; }
+.biography h2 { font-size: 38px; }
+.biography p { font-size: 16px; margin-bottom: 22px; }
+.method { padding-block: 75px; background: var(--surface); }
+.methodRows { margin-top: 35px; }
+.methodRows > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12%; border-top: 1px solid var(--line); padding-block: 32px; }
+.methodRows h2 { font-size: 28px; }
+.methodRows p { font-size: 14px; color: var(--muted); }
+.toolbox { display: grid; grid-template-columns: .7fr 1fr; gap: 10%; padding-block: 110px 40px; }
+.toolbox h2 { font-size: 42px; margin-top: 24px; }
+.toolbox dl > div { display: grid; grid-template-columns: 110px 1fr; gap: 30px; border-top: 1px solid var(--line); padding-block: 20px; font-size: 13px; }
+.toolbox dt { font-weight: 600; }
+.toolbox dd { color: var(--muted); line-height: 1.9; }
+.notFound { padding-block: 90px 120px; max-width: 850px; }
+.notFound h1 { font-size: clamp(48px, 7vw, 88px); margin-block: 24px; }
+.notFound > p { margin-bottom: 30px; }
+@media (max-width: 767px) {
+  .page { padding-block: 36px 65px; }
+  .indexHeader { padding-bottom: 40px; }
+  .indexHeader h1 { font-size: 49px; }
+  .indexHeader > p:last-child { margin-left: 0; font-size: 14px; }
+  .projectIndex article { grid-template-columns: 1fr 95px; gap: 16px; padding-block: 26px; }
+  .indexNumber { display: none; }
+  .indexCopy h2 { font-size: 25px; overflow-wrap: anywhere; }
+  .indexCopy > p:first-child { font-size: 11px; }
+  .indexCopy > p:not(:first-child) { font-size: 12px; }
+  .indexImage { align-self: start; padding-top: 6px; }
+  .aboutOpening { grid-template-columns: 1fr; gap: 34px; margin-top: 30px; }
+  .aboutOpening h1 { font-size: 51px; }
+  .aboutOpening > div > p { font-size: 16px; margin-top: 25px; }
+  .aboutOpening figure { width: 72%; justify-self: end; }
+  .biography { grid-template-columns: 1fr; gap: 28px; padding-top: 65px; }
+  .biography h2 { font-size: 34px; }
+  .biography p { font-size: 14px; }
+  .method { padding-block: 50px 30px; }
+  .methodRows > div { grid-template-columns: 1fr; gap: 20px; }
+  .methodRows h2 { font-size: 27px; }
+  .toolbox { grid-template-columns: 1fr; gap: 40px; padding-block: 65px 10px; }
+  .toolbox h2 { font-size: 38px; }
+  .toolbox dl > div { grid-template-columns: 90px 1fr; gap: 20px; font-size: 12px; }
+}

@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
+import { site } from "@/data/site";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://kristy-kate-dev-portfolio.vercel.app";
-  const pages = ["", "/projects", "/about", "/contact"];
-  return [
-    ...pages.map((path) => ({ url: `${base}${path}`, lastModified: new Date() })),
-    ...projects.map((project) => ({ url: `${base}/projects/${project.slug}`, lastModified: new Date() })),
-  ];
+  const staticRoutes = ["", "/projects", "/about", "/packages", "/contact"];
+  return [...staticRoutes, ...projects.map((project) => `/projects/${project.slug}`)].map((path) => ({
+    url: `${site.url}${path}`,
+  }));
 }
