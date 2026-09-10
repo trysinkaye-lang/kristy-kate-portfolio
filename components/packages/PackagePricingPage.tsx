@@ -1,25 +1,24 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, Check, Globe2, RefreshCw } from "lucide-react";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "./PackagePricingPage.module.css";
 
 const currencyMeta = {
-  PHP: { label: "Philippine Peso", symbol: "₱" },
-  USD: { label: "US Dollar", symbol: "$" },
-  EUR: { label: "Euro", symbol: "€" },
-  GBP: { label: "British Pound", symbol: "£" },
-  CAD: { label: "Canadian Dollar", symbol: "C$" },
-  AUD: { label: "Australian Dollar", symbol: "A$" },
-  SGD: { label: "Singapore Dollar", symbol: "S$" },
-  JPY: { label: "Japanese Yen", symbol: "¥" },
-  NZD: { label: "New Zealand Dollar", symbol: "NZ$" },
-  CHF: { label: "Swiss Franc", symbol: "CHF" },
-  INR: { label: "Indian Rupee", symbol: "₹" },
-  KRW: { label: "South Korean Won", symbol: "₩" },
-  MYR: { label: "Malaysian Ringgit", symbol: "RM" },
-  THB: { label: "Thai Baht", symbol: "฿" },
+  PHP: { label: "Philippine Peso" },
+  USD: { label: "US Dollar" },
+  EUR: { label: "Euro" },
+  GBP: { label: "British Pound" },
+  CAD: { label: "Canadian Dollar" },
+  AUD: { label: "Australian Dollar" },
+  SGD: { label: "Singapore Dollar" },
+  JPY: { label: "Japanese Yen" },
+  NZD: { label: "New Zealand Dollar" },
+  CHF: { label: "Swiss Franc" },
+  INR: { label: "Indian Rupee" },
+  KRW: { label: "South Korean Won" },
+  MYR: { label: "Malaysian Ringgit" },
+  THB: { label: "Thai Baht" },
 } as const;
 
 type CurrencyCode = keyof typeof currencyMeta;
@@ -29,8 +28,7 @@ type PackageDefinition = {
   priceMin: number;
   priceMax?: number;
   description: string;
-  featured?: boolean;
-  badge?: string;
+  note?: string;
   features: string[];
 };
 
@@ -38,8 +36,7 @@ const packages: PackageDefinition[] = [
   {
     name: "Basic",
     priceMin: 15000,
-    description:
-      "A focused website for individuals, professionals, and small brands that need a clean, credible online presence.",
+    description: "A focused website for individuals, professionals, and small brands that need a clear, credible online presence.",
     features: [
       "Up to 5 pages",
       "Responsive desktop, tablet and mobile design",
@@ -55,10 +52,8 @@ const packages: PackageDefinition[] = [
   {
     name: "Professional",
     priceMin: 25000,
-    description:
-      "For established professionals, authors, consultants and brands that need stronger presentation, richer content and polished interaction.",
-    featured: true,
-    badge: "Most flexible",
+    note: "Most flexible starting point",
+    description: "For established professionals, authors, consultants and brands that need stronger presentation, richer content and polished interaction.",
     features: [
       "Up to 7–8 pages",
       "Fully custom responsive design",
@@ -76,8 +71,7 @@ const packages: PackageDefinition[] = [
     name: "Premium",
     priceMin: 35000,
     priceMax: 40000,
-    description:
-      "A fully custom experience for clients who need richer content, advanced interaction, individual content pages and easier long-term management.",
+    description: "A fully custom experience for clients who need richer content, advanced interaction, individual content pages and easier long-term management.",
     features: [
       "Full custom website design and development",
       "Advanced animations and micro-interactions",
@@ -94,39 +88,11 @@ const packages: PackageDefinition[] = [
 ];
 
 const regionCurrency: Partial<Record<string, CurrencyCode>> = {
-  PH: "PHP",
-  US: "USD",
-  GB: "GBP",
-  CA: "CAD",
-  AU: "AUD",
-  SG: "SGD",
-  JP: "JPY",
-  NZ: "NZD",
-  CH: "CHF",
-  IN: "INR",
-  KR: "KRW",
-  MY: "MYR",
-  TH: "THB",
-  AT: "EUR",
-  BE: "EUR",
-  CY: "EUR",
-  DE: "EUR",
-  EE: "EUR",
-  ES: "EUR",
-  FI: "EUR",
-  FR: "EUR",
-  GR: "EUR",
-  HR: "EUR",
-  IE: "EUR",
-  IT: "EUR",
-  LT: "EUR",
-  LU: "EUR",
-  LV: "EUR",
-  MT: "EUR",
-  NL: "EUR",
-  PT: "EUR",
-  SI: "EUR",
-  SK: "EUR",
+  PH: "PHP", US: "USD", GB: "GBP", CA: "CAD", AU: "AUD", SG: "SGD", JP: "JPY",
+  NZ: "NZD", CH: "CHF", IN: "INR", KR: "KRW", MY: "MYR", TH: "THB",
+  AT: "EUR", BE: "EUR", CY: "EUR", DE: "EUR", EE: "EUR", ES: "EUR", FI: "EUR",
+  FR: "EUR", GR: "EUR", HR: "EUR", IE: "EUR", IT: "EUR", LT: "EUR", LU: "EUR",
+  LV: "EUR", MT: "EUR", NL: "EUR", PT: "EUR", SI: "EUR", SK: "EUR",
 };
 
 function isCurrencyCode(value: string | null): value is CurrencyCode {
@@ -135,16 +101,14 @@ function isCurrencyCode(value: string | null): value is CurrencyCode {
 
 function detectCurrency(): CurrencyCode {
   if (typeof navigator === "undefined") return "PHP";
-
   for (const language of navigator.languages ?? [navigator.language]) {
     try {
       const region = new Intl.Locale(language).region;
       if (region && regionCurrency[region]) return regionCurrency[region] as CurrencyCode;
     } catch {
-      // Ignore malformed browser locale values and try the next locale.
+      // Ignore malformed browser locale values and continue.
     }
   }
-
   return "PHP";
 }
 
@@ -170,7 +134,6 @@ export function PackagePricingPage() {
 
   useEffect(() => {
     const controller = new AbortController();
-
     async function loadRates() {
       setRateStatus("loading");
       try {
@@ -179,12 +142,7 @@ export function PackagePricingPage() {
           headers: { Accept: "application/json" },
         });
         if (!response.ok) throw new Error("Unable to load rates");
-
-        const data = (await response.json()) as {
-          date?: string | null;
-          rates?: Record<string, number>;
-        };
-
+        const data = (await response.json()) as { date?: string | null; rates?: Record<string, number> };
         setRates(data.rates ?? {});
         setRateDate(data.date ?? null);
         setRateStatus("ready");
@@ -193,13 +151,11 @@ export function PackagePricingPage() {
         setRateStatus("error");
       }
     }
-
     void loadRates();
     return () => controller.abort();
   }, []);
 
   const rate = currency === "PHP" ? 1 : rates[currency];
-
   const selectedCurrency = useMemo(() => currencyMeta[currency], [currency]);
 
   const changeCurrency = (value: string) => {
@@ -210,123 +166,84 @@ export function PackagePricingPage() {
 
   const displayPrice = (item: PackageDefinition) => {
     if (!rate) return "Rate unavailable";
-
     const min = formatMoney(Math.round(item.priceMin * rate), currency);
     if (!item.priceMax) return min;
-
-    const max = formatMoney(Math.round(item.priceMax * rate), currency);
-    return `${min}–${max}`;
+    return `${min}–${formatMoney(Math.round(item.priceMax * rate), currency)}`;
   };
 
   return (
     <main id="main-content" className={styles.page}>
-      <section className={styles.hero} aria-labelledby="packages-title">
-        <div className={styles.heroCopy}>
-          <p className={styles.kicker}>Website packages</p>
-          <h1 id="packages-title">Choose a package, then view it in your currency.</h1>
-          <p className={styles.lead}>
-            Clear starting points for professional websites, personal brands, authors and businesses. Every package is responsive and the final scope is confirmed before development begins.
+      <section className={`shell ${styles.hero}`} aria-labelledby="packages-title">
+        <div className={styles.heroIndex}>
+          <p className="eyebrow">Website commissions</p>
+          <span className="caption">Three starting points / scope stays flexible</span>
+        </div>
+        <div className={styles.heroStatement}>
+          <h1 id="packages-title">A clear starting point.<br /><span>Not a template.</span></h1>
+          <p>Website packages for professionals, authors, consultants and brands. The final scope, timeline and deliverables are agreed before development begins.</p>
+        </div>
+        <div className={styles.currency}>
+          <label htmlFor="package-currency">View prices in</label>
+          <select id="package-currency" value={currency} onChange={(event) => changeCurrency(event.target.value)}>
+            {(Object.keys(currencyMeta) as CurrencyCode[]).map((code) => (
+              <option key={code} value={code}>{code} — {currencyMeta[code].label}</option>
+            ))}
+          </select>
+          <p aria-live="polite">
+            {currency === "PHP"
+              ? "Base pricing in Philippine Peso."
+              : rateStatus === "loading"
+                ? "Loading reference exchange rate…"
+                : rateStatus === "error" || !rate
+                  ? "Live conversion unavailable; base PHP prices remain valid."
+                  : `Approximate ${selectedCurrency.label} conversion${rateDate ? ` · rates dated ${rateDate}` : ""}.`}
           </p>
         </div>
-
-        <aside className={styles.currencyPanel} aria-label="Currency converter for package prices">
-          <div className={styles.currencyHeading}>
-            <span className={styles.currencyIcon}><Globe2 size={18} aria-hidden="true" /></span>
-            <div>
-              <p>Price display</p>
-              <strong>View in your currency</strong>
-            </div>
-          </div>
-
-          <label className={styles.currencyField} htmlFor="package-currency">
-            <span>Currency</span>
-            <select
-              id="package-currency"
-              value={currency}
-              onChange={(event) => changeCurrency(event.target.value)}
-            >
-              {(Object.keys(currencyMeta) as CurrencyCode[]).map((code) => (
-                <option key={code} value={code}>
-                  {code} — {currencyMeta[code].label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <div className={styles.rateMeta} aria-live="polite">
-            {currency === "PHP" ? (
-              <span>Base pricing in Philippine Peso.</span>
-            ) : rateStatus === "loading" ? (
-              <span><RefreshCw size={13} className={styles.spin} aria-hidden="true" /> Loading live reference rate…</span>
-            ) : rateStatus === "error" || !rate ? (
-              <span>Live conversion is unavailable. Base PHP prices remain valid.</span>
-            ) : (
-              <span>
-                Approximate {selectedCurrency.label} conversion{rateDate ? ` · rates dated ${rateDate}` : ""}.
-              </span>
-            )}
-          </div>
-        </aside>
       </section>
 
-      <section className={styles.pricingSection} aria-label="Website package options">
-        <div className={styles.pricingGrid}>
-          {packages.map((item) => (
-            <article
-              key={item.name}
-              className={`${styles.card} ${item.featured ? styles.featured : ""}`}
-            >
-              <div className={styles.cardTop}>
-                <div>
-                  <p className={styles.packageName}>{item.name}</p>
-                  {item.badge ? <span className={styles.badge}>{item.badge}</span> : null}
-                </div>
-                <div className={styles.priceWrap}>
-                  <p className={styles.price}>{displayPrice(item)}</p>
-                </div>
+      <section className={`shell ${styles.pricing}`} aria-label="Website package options">
+        {packages.map((item, index) => (
+          <article key={item.name} className={styles.package}>
+            <header className={styles.packageHead}>
+              <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h2>{item.name}</h2>
+                {item.note ? <p className={styles.note}>{item.note}</p> : null}
               </div>
-
+              <p className={styles.price}>{displayPrice(item)}</p>
+            </header>
+            <div className={styles.packageBody}>
               <p className={styles.description}>{item.description}</p>
-
               <ul className={styles.features}>
-                {item.features.map((feature) => (
-                  <li key={feature}>
-                    <Check size={15} aria-hidden="true" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
+                {item.features.map((feature) => <li key={feature}>{feature}</li>)}
               </ul>
-
               <TrackedLink
                 href={`/contact?package=${item.name.toLowerCase()}&currency=${currency}`}
-                eventName="website_package_contact_click"
+                eventName="package_open"
                 eventData={{ package: item.name.toLowerCase(), source: "packages_page", currency }}
-                className={`${styles.cta} ${item.featured ? styles.ctaPrimary : ""}`}
+                className="text-link"
               >
-                Discuss {item.name} <ArrowUpRight size={16} />
+                Discuss {item.name} <span aria-hidden="true">↗</span>
               </TrackedLink>
-            </article>
-          ))}
-        </div>
-
+            </div>
+          </article>
+        ))}
         <div className={styles.disclaimer}>
-          <strong>About converted prices</strong>
-          <p>
-            Currency conversions are estimates based on reference exchange rates and may change. The final quotation, invoice currency, scope, timeline and payment terms are confirmed with the client before development starts.
-          </p>
+          <span className="eyebrow">Reference pricing</span>
+          <p>Converted prices are estimates and may change with exchange rates. The final quotation, invoice currency, project scope, timeline and payment terms are confirmed before development starts.</p>
         </div>
       </section>
 
-      <section className={styles.processSection} aria-labelledby="package-process-title">
+      <section className={`shell ${styles.process}`} aria-labelledby="package-process-title">
         <div>
-          <p className={styles.kicker}>What happens next</p>
-          <h2 id="package-process-title">A package is the starting point, not a rigid box.</h2>
+          <p className="eyebrow">How it begins</p>
+          <h2 id="package-process-title">Scope before software.</h2>
         </div>
-        <div className={styles.steps}>
-          <div><span>01</span><strong>Select</strong><p>Choose the package closest to your website needs.</p></div>
-          <div><span>02</span><strong>Scope</strong><p>We confirm pages, content, integrations, timeline and deliverables.</p></div>
-          <div><span>03</span><strong>Build</strong><p>Development begins after the final scope and payment terms are approved.</p></div>
-        </div>
+        <ol>
+          <li><span>01</span><div><strong>Select</strong><p>Choose the starting point closest to what you need.</p></div></li>
+          <li><span>02</span><div><strong>Define</strong><p>We confirm pages, content, integrations, deliverables and timeline.</p></div></li>
+          <li><span>03</span><div><strong>Build</strong><p>Development begins after scope and payment terms are approved.</p></div></li>
+        </ol>
       </section>
     </main>
   );
