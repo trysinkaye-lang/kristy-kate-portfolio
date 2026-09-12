@@ -3,6 +3,8 @@ import Link from "next/link";
 import { site } from "@/data/site";
 import styles from "./home.module.css";
 
+const capabilities = ["Information systems", "Creative development", "UI/UX", "Full-stack"];
+
 export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
@@ -21,13 +23,13 @@ export function Hero() {
           <div className={styles.heroLead}>
             <p>I build information systems, desktop applications, and custom websites with a strong visual point of view.</p>
             <div className={styles.heroActions}>
-              <Link href="#work" className={styles.primaryAction}>View work <span aria-hidden="true">↓</span></Link>
+              <Link href="#work" className={styles.primaryAction} data-magnetic="true">View work <span aria-hidden="true">↓</span></Link>
               <Link href="/contact" className="text-link">Let’s talk <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
         </div>
 
-        <figure className={styles.portrait}>
+        <figure className={styles.portrait} data-spotlight>
           <div className={styles.portraitFrame}>
             <Image
               src="/media/kristy-kate-professional-portrait-v2.webp"
@@ -36,6 +38,7 @@ export function Hero() {
               height={960}
               preload
               sizes="(max-width: 767px) 78vw, (max-width: 1100px) 42vw, 520px"
+              unoptimized
             />
             <span className={styles.portraitMark} aria-hidden="true">KT</span>
           </div>
@@ -44,11 +47,15 @@ export function Hero() {
       </div>
 
       <div className={styles.capabilityRail} aria-label="Core capabilities">
-        <div className="shell">
-          <span>Information systems</span>
-          <span>Creative development</span>
-          <span>UI/UX</span>
-          <span>Full-stack</span>
+        <div className={styles.capabilityViewport}>
+          <div className={styles.capabilityTrack}>
+            <div className={styles.capabilityGroup}>
+              {capabilities.map((item) => <span key={item}>{item}</span>)}
+            </div>
+            <div className={styles.capabilityGroup} aria-hidden="true">
+              {capabilities.map((item) => <span key={`duplicate-${item}`}>{item}</span>)}
+            </div>
+          </div>
         </div>
       </div>
 
