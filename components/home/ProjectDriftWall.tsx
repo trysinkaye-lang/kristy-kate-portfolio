@@ -1,5 +1,4 @@
-"use client";
-
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProjectDriftWall.module.css";
@@ -118,7 +117,7 @@ export function ProjectDriftWall() {
               style={{
                 "--drift-duration": `${12 + columnIndex * 2}s`,
                 "--drift-delay": `${columnIndex * -1.8}s`,
-              } as React.CSSProperties}
+              } as CSSProperties}
             >
               {column.map((tile, tileIndex) => (
                 <Link
