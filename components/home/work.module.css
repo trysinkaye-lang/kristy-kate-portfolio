@@ -1,133 +1,120 @@
-.projectRegister { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; font-size: 11px; letter-spacing: .035em; color: var(--muted); padding-block: 24px; border-top: 1px solid var(--line); }
+.projectRegister { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-block: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .projectRegister > span:last-child { text-align: right; }
-.description { font-size: 15px; line-height: 1.85; max-width: 46ch; color: var(--muted); }
-.projectStatement { font-size: 30px; line-height: 1.3; letter-spacing: -.04em; margin-block: 20px 28px; max-width: 400px; }
-.rbim { background: var(--inverse); color: var(--inverse-text); padding-block: 20px 48px; --muted: var(--inverse-muted); --line: #51574b; --accent: #e3977d; }
+.description { max-width: 40ch; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.projectStatement { max-width: 500px; margin-block: 20px 26px; font-family: var(--font-editorial); font-size: clamp(30px, 3.4vw, 48px); line-height: 1.05; letter-spacing: -.035em; }
+
+.rbim { overflow: hidden; background: var(--inverse); color: var(--inverse-text); padding-block: 28px clamp(86px, 9vw, 150px); --muted: var(--inverse-muted); --line: color-mix(in srgb, var(--inverse-text) 22%, transparent); }
 .rbim .projectRegister { border-top: 0; }
-.rbimHeading { display: flex; justify-content: space-between; align-items: end; gap: 40px; padding-block: 24px 40px; }
-.rbimHeading h3 { font-size: clamp(80px, 10vw, 144px); letter-spacing: -.065em; line-height: .9; }
-.rbimHeading > p { max-width: 380px; font-family: var(--font-editorial); font-size: clamp(32px, 3.4vw, 48px); line-height: 1.08; letter-spacing: -.03em; }
-.rbimStage { display: grid; grid-template-columns: minmax(0, .6fr) minmax(0, 1fr); gap: 8%; align-items: center; border-block: 1px solid var(--line); padding-block: 40px; }
-.rbimCopy { max-width: 360px; }
-.rbimCopy > p:nth-child(2) { color: var(--inverse-muted); font-size: 15px; line-height: 1.85; margin-top: 22px; }
+.rbimHeading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .48fr); gap: 6%; align-items: end; padding-block: 36px 60px; }
+.rbimHeading h3 { margin-left: -.035em; font-size: clamp(104px, 13vw, 205px); line-height: .72; letter-spacing: -.085em; }
+.rbimHeading > p { max-width: 430px; padding-bottom: 5px; font-family: var(--font-editorial); font-size: clamp(38px, 4vw, 62px); line-height: .94; letter-spacing: -.04em; }
+.rbimStage { display: grid; grid-template-columns: minmax(240px, .42fr) minmax(0, 1fr); gap: 6%; align-items: center; padding-top: 38px; border-top: 1px solid var(--line); }
+.rbimCopy { align-self: end; padding-bottom: 24px; }
+.rbimCopy > p:nth-child(2) { max-width: 32ch; margin-top: 22px; color: var(--inverse-muted); font-size: 14px; line-height: 1.8; }
 .rbimCopy a { color: var(--inverse-text); }
-.rbimScreen { padding-block: 10px; }
-.systemRegister { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6%; padding-top: 32px; counter-reset: architecture; }
-.systemRegister h4 { font-size: 14px; font-weight: 500; margin: 0 0 14px; }
-.systemRegister h4::before { counter-increment: architecture; content: '0' counter(architecture) ' / '; color: var(--inverse-muted); font-size: 10px; margin-right: 5px; }
-.systemRegister p { color: var(--inverse-muted); font-size: 13px; line-height: 1.85; }
-.architecture { padding-block: var(--section-space); }
-.archHeading { display: flex; justify-content: space-between; align-items: end; margin: 24px 0 44px; gap: 40px; }
-.archHeading h3 { font-size: clamp(42px, 5.7vw, 80px); }
-.archHeading > p { font-family: var(--font-editorial); font-size: 38px; max-width: 250px; line-height: 1.1; }
-.archGrid { display: grid; grid-template-columns: minmax(0, .36fr) minmax(0, 1fr); gap: 7%; align-items: start; }
-.archSide { padding-top: 24px; }
-.archSide figure { max-width: 200px; margin-bottom: 30px; }
-.archSide > p { font-size: 14px; color: var(--muted); line-height: 1.85; }
-.archPhoto { min-width: 0; }
-.imageNote { display: flex; gap: 32px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
-.imageNote span { flex: 0 0 120px; color: var(--foreground); }
-.architecture figcaption, .marci figcaption, .lacomus figcaption, .archive figcaption { font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.6; }
-.ahdis { padding-block: 0 var(--section-space); }
-.ahdisGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10%; margin-top: 30px; align-items: start; }
-.ahdis h3 { font-size: clamp(52px, 6vw, 84px); }
-.analytical { padding-top: 6px; }
-.analytical > p { margin-bottom: 24px; color: var(--muted); }
-.scope { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; align-items: baseline; }
-.scope > span { font-size: 12px; color: var(--muted); }
-.scope strong { font-size: 50px; font-weight: 400; letter-spacing: -.055em; line-height: 1; }
-.scope p { grid-column: 2; font-size: 12px; color: var(--muted); line-height: 1.8; }
-.marci { background: var(--surface); padding-block: 40px 64px; }
-.marciHeading { padding-block: 24px 40px; display: flex; justify-content: space-between; gap: 30px; align-items: end; }
-.marciHeading > p { font-family: var(--font-editorial); font-size: 50px; line-height: 1; }
-.marciHeading h3 { font-size: clamp(30px, 4.2vw, 64px); letter-spacing: -.03em; }
-.marciPresentation { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .38fr); gap: 6%; align-items: start; }
-.marciDetails { padding-top: 12px; }
-.marciDetails > figure { max-width: 240px; margin-top: 32px; }
-.marciDetails > figure img { width: 100%; aspect-ratio: 1.5; object-fit: cover; object-position: right center; }
-.lacomus { padding-block: var(--section-space); }
-.lacomusHeading { display: flex; justify-content: space-between; align-items: end; gap: 32px; padding-block: 18px 40px; }
-.lacomusGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .36fr); gap: 8%; align-items: start; }
-.lacomusDetails > figure { max-width: 180px; margin-bottom: 28px; }
-.lacomusDetails > figure img { aspect-ratio: 1; object-fit: cover; object-position: 50% 60%; }
-.lacomus h3 { font-size: clamp(45px, 5.3vw, 80px); letter-spacing: .025em; }
-.lacomus .projectStatement { font-family: var(--font-editorial); font-size: 42px; line-height: 1.05; margin: 0; }
-.ongoing { margin-bottom: 12px; font-size: 12px; color: var(--accent); }
-.erp { padding-block: 35px 48px; border-block: 1px solid var(--line); }
-.erp .projectRegister { border-top: 0; }
-.erpGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10%; align-items: center; padding-block: 24px 36px; }
-.erp h3 { font-size: clamp(38px, 4vw, 56px); }
-.erp .projectStatement { font-size: 26px; }
-.operations { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
-.archive { padding-block: var(--section-space) 72px; border-bottom: 1px solid var(--line); }
-.archiveHeading { display: grid; grid-template-columns: 1fr .5fr; gap: 10%; margin-block: 24px 36px; align-items: end; }
-.archiveHeading h3 { font-size: clamp(30px, 3.2vw, 46px); line-height: 1.15; }
-.archiveHeading > p { font-size: 14px; color: var(--muted); }
-.archiveRail { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 24px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--muted) var(--surface); }
-.archiveRail figure { flex: 0 0 min(420px, 78vw); scroll-snap-align: start; }
-.archiveRail img { width: 100%; }
-.archiveBottom { display: flex; justify-content: space-between; gap: 30px; }
+.rbimScreen { position: relative; }
+.rbimScreen::before { content: ''; position: absolute; inset: -18px 18px 18px -18px; border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); pointer-events: none; }
+.rbimScreen figure { max-width: none !important; }
+.rbimScreen img { width: 100%; }
+.rbimScreen figcaption { color: var(--inverse-muted); }
+
+.architecture { padding-block: clamp(100px, 11vw, 175px); }
+.archHeading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, .42fr); gap: 7%; align-items: end; margin: 26px 0 54px; }
+.archHeading h3 { max-width: 900px; font-size: clamp(58px, 7.5vw, 116px); line-height: .86; letter-spacing: -.07em; }
+.archHeading > p { max-width: 270px; font-family: var(--font-editorial); font-size: clamp(34px, 3.5vw, 54px); line-height: .96; }
+.archGrid { position: relative; display: grid; grid-template-columns: minmax(210px, .3fr) minmax(0, 1fr); gap: 5%; align-items: end; }
+.archSide { position: relative; z-index: 2; padding-bottom: 14px; }
+.archDetail { width: min(250px, 100%); margin-bottom: 28px; transform: rotate(-2deg); box-shadow: 0 18px 50px rgb(0 0 0 / .14); }
+.archDetail img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.archSide > p { max-width: 32ch; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.archPhoto { position: relative; padding: clamp(18px, 2vw, 30px); background: #10110e; box-shadow: 0 30px 80px rgb(0 0 0 / .16); }
+.archPhoto::after { content: '02'; position: absolute; right: -10px; top: -54px; color: var(--accent); font-size: clamp(72px, 8vw, 120px); font-weight: 750; line-height: 1; letter-spacing: -.07em; z-index: -1; }
+.archPhoto figure { max-width: none !important; }
+.archPhoto figcaption { color: #aaa99f; }
+
+.ahdis { position: relative; padding-block: clamp(86px, 9vw, 140px); background: color-mix(in srgb, #7165d6 14%, var(--background)); box-shadow: 0 0 0 100vmax color-mix(in srgb, #7165d6 14%, var(--background)); clip-path: inset(0 -100vmax); }
+.ahdis .projectRegister { border-color: color-mix(in srgb, var(--foreground) 22%, transparent); }
+.ahdisGrid { display: grid; grid-template-columns: minmax(300px, .7fr) minmax(0, 1fr); gap: 8%; align-items: center; padding-top: 34px; }
+.ahdis h3 { font-size: clamp(82px, 9vw, 142px); line-height: .78; letter-spacing: -.075em; }
+.analytical { position: relative; min-width: 0; padding: 48px 0 18px 60px; }
+.analytical::before { content: '10–19'; position: absolute; left: 0; top: -8px; color: color-mix(in srgb, #7165d6 45%, transparent); font-family: var(--font-editorial); font-size: clamp(110px, 14vw, 220px); line-height: .8; letter-spacing: -.07em; z-index: -1; }
+.analytical figure { max-width: none !important; background: var(--background); padding: 12px; box-shadow: 0 26px 70px rgb(27 24 55 / .2); transform: rotate(1.2deg); }
+.scope { display: flex; justify-content: flex-end; align-items: baseline; gap: 18px; margin-top: 24px; color: var(--muted); }
+.scope > span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.scope strong { color: var(--foreground); font-family: var(--font-editorial); font-size: 48px; font-weight: 400; line-height: 1; }
+
+.marci { overflow: hidden; background: #172119; color: #f5f0e7; padding-block: 34px clamp(118px, 12vw, 190px); --muted: #b9c0b7; --line: #465149; }
+.marci .projectRegister { border-top: 0; }
+.marciHero { position: relative; margin-top: 26px; padding-bottom: clamp(90px, 10vw, 150px); }
+.marciLandscape { overflow: hidden; }
+.marciLandscape img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; filter: saturate(.82) brightness(.74); transition: transform 900ms var(--ease-out), filter 500ms ease; }
+.marciHero:hover .marciLandscape img { transform: scale(1.018); filter: saturate(.92) brightness(.78); }
+.marciOverlay { position: absolute; left: clamp(18px, 4vw, 58px); top: clamp(26px, 4vw, 56px); z-index: 2; }
+.marciOverlay > p { max-width: 260px; margin-bottom: 14px; font-family: var(--font-editorial); font-size: clamp(30px, 3.6vw, 56px); line-height: .95; }
+.marciOverlay h3 { max-width: 900px; font-size: clamp(54px, 7.2vw, 110px); line-height: .82; letter-spacing: -.065em; }
+.marciFloatingScreen { position: absolute; right: clamp(18px, 5vw, 70px); bottom: 0; width: min(48%, 700px); padding: 12px; background: #f3eee5; box-shadow: 0 28px 70px rgb(0 0 0 / .38); }
+.marciFloatingScreen figure { max-width: none !important; }
+.marciFloatingScreen figcaption { color: #62645e; }
+.marciFooter { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; padding-top: 26px; border-top: 1px solid var(--line); }
+.marciFooter > p { max-width: 40ch; color: var(--muted); font-size: 14px; }
+.marciFooter a { color: #f5f0e7; }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .archDetail { transition: transform var(--duration-standard) var(--ease-out); }
+  .architecture:hover .archDetail { transform: rotate(-4deg) translateY(-4px); }
+}
+
 @media (min-width: 768px) and (max-width: 1100px) {
-  .rbimStage { grid-template-columns: .7fr 1fr; gap: 5%; }
-  .archGrid { grid-template-columns: .5fr 1fr; gap: 6%; }
-  .archSide { padding-top: 0; }
-  .lacomusGrid { grid-template-columns: 1fr .5fr; gap: 6%; }
-  .marciPresentation { grid-template-columns: 1fr .5fr; gap: 5%; }
+  .rbimHeading { grid-template-columns: 1fr .55fr; }
+  .rbimStage { grid-template-columns: .48fr 1fr; gap: 5%; }
+  .archGrid { grid-template-columns: .38fr 1fr; }
+  .ahdisGrid { grid-template-columns: .65fr 1fr; gap: 5%; }
+  .analytical { padding-left: 38px; }
+  .marciFloatingScreen { width: 52%; }
 }
-@media (max-width: 900px) {
-  .marciPresentation { grid-template-columns: 1fr; gap: 24px; }
-  .marciDetails { display: grid; grid-template-columns: 1fr 180px; gap: 0 30px; }
-  .marciDetails > figure { grid-column: 2; grid-row: 1 / 4; margin-top: 0; }
-  .marciDetails > div { grid-column: 1; }
-}
+
 @media (max-width: 767px) {
-  .projectRegister { font-size: 10px; gap: 24px; line-height: 1.6; padding-block: 19px; }
-  .projectRegister > span:first-child { max-width: 65%; }
-  .projectRegister > span:last-child { max-width: 35%; }
-  .rbim { padding-block: 8px 32px; }
-  .rbimHeading { display: block; padding-block: 22px 28px; }
-  .rbimHeading h3 { font-size: 84px; }
-  .rbimHeading > p { margin-top: 18px; font-size: 36px; max-width: 300px; }
-  .rbimStage { display: flex; flex-direction: column-reverse; gap: 24px; padding-block: 24px 28px; align-items: stretch; }
-  .rbimCopy > p:first-child { font-size: 11px; }
-  .rbimCopy > p:nth-child(2) { margin-top: 16px; font-size: 14px; }
-  .systemRegister { grid-template-columns: 1fr; gap: 22px; padding-top: 24px; }
-  .systemRegister > div { display: grid; grid-template-columns: .4fr 1fr; gap: 18px; }
-  .systemRegister h4 { font-size: 12px; line-height: 1.7; }
-  .systemRegister h4::before { display: block; }
-  .systemRegister p { font-size: 13px; }
-  .archHeading { display: block; margin-block: 20px 28px; }
-  .archHeading h3 { font-size: clamp(36px, 10vw, 64px); }
-  .archHeading > p { margin: 16px 0 0 auto; font-size: 32px; max-width: 180px; }
-  .archGrid { display: flex; flex-direction: column-reverse; gap: 28px; }
-  .archSide { padding-top: 0; }
-  .archSide figure { float: right; width: 34%; margin: 0 0 20px 24px; }
+  .projectRegister { gap: 18px; padding-block: 17px; font-size: 8px; line-height: 1.5; }
+  .projectRegister > span:first-child { max-width: 62%; }
+  .projectRegister > span:last-child { max-width: 38%; }
+
+  .rbim { padding-block: 18px 72px; }
+  .rbimHeading { grid-template-columns: 1fr; gap: 24px; padding-block: 30px 42px; }
+  .rbimHeading h3 { font-size: 27vw; }
+  .rbimHeading > p { max-width: 280px; margin-left: 18%; font-size: 38px; }
+  .rbimStage { display: flex; flex-direction: column-reverse; gap: 34px; padding-top: 28px; }
+  .rbimScreen::before { inset: -10px 10px 10px -10px; }
+  .rbimCopy { align-self: stretch; padding: 0; }
+  .rbimCopy > p:nth-child(2) { font-size: 13px; }
+
+  .architecture { padding-block: 88px; }
+  .archHeading { grid-template-columns: 1fr; gap: 22px; margin: 20px 0 34px; }
+  .archHeading h3 { font-size: 14.5vw; }
+  .archHeading > p { max-width: 210px; margin-left: auto; font-size: 36px; }
+  .archGrid { display: flex; flex-direction: column-reverse; gap: 34px; }
+  .archSide { width: 100%; }
+  .archDetail { width: 42%; float: right; margin: 0 0 22px 22px; }
   .archSide > div:last-child { clear: both; }
-  .imageNote { gap: 16px; font-size: 11px; margin-top: 18px; }
-  .imageNote span { flex-basis: 85px; }
-  .ahdisGrid { grid-template-columns: 1fr; gap: 32px; margin-top: 24px; }
-  .ahdis h3 { font-size: 62px; }
-  .projectStatement { font-size: 28px; margin-bottom: 20px; }
-  .description { font-size: 14px; }
-  .marci { padding-block: 25px 42px; }
-  .marciHeading { flex-direction: column; align-items: start; gap: 20px; padding-block: 20px 28px; }
-  .marciHeading > p { font-size: 40px; }
-  .marciHeading h3 { font-size: clamp(29px, 8.2vw, 48px); }
-  .marciDetails { display: block; padding: 0; }
-  .marciDetails > figure { max-width: 180px; margin: 24px 0 0 auto; }
-  .lacomusHeading { display: block; padding-bottom: 28px; }
-  .lacomusGrid { grid-template-columns: 1fr; gap: 28px; }
-  .lacomus h3 { font-size: 43px; }
-  .lacomus .projectStatement { font-size: 34px; margin: 20px 0 0 auto; width: fit-content; }
-  .lacomusDetails > figure { width: 32%; float: right; margin: 0 0 20px 24px; }
-  .lacomusDetails > div { clear: both; }
-  .erp { padding-block: 20px 32px; }
-  .erpGrid { grid-template-columns: 1fr; gap: 30px; }
-  .erp h3 { font-size: 42px; }
-  .operations { grid-template-columns: 1fr 1fr; }
-  .archive { padding-bottom: 48px; }
-  .archiveHeading { grid-template-columns: 1fr; gap: 22px; margin-block: 20px 28px; }
-  .archiveHeading h3 { font-size: 28px; }
-  .archiveRail { gap: 20px; }
-  .archiveBottom { display: block; }
+  .archPhoto { padding: 12px; }
+  .archPhoto::after { top: -36px; right: 0; font-size: 72px; }
+
+  .ahdis { padding-block: 74px; }
+  .ahdisGrid { grid-template-columns: 1fr; gap: 36px; padding-top: 28px; }
+  .ahdis h3 { font-size: 25vw; }
+  .projectStatement { font-size: 34px; }
+  .description { font-size: 13px; }
+  .analytical { padding: 34px 0 12px 18px; }
+  .analytical::before { left: -6px; top: 0; font-size: 31vw; }
+  .analytical figure { padding: 7px; }
+  .scope strong { font-size: 38px; }
+
+  .marci { padding-block: 22px 80px; }
+  .marciHero { margin-top: 16px; padding-bottom: 120px; }
+  .marciLandscape img { aspect-ratio: 4 / 5; object-position: 56% center; }
+  .marciOverlay { left: 18px; top: 22px; right: 18px; }
+  .marciOverlay > p { max-width: 190px; font-size: 31px; }
+  .marciOverlay h3 { margin-top: 16px; font-size: 13vw; }
+  .marciFloatingScreen { right: 12px; bottom: 0; width: 82%; padding: 7px; }
+  .marciFooter { display: block; padding-top: 24px; }
+  .marciFooter > p { margin-bottom: 12px; font-size: 12px; }
 }
