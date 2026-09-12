@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "lacomus", "erp-system", "design-systems"];
+const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "erp-system", "design-systems"];
 const routes = ["/", "/projects", "/about", "/contact", "/packages", ...projectSlugs.map((slug) => `/projects/${slug}`)];
 
 test("all pages load with one h1, complete images, and no JavaScript or resource errors", async ({ page }) => {
@@ -130,7 +130,7 @@ test("website packages keep currency conversion and contact handoff usable", asy
 });
 
 test("SEO covers canonical URLs, social previews, all projects, packages, and not-found", async ({ page, request }) => {
-  for (const route of ["/", "/about", "/packages", "/contact", "/projects/rbim", "/projects/lacomus"]) {
+  for (const route of ["/", "/about", "/packages", "/contact", "/projects/rbim", "/projects/co-designs"]) {
     await page.goto(route);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://kristy-kate-dev-portfolio.vercel.app${route === "/" ? "" : route}`);
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", /Kristy Kate Taylor/);
@@ -138,8 +138,10 @@ test("SEO covers canonical URLs, social previews, all projects, packages, and no
   }
   const sitemap = await (await request.get("/sitemap.xml")).text();
   for (const route of projectSlugs.map((slug) => `/projects/${slug}`)) expect(sitemap).toContain(route);
+  expect(sitemap).not.toContain("/projects/lacomus");
   expect(sitemap).toContain("/packages");
   expect(await (await request.get("/robots.txt")).text()).toContain("/sitemap.xml");
   expect((await request.get("/opengraph-image")).status()).toBe(200);
+  expect((await page.goto("/projects/lacomus"))!.status()).toBe(404);
   expect((await page.goto("/projects/no-such-project"))!.status()).toBe(404);
 });
