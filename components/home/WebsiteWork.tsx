@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getProject } from "@/data/projects";
-import { ProjectFacts, ProjectLinks } from "@/components/projects/ProjectLinks";
+import { ProjectLinks } from "@/components/projects/ProjectLinks";
 import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
 import styles from "./work.module.css";
 
@@ -13,11 +13,15 @@ export function ArchitectureFeature() {
       <div className={`${styles.archHeading} reveal`}><h3>{project.shortTitle}</h3><p>{project.headline}</p></div>
       <div className={styles.archGrid}>
         <div className={styles.archSide}>
-          <figure><Image src={detail.src} width={detail.width} height={detail.height} alt={detail.alt} sizes="(max-width: 767px) 34vw, 200px" /><figcaption>Interior imagery from the studio.</figcaption></figure>
-          <p>{project.overview}</p>
-          <ProjectFacts project={project} /><ProjectLinks project={project} />
+          <figure>
+            <Image src={detail.src} width={detail.width} height={detail.height} alt={detail.alt} sizes="(max-width: 767px) 34vw, 200px" />
+          </figure>
+          <p>Architecture, portfolio imagery, and a scroll-controlled construction study in one responsive site.</p>
+          <ProjectLinks project={project} />
         </div>
-        <div className={styles.archPhoto}><ProjectScreenshot project={project} sizes="(max-width: 767px) 90vw, 65vw" /><p className={styles.imageNote}><span>Development detail</span>A scroll-controlled construction sequence, with an accessible static fallback.</p></div>
+        <div className={styles.archPhoto}>
+          <ProjectScreenshot project={project} sizes="(max-width: 767px) 90vw, 65vw" />
+        </div>
       </div>
     </article>
   );
@@ -34,29 +38,12 @@ export function RealEstateFeature() {
         <div className={styles.marciPresentation}>
           <ProjectScreenshot project={project} sizes="(max-width: 900px) 90vw, 65vw" />
           <div className={styles.marciDetails}>
-            <p className={styles.description}>{project.overview}</p>
-            <ProjectFacts project={project} /><ProjectLinks project={project} />
-            <figure><Image src={detail.src} width={detail.width} height={detail.height} alt={detail.alt} sizes="(max-width: 900px) 180px, 240px" /><figcaption>Original buyer-focused project imagery.</figcaption></figure>
+            <p className={styles.description}>A photography-led redesign with clearer paths for buyers, sellers, and local property discovery.</p>
+            <ProjectLinks project={project} />
+            <figure>
+              <Image src={detail.src} width={detail.width} height={detail.height} alt={detail.alt} sizes="(max-width: 900px) 180px, 240px" />
+            </figure>
           </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-export function BrandFeature() {
-  const project = getProject("lacomus");
-  const detail = project.gallery![0];
-  return (
-    <article id="work-lacomus" data-project="lacomus" className={`shell ${styles.lacomus}`}>
-      <div className={styles.projectRegister}><span>05 / Brand & product experience</span><span>{project.status}</span></div>
-      <div className={`${styles.lacomusHeading} reveal`}><div><p className={styles.ongoing}>An ongoing study</p><h3>{project.shortTitle}</h3></div><p className={styles.projectStatement}>A quieter kind<br />of presence.</p></div>
-      <div className={styles.lacomusGrid}>
-        <div><ProjectScreenshot project={project} sizes="(max-width: 767px) 90vw, 65vw" /></div>
-        <div className={styles.lacomusDetails}>
-          <figure><Image src={detail.src} width={detail.width} height={detail.height} alt={detail.alt} sizes="(max-width: 767px) 32vw, 180px" /><figcaption>Existing Lacomus campaign imagery.</figcaption></figure>
-          <p className={styles.description}>{project.overview}</p>
-          <ProjectFacts project={project} /><ProjectLinks project={project} />
         </div>
       </div>
     </article>
