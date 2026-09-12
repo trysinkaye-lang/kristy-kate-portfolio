@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { exchangeRateResponse } from "../app/api/exchange-rates/route";
 import { createExchangeRateLoader } from "../lib/exchange-rates";
 
-const valid = { base: "PHP", date: "2026-09-11", rates: { USD: 0.0175, EUR: 0.015, XYZ: 42 } };
+const valid = { base: "PHP" as const, date: "2026-09-11", rates: { USD: 0.0175, EUR: 0.015, XYZ: 42 } };
 
 test("reference rates share concurrent requests, filter currencies, and expire after an hour", async () => {
   let calls = 0;
@@ -49,4 +50,23 @@ test("provider errors, rate limiting, invalid JSON, and timeouts back off and re
     expect(await load()).not.toBeNull();
     expect(calls).toBe(2);
   }
+});
+
+test("route success and failure responses expose the intended cache contract", async () => {
+  const success = exchangeRateResponse({ base: "PHP", date: "2026-09-11", rates: { USD: 0.0175, EUR: 0.015 } });
+  expect(success.status).toBe(200);
+  expect(success.headers.get("cache-control")).toBe("public, max-age=300, s-maxage=3600");
+  expect(success.headers.get("retry-after")).toBeNull();
+  await expect(success.json()).resolves.toEqual({ base: "PHP", date: "2026-09-11", rates: { USD: 0.0175, EUR: 0.015 } });
+
+  const failure = exchangeRateResponse(null);
+  expect(failure.status).toBe(503);
+  expect(failure.headers.get("cache-control")).toBe("no-store");
+  expect(failure.headers.get("retry-after")).toBe("60");
+  await expect(failure.json()).resolves.toEqual({
+    base: "PHP",
+    date: null,
+    rates: {},
+    error: "Live exchange rates are temporarily unavailable.",
+  });
 });
