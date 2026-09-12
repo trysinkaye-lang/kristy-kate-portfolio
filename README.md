@@ -18,23 +18,24 @@ npm run start
 
 ## Structure
 
-- `app/`: homepage, project index, seven case studies, about, website packages, contact, metadata, and API routes.
+- `app/`: homepage, project index, six public case studies, about, website packages, contact, metadata, and API routes.
 - `data/projects.ts`: factual project content, status, technology, original imagery, and existing live/repository links.
 - `data/site.ts`: identity, contact information, services, and technical vocabulary.
 - `data/packages.ts`: shared package definitions and supported currencies.
-- `components/home/`: custom editorial compositions for software, architecture, real estate, and brand work.
+- `components/home/`: custom editorial compositions plus the Selected Work Drift Wall visual index.
 - `components/projects/ImageInspector.tsx`: native dialog with keyboard support, actual-size viewing, and a direct image link without JavaScript.
+- `components/effects/PortfolioMotion.tsx`: progressive reveal, spotlight coordinates, and magnetic pointer feedback with reduced-motion safeguards.
 - `styles/tokens.css`: theme, typography, spacing, grid, and motion values.
-- `tests/`: Playwright behavior, accessibility, responsive, metadata, and contact verification.
+- `tests/`: Playwright behavior, accessibility, responsive, metadata, exchange-rate, and contact verification.
 - `docs/redesign-plan.md`: current audit, design decisions, reference links, and content limitations.
 
 ## Design and motion
 
-The light-first ivory, ink, and oxide palette is retained, with a complete charcoal dark mode. Manrope carries interface text; Cormorant gives the surname and selected project statements editorial contrast. Project pages use actual website captures and application screenshots, with supporting photography credited separately.
+The light-first ivory, ink, and oxide palette is retained, with a complete charcoal dark mode. Manrope carries interface text; Cormorant gives selected editorial statements contrast. Project pages use actual website captures and application screenshots, with supporting photography credited separately.
 
-Native CSS supplies the brief hero introduction, progressive scroll-linked heading movement, link feedback, and 1.5% preview hover. No animation library, WebGL canvas, custom cursor, scroll controller, or preloader ships. Reduced-motion preferences disable animation; server-rendered content stays visible without JavaScript.
+The Selected Work opener uses an original, React Bits Drift Wall-inspired composition: four drifting columns of real project imagery, restrained spotlight feedback, and direct case-study links. It is intentionally not a copied React Bits component and adds no animation dependency. Desktop columns move subtly; touch layouts become a static 2×2 project grid. Low-resolution software captures are served without additional Next.js image recompression, but their source detail cannot exceed the supplied originals.
 
-React Bits Split Text and Animated Content were evaluated as ideas. Their code was not copied and their dependencies were not installed. The portfolio uses a small original CSS implementation tuned to its own type, timing, and displacement.
+Native CSS and a small client motion controller provide the brief hero introduction, viewport reveals, magnetic CTA feedback, spotlight coordinates, and restrained image hover. No animation library, WebGL canvas, custom cursor, scroll controller, or preloader ships. Reduced-motion preferences disable decorative motion; server-rendered content stays visible without JavaScript.
 
 ## Contact configuration
 
@@ -59,7 +60,7 @@ npx playwright install
 npm test
 ```
 
-The test runner starts its own production server on port 3100. The suite covers Chromium, Firefox, and WebKit, all nine requested homepage viewports, route overflow, keyboard navigation, themes, reduced motion, case-study links, image inspection, contact states, and axe WCAG A/AA checks.
+The test runner starts its own production server on port 3100. The suite covers Chromium, Firefox, and WebKit, all nine requested homepage viewports, route overflow, keyboard navigation, themes, reduced motion, Drift Wall links, case-study links, image inspection, contact states, exchange-rate response behavior, and axe WCAG A/AA checks.
 
 For saved visual evidence, run a production server on port 3100, then:
 
@@ -79,7 +80,7 @@ See [the final verification report](docs/verification.md) for measurements, test
 
 The canonical URL is configured in `data/site.ts`. Sitemap, robots, OpenGraph/Twitter metadata, Person structured data, and project CreativeWork data are included. Analytics and Speed Insights load only when the Vercel environment is present.
 
-No resume, LinkedIn address, employment dates, or unverified results are fabricated. Higher-resolution RBIM, AHDIS, and ERP screenshots would allow larger detailed software presentations; the current captures are deliberately capped at their source widths. Unused placeholder SVGs and one unreadable, unreferenced portrait file were removed; valid portrait sources remain preserved.
+No resume, LinkedIn address, employment dates, or unverified results are fabricated. Higher-resolution RBIM, AHDIS, and ERP screenshots would allow larger detailed software presentations; the current captures are deliberately shown at their real source detail and can be inspected at original resolution. Unused placeholder SVGs and one unreadable, unreferenced portrait file were removed; valid portrait sources remain preserved.
 
 ## Origin
 
