@@ -1,9 +1,8 @@
-import { createExchangeRateLoader } from "@/lib/exchange-rates";
+import { createExchangeRateLoader, type ExchangeRates } from "@/lib/exchange-rates";
 
 const loadRates = createExchangeRateLoader();
 
-export async function GET() {
-  const data = await loadRates();
+export function exchangeRateResponse(data: ExchangeRates | null) {
   if (!data) {
     return Response.json(
       { base: "PHP", date: null, rates: {}, error: "Live exchange rates are temporarily unavailable." },
@@ -13,4 +12,8 @@ export async function GET() {
   return Response.json(data, {
     headers: { "Cache-Control": "public, max-age=300, s-maxage=3600" },
   });
+}
+
+export async function GET() {
+  return exchangeRateResponse(await loadRates());
 }
