@@ -1,49 +1,55 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
-import styles from "./home.module.css";
+import styles from "./HeroLanding.module.css";
 
 const capabilities = ["Information systems", "Creative development", "UI/UX", "Full-stack"];
+
+const featuredProjects = [
+  { index: "01", name: "RBIM", href: "#work-rbim" },
+  { index: "02", name: "C.O. Designs", href: "#work-co-designs" },
+  { index: "03", name: "AHDIS", href: "#work-ahdis" },
+  { index: "04", name: "Marci Metzger", href: "#work-marci-metzger" },
+] as const;
 
 export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={`shell ${styles.heroTop}`}>
-        <p className="eyebrow">Developer · Designer · Builder</p>
+        <p className={styles.eyebrow}>Portfolio / 2026</p>
         <p className={styles.availabilityStatus}><span aria-hidden="true" /> Available for selected work</p>
       </div>
 
       <div className={`shell ${styles.heroStage}`}>
         <div className={styles.heroCopy}>
-          <p className={styles.heroKicker}>Full-stack developer / UI/UX designer</p>
+          <p className={styles.heroKicker}>Full-stack development · UI/UX · Information systems</p>
           <h1 id="identity" className={styles.identity}>
-            <span>Kristy Kate</span>
-            <em>Taylor.</em>
+            <span>Useful systems.</span>
+            <em>Sharp interfaces.</em>
           </h1>
+
           <div className={styles.heroLead}>
-            <p>I build information systems, desktop applications, and custom websites with a strong visual point of view.</p>
+            <p>I design and build digital products that make complex work clearer—from information systems and desktop applications to custom websites.</p>
             <div className={styles.heroActions}>
-              <Link href="#work" className={styles.primaryAction} data-magnetic="true">View work <span aria-hidden="true">↓</span></Link>
-              <Link href="/contact" className="text-link">Let’s talk <span aria-hidden="true">↗</span></Link>
+              <Link href="#work" className={styles.primaryAction} data-magnetic="true">Explore work <span aria-hidden="true">↓</span></Link>
+              <Link href="/contact" className={styles.textAction}>Start a project <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
         </div>
 
-        <figure className={styles.portrait} data-spotlight>
-          <div className={styles.portraitFrame}>
-            <Image
-              src="/media/kristy-kate-professional-portrait-v2.webp"
-              alt="Kristy Kate Taylor"
-              width={960}
-              height={960}
-              preload
-              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 42vw, 520px"
-              unoptimized
-            />
-            <span className={styles.portraitMark} aria-hidden="true">KT</span>
+        <nav className={styles.projectDeck} aria-label="Featured projects">
+          <div className={styles.deckHeader}>
+            <span>Selected work</span>
+            <strong>04</strong>
           </div>
-          <figcaption><span>Philippines</span><span>Portfolio / 2026</span></figcaption>
-        </figure>
+          {featuredProjects.map((project) => (
+            <Link key={project.href} href={project.href} className={styles.projectLink}>
+              <span className={styles.projectNumber}>{project.index}</span>
+              <span className={styles.projectName}>{project.name}</span>
+              <span className={styles.projectArrow} aria-hidden="true">↗</span>
+            </Link>
+          ))}
+          <p className={styles.deckNote}>Jump straight into a project, or scroll for the full visual gallery.</p>
+        </nav>
       </div>
 
       <div className={styles.capabilityRail} aria-label="Core capabilities">
