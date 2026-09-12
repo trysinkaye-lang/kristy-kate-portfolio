@@ -11,18 +11,32 @@ import { ProjectLinks } from "@/components/projects/ProjectLinks";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "@/styles/case-study.module.css";
 
-export function generateStaticParams() { return projects.map(project => ({ slug: project.slug })); }
+const visibleProjects = projects.filter(project => project.slug !== "lacomus");
+
+export function generateStaticParams() {
+  return visibleProjects.map(project => ({ slug: project.slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find(item => item.slug === slug);
-  return project ? pageMetadata(project.shortTitle, project.overview, `/projects/${slug}`, { url: project.image, width: project.imageWidth, height: project.imageHeight, alt: project.imageAlt ?? `${project.shortTitle} interface` }) : { title: "Project not found" };
+  const project = visibleProjects.find(item => item.slug === slug);
+  return project
+    ? pageMetadata(project.shortTitle, project.overview, `/projects/${slug}`, {
+        url: project.image,
+        width: project.imageWidth,
+        height: project.imageHeight,
+        alt: project.imageAlt ?? `${project.shortTitle} interface`,
+      })
+    : { title: "Project not found" };
 }
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const index = projects.findIndex(item => item.slug === slug);
+  const index = visibleProjects.findIndex(item => item.slug === slug);
   if (index < 0) notFound();
-  const project = projects[index];
-  const next = projects[(index + 1) % projects.length];
+  const project = visibleProjects[index];
+  const next = visibleProjects[(index + 1) % visibleProjects.length];
+
   return <main id="main-content" tabIndex={-1} className={styles.caseStudy} data-case={slug}>
     <header className={`shell ${styles.intro}`}>
       <Link href="/projects" className={styles.back}>← All work</Link>
