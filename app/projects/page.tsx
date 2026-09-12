@@ -38,7 +38,16 @@ export default function ProjectsPage() {
               </TrackedLink>
             </div>
             <TrackedLink href={`/projects/${project.slug}`} eventName="project_open" eventData={{ project: project.slug, source: "index_image" }} aria-label={`Explore ${project.shortTitle}`} className={styles.indexImage}>
-              <Image src={project.image} alt={project.imageAlt ?? `${project.shortTitle} interface`} width={project.imageWidth} height={project.imageHeight} style={{ maxWidth: project.imageWidth }} sizes="(max-width: 767px) 88vw, (max-width: 1100px) 44vw, 600px" />
+              <Image
+                src={project.image}
+                alt={project.imageAlt ?? `${project.shortTitle} interface`}
+                width={project.imageWidth}
+                height={project.imageHeight}
+                style={{ maxWidth: project.imageWidth }}
+                sizes="(max-width: 767px) 88vw, (max-width: 1100px) 44vw, 600px"
+                unoptimized
+                draggable={false}
+              />
             </TrackedLink>
           </article>
         ))}
