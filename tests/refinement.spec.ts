@@ -48,19 +48,19 @@ test("image inspection supports keyboard, actual-size viewing, and return focus"
   await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
 });
 
-test("selected project links jump to visible headings below the sticky navigation", async ({ page }) => {
+test("Drift Wall links to every selected case study and stays static without motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
-  const links = page.getByRole("navigation", { name: "Selected projects" }).getByRole("link");
-  for (let index = 0; index < await links.count(); index++) {
-    const link = links.nth(index);
-    const href = await link.getAttribute("href");
-    await link.click();
-    const target = page.locator(href!);
-    const top = await target.evaluate(el => el.getBoundingClientRect().top);
-    expect(top).toBeGreaterThanOrEqual(80);
-    expect(top).toBeLessThan(150);
+  const wall = page.getByRole("navigation", { name: "Selected projects gallery" });
+  await expect(wall).toBeVisible();
+  for (const href of ["/projects/rbim", "/projects/co-designs", "/projects/ahdis", "/projects/marci-metzger"]) {
+    await expect(wall.locator(`a[href="${href}"]`).first()).toBeVisible();
   }
+  const animationName = await page.locator("[data-drift-column]").first().evaluate(element => getComputedStyle(element).animationName);
+  expect(animationName).toBe("none");
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
 });
 
 test("mobile work index gives each project a readable preview", async ({ page }) => {
