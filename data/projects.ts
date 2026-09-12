@@ -20,9 +20,15 @@ export type Project = {
   flagship?: boolean;
   github?: string;
   live?: string;
+  headline?: string;
+  year?: number;
+  imageAlt?: string;
+  imageCaption?: string;
+  gallery?: { src: string; alt: string; caption: string; width: number; height: number }[];
+  architecture?: { title: string; detail: string }[];
 };
 
-export const projects: Project[] = [
+const systemProjects: Project[] = [
   {
     slug: "rbim",
     title: "Registry of Barangay Inhabitants and Migrants (RBIM)",
@@ -73,81 +79,6 @@ export const projects: Project[] = [
     imageHeight: 256
   },
   {
-    slug: "co-designs-website",
-    title: "C.O. Designs Architecture Website",
-    shortTitle: "C.O. DESIGNS",
-    category: ["Web", "Website Design", "UI/UX"],
-    status: "Currently in development",
-    overview: "An architecture portfolio website for presenting residential work and design concepts through a restrained visual system and interactive architectural storytelling.",
-    problem: "Architecture work needs a digital presentation that communicates spatial thinking and project progression without turning the website into a generic image gallery.",
-    solution: "The website combines editorial typography, a minimal dark interface, responsive layouts, and an interactive architectural experience that supports the project story.",
-    role: "Website Designer & Developer",
-    technologies: ["React", "TypeScript", "Three.js", "React Three Fiber", "GSAP"],
-    highlights: ["Architecture portfolio", "Interactive 3D", "Responsive design"],
-    impact: [
-      "Shows a distinct visual direction tailored to an architecture practice.",
-      "Uses interaction to support architectural storytelling instead of adding motion without purpose.",
-      "Demonstrates responsive website design alongside creative front-end development."
-    ],
-    features: ["Architecture project portfolio", "Interactive 3D scene", "Responsive layout", "Project storytelling", "Minimal dark interface"],
-    challenges: ["Keeping 3D performant", "Balancing visual impact with clarity", "Maintaining usability across devices"],
-    lessons: ["3D should serve the project story", "Architecture websites benefit from strong spacing and restraint", "Responsive behavior must be designed from the start"],
-    image: "https://raw.githubusercontent.com/trysinkaye-lang/co-designs-website/main/public/images/co-designs/contemporary-home.webp",
-    imageWidth: 1600,
-    imageHeight: 900,
-    live: "https://co-designs-website.vercel.app/"
-  },
-  {
-    slug: "marci-metzger-redesign",
-    title: "Marci Metzger Real Estate Website Redesign",
-    shortTitle: "MARCI METZGER",
-    category: ["Web", "Website Design", "UI/UX"],
-    status: "Deployed redesign",
-    overview: "A complete redesign of a real estate website focused on clearer positioning, stronger visual hierarchy, improved content flow, responsive presentation, and a more professional browsing experience.",
-    problem: "The website needed a more contemporary presentation that could communicate the realtor brand clearly while making listings, services, and calls to action easier to understand.",
-    solution: "The redesign uses an editorial real-estate visual direction, stronger hierarchy, responsive sections, refined navigation, and clearer conversion paths across the homepage experience.",
-    role: "Website Designer & Developer",
-    technologies: ["React", "TypeScript", "Vite", "CSS", "GSAP"],
-    highlights: ["Full website redesign", "Responsive UI", "Real-estate experience"],
-    impact: [
-      "Reframed the website around a clearer visual identity and more deliberate content hierarchy.",
-      "Improved how services, property content, and calls to action are presented across screen sizes.",
-      "Expanded my website portfolio into a client-style real-estate redesign project."
-    ],
-    features: ["Editorial hero", "Responsive navigation", "Property content", "Service sections", "Contact flows", "Responsive redesign"],
-    challenges: ["Maintaining clarity across dense real-estate content", "Balancing brand visuals with conversion goals", "Keeping the redesign consistent across responsive breakpoints"],
-    lessons: ["Hierarchy matters more than adding visual effects", "A redesign should clarify the business message", "Responsive composition must be validated across real viewport sizes"],
-    image: "https://raw.githubusercontent.com/trysinkaye-lang/marci-metzger-redesign/main/public/images/hero.jpg",
-    imageWidth: 1600,
-    imageHeight: 900,
-    live: "https://marci-metzger-redesign-2026.vercel.app/"
-  },
-  {
-    slug: "lacomus-revamp",
-    title: "Lacomus Website Revamp",
-    shortTitle: "LACOMUS",
-    category: ["Web", "Website Design", "UI/UX"],
-    status: "Currently in development",
-    overview: "An ongoing website redesign and development project focused on transforming Lacomus into a more premium, editorial, product-driven web experience with stronger visual storytelling and interaction design.",
-    problem: "The brand needs a digital presentation that gives its perfume products more visual presence while keeping product discovery, readability, and responsive behavior clear.",
-    solution: "The revamp uses an editorial dark visual system, product-first composition, responsive layouts, and carefully controlled interactions to create a more distinctive premium experience.",
-    role: "Website Designer & Developer",
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP"],
-    highlights: ["Website redesign", "Responsive UI", "Product storytelling"],
-    impact: [
-      "Expands my portfolio from information systems into consumer-facing website design and development.",
-      "Explores product storytelling through stronger typography, layout rhythm, motion, and premium visual direction.",
-      "The public preview is intentionally marked as work in progress while the experience continues to evolve."
-    ],
-    features: ["Editorial product layout", "Responsive website", "Product storytelling", "Interaction design", "Premium dark visual direction"],
-    challenges: ["Balancing premium presentation with usability", "Keeping product visuals consistent across screen sizes", "Designing motion that supports rather than distracts from the product"],
-    lessons: ["Premium design depends on restraint and hierarchy", "Motion should clarify the story", "A work-in-progress can still demonstrate design thinking when status is transparent"],
-    image: "https://d2ol7oe51mr4n9.cloudfront.net/user_3HqpkL4qwLWJklalLjBpcIwd3mK/3a2421a2-54a6-4574-9e9d-d883afdd3644.png",
-    imageWidth: 1600,
-    imageHeight: 900,
-    live: "https://lacomus-revamp.vercel.app/"
-  },
-  {
     slug: "erp-system",
     title: "Enterprise Resource Planning (ERP) System",
     shortTitle: "ERP System",
@@ -191,10 +122,125 @@ export const projects: Project[] = [
     features: ["Dashboard layouts", "Web interfaces", "Carousel concepts", "Visual hierarchy", "Responsive UI", "Reusable patterns"],
     challenges: ["Keeping visuals expressive without reducing readability", "Translating system requirements into simple interfaces"],
     lessons: ["Design decisions should map back to user tasks", "Consistency creates speed for both users and developers"],
-    image: "/media/design-placeholder.svg",
-    imageWidth: 1400,
-    imageHeight: 900
+    image: "/media/rbim-dashboard.webp",
+    imageWidth: 640,
+    imageHeight: 341
   }
 ];
 
-export const projectCategories = ["All", "Web", "Website Design", "Desktop", "Information Systems", "Full Stack", "UI/UX", "Business Systems"];
+const websiteProjects: Project[] = [
+  {
+    slug: "co-designs", title: "C.O. Designs — Architecture portfolio website", shortTitle: "C.O. DESIGNS",
+    category: ["Websites", "Creative Development"], status: "In development", role: "Website Designer & Developer",
+    overview: "An architecture portfolio that brings the process of building into the browsing experience, alongside the studio’s residential and interior work.",
+    problem: "An architecture website needs to communicate space and process while keeping the studio’s work easy to explore on everyday devices.",
+    solution: "A scroll-controlled architectural study introduces the practice. An image-led portfolio follows, with clear project categories, studio information, and a responsive editorial layout.",
+    technologies: ["React", "TypeScript", "Three.js", "React Three Fiber", "GSAP", "Next.js"],
+    highlights: ["Spatial storytelling", "Scroll-controlled construction", "Responsive portfolio"],
+    impact: ["The current development preview connects an architectural construction study with the studio’s portfolio.", "Real project imagery gives the residential, wellness, hospitality, and interior work room to lead the page."],
+    features: ["Interactive architectural introduction", "Reversible construction stages", "Residential and interior portfolio", "Studio and practice information", "Responsive image composition", "Reduced-motion and WebGL fallbacks"],
+    challenges: ["Keeping a spatial introduction readable and navigable", "Balancing WebGL rendering with ordinary page performance", "Maintaining a useful experience when motion or WebGL is unavailable"],
+    lessons: ["An interactive scene needs an equally clear HTML explanation", "Native scrolling gives visitors control over the pace", "Architecture photography needs space and consistent captions"],
+    image: "/media/co-designs-preview.webp", imageWidth: 1440, imageHeight: 1000,
+    imageAlt: "C.O. Designs website with an interactive architectural model",
+    imageCaption: "Actual website preview — the completed stage of the interactive architectural study.",
+    gallery: [
+      { src: "/media/co-designs-interior.webp", alt: "Wellness interior featured in the C.O. Designs website", caption: "The studio’s interior imagery informs the website’s restrained composition.", width: 640, height: 480 },
+      { src: "/media/co-designs-residence.webp", alt: "Contemporary residence imagery from the C.O. Designs website", caption: "The studio’s residential imagery, used in the website’s project portfolio. Architecture by C.O. Designs; website by Kristy Kate Taylor.", width: 817, height: 631 }
+    ],
+    architecture: [
+      { title: "One source of progress", detail: "A shared construction-progress store connects scroll position, camera composition, and construction stages without React state updates on every frame." },
+      { title: "Render on demand", detail: "React Three Fiber renders scene changes on demand. The scene is loaded separately, while the studio content remains ordinary server-rendered HTML." },
+      { title: "Accessible alternatives", detail: "Construction descriptions, chapter navigation, a skip interaction, and a static fallback keep the work understandable beyond the canvas." }
+    ],
+    live: "https://co-designs-website.vercel.app/", github: "https://github.com/trysinkaye-lang/co-designs-website", headline: "Space, translated to screen."
+  },
+  {
+    slug: "marci-metzger", title: "Marci Metzger — Real-estate website redesign", shortTitle: "MARCI METZGER",
+    category: ["Websites", "UI/UX"], status: "Deployed redesign", role: "Website Designer & Developer",
+    overview: "A real-estate website redesign shaped around property photography, local context, and a clear path for buyers and sellers.",
+    problem: "Property, service, and agent information need a coherent hierarchy without losing the original site’s content or visual material.",
+    solution: "A photographic opening, focused buyer and seller sections, a property gallery, and clear contact routes reorganize the experience around visitor intent.",
+    technologies: ["React", "TypeScript", "Vite", "CSS", "GSAP"],
+    highlights: ["Real-estate redesign", "Photography-led", "Responsive experience"],
+    impact: ["A deployed redesign presents the original property imagery and service content in a cohesive editorial layout.", "Buyer and seller pathways clarify the purpose of each section without adding fabricated listings or business results."],
+    features: ["Photographic hero", "Buyer and seller pathways", "Property gallery", "Agent and local-area context", "Responsive navigation", "Links to existing listing and contact channels"],
+    challenges: ["Preserving source content while improving hierarchy", "Composing wide property photographs for narrow screens", "Balancing architectural motion with a useful static experience"],
+    lessons: ["Image selection and crop communicate as much as typography", "Responsive art direction needs a deliberate small-screen composition", "A clear route to existing services matters more than decorative interface controls"],
+    image: "/media/marci-preview.webp", imageWidth: 1440, imageHeight: 1000,
+    imageAlt: "Marci Metzger website showing the Pahrump Realtor opening", imageCaption: "Actual deployed redesign — property photography, local context, and clear buyer pathways.",
+    gallery: [
+      { src: "/media/marci-lifestyle.webp", alt: "House keys in buyer-focused imagery from the Marci Metzger project", caption: "Buyer-focused photography from the source website.", width: 1200, height: 648 },
+      { src: "/media/marci-landscape.webp", alt: "Pahrump landscape photography from the Marci Metzger redesign", caption: "Original project photography used in the real-estate redesign.", width: 1600, height: 1063 }
+    ],
+    architecture: [
+      { title: "Content separated from layout", detail: "Typed content and gallery records preserve the source copy, destinations, image dimensions, and accessible descriptions independently of the page composition." },
+      { title: "A static foundation", detail: "Custom CSS owns the responsive composition. The architectural introduction is loaded conditionally, and motion preferences retain a useful photographic opening." },
+      { title: "Honest service boundaries", detail: "The redesign links to existing services. Preview search and contact interfaces are not presented as a newly connected property database or lead-delivery backend." }
+    ],
+    live: "https://marci-metzger-redesign-2026.vercel.app/", github: "https://github.com/trysinkaye-lang/marci-metzger-redesign", headline: "A sense of place."
+  },
+  {
+    slug: "lacomus", title: "Lacomus — Website revamp", shortTitle: "LACOMUS",
+    category: ["Websites", "Brand Experience"], status: "Work in progress", role: "Website Designer & Developer",
+    overview: "An ongoing fragrance website revamp for Lacomus, connecting campaign imagery, scent collections, and product storytelling in a considered brand experience.",
+    problem: "The revamp needs to give the brand and its products a clear visual hierarchy across desktop and mobile.",
+    solution: "The current direction develops product-led editorial layouts, restrained motion, and a consistent responsive interface in Next.js.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP"],
+    highlights: ["Website revamp", "Product and brand", "Ongoing development"],
+    impact: ["A live work-in-progress preview is available for reviewing the current direction. This is an ongoing project, not a completed client production launch."],
+    features: ["Fragrance collection pathways", "Product-led presentation", "Campaign imagery and editorial gallery", "Responsive layouts", "Official-store links", "Interaction refinement"],
+    challenges: ["Keeping product storytelling clear as the design evolves", "Balancing brand expression with readable mobile layouts"],
+    lessons: ["The design and implementation are still being refined; final project learnings will follow the completed work."],
+    image: "/media/lacomus-preview.webp", imageWidth: 1440, imageHeight: 1000,
+    imageAlt: "Actual Lacomus website development preview", imageCaption: "Current development preview. Design and implementation are ongoing.",
+    architecture: [
+      { title: "Structured product content", detail: "Typed product records separate fragrance names, descriptions, imagery, and official-store destinations from the presentation. The design can evolve without duplicating product information across the interface." },
+      { title: "A clear commerce boundary", detail: "Purchasing links lead to the official Lacomus store. The revamp remains a development project and does not claim to provide a completed payment or order-management backend." },
+      { title: "A work in progress", detail: "The live preview and repository show the evolving design. Product presentation, responsive behavior, and the interaction system are still being refined." }
+    ],
+    gallery: [{ src: "/media/lacomus-product.webp", alt: "Lacomus Pour Homme campaign photography used in the website revamp", caption: "Existing project imagery grounds the product presentation in the actual fragrance brand.", width: 800, height: 1200 }],
+    live: "https://lacomus-revamp.vercel.app/", github: "https://github.com/trysinkaye-lang/lacomus-revamp", headline: "The next chapter, in progress."
+  }
+];
+
+const enhancements: Record<string, Partial<Project>> = {
+  rbim: {
+    headline: "A working system for community records.",
+    architecture: [
+      { title: "Interface & workflows", detail: "React and TypeScript organize household records, individual profiles, and the seven-step Q1–Q62 questionnaire. Blocking validation makes required data and relationships explicit before submission." },
+      { title: "Desktop & local storage", detail: "Tauri and Rust provide the desktop boundary. SQLite supports the offline-first record workflow when an internet connection is unavailable." },
+      { title: "Hybrid development", detail: "PostgreSQL-backed municipal visibility is part of the ongoing hybrid architecture. Local record handling and municipal reporting have distinct responsibilities; hybrid development remains active." }
+    ]
+  },
+  ahdis: {
+    headline: "Information that stays in scope.",
+    architecture: [
+      { title: "Local application", detail: "PHP Desktop packages the PHP, JavaScript, HTML, and CSS interface for office use, with SQLite providing local storage." },
+      { title: "Age-aware reporting", detail: "Reporting distinguishes adolescents aged 10–19 from older records. The same program scope needs to remain consistent across analytics and exports." },
+      { title: "Data continuity", detail: "Import/export, controlled updates, and installation behavior must preserve local records. Deployment and data safety are treated as part of the user workflow." }
+    ]
+  },
+  "erp-system": { headline: "One view of the operation." },
+  "design-systems": {
+    shortTitle: "INTERFACE & DIGITAL DESIGN WORK", image: "/media/rbim-dashboard.webp", imageWidth: 640, imageHeight: 341,
+    imageAlt: "RBIM dashboard interface design by Kristy Kate Taylor", imageCaption: "A selection of actual interface work from the software projects.",
+    headline: "Interfaces, studied in detail.",
+    gallery: [
+      { src: "/media/ahdis-dashboard.webp", alt: "AHDIS analytics and dashboard interface", caption: "AHDIS — arranging reporting views around program scope.", width: 480, height: 256 },
+      { src: "/media/erp-dashboard.webp", alt: "ERP business dashboard interface", caption: "ERP — prioritizing operational information and cross-module navigation.", width: 480, height: 270 }
+    ]
+  }
+};
+
+export const projectOrder = ["rbim", "co-designs", "ahdis", "marci-metzger", "lacomus", "erp-system", "design-systems"] as const;
+const allProjects = [...systemProjects, ...websiteProjects];
+export const projects: Project[] = projectOrder.map(slug => {
+  const project = allProjects.find(item => item.slug === slug);
+  if (!project) throw new Error(`Missing project: ${slug}`);
+  return { ...project, ...enhancements[slug] };
+});
+
+export function getProject(slug: typeof projectOrder[number]): Project {
+  return projects[projectOrder.indexOf(slug)];
+}

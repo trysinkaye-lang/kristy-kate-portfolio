@@ -1,0 +1,68 @@
+.intro { padding-block: 40px 55px; }
+.back { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; color: var(--muted); }
+.back:hover { color: var(--accent); }
+.register { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin-block: 48px 26px; }
+.register > span { font-size: 12px; color: var(--accent); }
+.intro h1 { font-size: clamp(48px, 7.2vw, 104px); max-width: 1180px; }
+.introCopy { display: grid; grid-template-columns: 1fr 1fr; gap: 12%; margin-top: 40px; }
+.introCopy h2 { font-size: clamp(30px, 3.3vw, 44px); max-width: 470px; line-height: 1.2; }
+.introCopy > div > p { font-size: 15px; color: var(--muted); }
+.facts { display: grid; grid-template-columns: 1fr .7fr 1.4fr; gap: 7%; margin-top: 50px; border-top: 1px solid var(--line); padding-top: 24px; }
+.facts dt { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.facts dd { font-size: 13px; line-height: 1.8; }
+.visual { padding-block: 50px; background: var(--surface); }
+.caseStudy[data-case="rbim"] .visual, .caseStudy[data-case="lacomus"] .visual { background: var(--inverse); color: var(--inverse-text); --muted: var(--inverse-muted); }
+.caseStudy[data-case="co-designs"] .intro h1 { letter-spacing: -.025em; }
+.caseStudy[data-case="marci-metzger"] .intro h1, .caseStudy[data-case="lacomus"] .intro h1 { font-family: var(--font-editorial); font-size: clamp(54px, 8vw, 112px); }
+.body { display: grid; grid-template-columns: .35fr 1fr; gap: 12%; padding-block: 100px; }
+.contents { position: sticky; top: 125px; align-self: start; }
+.contents nav { display: grid; margin-top: 22px; font-size: 12px; color: var(--muted); }
+.contents nav a { display: flex; align-items: center; min-height: 44px; border-bottom: 1px solid var(--line); }
+.contents a:hover { color: var(--accent); }
+.narrative { max-width: 760px; }
+.narrative > section { margin-bottom: 70px; }
+.narrative section > :global(.eyebrow) { color: var(--muted); margin-bottom: 18px; }
+.narrative h2 { font-size: clamp(28px, 3vw, 40px); line-height: 1.2; margin-bottom: 24px; }
+.narrative section > p:not(:first-child) { font-size: 16px; margin-bottom: 20px; }
+.features { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 35px; }
+.features li { border-top: 1px solid var(--line); padding-block: 16px; font-size: 14px; }
+.architecture { border-left: 2px solid var(--accent); padding-left: 28px; }
+.architecture > div { margin-bottom: 30px; }
+.architecture h3 { font-size: 22px; margin-bottom: 14px; }
+.architecture p { font-size: 14px; color: var(--muted); }
+.gallery { margin-block: 25px 65px; }
+.gallery figcaption { font-size: 12px; color: var(--muted); margin-top: 14px; }
+.reflection { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.reflection h3 { font-size: 20px; }
+.reflection ul { color: var(--muted); font-size: 14px; }
+.reflection li { margin-bottom: 18px; }
+.next { border-top: 1px solid var(--line); padding-block: 50px 85px; }
+.next > a { display: flex; justify-content: space-between; align-items: center; gap: 40px; margin-top: 30px; }
+.next h2 { font-size: clamp(30px, 4.5vw, 66px); max-width: 950px; }
+.next > a > span { font-size: 50px; }
+.next > a:hover { color: var(--accent); }
+@media (max-width: 767px) {
+  .intro { padding-block: 26px 36px; }
+  .register { margin-top: 35px; gap: 24px; }
+  .register :global(.eyebrow) { font-size: 10px; max-width: 60%; }
+  .register > span { font-size: 11px; text-align: right; }
+  .intro h1 { font-size: clamp(37px, 11vw, 64px); }
+  .introCopy { grid-template-columns: 1fr; gap: 25px; margin-top: 28px; }
+  .introCopy h2 { font-size: 30px; }
+  .introCopy > div > p { font-size: 14px; }
+  .facts { grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
+  .facts > div:last-child { grid-column: 1 / -1; }
+  .facts dd { font-size: 12px; }
+  .visual { padding-block: 30px; }
+  .body { grid-template-columns: 1fr; gap: 38px; padding-block: 45px 10px; }
+  .contents { position: static; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
+  .contents nav { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 18px; }
+  .narrative > section { margin-bottom: 50px; }
+  .narrative section > p:not(:first-child) { font-size: 14px; }
+  .features { grid-template-columns: 1fr; }
+  .features li { font-size: 13px; padding-block: 14px; }
+  .reflection { grid-template-columns: 1fr; gap: 20px; }
+  .next { padding-block: 35px 55px; }
+  .next > a { gap: 20px; }
+  .next > a > span { font-size: 32px; }
+}

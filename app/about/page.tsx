@@ -1,155 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Database, Figma, GraduationCap, Layers3, MonitorSmartphone } from "lucide-react";
-import { InteractiveToolGrid } from "@/components/InteractiveToolGrid";
-import styles from "./about.module.css";
-
-const methods = [
-  {
-    number: "01",
-    title: "Understand the real workflow",
-    detail: "I start with how people actually work: the data they handle, the decisions they make, and where friction happens.",
-  },
-  {
-    number: "02",
-    title: "Structure information clearly",
-    detail: "I organize requirements, records, relationships, and business rules before turning them into screens and features.",
-  },
-  {
-    number: "03",
-    title: "Design for usability",
-    detail: "I focus on readable hierarchy, predictable interactions, responsive layouts, and interfaces that reduce cognitive load.",
-  },
-  {
-    number: "04",
-    title: "Build, test, refine",
-    detail: "I develop iteratively, validate the experience across devices, and improve details based on how the system behaves in practice.",
-  },
-];
-
-const services = [
-  { icon: MonitorSmartphone, label: "Software Development" },
-  { icon: Layers3, label: "Information Systems" },
-  { icon: Figma, label: "UI/UX Design" },
-  { icon: Database, label: "Database Design" },
-];
-
+import { stack } from "@/data/site";
+import { HomeCTA } from "@/components/home/HomeCTA";
+import { pageMetadata } from "@/lib/metadata";
+import styles from "@/styles/pages.module.css";
+export const metadata = pageMetadata("About", "Meet Kristy Kate Taylor: BS Information Technology graduate working across full-stack development, information systems, UI/UX, and creative websites.", "/about");
 export default function AboutPage() {
-  return (
-    <main id="main-content" className={`${styles.page} min-h-screen`}>
-      <div className={styles.shell}>
-        <header className={styles.hero}>
-          <div className={styles.portraitColumn}>
-            <div className={styles.portraitFrame}>
-              <Image
-                src="/media/kristy-kate-professional-portrait-v2.webp"
-                alt="Kristy Kate Taylor"
-                fill
-                priority
-                className={styles.portrait}
-                sizes="(max-width: 760px) 100vw, (max-width: 1100px) 36vw, 360px"
-              />
-              <div className={styles.portraitLabel} aria-hidden="true">
-                <strong>Kristy Kate Taylor</strong>
-                <span>Developer + Designer</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.intro}>
-            <p className={styles.eyebrow}>Software Developer · UI/UX Designer</p>
-            <h1 className={styles.title}>
-              Hello, I&apos;m <span className={styles.titleAccent}>Kristy Kate.</span>
-            </h1>
-
-            <div className={styles.copy}>
-              <p>I&apos;m a software developer and UI/UX designer passionate about building clear, reliable digital systems for real people and real workflows.</p>
-              <p>My work combines requirements analysis, database design, application development, and interface design. I care about making powerful tools feel organized rather than overwhelming.</p>
-              <p>I&apos;m especially interested in information systems, offline-first applications, public-sector workflows, and products where thoughtful design improves the quality of data and decisions.</p>
-            </div>
-          </div>
-        </header>
-
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className={styles.sectionLabel} data-index="01">How I work</p>
-              <h2 className={styles.sectionTitle}>From messy requirements to a usable system.</h2>
-            </div>
-            <p className={styles.sectionLead}>
-              A clear workflow, structured information, usable interaction, then careful implementation and refinement.
-            </p>
-          </div>
-
-          <div className={styles.methodGrid}>
-            {methods.map((item) => (
-              <article className={styles.methodCard} key={item.number}>
-                <span className={styles.methodNumber}>{item.number}</span>
-                <h3>{item.title}</h3>
-                <p>{item.detail}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.educationCard}>
-            <div className={styles.educationIcon}>
-              <GraduationCap size={26} aria-hidden="true" />
-            </div>
-            <div className={styles.educationMeta}>
-              <p className={styles.sectionLabel} data-index="02">Education</p>
-              <h2>University of Science and Technology of Southern Philippines</h2>
-              <p>Bachelor of Science in Information Technology</p>
-            </div>
-            <span className={styles.educationTag}>BS Information Technology</span>
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className={styles.sectionLabel} data-index="03">Capabilities</p>
-              <h2 className={styles.sectionTitle}>What I bring to a product.</h2>
-            </div>
-            <p className={styles.sectionLead}>Development and design treated as parts of the same workflow, not separate deliverables.</p>
-          </div>
-
-          <div className={styles.serviceGrid}>
-            {services.map(({ icon: Icon, label }) => (
-              <div className={styles.serviceCard} key={label}>
-                <div className={styles.serviceIcon}>
-                  <Icon size={21} aria-hidden="true" />
-                </div>
-                <p>{label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.toolboxPanel}>
-            <div className={styles.sectionHeader}>
-              <div>
-                <p className={styles.sectionLabel} data-index="04">Toolbox</p>
-                <h2 className={styles.sectionTitle}>Tools I work with</h2>
-              </div>
-              <p className={styles.sectionLead}>Select a tool to see how it fits into my development and design workflow.</p>
-            </div>
-            <InteractiveToolGrid />
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.cta}>
-            <h2 className={styles.ctaTitle}>Want to see how this approach turns into real systems?</h2>
-            <div className={styles.ctaActions}>
-              <Link href="/projects" className="v2-button v2-button-primary">View projects <ArrowUpRight size={16} /></Link>
-              <Link href="/contact" className="v2-button">Contact me</Link>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
+  return <main id="main-content" tabIndex={-1}>
+    <section className={`shell ${styles.page}`}><p className="eyebrow">About Kristy Kate Taylor</p><div className={styles.aboutOpening}><div><h1>Between design<br /><span>& engineering.</span></h1><p>I work across the parts of a product that people see and the systems they depend on.</p></div><figure><Image src="/media/kristy-kate-professional-portrait-v2.webp" width={960} height={960} alt="Professional portrait of Kristy Kate Taylor" preload sizes="(max-width: 767px) 70vw, 340px" /><figcaption>Kristy Kate Taylor · Philippines</figcaption></figure></div>
+    <div className={styles.biography}><h2>Software should respect<br />the people using it.</h2><div><p>I’m a BS Information Technology graduate from the University of Science and Technology of Southern Philippines. My work spans full-stack development, software systems, UI/UX, websites, databases, and desktop applications.</p><p>In RBIM and AHDIS, that means thinking through how records are captured, validated, stored, and reported. In website work, it means developing a visual language and implementing it with care across devices.</p><p>I connect requirements analysis, data modeling, application development, and interface design. Those decisions belong in the same conversation.</p><Link href="/projects" className="text-link">See the work <span aria-hidden="true">↗</span></Link></div></div></section>
+    <section className={styles.method}><div className="shell"><p className="eyebrow">How I work</p><div className={styles.methodRows}>{[
+      ["Understand the workflow", "Start with the records, tasks, constraints, and decisions. Map the places where information gets lost or work becomes difficult."],
+      ["Give information structure", "Define relationships, validation rules, and access needs. Establish the application’s logic before polishing its surfaces."],
+      ["Design the experience", "Turn that structure into clear hierarchy, predictable interaction, and responsive layouts. Make important states understandable."],
+      ["Build, test, refine", "Implement the whole flow, check it across devices, and revisit assumptions when the application’s behavior exposes a better approach."]
+    ].map(([title, copy]) => <div key={title}><h2>{title}</h2><p>{copy}</p></div>)}</div></div></section>
+    <section className={`shell ${styles.toolbox}`}><div><p className="eyebrow">Technical vocabulary</p><h2>The tools follow<br />the problem.</h2></div><dl>{Object.entries(stack).map(([label, items]) => <div key={label}><dt>{label}</dt><dd>{items.join(" / ")}</dd></div>)}</dl></section>
+    <HomeCTA />
+  </main>;
 }

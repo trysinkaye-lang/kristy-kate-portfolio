@@ -12,3 +12,7 @@ out
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Local review captures
+.artifacts/
+*.tsbuildinfo

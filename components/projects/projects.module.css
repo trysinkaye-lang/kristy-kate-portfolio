@@ -1,0 +1,36 @@
+.screenshot { width: 100%; margin-inline: auto; }
+.screenshot img { width: 100%; height: auto; }
+.screenshot figcaption { margin-top: 12px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.links { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 28px; margin-top: 24px; }
+.sourceLink { font-size: 12px; padding-block: 12px; text-decoration: underline; text-underline-offset: 5px; }
+.sourceLink:hover { color: var(--accent); }
+.facts { margin-top: 24px; display: grid; gap: 8px; font-size: 12px; line-height: 1.7; }
+.facts p:last-child { color: var(--muted); }
+.inspectTrigger { position: relative; display: block; overflow: hidden; cursor: zoom-in; }
+.inspectTrigger > img { transition: transform var(--duration-reveal) var(--ease-out); }
+.inspectHint { position: absolute; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 20px; padding: 8px 12px; background: #f4f1eb; color: #252621; font-size: 11px; line-height: 1.5; opacity: 0; transform: translateY(5px); transition: opacity var(--duration-standard), transform var(--duration-standard) var(--ease-out); }
+.inspectTrigger:hover .inspectHint, .inspectTrigger:focus-visible .inspectHint { opacity: 1; transform: none; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .inspectTrigger:hover > img { transform: scale(1.015); }
+}
+@media (hover: none) { .inspectHint { opacity: 1; transform: none; } }
+.inspector { --accent: var(--theme-accent); max-width: none; max-height: none; width: 100%; height: 100dvh; padding: clamp(16px, 3vw, 40px); border: 0; background: transparent; color: var(--foreground); }
+.inspector::backdrop { background: rgb(16 18 15 / .94); }
+.inspectorPanel { max-width: 1500px; height: 100%; margin-inline: auto; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--background); }
+.inspectorBar, .inspectorBottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 12px 24px; }
+.inspectorBar { border-bottom: 1px solid var(--line); }
+.inspectorBar p { font-size: 13px; max-width: 65ch; line-height: 1.5; }
+.inspector button, .inspectorBottom a { border: 0; background: transparent; color: inherit; padding: 10px 0; min-height: 44px; font-size: 12px; white-space: nowrap; }
+.inspector button:hover, .inspectorBottom a:hover { color: var(--accent); }
+.inspectorBar button span { margin-left: 14px; font-size: 22px; }
+.inspectorViewport { overflow: auto; display: flex; align-items: center; background: var(--surface); padding: 24px; }
+.inspectorViewport img { width: 100%; height: 100%; object-fit: contain; margin: auto; }
+.inspectorViewport[data-actual-size="true"] { display: block; }
+.inspectorViewport[data-actual-size="true"] img { height: auto; }
+.inspectorBottom { border-top: 1px solid var(--line); }
+@media (max-width: 767px) {
+  .inspectorBar, .inspectorBottom { padding: 10px 16px; gap: 16px; }
+  .inspectorBar p { font-size: 11px; }
+  .inspectorViewport { padding: 16px; }
+  .inspectHint { right: 8px; bottom: 8px; padding: 6px 10px; font-size: 10px; }
+}
