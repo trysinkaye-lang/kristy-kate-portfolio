@@ -156,7 +156,7 @@
   .heading > p { justify-self: start; font-size: 12px; }
   .viewport { overflow: visible; padding: 0 var(--gutter); mask-image: none; }
   .grid { grid-template-columns: 1fr 1fr; gap: 12px; transform: none; }
-  .column { gap: 12px; animation: none; transform: none !important; }
+  .column { display: contents; animation: none; transform: none !important; }
   .column .tile:nth-child(2) { display: none; }
   .tile { min-height: 0; }
   .meta { padding: 34px 10px 10px; opacity: 1; transform: none; }
