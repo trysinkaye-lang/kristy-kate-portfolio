@@ -6,6 +6,7 @@ import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 import { pageMetadata } from "@/lib/metadata";
 import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
+import { ImageInspector } from "@/components/projects/ImageInspector";
 import { ProjectLinks } from "@/components/projects/ProjectLinks";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "@/styles/case-study.module.css";
@@ -14,7 +15,7 @@ export function generateStaticParams() { return projects.map(project => ({ slug:
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find(item => item.slug === slug);
-  return project ? pageMetadata(project.shortTitle, project.overview, `/projects/${slug}`) : { title: "Project not found" };
+  return project ? pageMetadata(project.shortTitle, project.overview, `/projects/${slug}`, { url: project.image, width: project.imageWidth, height: project.imageHeight, alt: project.imageAlt ?? `${project.shortTitle} interface` }) : { title: "Project not found" };
 }
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -34,10 +35,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <div className={`shell ${styles.body}`}><aside className={styles.contents}><p className="eyebrow">Inside the project</p><nav aria-label="Case study contents"><a href="#context">Context & problem</a><a href="#approach">The approach</a><a href="#workflows">Key workflows</a>{project.architecture ? <a href="#architecture">Technical decisions</a> : null}<a href="#outcome">Outcome</a><a href="#reflection">Challenges & learning</a></nav></aside>
       <div className={styles.narrative}>
         <section id="context"><p className="eyebrow">Context & problem</p><h2>{project.title}</h2><p>{project.problem}</p></section>
-        <section id="approach"><p className="eyebrow">Design & development</p><h2>A considered approach.</h2><p>{project.solution}</p></section>
+        <section id="approach"><p className="eyebrow">Design & development</p><h2>What I built.</h2><p>{project.solution}</p></section>
         <section id="workflows"><p className="eyebrow">Inside the experience</p><h2>Key workflows & features.</h2><ul className={styles.features}>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul></section>
         {project.architecture ? <section id="architecture"><p className="eyebrow">The engineering</p><h2>Structure behind the screen.</h2><div className={styles.architecture}>{project.architecture.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div></section> : null}
-        {project.gallery?.map(item => <figure key={item.src} className={styles.gallery} style={{ maxWidth: item.width }}><Image src={item.src} width={item.width} height={item.height} alt={item.alt} sizes="(max-width: 767px) 88vw, 680px" /><figcaption>{item.caption}</figcaption></figure>)}
+        {project.gallery?.map(item => <figure key={item.src} className={styles.gallery} style={{ maxWidth: item.width }}><ImageInspector src={item.src} width={item.width} height={item.height} alt={item.alt}><Image src={item.src} width={item.width} height={item.height} alt={item.alt} sizes="(max-width: 767px) 88vw, 680px" /></ImageInspector><figcaption>{item.caption}</figcaption></figure>)}
         <section id="outcome"><p className="eyebrow">{project.status === "Work in progress" ? "Current state" : "Outcome"}</p><h2>What the work makes possible.</h2>{project.impact.map(item => <p key={item}>{item}</p>)}</section>
         <section id="reflection"><p className="eyebrow">Reflection</p><h2>Challenges & learning.</h2><div className={styles.reflection}><div><h3>The challenges</h3><ul>{project.challenges.map(item => <li key={item}>{item}</li>)}</ul></div><div><h3>What I learned</h3><ul>{project.lessons.map(item => <li key={item}>{item}</li>)}</ul></div></div></section>
       </div>

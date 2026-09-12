@@ -2,13 +2,19 @@
 .indexHeader { padding-bottom: 65px; }
 .indexHeader h1 { font-size: clamp(50px, 6vw, 86px); margin-block: 30px; }
 .indexHeader > p:last-child { margin-left: 43%; color: var(--muted); font-size: 17px; }
-.projectIndex article { display: grid; grid-template-columns: 50px 1fr 220px; gap: 40px; padding-block: 40px; border-top: 1px solid var(--line); align-items: center; }
+.projectIndex article { display: grid; grid-template-columns: 36px minmax(0, .8fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); padding-block: 48px; border-top: 1px solid var(--line); align-items: center; }
 .indexNumber { color: var(--muted); font-size: 12px; align-self: start; }
 .indexCopy h2 { margin: 10px 0 18px; font-size: clamp(26px, 3vw, 40px); }
 .indexCopy h2 a:hover { color: var(--accent); }
 .indexCopy > p:not(:first-child) { max-width: 550px; color: var(--muted); font-size: 14px; }
 .status { display: block; margin-top: 18px; font-size: 11px; color: var(--accent); }
-.indexImage img { width: 100%; }
+.indexImage { display: block; overflow: hidden; }
+.indexImage img { width: 100%; margin-inline: auto; transition: transform var(--duration-reveal) var(--ease-out); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .indexImage:hover img { transform: scale(1.015); }
+}
+.indexCopy .indexRole { margin-top: 10px; font-size: 12px; }
+.indexCopy :global(.text-link) { margin-top: 18px; }
 .aboutOpening { display: grid; grid-template-columns: 1fr .44fr; gap: 8%; margin-top: 40px; align-items: center; }
 .aboutOpening h1 { font-size: clamp(52px, 5.3vw, 80px); line-height: 1.05; }
 .aboutOpening h1 span { font-family: var(--font-editorial); font-size: 1.12em; }
@@ -37,12 +43,14 @@
   .indexHeader { padding-bottom: 40px; }
   .indexHeader h1 { font-size: 49px; }
   .indexHeader > p:last-child { margin-left: 0; font-size: 14px; }
-  .projectIndex article { grid-template-columns: 1fr 95px; gap: 16px; padding-block: 26px; }
-  .indexNumber { display: none; }
-  .indexCopy h2 { font-size: 25px; overflow-wrap: anywhere; }
+  .projectIndex article { grid-template-columns: 24px minmax(0, 1fr); gap: 20px 12px; padding-block: 32px; }
+  .indexNumber { display: block; grid-column: 1; grid-row: 2; padding-top: 3px; }
+  .indexCopy { grid-column: 2; grid-row: 2; }
+  .indexCopy h2 { font-size: 28px; overflow-wrap: anywhere; }
   .indexCopy > p:first-child { font-size: 11px; }
-  .indexCopy > p:not(:first-child) { font-size: 12px; }
-  .indexImage { align-self: start; padding-top: 6px; }
+  .indexCopy > p:not(:first-child) { font-size: 14px; }
+  .indexCopy .indexRole { font-size: 12px; }
+  .indexImage { grid-column: 1 / -1; grid-row: 1; }
   .aboutOpening { grid-template-columns: 1fr; gap: 34px; margin-top: 30px; }
   .aboutOpening h1 { font-size: 51px; }
   .aboutOpening > div > p { font-size: 16px; margin-top: 25px; }

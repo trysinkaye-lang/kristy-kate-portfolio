@@ -5,10 +5,10 @@ import styles from "./work.module.css";
 
 export function RBIMFeature() {
   const project = getProject("rbim");
-  return <article data-project="rbim" className={styles.rbim}>
+  return <article id="work-rbim" data-project="rbim" className={styles.rbim}>
     <div className="shell">
       <div className={styles.projectRegister}><span>01 / Flagship software</span><span>{project.status}</span></div>
-      <div className={styles.rbimHeading}><h3>{project.shortTitle}</h3><p>{project.headline}</p></div>
+      <div className={`${styles.rbimHeading} reveal`}><h3>{project.shortTitle}</h3><p>{project.headline}</p></div>
       <div className={styles.rbimStage}>
         <div className={styles.rbimCopy}><p className="eyebrow">Registry of Barangay<br />Inhabitants and Migrants</p><p>{project.overview}</p><ProjectLinks project={project} /></div>
         <div className={styles.rbimScreen}><ProjectScreenshot project={project} /></div>
@@ -20,7 +20,7 @@ export function RBIMFeature() {
 }
 export function AHDISFeature() {
   const project = getProject("ahdis");
-  return <article data-project="ahdis" className={`shell ${styles.ahdis}`}>
+  return <article id="work-ahdis" data-project="ahdis" className={`shell ${styles.ahdis}`}>
     <div className={styles.projectRegister}><span>03 / Information system</span><span>{project.status}</span></div>
     <div className={styles.ahdisGrid}>
       <div><h3>{project.shortTitle}</h3><p className={styles.projectStatement}>{project.headline}</p><p className={styles.description}>{project.overview}</p><ProjectFacts project={project} /><ProjectLinks project={project} /></div>
@@ -30,7 +30,7 @@ export function AHDISFeature() {
 }
 export function ERPFeature() {
   const project = getProject("erp-system");
-  return <article data-project="erp-system" className={styles.erp}><div className="shell">
+  return <article id="work-erp-system" data-project="erp-system" className={styles.erp}><div className="shell">
     <div className={styles.projectRegister}><span>06 / Business information system</span><span>{project.status}</span></div>
     <div className={styles.erpGrid}><div><h3>ERP SYSTEM</h3><p className={styles.projectStatement}>{project.headline}</p><p className={styles.description}>{project.overview}</p><ProjectFacts project={project} /><ProjectLinks project={project} /></div><ProjectScreenshot project={project} /></div>
     <p className={styles.operations}>{["Sales & expenses", "Inventory & purchasing", "HR & payroll", "Accounting & reports"].map(item => <span key={item}>{item}</span>)}</p>

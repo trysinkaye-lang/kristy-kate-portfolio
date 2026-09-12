@@ -122,9 +122,9 @@ const systemProjects: Project[] = [
     features: ["Dashboard layouts", "Web interfaces", "Carousel concepts", "Visual hierarchy", "Responsive UI", "Reusable patterns"],
     challenges: ["Keeping visuals expressive without reducing readability", "Translating system requirements into simple interfaces"],
     lessons: ["Design decisions should map back to user tasks", "Consistency creates speed for both users and developers"],
-    image: "/media/design-placeholder.svg",
-    imageWidth: 1400,
-    imageHeight: 900
+    image: "/media/rbim-dashboard.webp",
+    imageWidth: 640,
+    imageHeight: 341
   }
 ];
 
@@ -141,12 +141,12 @@ const websiteProjects: Project[] = [
     features: ["Interactive architectural introduction", "Reversible construction stages", "Residential and interior portfolio", "Studio and practice information", "Responsive image composition", "Reduced-motion and WebGL fallbacks"],
     challenges: ["Keeping a spatial introduction readable and navigable", "Balancing WebGL rendering with ordinary page performance", "Maintaining a useful experience when motion or WebGL is unavailable"],
     lessons: ["An interactive scene needs an equally clear HTML explanation", "Native scrolling gives visitors control over the pace", "Architecture photography needs space and consistent captions"],
-    image: "/media/co-designs-residence.webp", imageWidth: 817, imageHeight: 631,
-    imageAlt: "Contemporary residence imagery from the C.O. Designs website",
-    imageCaption: "Architecture imagery from the project. Website design and development by Kristy Kate Taylor.",
+    image: "/media/co-designs-preview.webp", imageWidth: 1440, imageHeight: 1000,
+    imageAlt: "C.O. Designs website with an interactive architectural model",
+    imageCaption: "Actual website preview — the completed stage of the interactive architectural study.",
     gallery: [
       { src: "/media/co-designs-interior.webp", alt: "Wellness interior featured in the C.O. Designs website", caption: "The studio’s interior imagery informs the website’s restrained composition.", width: 640, height: 480 },
-      { src: "/media/co-designs-preview.webp", alt: "Actual C.O. Designs live website showing the completed interactive architectural model", caption: "The completed construction stage, captured from the live development preview. The scene uses a conceptual architectural model.", width: 1440, height: 1000 }
+      { src: "/media/co-designs-residence.webp", alt: "Contemporary residence imagery from the C.O. Designs website", caption: "The studio’s residential imagery, used in the website’s project portfolio. Architecture by C.O. Designs; website by Kristy Kate Taylor.", width: 817, height: 631 }
     ],
     architecture: [
       { title: "One source of progress", detail: "A shared construction-progress store connects scroll position, camera composition, and construction stages without React state updates on every frame." },
@@ -167,11 +167,11 @@ const websiteProjects: Project[] = [
     features: ["Photographic hero", "Buyer and seller pathways", "Property gallery", "Agent and local-area context", "Responsive navigation", "Links to existing listing and contact channels"],
     challenges: ["Preserving source content while improving hierarchy", "Composing wide property photographs for narrow screens", "Balancing architectural motion with a useful static experience"],
     lessons: ["Image selection and crop communicate as much as typography", "Responsive art direction needs a deliberate small-screen composition", "A clear route to existing services matters more than decorative interface controls"],
-    image: "/media/marci-landscape.webp", imageWidth: 1600, imageHeight: 1063,
-    imageAlt: "Pahrump landscape photography from the Marci Metzger redesign", imageCaption: "Original project photography used in the real-estate redesign.",
+    image: "/media/marci-preview.webp", imageWidth: 1440, imageHeight: 1000,
+    imageAlt: "Marci Metzger website showing the Pahrump Realtor opening", imageCaption: "Actual deployed redesign — property photography, local context, and clear buyer pathways.",
     gallery: [
       { src: "/media/marci-lifestyle.webp", alt: "House keys in buyer-focused imagery from the Marci Metzger project", caption: "Buyer-focused photography from the source website.", width: 1200, height: 648 },
-      { src: "/media/marci-preview.webp", alt: "Actual Marci Metzger deployed website opening with property photography and realtor information", caption: "The opening viewport, captured from the deployed redesign.", width: 1440, height: 1000 }
+      { src: "/media/marci-landscape.webp", alt: "Pahrump landscape photography from the Marci Metzger redesign", caption: "Original project photography used in the real-estate redesign.", width: 1600, height: 1063 }
     ],
     architecture: [
       { title: "Content separated from layout", detail: "Typed content and gallery records preserve the source copy, destinations, image dimensions, and accessible descriptions independently of the page composition." },

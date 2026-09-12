@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { site } from "@/data/site";
 
 const manrope = localFont({ src: "../public/fonts/manrope-latin.woff2", variable: "--font-manrope", display: "swap", weight: "200 800" });
-const cormorant = localFont({ src: "../public/fonts/cormorant-garamond-latin.woff2", variable: "--font-cormorant", display: "swap", weight: "300 700", preload: false });
+const cormorant = localFont({ src: "../public/fonts/cormorant-garamond-latin.woff2", variable: "--font-cormorant", display: "swap", weight: "300 700" });
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} | Full-Stack Developer & UI/UX Designer`, template: `%s | ${site.name}` },

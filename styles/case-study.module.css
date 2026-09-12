@@ -1,5 +1,5 @@
 .intro { padding-block: 40px 55px; }
-.back { font-size: 12px; color: var(--muted); }
+.back { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; color: var(--muted); }
 .back:hover { color: var(--accent); }
 .register { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin-block: 48px 26px; }
 .register > span { font-size: 12px; color: var(--accent); }
@@ -11,12 +11,13 @@
 .facts dt { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
 .facts dd { font-size: 13px; line-height: 1.8; }
 .visual { padding-block: 50px; background: var(--surface); }
-.caseStudy[data-case="rbim"] .visual, .caseStudy[data-case="lacomus"] .visual { background: var(--inverse); color: var(--inverse-text); }
+.caseStudy[data-case="rbim"] .visual, .caseStudy[data-case="lacomus"] .visual { background: var(--inverse); color: var(--inverse-text); --muted: var(--inverse-muted); }
 .caseStudy[data-case="co-designs"] .intro h1 { letter-spacing: -.025em; }
 .caseStudy[data-case="marci-metzger"] .intro h1, .caseStudy[data-case="lacomus"] .intro h1 { font-family: var(--font-editorial); font-size: clamp(54px, 8vw, 112px); }
 .body { display: grid; grid-template-columns: .35fr 1fr; gap: 12%; padding-block: 100px; }
 .contents { position: sticky; top: 125px; align-self: start; }
-.contents nav { display: grid; gap: 15px; margin-top: 28px; font-size: 12px; color: var(--muted); }
+.contents nav { display: grid; margin-top: 22px; font-size: 12px; color: var(--muted); }
+.contents nav a { display: flex; align-items: center; min-height: 44px; border-bottom: 1px solid var(--line); }
 .contents a:hover { color: var(--accent); }
 .narrative { max-width: 760px; }
 .narrative > section { margin-bottom: 70px; }

@@ -1,98 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "./PackagePricingPage.module.css";
 
-const currencyMeta = {
-  PHP: { label: "Philippine Peso" },
-  USD: { label: "US Dollar" },
-  EUR: { label: "Euro" },
-  GBP: { label: "British Pound" },
-  CAD: { label: "Canadian Dollar" },
-  AUD: { label: "Australian Dollar" },
-  SGD: { label: "Singapore Dollar" },
-  JPY: { label: "Japanese Yen" },
-  NZD: { label: "New Zealand Dollar" },
-  CHF: { label: "Swiss Franc" },
-  INR: { label: "Indian Rupee" },
-  KRW: { label: "South Korean Won" },
-  MYR: { label: "Malaysian Ringgit" },
-  THB: { label: "Thai Baht" },
-} as const;
-
-type CurrencyCode = keyof typeof currencyMeta;
-
-type PackageDefinition = {
-  name: string;
-  priceMin: number;
-  priceMax?: number;
-  description: string;
-  note?: string;
-  features: string[];
-};
-
-const packages: PackageDefinition[] = [
-  {
-    name: "Basic",
-    priceMin: 15000,
-    description: "A focused website for individuals, professionals, and small brands that need a clear, credible online presence.",
-    features: [
-      "Up to 5 pages",
-      "Responsive desktop, tablet and mobile design",
-      "Home, About, Expertise / Services and Contact",
-      "Project, product or publication showcase",
-      "Basic contact form",
-      "Essential SEO setup",
-      "Basic performance optimization",
-      "Deployment setup",
-      "1 revision round",
-    ],
-  },
-  {
-    name: "Professional",
-    priceMin: 25000,
-    note: "Most flexible starting point",
-    description: "For established professionals, authors, consultants and brands that need stronger presentation, richer content and polished interaction.",
-    features: [
-      "Up to 7–8 pages",
-      "Fully custom responsive design",
-      "Expanded project, product or publication showcase",
-      "Up to 5 books / featured works",
-      "Smooth animations and interactions",
-      "Contact form and social integrations",
-      "Google Analytics setup",
-      "SEO basics and image optimization",
-      "Deployment and launch support",
-      "2 revision rounds",
-    ],
-  },
-  {
-    name: "Premium",
-    priceMin: 35000,
-    priceMax: 40000,
-    description: "A fully custom experience for clients who need richer content, advanced interaction, individual content pages and easier long-term management.",
-    features: [
-      "Full custom website design and development",
-      "Advanced animations and micro-interactions",
-      "Individual book, project or content pages",
-      "CMS / content management setup",
-      "Advanced SEO configuration",
-      "Analytics and Search Console setup",
-      "Premium UI/UX refinement",
-      "Advanced performance optimization",
-      "Extended launch support",
-      "3 revision rounds",
-    ],
-  },
-];
-
-function isCurrencyCode(value: string): value is CurrencyCode {
-  return value in currencyMeta;
-}
+import { currencyMeta, packages, isCurrencyCode, type CurrencyCode, type PackageDefinition } from "@/data/packages";
 
 function formatMoney(amount: number, currency: CurrencyCode) {
-  return new Intl.NumberFormat(undefined, {
+  return new Intl.NumberFormat("en-PH", {
     style: "currency",
     currency,
     currencyDisplay: "narrowSymbol",
@@ -105,13 +20,15 @@ export function PackagePricingPage() {
   const [rates, setRates] = useState<Record<string, number>>({});
   const [rateDate, setRateDate] = useState<string | null>(null);
   const [rateStatus, setRateStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [ratesRequested, setRatesRequested] = useState(false);
 
   useEffect(() => {
+    if (!ratesRequested) return;
     const controller = new AbortController();
     async function loadRates() {
       try {
         const response = await fetch("/api/exchange-rates", {
-          signal: controller.signal,
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10_000)]),
           headers: { Accept: "application/json" },
         });
         if (!response.ok) throw new Error("Unable to load rates");
@@ -119,32 +36,36 @@ export function PackagePricingPage() {
         setRates(data.rates ?? {});
         setRateDate(data.date ?? null);
         setRateStatus("ready");
-      } catch (error) {
-        if ((error as Error).name === "AbortError") return;
+      } catch {
+        if (controller.signal.aborted) return;
         setRateStatus("error");
       }
     }
     void loadRates();
     return () => controller.abort();
-  }, []);
+  }, [ratesRequested]);
 
   const rate = currency === "PHP" ? 1 : rates[currency];
-  const selectedCurrency = useMemo(() => currencyMeta[currency], [currency]);
+  const selectedCurrency = currencyMeta[currency];
 
   const changeCurrency = (value: string) => {
     if (!isCurrencyCode(value)) return;
     setCurrency(value);
+    if (value !== "PHP") setRatesRequested(true);
   };
 
   const displayPrice = (item: PackageDefinition) => {
-    if (!rate) return "Rate unavailable";
+    if (!Number.isFinite(rate) || rate <= 0) {
+      const base = formatMoney(item.priceMin, "PHP");
+      return `${base}${item.priceMax ? `–${formatMoney(item.priceMax, "PHP")}` : ""} PHP`;
+    }
     const min = formatMoney(Math.round(item.priceMin * rate), currency);
     if (!item.priceMax) return min;
     return `${min}–${formatMoney(Math.round(item.priceMax * rate), currency)}`;
   };
 
   return (
-    <main id="main-content" className={styles.page}>
+    <main id="main-content" tabIndex={-1} className={styles.page}>
       <section className={`shell ${styles.hero}`} aria-labelledby="packages-title">
         <div className={styles.heroIndex}>
           <p className="eyebrow">Website commissions</p>

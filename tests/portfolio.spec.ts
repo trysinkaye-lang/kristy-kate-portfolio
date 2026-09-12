@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "lacomus", "erp-system", "design-systems"];
-const routes = ["/", "/projects", "/about", "/contact", ...projectSlugs.map((slug) => `/projects/${slug}`)];
+const routes = ["/", "/projects", "/about", "/contact", "/packages", ...projectSlugs.map((slug) => `/projects/${slug}`)];
 
 test("all pages load with one h1, complete images, and no JavaScript or resource errors", async ({ page }) => {
   const errors: string[] = [];
@@ -13,6 +13,7 @@ test("all pages load with one h1, complete images, and no JavaScript or resource
     expect(response!.status(), route).toBeLessThan(400);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     await page.locator("footer").scrollIntoViewIfNeeded();
+    await expect(page.getByRole("button", { name: /Use (light|dark) mode/ })).toBeEnabled();
     await page.evaluate(async () => { for (const image of Array.from(document.images)) { image.loading = "eager"; await image.decode(); } });
     const images = await page.locator("img").evaluateAll((elements) => elements.every((el) => (el as HTMLImageElement).naturalWidth > 0));
     expect(images, route).toBe(true);
