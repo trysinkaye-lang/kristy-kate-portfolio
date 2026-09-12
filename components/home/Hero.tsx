@@ -8,7 +8,7 @@ export function Hero() {
     <section id="home" className={`shell ${styles.hero}`} aria-labelledby="identity">
       <div className={styles.heroTop}>
         <p className="eyebrow">Developer & designer</p>
-        <p className="caption"><span className={styles.portfolioLabel}>Independent portfolio <span aria-hidden="true">/</span></span> Philippines</p>
+        <p className="caption">Philippines</p>
       </div>
       <div className={styles.heroComposition}>
         <h1 id="identity" className={styles.identity}>
@@ -19,9 +19,8 @@ export function Hero() {
           <div className={styles.roles}>
             <p>Full-Stack Developer</p>
             <p>UI/UX Designer</p>
-            <p>Creative Developer</p>
           </div>
-          <p className={styles.heroNote}>I build information systems and websites—from the structure of the data to the details people use.</p>
+          <p className={styles.heroNote}>I build practical systems and distinctive websites.</p>
         </div>
         <figure className={styles.portrait}>
           <div className={styles.portraitFrame}>
@@ -31,8 +30,8 @@ export function Hero() {
         </figure>
       </div>
       <div className={styles.heroBottom}>
-        <Link href="#work" className={styles.workButton}>View selected work <span aria-hidden="true">↓</span></Link>
-        <p className={styles.availability}>Open to freelance, contract<br /> & full-time opportunities</p>
+        <Link href="#work" className={styles.workButton}>View work <span aria-hidden="true">↓</span></Link>
+        <p className={styles.availability}>Available for freelance,<br />contract & full-time work</p>
         <Link href="/contact" className="text-link">Let’s talk <span aria-hidden="true">↗</span></Link>
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
