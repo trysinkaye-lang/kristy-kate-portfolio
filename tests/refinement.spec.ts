@@ -20,8 +20,8 @@ test("currency requests wait for selection, run once, and preserve base prices o
 
 test("image inspection supports keyboard, actual-size viewing, and return focus", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
-  const trigger = page.locator('#work-rbim a[aria-haspopup="dialog"]');
+  await page.goto("/projects/rbim");
+  const trigger = page.locator('a[aria-haspopup="dialog"]').first();
   await trigger.focus();
   await page.keyboard.press("Enter");
   const dialog = page.getByRole("dialog", { name: "RBIM interface screenshot" });
