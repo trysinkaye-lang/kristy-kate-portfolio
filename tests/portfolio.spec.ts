@@ -91,11 +91,12 @@ test("reduced motion keeps content and interactions available", async ({ page })
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator('[data-project="rbim"]')).toBeVisible();
+  const gallery = page.getByRole("navigation", { name: "Selected projects gallery" });
+  await expect(gallery.locator('a[href="/projects/rbim"]').first()).toBeVisible();
   await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
   const animations = await page.evaluate(() => document.getAnimations().filter((animation) => animation.playState === "running").length);
   expect(animations).toBe(0);
-  await page.getByRole("link", { name: "Read AHDIS case study" }).click();
+  await gallery.locator('a[href="/projects/ahdis"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("AHDIS");
 });
 
