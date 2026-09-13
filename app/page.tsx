@@ -1,6 +1,4 @@
 import { Hero } from "@/components/home/Hero";
-import { RBIMFeature, AHDISFeature } from "@/components/home/SystemWork";
-import { ArchitectureFeature, RealEstateFeature } from "@/components/home/WebsiteWork";
 import { ProjectDriftWall } from "@/components/home/ProjectDriftWall";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeCapabilities } from "@/components/home/HomeCapabilities";
@@ -26,14 +24,10 @@ export default function Home() {
             <h2 id="work-title">
               Selected work<span className={styles.workCount}> / 04</span>
             </h2>
-            <p>Four real projects, shown before the case-study detail.</p>
+            <p>Four projects. One visual index. Open any tile for the full case study.</p>
           </div>
         </div>
         <ProjectDriftWall />
-        <RBIMFeature />
-        <ArchitectureFeature />
-        <AHDISFeature />
-        <RealEstateFeature />
       </section>
       <HomeAbout />
       <HomeCapabilities />
