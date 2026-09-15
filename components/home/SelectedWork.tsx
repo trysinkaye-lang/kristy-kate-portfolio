@@ -15,7 +15,7 @@ export function SelectedWork() {
             <h2 id="selected-work-title" className="v2-heading mt-4">Systems built for real-world operations.</h2>
           </div>
           <p className="home-section-lede">
-            RBIM and AHDIS show how I turn complex data and day-to-day workflows into reliable software, with structured records, validation, reporting, and desktop-first usability built in.
+            RBIM Hybrid and AHDIS show how I turn complex requirements into reliable software across web, desktop, databases, validation, reporting, role-based access, and production-focused delivery.
           </p>
         </div>
 
