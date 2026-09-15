@@ -40,6 +40,11 @@ const categoryMeta: Record<keyof typeof stack, { description: string; capabiliti
     capabilities: ["Desktop Apps", "Offline Workflows", "Native Systems"],
     icon: <MonitorCog size={19} strokeWidth={1.7} />,
   },
+  "Deployment / Delivery": {
+    description: "Preparing applications for dependable previews, production releases, automation and server delivery.",
+    capabilities: ["Containerization", "Web Deployment", "CI / CD"],
+    icon: <ServerCog size={19} strokeWidth={1.7} />,
+  },
   "Development Tools": {
     description: "The tools I rely on to build, version, validate and ship software with a reliable workflow.",
     capabilities: ["Version Control", "Build Workflow", "Automation"],
@@ -74,6 +79,9 @@ const techMeta: Record<string, TechMeta> = {
   Tauri: { tag: "Desktop Framework" },
   Rust: { tag: "Language" },
   "PHP Desktop": { tag: "Desktop Runtime" },
+  Docker: { tag: "Containerization" },
+  Vercel: { tag: "Web Deployment" },
+  Nginx: { tag: "Web Server" },
   Git: { tag: "Version Control" },
   GitHub: { tag: "Repository" },
   "VS Code": { tag: "Editor" },

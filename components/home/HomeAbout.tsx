@@ -11,21 +11,22 @@ export function HomeAbout() {
         <div>
           <p className="v2-kicker">About</p>
           <h2 id="home-about-title" className="v2-heading mt-4">
-            Building practical systems around real workflows.
+            Building practical systems from workflow to production.
           </h2>
         </div>
 
         <div className="home-about-copy">
           <p>
-            I’m a software developer and UI/UX designer with a Bachelor of
-            Science in Information Technology. I focus on information systems,
-            offline-first applications, usable interfaces, and reliable data
-            workflows.
+            I’m a full-stack software developer and UI/UX designer with a
+            Bachelor of Science in Information Technology. I work across web,
+            desktop, databases, APIs, and deployment, with a strong focus on
+            information systems and offline-first workflows.
           </p>
           <p>
-            My work combines requirements analysis, database design,
-            application development, and interface design so complex tools feel
-            organized and practical for the people using them.
+            Recent work includes RBIM Hybrid: an offline-to-online population
+            information platform with role-scoped web portals, PostgreSQL-backed
+            services, desktop synchronization, validation, reporting, and
+            production deployment hardening.
           </p>
           <Link href="/about" className="v2-button mt-8">
             More About Me <ArrowUpRight size={16} />

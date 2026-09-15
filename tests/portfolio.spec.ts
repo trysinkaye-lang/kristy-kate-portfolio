@@ -110,7 +110,7 @@ test.describe('Kristy Kate Portfolio Interactive Automation', () => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await page.goto('/projects');
 
-      const screenshot = page.getByRole('img', { name: 'RBIM interface screenshot' }).first();
+      const screenshot = page.getByRole('img', { name: 'RBIM Hybrid interface screenshot' }).first();
       await expect(screenshot).toBeVisible();
 
       const dimensions = await screenshot.evaluate((image: HTMLImageElement) => ({
