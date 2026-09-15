@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Full-Stack Developer / UI/UX Designer / Creative Developer",
-  headline: "Kristy Kate Taylor is a full-stack developer and UI/UX designer in the Philippines, building offline-first information systems, desktop applications, and custom websites.",
+  title: "Full-Stack Software Developer / UI/UX Designer / Creative Developer",
+  headline: "I build production-focused information systems, web applications, desktop software, and custom websites with reliable data workflows, practical architecture, and clear user experiences.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
@@ -12,9 +12,9 @@ export const site = {
 
 export const services = [
   { title: "Full-stack development", description: "The interface, the application logic, and the data behind it.", items: ["Frontend architecture", "Backend development", "REST APIs", "Authentication", "Database integration", "Application architecture"] },
-  { title: "Software & information systems", description: "Practical tools for records, reporting, and day-to-day operations.", items: ["Desktop applications", "Offline-first systems", "Business systems", "Database workflows", "Reporting", "Validation", "Automation"] },
+  { title: "Software & information systems", description: "Practical tools for records, reporting, offline-first workflows, and day-to-day operations.", items: ["Desktop applications", "Offline-first systems", "Business systems", "Database workflows", "Reporting", "Validation", "Automation"] },
   { title: "UI/UX & website design", description: "Structure and visual direction, shaped around what people need to do.", items: ["Interface design", "Responsive design", "Interaction design", "Design systems", "Web experiences", "Dashboard UX"] },
-  { title: "Creative development", description: "Interaction and motion that help a story take shape on screen.", items: ["GSAP", "Three.js", "WebGL", "Motion systems", "Interactive prototypes", "Creative frontend"] },
+  { title: "Creative development", description: "Interaction and motion that help a story take shape on screen without getting in the way of usability.", items: ["GSAP", "Three.js", "WebGL", "Motion systems", "Interactive prototypes", "Creative frontend"] },
 ];
 
 export const stack = {
