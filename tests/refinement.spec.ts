@@ -55,7 +55,7 @@ test("Drift Wall links to every selected case study and stays static without mot
   const wall = page.getByRole("navigation", { name: "Selected projects gallery" });
   await expect(wall).toBeVisible();
   for (const href of ["/projects/rbim", "/projects/co-designs", "/projects/ahdis", "/projects/marci-metzger"]) {
-    await expect(wall.locator(`a[href="${href}"]`).first()).toBeVisible();
+    await expect(wall.locator(`a[href="${href}"]:visible`).first()).toBeVisible();
   }
   const animationName = await page.locator("[data-drift-column]").first().evaluate(element => getComputedStyle(element).animationName);
   expect(animationName).toBe("none");

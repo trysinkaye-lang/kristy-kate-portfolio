@@ -27,6 +27,55 @@ ul { padding-left: 1.2em; }
 main { min-height: 65vh; }
 article[id], section[id] { scroll-margin-top: 0; }
 
+/* Keep small accent text WCAG-readable on light surfaces without changing the visual accent used for fills and large display type. */
+html:not(.dark) [class*="_workCount"],
+html:not(.dark) [class*="_indexNumber"],
+html:not(.dark) [class*="_status"],
+html:not(.dark) [class*="_register"] > span,
+html:not(.dark) [class*="_heroIndex"] .eyebrow,
+html:not(.dark) [class*="_note"],
+html:not(.dark) [class*="_disclaimer"] .eyebrow,
+html:not(.dark) [class*="_process"] .eyebrow {
+  color: #a33317 !important;
+}
+
+/* The orange contact panel needs fully opaque dark text for AA contrast. */
+[class*="home-module"][class*="_contact"] .eyebrow,
+[class*="home-module"][class*="_email"] {
+  color: var(--accent-ink) !important;
+}
+
+/* The Drift Wall is an inverse surface, so its readable accent changes with the active theme. */
+html:not(.dark) [class*="ProjectDriftWall"] .eyebrow { color: #ff704d !important; }
+html.dark [class*="ProjectDriftWall"] .eyebrow { color: #9f3216 !important; }
+
+/* Keep interactive cards stationary; animate their media instead so links remain stable click targets. */
+[data-drift-column] {
+  animation: none !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  [data-drift-column] [data-spotlight] img {
+    animation: drift-media 7s ease-in-out infinite alternate;
+  }
+
+  [data-drift-column]:nth-child(even) [data-spotlight] img {
+    animation-direction: alternate-reverse;
+    animation-duration: 8.5s;
+  }
+
+  [data-drift-column] [data-spotlight]:hover img,
+  [data-drift-column] [data-spotlight]:focus-visible img {
+    animation-play-state: paused;
+  }
+
+  @keyframes drift-media {
+    from { translate: 0 -4px; }
+    to { translate: 0 4px; }
+  }
+}
+
 /* React Bits-inspired motion language: reveal, spotlight and magnetic response. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-motion-ready="true"] [data-project],
