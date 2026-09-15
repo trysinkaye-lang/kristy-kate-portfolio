@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Website Designer & Developer · Full-Stack Developer",
-  headline: "I design and develop modern websites, web applications, desktop systems, and digital experiences built around real-world needs.",
+  title: "Full-Stack Software Developer · UI/UX Designer",
+  headline: "I build production-focused information systems, web applications, desktop software, and websites with reliable data workflows, practical architecture, and clear user experiences.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
@@ -12,10 +12,10 @@ export const site = {
 };
 
 export const services = [
-  { title: "Website Design & Development", items: ["Responsive Websites", "UI/UX Design", "Interaction Design", "Frontend Development", "Creative Development", "Design Systems"] },
-  { title: "Software Development", items: ["Information Systems", "Desktop Applications", "Business Systems", "Database Applications", "System Automation", "Application Development"] },
-  { title: "Full-Stack Development", items: ["Web Applications", "Backend Development", "REST APIs", "Authentication", "Database Integration", "Application Architecture"] },
-  { title: "Creative Technology", items: ["GSAP Motion", "Three.js", "WebGL", "Higgsfield Visuals", "Interactive Prototypes", "AI-assisted Workflows"] },
+  { title: "Software & Information Systems", items: ["Information Systems", "Offline-first Applications", "Business Systems", "Database Applications", "Workflow Automation", "Application Development"] },
+  { title: "Full-Stack Development", items: ["Web Applications", "Frontend Development", "Backend Development", "REST APIs", "Authentication", "Database Integration"] },
+  { title: "Website Design & Development", items: ["Responsive Websites", "UI/UX Design", "Interaction Design", "Creative Development", "Design Systems", "Performance-focused Interfaces"] },
+  { title: "Deployment & Delivery", items: ["Docker", "Vercel", "GitHub Actions", "Production Configuration", "Release Verification", "Technical Documentation"] },
 ];
 
 export const stack = {
@@ -23,13 +23,14 @@ export const stack = {
   Backend: ["PHP", "Node.js", "REST APIs"],
   Database: ["PostgreSQL", "SQLite", "MySQL"],
   "Desktop / Applications": ["Tauri", "Rust", "PHP Desktop"],
-  "Development Tools": ["Git", "GitHub", "VS Code", "npm", "GitHub Actions"],
+  "Deployment / Delivery": ["Docker", "Vercel", "GitHub Actions", "Nginx"],
+  "Development Tools": ["Git", "GitHub", "VS Code", "npm"],
   "Design Tools": ["Figma", "Canva"]
 };
 
 export const skills = {
-  Development: ["Software Development", "Web Development", "Database Design", "REST API Development", "Debugging", "System Architecture", "Git", "Application Security", "Responsive Development"],
+  Development: ["Full-Stack Development", "Software Development", "Web Development", "Database Design", "REST API Development", "Debugging", "System Architecture", "Application Security", "Responsive Development"],
+  Systems: ["Offline-first Architecture", "Role-based Access", "Data Validation", "Workflow Design", "Sync Workflows", "Production Hardening"],
   Design: ["Website Design", "UI Design", "UX Design", "Interaction Design", "Dashboard Design", "Layout Design", "Visual Communication", "Design Systems"],
-  Creative: ["GSAP", "Three.js", "WebGL", "Higgsfield", "Motion Design", "Interactive Prototyping"],
-  Professional: ["Problem Solving", "Technical Documentation", "Requirements Analysis", "Communication", "Research", "Continuous Learning"]
+  Professional: ["Problem Solving", "Technical Documentation", "Requirements Analysis", "Testing & Verification", "Communication", "Research", "Continuous Learning"]
 };
