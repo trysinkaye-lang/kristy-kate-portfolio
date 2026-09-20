@@ -27,7 +27,6 @@ export function ProjectScreenshot({
           height={project.imageHeight}
           preload={priority}
           sizes={sizes}
-          unoptimized
           draggable={false}
         />
       </ImageInspector>

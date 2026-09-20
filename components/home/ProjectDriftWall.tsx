@@ -42,7 +42,7 @@ const columns: DriftTile[][] = [
       width: 1440,
       height: 1000,
       title: "C.O. Designs",
-      category: "Creative development",
+      category: "Personal project · Ongoing",
     },
     {
       href: "/projects/co-designs",
@@ -51,7 +51,7 @@ const columns: DriftTile[][] = [
       width: 640,
       height: 480,
       title: "C.O. Designs",
-      category: "Interior portfolio",
+      category: "Architecture portfolio",
     },
   ],
   [
@@ -133,7 +133,6 @@ export function ProjectDriftWall() {
                     width={tile.width}
                     height={tile.height}
                     sizes="(max-width: 767px) 44vw, (max-width: 1100px) 38vw, 24vw"
-                    unoptimized
                   />
                   <span className={styles.meta}>
                     <strong>{tile.title}</strong>

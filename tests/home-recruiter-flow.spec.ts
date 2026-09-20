@@ -16,8 +16,9 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   for (const slug of selectedSlugs) {
     await expect(gallery.locator(`a[href="/projects/${slug}"]`).first()).toBeVisible();
   }
+  await expect(gallery.locator('a[href="/projects/co-designs"]').first()).toContainText("Personal project · Ongoing");
 
-  await hero.getByRole("link", { name: "Explore work" }).click();
+  await hero.getByRole("link", { name: "View case studies" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
 
@@ -32,8 +33,13 @@ test("no fabricated resume link and project status stays explicit", async ({ pag
 
   await page.goto("/projects");
   const coDesigns = page.locator("article").filter({ has: page.locator('a[href="/projects/co-designs"]') }).first();
-  await expect(coDesigns).toContainText("In development");
+  await expect(coDesigns).toContainText("Personal project · Ongoing");
   await expect(page.getByText("LACOMUS", { exact: true })).toHaveCount(0);
+
+  await page.goto("/projects/co-designs");
+  await expect(page.getByText("Project type", { exact: true })).toBeVisible();
+  await expect(page.getByText("Personal project", { exact: true })).toBeVisible();
+  await expect(page.getByText("Ongoing", { exact: true })).toBeVisible();
 });
 
 for (const [width, height] of [[375,812],[390,844],[430,932],[768,1024],[1024,1366],[1366,768],[1440,900],[1536,864],[1920,1080]]) {
@@ -55,7 +61,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.getByText("Full-stack development · UI/UX · Information systems", { exact: true })).toBeVisible();
+  await expect(page.getByText("Full-stack development · Front-end engineering · UI/UX", { exact: true })).toBeVisible();
   await page.getByRole("navigation", { name: "Selected projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
