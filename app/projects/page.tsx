@@ -12,6 +12,10 @@ export const metadata = pageMetadata(
 
 const visibleProjects = projects.filter(project => project.slug !== "lacomus");
 
+function getDisplayStatus(project: (typeof visibleProjects)[number]) {
+  return project.slug === "co-designs" ? "Personal project · Ongoing" : project.status;
+}
+
 export default function ProjectsPage() {
   return (
     <main id="main-content" tabIndex={-1} className={`shell ${styles.page}`}>
@@ -32,7 +36,7 @@ export default function ProjectsPage() {
                 </TrackedLink>
               </h2>
               <p>{project.headline ?? project.overview}</p>
-              <span className={styles.status}>{project.status}</span>
+              <span className={styles.status}>{getDisplayStatus(project)}</span>
               <TrackedLink eventName="project_open" eventData={{ project: project.slug, source: "index_cta" }} href={`/projects/${project.slug}`} className="text-link" aria-label={`Read ${project.shortTitle} case study`}>
                 Explore project <span aria-hidden="true">↗</span>
               </TrackedLink>
@@ -45,7 +49,6 @@ export default function ProjectsPage() {
                 height={project.imageHeight}
                 style={{ maxWidth: project.imageWidth }}
                 sizes="(max-width: 767px) 88vw, (max-width: 1100px) 44vw, 600px"
-                unoptimized
                 draggable={false}
               />
             </TrackedLink>
