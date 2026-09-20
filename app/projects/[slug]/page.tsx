@@ -36,14 +36,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (index < 0) notFound();
   const project = visibleProjects[index];
   const next = visibleProjects[(index + 1) % visibleProjects.length];
+  const projectType = project.slug === "co-designs" ? "Personal project" : null;
+  const displayStatus = project.slug === "co-designs" ? "Ongoing" : project.status;
 
   return <main id="main-content" tabIndex={-1} className={styles.caseStudy} data-case={slug}>
     <header className={`shell ${styles.intro}`}>
       <Link href="/projects" className={styles.back}>← All work</Link>
-      <div className={styles.register}><p className="eyebrow">{project.category.join(" / ")}</p><span>{project.status}</span></div>
+      <div className={styles.register}><p className="eyebrow">{project.category.join(" / ")}</p><span>{projectType ? `${projectType} · ${displayStatus}` : displayStatus}</span></div>
       <h1>{project.shortTitle}</h1>
       <div className={styles.introCopy}><h2>{project.headline}</h2><div><p>{project.overview}</p><ProjectLinks project={project} source="case_study" caseStudy={false} /></div></div>
-      <dl className={styles.facts}><div><dt>Role</dt><dd>{project.role}</dd></div><div><dt>{project.year ? "Year / status" : "Status"}</dt><dd>{project.year ? `${project.year} / ` : ""}{project.status}</dd></div><div><dt>Selected technology</dt><dd>{project.technologies.join(" / ")}</dd></div></dl>
+      <dl className={styles.facts}>
+        <div><dt>Role</dt><dd>{project.role}</dd></div>
+        {projectType ? <div><dt>Project type</dt><dd>{projectType}</dd></div> : null}
+        <div><dt>{project.year ? "Year / status" : "Status"}</dt><dd>{project.year ? `${project.year} / ` : ""}{displayStatus}</dd></div>
+        <div><dt>Selected technology</dt><dd>{project.technologies.join(" / ")}</dd></div>
+      </dl>
     </header>
     <div className={styles.visual}><div className="shell"><ProjectScreenshot project={project} priority sizes={`(max-width: 767px) 88vw, ${project.imageWidth}px`} /></div></div>
     <div className={`shell ${styles.body}`}><aside className={styles.contents}><p className="eyebrow">Inside the project</p><nav aria-label="Case study contents"><a href="#context">Context & problem</a><a href="#approach">The approach</a><a href="#workflows">Key workflows</a>{project.architecture ? <a href="#architecture">Technical decisions</a> : null}<a href="#outcome">Outcome</a><a href="#reflection">Challenges & learning</a></nav></aside>
@@ -53,7 +60,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <section id="workflows"><p className="eyebrow">Inside the experience</p><h2>Key workflows & features.</h2><ul className={styles.features}>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul></section>
         {project.architecture ? <section id="architecture"><p className="eyebrow">The engineering</p><h2>Structure behind the screen.</h2><div className={styles.architecture}>{project.architecture.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div></section> : null}
         {project.gallery?.map(item => <figure key={item.src} className={styles.gallery} style={{ maxWidth: item.width }}><ImageInspector src={item.src} width={item.width} height={item.height} alt={item.alt}><Image src={item.src} width={item.width} height={item.height} alt={item.alt} sizes="(max-width: 767px) 88vw, 680px" /></ImageInspector><figcaption>{item.caption}</figcaption></figure>)}
-        <section id="outcome"><p className="eyebrow">{project.status === "Work in progress" ? "Current state" : "Outcome"}</p><h2>What the work makes possible.</h2>{project.impact.map(item => <p key={item}>{item}</p>)}</section>
+        <section id="outcome"><p className="eyebrow">{displayStatus === "Ongoing" || displayStatus === "Work in progress" ? "Current state" : "Outcome"}</p><h2>What the work makes possible.</h2>{project.impact.map(item => <p key={item}>{item}</p>)}</section>
         <section id="reflection"><p className="eyebrow">Reflection</p><h2>Challenges & learning.</h2><div className={styles.reflection}><div><h3>The challenges</h3><ul>{project.challenges.map(item => <li key={item}>{item}</li>)}</ul></div><div><h3>What I learned</h3><ul>{project.lessons.map(item => <li key={item}>{item}</li>)}</ul></div></div></section>
       </div>
     </div>
