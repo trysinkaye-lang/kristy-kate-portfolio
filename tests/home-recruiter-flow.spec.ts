@@ -7,8 +7,8 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web applications");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Information systems");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("development.");
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.getByText("Portfolio / 2026")).toBeVisible();
   await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
@@ -20,7 +20,7 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
     await expect(gallery.locator(`a[href="/projects/${slug}"]`).first()).toBeVisible();
   }
 
-  await hero.getByRole("link", { name: "Explore projects" }).click();
+  await hero.getByRole("link", { name: "View projects" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
 
@@ -59,7 +59,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("Desktop software");
+  await expect(page.locator("#identity")).toContainText("development.");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -116,7 +116,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("Desktop software");
+    await expect(page.locator("#identity")).toContainText("development.");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#work img").evaluateAll(async images => {
@@ -155,9 +155,26 @@ test("hero avoids personal photo and oversized name while keeping navigation", a
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web applications");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Kristy Kate");
-  await expect(hero.getByRole("link", { name: "Explore projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "View projects" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
   await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
+});
+
+
+test("loading intro is visible only as a temporary nonblocking visual transition", async ({ page }) => {
+  await page.goto("/");
+  const splash = page.locator("[data-intro-splash]");
+  await expect(splash).toHaveAttribute("aria-hidden", "true");
+  await expect(splash).toHaveCSS("pointer-events", "none");
+  await expect(splash).toHaveCSS("visibility", "hidden", { timeout: 5000 });
+  await expect(page.locator("#identity")).toBeVisible();
+});
+
+test("prefers-reduced-motion skips the intro animation", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("[data-intro-splash]")).toHaveCSS("display", "none");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
 });
