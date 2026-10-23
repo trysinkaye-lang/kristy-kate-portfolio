@@ -11,6 +11,9 @@ import { ProjectLinks } from "@/components/projects/ProjectLinks";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "@/styles/case-study.module.css";
 
+// Reject unpublished project slugs with an actual HTTP 404, including direct requests.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return publicProjects.map(project => ({ slug: project.slug }));
 }
