@@ -8,7 +8,7 @@ export function HomeCTA() {
       <div className={["shell",styles.contactInner].join(" ")}>
         <div>
           <p className={styles.marker}>Contact / 04</p>
-          <h2 id="contact-title">Have a project to discuss?</h2>
+          <h2 id="contact-title">Get in touch.</h2>
         </div>
         <div className={styles.contactLinks}>
           <TrackedLink href="/contact" eventName="contact_start"
