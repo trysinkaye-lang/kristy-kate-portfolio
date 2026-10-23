@@ -7,11 +7,11 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("From complexity");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("to clarity.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
   await expect(hero.getByRole("img", { name: "Professional portrait of Kristy Kate Taylor" })).toBeVisible();
-  await expect(hero.getByText("Welcome to my portfolio")).toBeVisible();
-  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
+  await expect(hero.getByText("Software development / Desktop, web & data")).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Contact me" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
@@ -59,7 +59,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#home").getByText(/I.m Kristy/)).toBeVisible();
+  await expect(page.locator("#identity")).toContainText("Kristy Kate");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -108,5 +108,22 @@ test("directory screenshots stay modest at desktop widths", async ({ page }) => 
   for (const image of await images.all()) {
     const width = await image.evaluate(el => el.getBoundingClientRect().width);
     expect(width).toBeLessThanOrEqual(475);
+  }
+});
+
+
+test("homepage evidence is specific, images load, and small screens do not overflow", async ({ page }) => {
+  for (const width of [375, 768, 1440]) {
+    await page.setViewportSize({width, height:900});
+    await page.goto("/");
+    await expect(page.locator("#identity")).toContainText("Kristy Kate");
+    await expect(page.getByText(/RBIM, an offline and online population registry/)).toBeVisible();
+    await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
+    const images = await page.locator("#home img, #work img").evaluateAll(images =>
+      images.every(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)
+    );
+    expect(images).toBe(true);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
   }
 });
