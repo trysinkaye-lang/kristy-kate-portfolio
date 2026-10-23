@@ -7,9 +7,11 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("useful software.");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("And make it feel effortless.");
-  await expect(hero.getByRole("img", { name: "Kristy Kate Taylor", exact: true })).toHaveCount(0);
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("From complexity");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("to clarity.");
+  await expect(hero.getByRole("img", { name: "Professional portrait of Kristy Kate Taylor" })).toBeVisible();
+  await expect(hero.getByText("Welcome to my portfolio")).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
@@ -18,7 +20,7 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
     await expect(gallery.locator(`a[href="/projects/${slug}"]`).first()).toBeVisible();
   }
 
-  await hero.getByRole("link", { name: "View projects" }).click();
+  await hero.getByRole("link", { name: "Explore projects" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
 
