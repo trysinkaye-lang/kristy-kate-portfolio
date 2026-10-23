@@ -7,51 +7,52 @@ export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.topline].join(" ")}>
-        <p>Kristy Kate Taylor / Portfolio</p>
-        <p>Full-stack developer · Philippines</p>
+        <p>Kristy Kate Taylor / Portfolio 2026</p>
+        <p>Software developer · Philippines</p>
       </div>
 
-      <div className={["shell", styles.content].join(" ")}>
+      <div className={["shell",styles.content].join(" ")}>
         <div className={styles.copy}>
-          <p className={styles.kicker}>Software developer & UI/UX designer</p>
+          <p className={styles.kicker}><span aria-hidden="true">●</span> Developer / Designer / Problem solver</p>
           <h1 id="identity" className={styles.heading}>
             I build <span>useful software.</span>
             <em>And make it feel effortless.</em>
           </h1>
           <p className={styles.lead}>
-            I turn complex workflows into practical digital experiences, from information systems
-            and offline desktop applications to modern websites.
+            I&apos;m Kristy, a full-stack developer creating information systems, desktop apps,
+            and websites. I turn complex workflows into software that feels clear and practical.
           </p>
           <div className={styles.actions}>
-            <Link href="#work" className={styles.primary}>Explore work <span aria-hidden="true">↗</span></Link>
-            <Link href="/contact" className={styles.secondary}>Contact me <span aria-hidden="true">↗</span></Link>
+            <Link href="#work" className={styles.primary}>
+              View projects <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="/about" className={styles.secondary}>
+              More about me <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
 
-        <div className={styles.visual}>
-          <Link href="/projects/rbim" className={styles.visualCard} aria-label="Explore the RBIM information system case study">
-            <div className={styles.preview}>
-              <Image
-                src="/media/rbim-dashboard.webp"
-                alt="RBIM application dashboard screenshot"
-                width={640}
-                height={341}
-                priority
-                unoptimized
-                sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 580px"
-              />
-            </div>
-            <div className={styles.visualMeta}>
-              <span><small>Featured case study / 01</small><strong>RBIM — Information system</strong></span>
-              <span aria-hidden="true">↗</span>
-            </div>
-          </Link>
-        </div>
+        <figure className={styles.visual}>
+          <div className={styles.portrait}>
+            <Image
+              src="/media/kristy-kate-professional-portrait-v2.webp"
+              width={960}
+              height={960}
+              alt="Professional portrait of Kristy Kate Taylor"
+              priority
+              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 35vw, 490px"
+            />
+          </div>
+          <figcaption className={styles.visualMeta}>
+            <span>Kristy Kate Taylor</span>
+            <span>Software & interface development</span>
+          </figcaption>
+        </figure>
       </div>
 
-      <div className={["shell", styles.bottom].join(" ")}>
-        <p>Building software for real-world needs.</p>
-        <p>React · TypeScript · PostgreSQL · Tauri</p>
+      <div className={["shell",styles.bottom].join(" ")}>
+        <p>Build for people. Design for clarity.</p>
+        <p>React / TypeScript / PostgreSQL / Tauri / PHP</p>
       </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

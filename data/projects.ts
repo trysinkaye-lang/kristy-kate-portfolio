@@ -244,3 +244,9 @@ export const projects: Project[] = projectOrder.map(slug => {
 export function getProject(slug: typeof projectOrder[number]): Project {
   return projects[projectOrder.indexOf(slug)];
 }
+
+// Only publish distinct case studies. The design-work collection currently reuses
+// RBIM, AHDIS, and ERP screenshots, so it stays a draft until it has its own media.
+export const publicProjects: Project[] = projects.filter(
+  project => project.slug !== "lacomus" && project.slug !== "design-systems",
+);

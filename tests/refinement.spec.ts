@@ -52,7 +52,7 @@ test("Selected case studies stay visible and usable without motion", async ({ pa
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
-  const wall = page.getByRole("navigation", { name: "Selected projects gallery" });
+  const wall = page.getByRole("navigation", { name: "Projects gallery" });
   await expect(wall).toBeVisible();
   for (const href of ["/projects/rbim", "/projects/co-designs", "/projects/ahdis", "/projects/marci-metzger"]) {
     await expect(wall.locator(`a[href="${href}"]`).first()).toBeVisible();
@@ -64,7 +64,7 @@ test("Selected case studies stay visible and usable without motion", async ({ pa
   expect(overflow).toBeLessThanOrEqual(1);
 });
 
-test("mobile work index gives each project a readable preview", async ({ page }) => {
+test("mobile project directory gives each project a readable preview", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/projects");
   for (const image of await page.locator("main article img").all()) {

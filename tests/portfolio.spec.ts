@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "erp-system", "design-systems"];
+const projectSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger", "erp-system"];
 const routes = ["/", "/projects", "/about", "/contact", "/packages", ...projectSlugs.map((slug) => `/projects/${slug}`)];
 
 test("all pages load with one h1, complete images, and no JavaScript or resource errors", async ({ page }) => {
@@ -24,11 +24,11 @@ test("all pages load with one h1, complete images, and no JavaScript or resource
 test("desktop navigation, services disclosures, and next project journey", async ({ page }) => {
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Main navigation", exact: true });
-  await nav.getByRole("link", { name: "Work", exact: true }).click();
+  await nav.getByRole("link", { name: "Projects", exact: true }).click();
   await expect(page).toHaveURL(/\/projects$/);
   await nav.getByRole("link", { name: "About", exact: true }).click();
   await expect(page).toHaveURL(/\/about$/);
-  await nav.getByRole("link", { name: "Services", exact: true }).click();
+  await page.goto("/#services");
   await expect(page).toHaveURL(/\/#services$/);
   await page.getByText("Full-stack development", { exact: true }).click();
   await expect(page.locator("#services details").first()).toHaveAttribute("open", "");
@@ -54,7 +54,7 @@ test("mobile dialog manages focus, escape, links, and viewport changes", async (
   await expect(dialog).not.toBeVisible();
   await expect(open).toBeFocused();
   await open.click();
-  await dialog.getByRole("link", { name: "Work", exact: true }).click();
+  await dialog.getByRole("link", { name: "Projects", exact: true }).click();
   await expect(page).toHaveURL(/\/projects$/);
   await expect(dialog).not.toBeVisible();
   await open.click();
@@ -91,7 +91,7 @@ test("reduced motion keeps content and interactions available", async ({ page })
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  const gallery = page.getByRole("navigation", { name: "Selected projects gallery" });
+  const gallery = page.getByRole("navigation", { name: "Projects gallery" });
   await expect(gallery.locator('a[href="/projects/rbim"]').first()).toBeVisible();
   await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
   const animations = await page.evaluate(() => document.getAnimations().filter((animation) => animation.playState === "running").length);
@@ -140,9 +140,11 @@ test("SEO covers canonical URLs, social previews, all projects, packages, and no
   const sitemap = await (await request.get("/sitemap.xml")).text();
   for (const route of projectSlugs.map((slug) => `/projects/${slug}`)) expect(sitemap).toContain(route);
   expect(sitemap).not.toContain("/projects/lacomus");
+  expect(sitemap).not.toContain("/projects/design-systems");
   expect(sitemap).toContain("/packages");
   expect(await (await request.get("/robots.txt")).text()).toContain("/sitemap.xml");
   expect((await request.get("/opengraph-image")).status()).toBe(200);
   expect((await page.goto("/projects/lacomus"))!.status()).toBe(404);
+  expect((await page.goto("/projects/design-systems"))!.status()).toBe(404);
   expect((await page.goto("/projects/no-such-project"))!.status()).toBe(404);
 });

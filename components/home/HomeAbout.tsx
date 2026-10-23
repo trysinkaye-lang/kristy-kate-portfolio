@@ -10,7 +10,7 @@ export function HomeAbout() {
           <h2 id="about-title">Code that works.<br /><span>Design that makes sense.</span></h2>
           <div className={styles.aboutCopy}>
             <p>I&apos;m Kristy, a BS Information Technology graduate from USTP. I enjoy finding the simplest usable solution to a complicated technical problem — and building it from interface to database.</p>
-            <Link href="/about" className="text-link">Meet the developer <span aria-hidden="true">↗</span></Link>
+            <Link href="/about" className="text-link">About me <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </div>
