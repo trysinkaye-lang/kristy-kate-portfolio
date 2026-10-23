@@ -42,19 +42,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <Link href="/projects" className={styles.back}>← All projects</Link>
       <div className={styles.register}><p className="eyebrow">{project.category.join(" / ")}</p><span>{project.status}</span></div>
       <h1>{project.shortTitle}</h1>
-      <div className={styles.introCopy}><h2>{project.headline}</h2><div><p>{project.overview}</p><ProjectLinks project={project} source="case_study" caseStudy={false} /></div></div>
+      <div className={styles.introCopy}><h2>Project overview</h2><div><p>{project.overview}</p><ProjectLinks project={project} source="case_study" caseStudy={false} /></div></div>
       <dl className={styles.facts}><div><dt>Role</dt><dd>{project.role}</dd></div><div><dt>{project.year ? "Year / status" : "Status"}</dt><dd>{project.year ? `${project.year} / ` : ""}{project.status}</dd></div><div><dt>Selected technology</dt><dd>{project.technologies.join(" / ")}</dd></div></dl>
     </header>
     <div className={styles.visual}><div className="shell"><ProjectScreenshot project={project} priority sizes={`(max-width: 767px) 88vw, ${project.imageWidth}px`} /></div></div>
-    <div className={`shell ${styles.body}`}><aside className={styles.contents}><p className="eyebrow">Inside the project</p><nav aria-label="Case study contents"><a href="#context">Context & problem</a><a href="#approach">The approach</a><a href="#workflows">Key workflows</a>{project.architecture ? <a href="#architecture">Technical decisions</a> : null}<a href="#outcome">Outcome</a><a href="#reflection">Challenges & learning</a></nav></aside>
+    <div className={`shell ${styles.body}`}><aside className={styles.contents}><p className="eyebrow">Inside the project</p><nav aria-label="Case study contents"><a href="#overview">Overview</a><a href="#features">Features</a>{project.architecture ? <a href="#architecture">Technology</a> : null}<a href="#outcome">Outcome</a></nav></aside>
       <div className={styles.narrative}>
-        <section id="context"><p className="eyebrow">Context & problem</p><h2>{project.title}</h2><p>{project.problem}</p></section>
-        <section id="approach"><p className="eyebrow">Design & development</p><h2>What I built.</h2><p>{project.solution}</p></section>
-        <section id="workflows"><p className="eyebrow">Inside the experience</p><h2>Key workflows & features.</h2><ul className={styles.features}>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul></section>
-        {project.architecture ? <section id="architecture"><p className="eyebrow">The engineering</p><h2>Structure behind the screen.</h2><div className={styles.architecture}>{project.architecture.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div></section> : null}
+        <section id="overview"><p className="eyebrow">Overview</p><h2>The project</h2><p>{project.solution}</p></section>
+        <section id="features"><p className="eyebrow">Features</p><h2>What it does</h2><ul className={styles.features}>{project.features.map(feature => <li key={feature}>{feature}</li>)}</ul></section>
+        {project.architecture ? <section id="architecture"><p className="eyebrow">Technical overview</p><h2>How it works</h2><div className={styles.architecture}>{project.architecture.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.detail}</p></div>)}</div></section> : null}
         {project.gallery?.map(item => <figure key={item.src} className={styles.gallery} style={{ maxWidth: item.width }}><ImageInspector src={item.src} width={item.width} height={item.height} alt={item.alt}><Image src={item.src} width={item.width} height={item.height} alt={item.alt} sizes="(max-width: 767px) 88vw, 680px" /></ImageInspector><figcaption>{item.caption}</figcaption></figure>)}
-        <section id="outcome"><p className="eyebrow">{project.status === "Work in progress" ? "Current state" : "Outcome"}</p><h2>What the work makes possible.</h2>{project.impact.map(item => <p key={item}>{item}</p>)}</section>
-        <section id="reflection"><p className="eyebrow">Reflection</p><h2>Challenges & learning.</h2><div className={styles.reflection}><div><h3>The challenges</h3><ul>{project.challenges.map(item => <li key={item}>{item}</li>)}</ul></div><div><h3>What I learned</h3><ul>{project.lessons.map(item => <li key={item}>{item}</li>)}</ul></div></div></section>
+        <section id="outcome"><p className="eyebrow">{project.status === "Work in progress" ? "Current state" : "Outcome"}</p><h2>Project results</h2>{project.impact.slice(0, 2).map(item => <p key={item}>{item}</p>)}</section>
+        
       </div>
     </div>
     <div className={`shell ${styles.next}`}><p className="eyebrow">Continue exploring</p><TrackedLink href={`/projects/${next.slug}`} eventName="project_open" eventData={{ source: "next_project", project: next.slug }}><h2>{next.shortTitle}</h2><span aria-hidden="true">↗</span></TrackedLink></div>
