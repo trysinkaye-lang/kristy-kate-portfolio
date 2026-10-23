@@ -9,7 +9,7 @@ export function HomeCTA() {
         <div className={styles.contactLead}>
           <p className={styles.marker}>Contact</p>
           <h2 id="contact-title">
-            Let&apos;s talk
+            Let&apos;s talk{" "}
             <span>projects.</span>
           </h2>
         </div>
