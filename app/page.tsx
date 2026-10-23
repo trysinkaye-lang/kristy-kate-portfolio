@@ -3,7 +3,6 @@ import { ProjectDriftWall } from "@/components/home/ProjectDriftWall";
 import { HomeAbout } from "@/components/home/HomeAbout";
 import { HomeCapabilities } from "@/components/home/HomeCapabilities";
 import { HomeCTA } from "@/components/home/HomeCTA";
-import { PortfolioMotion } from "@/components/effects/PortfolioMotion";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/data/site";
 import styles from "@/components/home/home.module.css";
@@ -16,7 +15,6 @@ export const metadata = {
 export default function Home() {
   return (
     <main id="main-content" tabIndex={-1}>
-      <PortfolioMotion />
       <Hero />
       <section id="work" aria-labelledby="work-title">
         <div className={["shell", styles.workIntro].join(" ")}>
