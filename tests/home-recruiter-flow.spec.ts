@@ -212,7 +212,13 @@ test("contact section has visual presence without breaking theme or access", asy
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
     const contact = page.locator('section[aria-labelledby="contact-title"]');
-    await expect(contact.getByRole("heading", { name: /Tell me\s+about it\./ })).toBeVisible();
+    const headline = contact.getByRole("heading", { name: /Let's talk\s+projects\./ });
+    await expect(headline).toBeVisible();
+    await expect(contact.getByText(/Building a website, web app, desktop application, or information system/)).toBeVisible();
+    const sameTypeface = await headline.evaluate(element =>
+      getComputedStyle(element).fontFamily === getComputedStyle(document.body).fontFamily
+    );
+    expect(sameTypeface, "The contact heading must use the website's primary font").toBe(true);
     const action = contact.getByRole("link", { name: "Send a message" });
     await expect(action).toHaveAttribute("href", "/contact");
     await expect(contact.getByRole("link", { name: /trysinkaye@gmail.com/ })).toHaveAttribute("href", "mailto:trysinkaye@gmail.com");
