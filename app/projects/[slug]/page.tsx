@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/data/projects";
+import { publicProjects } from "@/data/projects";
 import { site } from "@/data/site";
 import { pageMetadata } from "@/lib/metadata";
 import { ProjectScreenshot } from "@/components/projects/ProjectScreenshot";
@@ -11,7 +11,7 @@ import { ProjectLinks } from "@/components/projects/ProjectLinks";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "@/styles/case-study.module.css";
 
-const visibleProjects = projects.filter(project => project.slug !== "lacomus");
+const visibleProjects = publicProjects;
 
 export function generateStaticParams() {
   return visibleProjects.map(project => ({ slug: project.slug }));
