@@ -3,98 +3,79 @@ import Link from "next/link";
 import { stack } from "@/data/site";
 import { HomeCTA } from "@/components/home/HomeCTA";
 import { pageMetadata } from "@/lib/metadata";
-import styles from "@/styles/pages.module.css";
+import styles from "@/styles/about-editorial.module.css";
 
 export const metadata = pageMetadata(
   "About",
-  "Learn about Kristy Kate Taylor, a software developer focused on information systems, desktop applications, full-stack development, and thoughtful interfaces.",
+  "Kristy Kate Taylor is a software developer working on information systems, desktop applications and websites.",
   "/about",
 );
 
-const process = [
-  ["Understand", "I start by understanding the people, the workflow, and what the software actually needs to do."],
-  ["Design", "I organize data and screens into simple, predictable experiences that help people complete their work."],
-  ["Build", "I develop the interface, application logic, and database together, with reliability in mind."],
-  ["Improve", "I test the full workflow, collect feedback, and refine what can work better."],
+const currentWork = [
+  { name: "RBIM", href: "/projects/rbim", description: "Household records, municipal reporting, offline and online access" },
+  { name: "AHDIS", href: "/projects/ahdis", description: "Offline adolescent health records and reporting" },
 ];
 
 export default function AboutPage() {
   return (
     <main id="main-content" tabIndex={-1}>
-      <section className={["shell", styles.page, styles.aboutPage].join(" ")}>
-        <div className={styles.aboutOpening}>
-          <div className={styles.aboutIntro}>
-            <p className="eyebrow">About / Kristy Kate Taylor</p>
-            <h1>About me.</h1>
-            <p className={styles.aboutLead}>
-              I&apos;m a software developer who enjoys making complex systems easier to use.
-            </p>
-            <p>
-              From information systems and desktop applications to websites, I work on both
-              how software functions and how it feels to the people using it.
-            </p>
-            <div className={styles.aboutLinks}>
-              <Link href="/projects" className="text-link">View projects <span aria-hidden="true">↗</span></Link>
-              <Link href="/contact" className="text-link">Contact me <span aria-hidden="true">↗</span></Link>
+      <section className={["shell", styles.about].join(" ")} aria-labelledby="about-heading">
+        <div className={styles.head}>
+          <p className={styles.eyebrow}>About / Kristy Kate Taylor</p>
+          <h1 id="about-heading">A little about me.</h1>
+        </div>
+        <div className={styles.layout}>
+          <div className={styles.copy}>
+            <p className={styles.lead}>I work on the interface people see and the system that makes it work.</p>
+            <p>I graduated with a BS in Information Technology from the University of Science and Technology of Southern Philippines (USTP).</p>
+            <p>My development work spans desktop and web applications: forms, data models, reporting, role-based access, and the details that make software easier to use.</p>
+            <p>RBIM and AHDIS are two examples of that work. Both involve handling structured records and making information useful for the people who need it.</p>
+            <div className={styles.actions}>
+              <Link href="/projects">Projects <span aria-hidden="true">↗</span></Link>
+              <Link href="/contact">Contact <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
-          <figure>
-            <Image
-              src="/media/kristy-kate-professional-portrait-v2.webp"
-              width={960}
-              height={960}
+          <figure className={styles.portrait}>
+            <Image src="/media/kristy-kate-professional-portrait-v2.webp"
+              width={960} height={960} priority
               alt="Professional portrait of Kristy Kate Taylor"
-              priority
-              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 34vw, 370px"
-            />
-            <figcaption>Kristy Kate Taylor · Philippines</figcaption>
+              sizes="(max-width: 767px) 60vw, 350px" />
+            <figcaption>Kristy Kate Taylor / Philippines</figcaption>
           </figure>
         </div>
-
-        <div className={styles.biography}>
-          <div>
-            <p className="eyebrow">Background</p>
-            <h2>Technology with purpose.</h2>
-          </div>
-          <div>
-            <p>I graduated with a BS in Information Technology from the University of Science and Technology of Southern Philippines (USTP).</p>
-            <p>My development work includes RBIM, a registry for household and population records, and AHDIS, a desktop information system for adolescent health and development data.</p>
-            <p>I&apos;m interested in full-stack development, reliable data workflows, and interfaces that feel simple even when the systems behind them are complex.</p>
-          </div>
-        </div>
       </section>
-
-      <section className={styles.method} aria-labelledby="approach-title">
+      <section className={styles.current} aria-labelledby="current-heading">
         <div className="shell">
-          <p className="eyebrow">Process</p>
-          <h2 id="approach-title" className={styles.sectionHeading}>How I work</h2>
-          <div className={styles.methodRows}>
-            {process.map(([title, copy], index) => (
-              <div key={title}>
-                <span className={styles.methodNumber}>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
+          <div className={styles.sectionHead}>
+            <p className={styles.eyebrow}>Selected systems</p>
+            <h2 id="current-heading">Work in focus</h2>
+          </div>
+          <div className={styles.rows}>
+            {currentWork.map((item,index) => (
+              <Link href={item.href} key={item.name}>
+                <span>{String(index+1).padStart(2, "0")}</span>
+                <strong>{item.name}</strong>
+                <small>{item.description}</small>
+                <span aria-hidden="true">↗</span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-
-      <section className={["shell", styles.toolbox].join(" ")} aria-labelledby="tools-title">
-        <div>
-          <p className="eyebrow">Technology</p>
-          <h2 id="tools-title">Tools &amp; skills</h2>
+      <section className={["shell",styles.tools].join(" ")} aria-labelledby="tools-title">
+        <div className={styles.sectionHead}>
+          <p className={styles.eyebrow}>Tools and technology</p>
+          <h2 id="tools-title">What I use</h2>
         </div>
         <dl>
           {Object.entries(stack).map(([label, items]) => (
             <div key={label}>
               <dt>{label}</dt>
-              <dd>{items.join(" · ")}</dd>
+              <dd>{items.join(" / ")}</dd>
             </div>
           ))}
         </dl>
       </section>
-
       <HomeCTA />
     </main>
   );
