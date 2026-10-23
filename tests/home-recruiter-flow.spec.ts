@@ -55,7 +55,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.getByText(/Full-stack developer turning complicated workflows/)).toBeVisible();
+  await expect(page.getByText(/I turn complex workflows into practical digital experiences/)).toBeVisible();
   await page.getByRole("navigation", { name: "Selected projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
