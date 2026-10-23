@@ -7,7 +7,7 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.getByText("PORTFOLIO · 2026")).toBeVisible();
@@ -155,7 +155,7 @@ test("hero avoids personal photo and oversized name while keeping navigation", a
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Kristy Kate");
   await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
@@ -176,18 +176,20 @@ test("prefers-reduced-motion skips the intro animation", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("[data-intro-splash]")).toHaveCSS("display", "none");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Have a project");
 });
 
 
 test("Onlines-inspired introduction uses a solo developer voice and genuine capabilities", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
   await expect(hero.getByText("A NOTE FROM THE DEVELOPER")).toBeVisible();
+  await expect(hero.getByText(/I design and develop websites, web applications, and offline desktop software/)).toBeVisible();
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Websites & web apps");
   await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Offline desktop software");
-  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Databases & reporting");
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Data systems & reporting");
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
