@@ -1,0 +1,50 @@
+
+.marker { color:var(--muted); font-size:11px; line-height:1.6; font-weight:650; letter-spacing:.02em; }
+.work { padding-top:clamp(75px,8vw,126px); }
+.workHeader { display:grid; grid-template-columns:1fr minmax(225px,.5fr); align-items:end; gap:34px 70px; padding-bottom:clamp(26px,4vw,48px); }
+.workHeader h2 { font-size:clamp(51px,6vw,83px); line-height:1.05; letter-spacing:-.067em; font-weight:630; padding-top:13px; }
+.workHeader > p { max-width:41ch; font-size:14px; line-height:1.75; color:var(--muted); }
+.about { background:var(--surface); }
+.aboutInner { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.8fr); align-items:start; gap:clamp(45px,8vw,145px); padding-block:clamp(70px,8vw,126px); }
+.about h2 { max-width:18ch; margin-top:21px; font-size:clamp(33px,4vw,58px); line-height:1.13; letter-spacing:-.055em; font-weight:610; }
+.aboutCopy { padding-top:27px; }
+.aboutCopy > p { max-width:54ch; margin-bottom:20px; color:var(--muted); font-size:14px; line-height:1.85; }
+.aboutCopy a { display:inline-flex; align-items:center; gap:25px; margin-top:7px; padding-block:11px; min-height:44px; border-bottom:1px solid var(--foreground); font-size:12px; font-weight:700; }
+.aboutCopy a:hover { opacity:.7; }
+.capabilities { padding-block:clamp(76px,8vw,120px); }
+.capabilitiesHeader { display:grid; grid-template-columns:1fr minmax(0,2fr); gap:20px; align-items:end; padding-bottom:27px; }
+.capabilitiesHeader h2 { font-size:clamp(35px,4vw,58px); line-height:1.1; letter-spacing:-.055em; font-weight:620; }
+.disciplines { border-top:1px solid var(--line); }
+.disciplines details { border-bottom:1px solid var(--line); }
+.disciplines summary { display:grid; grid-template-columns:minmax(40px,.33fr) minmax(0,2fr) 28px; align-items:center; gap:16px; min-height:78px; padding:15px 2px; cursor:pointer; list-style:none; }
+.disciplines summary::-webkit-details-marker { display:none; }
+.number { color:var(--muted); font-size:11px; font-variant-numeric:tabular-nums; }
+.disciplineTitle { font-size:clamp(19px,2.3vw,30px); font-weight:570; letter-spacing:-.03em; }
+.plus { justify-self:end; font-size:22px; line-height:1; font-weight:300; }
+.disciplines details[open] .plus { transform:rotate(45deg); }
+.disciplines details > p { padding:0 20px 25px calc(14% + 16px); font-size:13px; line-height:1.7; color:var(--muted); }
+.contact { border-top:1px solid var(--line); background:var(--inverse); color:var(--inverse-text); }
+.contactInner { display:flex; align-items:end; justify-content:space-between; gap:30px 65px; padding-block:clamp(66px,7vw,105px); }
+.contact .marker { color:var(--inverse-muted); }
+.contact h2 { max-width:17ch; margin-top:14px; font-size:clamp(36px,4.2vw,63px); line-height:1.1; letter-spacing:-.058em; font-weight:620; }
+.contactLinks { display:flex; flex-direction:column; align-items:start; gap:12px; min-width:220px; }
+.contactLinks a:first-child { display:inline-flex; align-items:center; gap:32px; padding:12px 0; border-bottom:1px solid var(--inverse-text); font-weight:700; font-size:13px; }
+.contactLinks a:last-child { color:var(--inverse-muted); font-size:12px; }
+.contactLinks a:hover { opacity:.75; }
+@media(max-width:767px) {
+  .work { padding-top:70px; }
+  .workHeader { grid-template-columns:1fr; gap:14px; padding-bottom:27px; }
+  .workHeader h2 { font-size:58px; }
+  .workHeader > p { font-size:13px; }
+  .aboutInner { grid-template-columns:1fr; gap:9px; padding-block:72px; }
+  .about h2 { font-size:39px; }
+  .aboutCopy { padding-top:15px; }
+  .capabilities { padding-block:74px; }
+  .capabilitiesHeader { grid-template-columns:1fr; gap:9px; }
+  .capabilitiesHeader h2 { font-size:39px; }
+  .disciplines summary { grid-template-columns:25px minmax(0,1fr) 20px; gap:15px; min-height:70px; }
+  .disciplineTitle { font-size:20px; }
+  .disciplines details > p { padding-left:40px; }
+  .contactInner { align-items:start; flex-direction:column; gap:29px; padding-block:70px; }
+  .contact h2 { font-size:43px; }
+}
