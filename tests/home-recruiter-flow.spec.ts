@@ -7,11 +7,11 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("development.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByText("Portfolio / 2026")).toBeVisible();
-  await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  await expect(hero.getByText("PORTFOLIO · 2026")).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
@@ -20,7 +20,7 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
     await expect(gallery.locator(`a[href="/projects/${slug}"]`).first()).toBeVisible();
   }
 
-  await hero.getByRole("link", { name: "View projects" }).click();
+  await hero.getByRole("link", { name: "Explore my projects" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
 
@@ -59,7 +59,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("development.");
+  await expect(page.locator("#identity")).toContainText("in mind?");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -116,7 +116,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("development.");
+    await expect(page.locator("#identity")).toContainText("in mind?");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#work img").evaluateAll(async images => {
@@ -155,10 +155,10 @@ test("hero avoids personal photo and oversized name while keeping navigation", a
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Kristy Kate");
-  await expect(hero.getByRole("link", { name: "View projects" })).toHaveAttribute("href", "#work");
-  await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
   await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
 });
 
@@ -176,5 +176,29 @@ test("prefers-reduced-motion skips the intro animation", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("[data-intro-splash]")).toHaveCSS("display", "none");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Web & desktop");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Have a system");
+});
+
+
+test("Onlines-inspired introduction uses a solo developer voice and genuine capabilities", async ({ page }) => {
+  await page.goto("/");
+  const hero = page.locator("#home");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a system");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
+  await expect(hero.getByText("A NOTE FROM THE DEVELOPER")).toBeVisible();
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Offline desktop software");
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Databases & reporting");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
+});
+
+test("intro stays legible with reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({width: 375, height: 812});
+  await page.goto("/");
+  await expect(page.locator("#home aside")).toHaveCSS("animation-name", "none");
+  await expect(page.locator("#identity")).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  expect(overflow).toBe(false);
 });
