@@ -23,7 +23,7 @@ export function Hero() {
             and offline desktop applications to modern websites.
           </p>
           <div className={styles.actions}>
-            <Link href="#work" className={styles.primary}>Explore work <span aria-hidden="true">↗</span></Link>
+            <Link href="#work" className={styles.primary}>View projects <span aria-hidden="true">↗</span></Link>
             <Link href="/contact" className={styles.secondary}>Contact me <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
