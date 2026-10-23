@@ -1,6 +1,6 @@
 
 .marker { color:var(--muted); font-size:11px; line-height:1.6; font-weight:650; letter-spacing:.02em; }
-.work { padding-top:clamp(75px,8vw,126px); }
+.work { padding-top:clamp(38px,4vw,68px); }
 .workHeader { display:grid; grid-template-columns:1fr minmax(225px,.5fr); align-items:end; gap:34px 70px; padding-bottom:clamp(26px,4vw,48px); }
 .workHeader h2 { font-size:clamp(51px,6vw,83px); line-height:1.05; letter-spacing:-.067em; font-weight:630; padding-top:13px; }
 .workHeader > p { max-width:41ch; font-size:14px; line-height:1.75; color:var(--muted); }
@@ -32,7 +32,7 @@
 .contactLinks a:last-child { color:var(--inverse-muted); font-size:12px; }
 .contactLinks a:hover { opacity:.75; }
 @media(max-width:767px) {
-  .work { padding-top:70px; }
+  .work { padding-top:48px; }
   .workHeader { grid-template-columns:1fr; gap:14px; padding-bottom:27px; }
   .workHeader h2 { font-size:58px; }
   .workHeader > p { font-size:13px; }
