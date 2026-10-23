@@ -26,7 +26,7 @@
 .browser { display:flex; align-items:center; gap:6px; padding:8px 8px 15px; }
 .browser i { width:6px; height:6px; border-radius:50%; background:color-mix(in srgb,var(--inverse-text) 45%,transparent); }
 .browser span { margin-left:auto; color:var(--inverse-muted); font-size:10px; letter-spacing:.1em; }
-.preview { overflow:hidden; background:#e6eee8; border:1px solid color-mix(in srgb,var(--inverse-text) 16%,transparent); }
+.preview { display:block; overflow:hidden; background:#e6eee8; border:1px solid color-mix(in srgb,var(--inverse-text) 16%,transparent); }
 .preview img { width:100%; aspect-ratio:640/341; object-fit:contain; }
 .visualMeta { display:flex; gap:20px; justify-content:space-between; align-items:end; padding:24px 14px 12px; }
 .visualMeta small { display:block; margin-bottom:8px; color:var(--inverse-muted); font-size:10px; font-weight:750; letter-spacing:.11em; text-transform:uppercase; }
