@@ -34,3 +34,28 @@ These are **study references, not copying targets**. Original text, source image
 - Test hero Projects and Contact links, mobile menu, case-study next links, and in-page anchors.
 - Confirm GitHub lint, Next.js build, TypeScript, Playwright, and accessibility checks before merging.
 - Keep production unchanged until the user approves a specific preview.
+
+
+## New case-study reference: Maria Vasilyeva — Península
+
+User-provided inspiration: https://www.mariavasilyeva.com/work/peninsula
+
+### What was verifiable
+
+The exact Península project URL was not retrievable in the available browser/search environment, so **the exact page details were not claimed as directly inspected**. Indexed adjacent pages from the same portfolio (for example https://www.mariavasilyeva.com/work/diir and /work/klarna), the portfolio's work index (https://www.mariavasilyeva.com/work), and a recent editorial study of its visual system (https://dokle.design/awards/maria-vasilyeva-portfolio-laid-out-like-a-score) support these verified cues:
+
+- Minimal black/white frame with narrow rules and small peripheral metadata
+- Project-first hero with the title carrying typographic hierarchy
+- Original-color media framed by restrained page styling
+- Clearly separated role/project details followed by visual evidence
+- Deliberate pacing and navigation between projects
+
+### Adaptation for a software-developer portfolio
+
+- Use the supplied Península URL as an **inspiration reference**, not a page to reproduce or an asset source.
+- Each of the five project-detail pages has a typographic title, compact number/status, central genuine software screenshot, separate role/technology fact lines, structured feature list, optional technical notes and gallery, and next-project link.
+- Maintain small image widths appropriate to dashboards (main preview up to 780px), while allowing legitimate architecture/website imagery to appear natural.
+- No handwritten annotations, music-score ornament, borrowed media, audio controls, cursor tricks, or copying of Maria's text.
+- Remain keyboard accessible with working image inspection and reduced-motion support.
+- Do not add a Challenges & Learning section.
+
