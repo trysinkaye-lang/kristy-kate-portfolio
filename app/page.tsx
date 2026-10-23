@@ -10,7 +10,7 @@ import styles from "@/components/home/home.module.css";
 
 export const metadata = {
   ...pageMetadata("Full-Stack Developer & UI/UX Designer", site.headline, "/"),
-  title: `${site.name} | Full-Stack Developer & UI/UX Designer`,
+  title: site.name + " | Full-Stack Developer & UI/UX Designer",
 };
 
 export default function Home() {
@@ -19,12 +19,10 @@ export default function Home() {
       <PortfolioMotion />
       <Hero />
       <section id="work" aria-labelledby="work-title">
-        <div className={`shell ${styles.workIntro}`}>
+        <div className={["shell", styles.workIntro].join(" ")}>
           <div className={styles.workHeading}>
-            <h2 id="work-title">
-              Selected work<span className={styles.workCount}> / 04</span>
-            </h2>
-            <p>Four projects. One visual index. Open any tile for the full case study.</p>
+            <h2 id="work-title">Selected work<span className={styles.workCount}> / 04</span></h2>
+            <p>Four case studies: software systems, data workflows, and websites designed with purpose.</p>
           </div>
         </div>
         <ProjectDriftWall />
