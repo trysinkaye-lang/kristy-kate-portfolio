@@ -6,43 +6,34 @@ export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.frame].join(" ")}>
-        <div className={styles.rail}>
-          <span>Software development</span>
+        <div className={styles.overline}>
+          <span>01 / Introduction</span>
+          <span>Software developer · Philippines</span>
+        </div>
+
+        <div className={styles.content}>
+          <div className={styles.headingBlock}>
+            <p className={styles.eyebrow}>Web applications / Desktop systems / Data</p>
+            <h1 id="identity" className={styles.heading}>
+              Web &amp; desktop <span>development.</span>
+            </h1>
+          </div>
+
+          <div className={styles.details}>
+            <p>
+              I develop software for web and desktop — from user interfaces and application
+              logic to databases, record management, and reporting.
+            </p>
+            <div className={styles.actions}>
+              <Link href="#work" className={styles.primary}>View projects <span aria-hidden="true">↗</span></Link>
+              <Link href="/contact" className={styles.secondary}>Contact <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.footnote}>
           <span>Portfolio / 2026</span>
-          <span>Based in the Philippines</span>
-        </div>
-
-        <div className={styles.composition}>
-          <p className={styles.eyebrow}>Web, desktop &amp; data</p>
-          <h1 id="identity" className={styles.title}>
-            <span className={styles.titleLine}>
-              <span className={styles.index}>01</span>
-              <span>Web applications<span className={styles.fullStop}>.</span></span>
-            </span>
-            <span className={styles.titleLine}>
-              <span className={styles.index}>02</span>
-              <span>Desktop software<span className={styles.fullStop}>.</span></span>
-            </span>
-            <span className={[styles.titleLine, styles.editorial].join(" ")}>
-              <span className={styles.index}>03</span>
-              <span>Information systems<span className={styles.fullStop}>.</span></span>
-            </span>
-          </h1>
-        </div>
-
-        <div className={styles.footer}>
-          <div className={styles.summary}>
-            <p className={styles.label}>The practice</p>
-            <p>I develop the interfaces, application logic, and data workflows behind practical software — from offline records to web-based reporting.</p>
-          </div>
-          <div className={styles.actions}>
-            <Link href="#work">Explore projects <span aria-hidden="true">↗</span></Link>
-            <Link href="/contact">Contact <span aria-hidden="true">↗</span></Link>
-          </div>
-        </div>
-        <div className={styles.bottom}>
-          <span>Real projects, real workflows</span>
-          <span>Scroll to explore <span aria-hidden="true">↓</span></span>
+          <span>Selected projects below <span aria-hidden="true">↓</span></span>
         </div>
       </div>
 
