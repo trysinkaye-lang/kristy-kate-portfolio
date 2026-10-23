@@ -50,7 +50,7 @@ export function Nav() {
     <header className={styles.header}>
       <div className={["shell", styles.bar].join(" ")}>
         <Link className={styles.brand} href="/" aria-label="Kristy Kate Taylor — home">
-          Kristy Kate<span className={styles.brandMark} aria-hidden="true"> / </span>
+          Kristy Kate
         </Link>
         <nav className={styles.desktop} aria-label="Main navigation">
           {links.map(([label, href]) => (
