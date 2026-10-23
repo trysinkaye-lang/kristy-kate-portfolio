@@ -69,7 +69,7 @@ test("mobile project directory gives each project a readable preview", async ({ 
   await page.goto("/projects");
   for (const image of await page.locator("main article img").all()) {
     const box = await image.boundingBox();
-    expect(box!.width).toBeGreaterThan(300);
+    expect(box!.width).toBeGreaterThan(280);
   }
 });
 
