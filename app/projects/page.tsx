@@ -29,8 +29,8 @@ export default function ProjectsPage() {
       <aside className={styles.endNote}>
         <div className={["shell", styles.endInner].join(" ")}>
           <div>
-            <p>Have something in mind?</p>
-            <h2>Let&apos;s make it work.</h2>
+            <p>Contact</p>
+            <h2>Want to talk about a project?</h2>
           </div>
           <Link href="/contact">Get in touch <span aria-hidden="true">↗</span></Link>
         </div>
