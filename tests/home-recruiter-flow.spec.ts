@@ -11,7 +11,7 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("And make it feel effortless.");
   await expect(hero.getByRole("img", { name: "Kristy Kate Taylor", exact: true })).toHaveCount(0);
 
-  await expect(page.locator("#work-title")).toHaveText("Projects");
+  await expect(page.locator("#work-title")).toHaveText("Projects.");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
   await expect(gallery).toBeVisible();
   for (const slug of selectedSlugs) {
@@ -57,34 +57,28 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.getByText(/I turn complex workflows into practical digital experiences/)).toBeVisible();
+  await expect(page.getByText(/I&apos;m Kristy/)).toBeVisible();
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
 });
 
 
-test("project filters work and public case-study thumbnails do not repeat", async ({ page }) => {
+test("project stories are distinct, responsive, and navigable", async ({ page }) => {
   await page.goto("/projects");
-  const cards = page.locator("main article");
-  await expect(cards).toHaveCount(5);
-
-  const sources = await cards.locator("img").evaluateAll(images =>
-    images.map(image => new URL((image as HTMLImageElement).src).pathname)
+  const stories = page.locator("main article");
+  await expect(stories).toHaveCount(5);
+  const sources = await stories.locator("img").evaluateAll(images =>
+    images.map(img => new URL((img as HTMLImageElement).src).pathname)
   );
   expect(new Set(sources).size).toBe(5);
-  await expect(cards.first().locator("img")).toHaveCSS("filter", "none");
+  await expect(stories.first().getByRole("heading", { name: "RBIM" })).toBeVisible();
   await expect(page.getByText("INTERFACE & DIGITAL DESIGN WORK", { exact: true })).toHaveCount(0);
-
-  await page.getByRole("button", { name: /Websites/ }).click();
-  await expect(cards).toHaveCount(2);
-  await expect(page.getByRole("heading", { name: "RBIM", exact: true })).toHaveCount(0);
-  await page.getByRole("button", { name: /Software/ }).click();
-  await expect(cards).toHaveCount(3);
-  await expect(page.getByRole("heading", { name: "RBIM", exact: true })).toBeVisible();
-  await page.getByRole("button", { name: /All projects/ }).click();
-  await expect(cards).toHaveCount(5);
+  for (const slug of ["rbim", "co-designs", "ahdis", "marci-metzger", "erp-system"]) {
+    await expect(stories.locator('a[href="/projects/' + slug + '"]').first()).toBeVisible();
+  }
 });
+
 
 test("portfolio hero features the developer rather than repeating RBIM imagery", async ({ page }) => {
   await page.goto("/");
