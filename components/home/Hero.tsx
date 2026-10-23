@@ -12,11 +12,6 @@ export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.inner].join(" ")}>
-        <div className={styles.topline}>
-          <span>WEB & SOFTWARE DEVELOPMENT / PHILIPPINES</span>
-          <span>PORTFOLIO · 2026</span>
-        </div>
-
         <div className={styles.composition}>
           <div className={styles.main}>
             <div className={styles.sender}>
