@@ -119,9 +119,14 @@ test("homepage evidence is specific, images load, and small screens do not overf
     await expect(page.locator("#identity")).toContainText("Kristy Kate");
     await expect(page.getByText(/RBIM, an offline and online population registry/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
-    const images = await page.locator("#home img, #work img").evaluateAll(images =>
-      images.every(img => (img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0)
-    );
+    const images = await page.locator("#home img, #work img").evaluateAll(async images => {
+      await Promise.all(images.map(async image => {
+        const img = image as HTMLImageElement;
+        img.loading = "eager";
+        await img.decode();
+      }));
+      return images.every(image => (image as HTMLImageElement).naturalWidth > 0);
+    });
     expect(images).toBe(true);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
