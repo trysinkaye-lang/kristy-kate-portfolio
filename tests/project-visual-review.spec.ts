@@ -14,6 +14,12 @@ test("editorial project showcase is legible at desktop and mobile sizes", async 
     );
     expect(overflow, "Horizontal overflow at width " + viewport.width).toBe(false);
 
+    await page.locator("main article img").evaluateAll(async images => {
+      for (const image of images) {
+        (image as HTMLImageElement).loading = "eager";
+        await (image as HTMLImageElement).decode();
+      }
+    });
     const brokenImages = await page.locator("main article img").evaluateAll(images =>
       images.filter(image => !(image as HTMLImageElement).complete ||
         (image as HTMLImageElement).naturalWidth === 0).length
