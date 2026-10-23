@@ -60,17 +60,35 @@ try {
       await page.getByRole("button", { name: "Use dark mode" }).click();
       await page.getByRole("button", { name: "Use light mode" }).click();
       if (device === "mobile") await page.getByRole("button", { name: "Close navigation", exact: true }).click();
-      await page.locator('#work-rbim a[aria-haspopup="dialog"]').click();
+      // Homepage has project links, not an image-inspector dialog. Record homepage
+      // interactions before navigating, because navigation resets PerformanceObserver state.
+      const homeInteraction = await page.evaluate(() => ({
+        interactions: window.__portfolioMetrics.interactions.map(entry => ({ ...entry, page: "home" })),
+        clsAfterInteractions: window.__portfolioMetrics.cls,
+      }));
+      await page.goto(new URL("/projects/rbim", baseURL).href, { waitUntil: "networkidle" });
+      const inspector = page.locator('main figure[data-spotlight] a[aria-haspopup="dialog"]').first();
+      await inspector.click({ timeout: 15_000 });
       await page.getByRole("button", { name: "View actual size" }).click();
       await page.getByRole("button", { name: "Close image preview" }).click();
       await page.waitForTimeout(300);
-      const interaction = await page.evaluate(() => ({ sampledInteractionMs: Math.max(0, ...window.__portfolioMetrics.interactions.map(entry => entry.duration)), interactions: window.__portfolioMetrics.interactions, clsAfterInteractions: window.__portfolioMetrics.cls }));
-      results.push({ device, run, ...initial, ...interaction });
+      const caseStudyInteraction = await page.evaluate(() => ({
+        interactions: window.__portfolioMetrics.interactions.map(entry => ({ ...entry, page: "rbim-case-study" })),
+        clsAfterInteractions: window.__portfolioMetrics.cls,
+      }));
+      const allInteractions = [...homeInteraction.interactions, ...caseStudyInteraction.interactions];
+      results.push({
+        device, run, ...initial,
+        sampledInteractionMs: Math.max(0, ...allInteractions.map(entry => entry.duration)),
+        interactions: allInteractions,
+        clsAfterInteractions: homeInteraction.clsAfterInteractions,
+        caseStudyClsAfterInteractions: caseStudyInteraction.clsAfterInteractions,
+      });
       await context.close();
     }
   }
   await fs.mkdir(".artifacts/review", { recursive: true });
-  const report = { measuredAt: new Date().toISOString(), baseURL, method: "Three cold-browser runs per viewport. Desktop 1440x900, DPR 1, unthrottled; mobile iPhone 13, 390x844, DPR 3, touch, 4x CPU, 1.6 Mbps down, 150ms latency. Local production server, no production analytics. Long-task blocking sums duration over 50ms through initial idle (not Lighthouse TBT). CDP main-thread durations cover the same interval. Interaction figures sample menu, theme, and image-inspector actions; values below the 16ms observation threshold are omitted. These are lab samples, not field INP.", results };
+  const report = { measuredAt: new Date().toISOString(), baseURL, method: "Three cold-browser runs per viewport. Desktop 1440x900, DPR 1, unthrottled; mobile iPhone 13, 390x844, DPR 3, touch, 4x CPU, 1.6 Mbps down, 150ms latency. Local production server, no production analytics. Long-task blocking sums duration over 50ms through initial idle (not Lighthouse TBT). CDP main-thread durations cover the same interval. Interaction figures combine homepage menu/theme actions and RBIM case-study image-inspector actions, labeled by page; layout shift after interactions is reported separately for home and case study. Values below the 16ms observation threshold are omitted. These are lab samples, not field INP.", results };
   await fs.writeFile(".artifacts/review/performance.json", JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
 } finally { await browser.close(); }
