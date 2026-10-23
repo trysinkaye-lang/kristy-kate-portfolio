@@ -44,20 +44,21 @@
   text-transform: uppercase;
 }
 .contact h2 {
-  margin-top: clamp(27px, 3vw, 42px);
-  font-size: clamp(68px, 8vw, 136px);
-  font-weight: 610;
-  line-height: .89;
+  margin-top: clamp(26px, 2.8vw, 38px);
+  font-family: var(--font-body);
+  font-size: clamp(62px, 6.65vw, 108px);
+  font-weight: 660;
+  line-height: .99;
   letter-spacing: -.075em;
 }
 .contact h2 span {
   display: block;
-  margin-top: .12em;
-  font-family: var(--font-editorial);
-  font-weight: 500;
-  font-size: 1.12em;
-  line-height: .79;
-  letter-spacing: -.055em;
+  margin-top: .04em;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 .contactDetails { min-width: 0; padding-bottom: 6px; }
 .contactInvitation {
@@ -133,8 +134,8 @@
     gap: 38px;
     padding-block: 59px 68px;
   }
-  .contact h2 { margin-top: 20px; font-size: clamp(60px, 14vw, 100px); }
-  .contact h2 span { margin-top: .13em; }
+  .contact h2 { margin-top: 19px; font-size: clamp(53px, 12.4vw, 76px); }
+  .contact h2 span { margin-top: .035em; }
   .contactDetails { padding-bottom: 0; }
   .contactInvitation { font-size: 14px; }
   .contactAction { min-height: 87px; padding-block: 15px; margin-top: 24px; font-size: 22px; }
