@@ -206,27 +206,35 @@ test("intro stays legible with reduced motion", async ({ page }) => {
 });
 
 
-test("contact section stays visually consistent with the page theme and stays compact", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/");
-  const contact = page.locator('section[aria-labelledby="contact-title"]');
-  await expect(contact.getByRole("heading", { name: "Get in touch." })).toBeVisible();
-  const sizes = await contact.evaluate(element => {
-    const body = document.body;
-    return {
+test("contact section has visual presence without breaking theme or access", async ({ page }, testInfo) => {
+  for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    const contact = page.locator('section[aria-labelledby="contact-title"]');
+    await expect(contact.getByRole("heading", { name: /Tell me\s+about it\./ })).toBeVisible();
+    const action = contact.getByRole("link", { name: "Send a message" });
+    await expect(action).toHaveAttribute("href", "/contact");
+    await expect(contact.getByRole("link", { name: /trysinkaye@gmail.com/ })).toHaveAttribute("href", "mailto:trysinkaye@gmail.com");
+
+    const metrics = await contact.evaluate(element => ({
       background: getComputedStyle(element).backgroundColor,
-      bodyBackground: getComputedStyle(body).backgroundColor,
+      bodyBackground: getComputedStyle(document.body).backgroundColor,
       height: element.getBoundingClientRect().height,
-    };
-  });
-  expect(sizes.background).toBe(sizes.bodyBackground);
-  expect(sizes.height).toBeLessThan(320);
-  await page.getByRole("button", { name: "Use dark mode" }).click();
-  await expect(page.locator("html")).toHaveClass(/dark/);
-  const darkColors = await contact.evaluate(element => ({
-    background: getComputedStyle(element).backgroundColor,
-    bodyBackground: getComputedStyle(document.body).backgroundColor,
-  }));
-  expect(darkColors.background).toBe(darkColors.bodyBackground);
-  await expect(contact.getByRole("link", { name: "Send a message" })).toHaveAttribute("href", "/contact");
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    }));
+    expect(metrics.background).toBe(metrics.bodyBackground);
+    expect(metrics.height).toBeGreaterThan(300);
+    expect(metrics.height).toBeLessThan(width < 600 ? 800 : 630);
+    expect(metrics.overflow).toBe(false);
+    await contact.screenshot({ path: testInfo.outputPath("contact-light-" + width + ".png"), animations: "disabled" });
+
+    await page.getByRole("button", { name: "Use dark mode" }).click();
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    const darkColors = await contact.evaluate(element => ({
+      background: getComputedStyle(element).backgroundColor,
+      bodyBackground: getComputedStyle(document.body).backgroundColor,
+    }));
+    expect(darkColors.background).toBe(darkColors.bodyBackground);
+    await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
+  }
 });
