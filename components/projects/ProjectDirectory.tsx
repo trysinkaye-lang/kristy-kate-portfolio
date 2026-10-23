@@ -3,77 +3,41 @@ import type { Project } from "@/data/projects";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import styles from "./ProjectDirectory.module.css";
 
-export function ProjectDirectory({ projects }: { projects: Project[] }) {
+export function ProjectDirectory({projects}:{projects:Project[]}) {
   return (
     <section className={styles.section} aria-label="Projects directory">
-      <div className={["shell", styles.topline].join(" ")}>
-        <span>Projects</span>
-        <span>{String(projects.length).padStart(2, "0")} projects</span>
+      <div className={["shell",styles.topline].join(" ")}>
+        <span>Project index / {String(projects.length).padStart(2,"0")}</span>
+        <span>Desktop / Web / Information systems</span>
       </div>
-
-      <div className={styles.list}>
-        {projects.map((project, index) => {
-          const link = "/projects/" + project.slug;
-          return (
-            <article
-              key={project.slug}
-              className={[styles.project, index % 2 === 1 ? styles.reversed : ""].filter(Boolean).join(" ")}
-              data-project-slug={project.slug}
+      <div className={["shell",styles.list].join(" ")}>
+        {projects.map((project,index) => (
+          <article className={styles.item} key={project.slug} data-project-slug={project.slug}>
+            <TrackedLink
+              className={styles.link}
+              href={"/projects/"+project.slug}
+              eventName="project_open"
+              eventData={{project:project.slug,source:"directory"}}
+              aria-label={"Explore "+project.shortTitle}
             >
-              <div className={["shell", styles.projectInner].join(" ")}>
-                <div className={styles.copy}>
-                  <p className={styles.topMeta}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span>{project.category[0]}</span>
-                  </p>
-                  <h2>
-                    <TrackedLink
-                      href={link}
-                      eventName="project_open"
-                      eventData={{ project: project.slug, source: "directory_title" }}
-                    >
-                      {project.shortTitle}
-                    </TrackedLink>
-                  </h2>
-                  <p className={styles.description}>{project.overview}</p>
-                  <p className={styles.technology}>{project.technologies.slice(0, 3).join(" · ")}</p>
-                  <div className={styles.actions}>
-                    <TrackedLink
-                      className={styles.read}
-                      href={link}
-                      eventName="project_open"
-                      eventData={{ project: project.slug, source: "directory_cta" }}
-                      aria-label={"View " + project.shortTitle + " project"}
-                    >
-                      View project <span aria-hidden="true">↗</span>
-                    </TrackedLink>
-                    <span className={styles.status}>{project.status}</span>
-                  </div>
-                </div>
-
-                <TrackedLink
-                  href={link}
-                  className={styles.visual}
-                  eventName="project_open"
-                  eventData={{ project: project.slug, source: "directory_image" }}
-                  aria-label={"Explore " + project.shortTitle}
-                >
-                  <span className={styles.imageFrame}>
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt ?? project.shortTitle + " interface preview"}
-                      width={project.imageWidth}
-                      height={project.imageHeight}
-                      sizes="(max-width: 767px) 84vw, (max-width: 1200px) 38vw, 470px"
-                      unoptimized
-                      priority={index === 0}
-                    />
-                  </span>
-                </TrackedLink>
-              </div>
-            </article>
-          );
-        })}
+              <span className={styles.count}>({String(index+1).padStart(2,"0")})</span>
+              <span className={styles.description}>
+                <h2>{project.shortTitle}</h2>
+                <span>{project.overview}</span>
+              </span>
+              <span className={styles.visual}>
+                <Image src={project.image} alt={project.imageAlt ?? project.shortTitle+" interface preview"}
+                  width={project.imageWidth} height={project.imageHeight}
+                  sizes="(max-width: 767px) 28vw, 220px" unoptimized />
+              </span>
+              <span className={styles.category}>
+                {project.category[0]}
+                <small>{project.year ?? project.status}</small>
+              </span>
+              <span className={styles.arrow} aria-hidden="true">↗</span>
+            </TrackedLink>
+          </article>
+        ))}
       </div>
     </section>
   );
