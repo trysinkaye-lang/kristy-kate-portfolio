@@ -47,7 +47,7 @@ export function ProjectDirectory({ projects }: { projects: Project[] }) {
 
       <div className={styles.grid}>
         {shown.map((project,index) => (
-          <article className={styles.card} key={project.slug}>
+          <article className={index === 0 ? [styles.card,styles.featured].join(" ") : styles.card} key={project.slug}>
             <TrackedLink
               className={styles.imageLink}
               href={"/projects/"+project.slug}
@@ -83,7 +83,7 @@ export function ProjectDirectory({ projects }: { projects: Project[] }) {
                   {project.shortTitle}
                 </TrackedLink>
               </h2>
-              <p>{project.headline ?? project.overview}</p>
+              <p>{project.overview}</p>
               <div className={styles.bottom}>
                 <span>{project.technologies.slice(0,3).join(" / ")}</span>
                 <TrackedLink
