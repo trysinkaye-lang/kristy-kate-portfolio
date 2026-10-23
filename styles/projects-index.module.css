@@ -16,10 +16,11 @@
   text-transform: uppercase;
 }
 .headline h1 {
-  font-size: clamp(64px, 7.3vw, 104px);
-  font-weight: 630;
-  line-height: .98;
-  letter-spacing: -.077em;
+  font-family: var(--font-editorial);
+  font-size: clamp(85px, 10vw, 149px);
+  font-weight: 500;
+  line-height: .89;
+  letter-spacing: -.06em;
 }
 .headline h1 span { color: var(--muted); }
 .intro { max-width: 345px; justify-self: end; }
