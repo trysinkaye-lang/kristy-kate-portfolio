@@ -5,28 +5,28 @@ import { HomeCapabilities } from "@/components/home/HomeCapabilities";
 import { HomeCTA } from "@/components/home/HomeCTA";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/data/site";
-import styles from "@/components/home/home.module.css";
+import styles from "@/components/home/HomeEditorial.module.css";
 
 export const metadata = {
-  ...pageMetadata("Full-Stack Developer & UI/UX Designer", site.headline, "/"),
-  title: site.name + " | Full-Stack Developer & UI/UX Designer",
+  ...pageMetadata("Software Developer", "Kristy Kate Taylor — software developer building desktop and web applications.", "/"),
+  title: site.name + " | Software Developer",
 };
 
 export default function Home() {
   return (
     <main id="main-content" tabIndex={-1}>
       <Hero />
-      <section id="work" aria-labelledby="work-title">
-        <div className={["shell", styles.workIntro].join(" ")}>
-          <div className={styles.workHeading}>
+      <section id="work" className={styles.work} aria-labelledby="work-title">
+        <div className="shell">
+          <div className={styles.workHeader}>
             <div>
-              <p className="eyebrow">01 / Portfolio</p>
+              <p className={styles.marker}>Work / 01</p>
               <h2 id="work-title">Projects</h2>
             </div>
-            <p>Software systems and websites built with a focus on usability, reliability, and clear design.</p>
+            <p>Software systems and websites I&apos;ve developed, with an emphasis on real workflows and usable interfaces.</p>
           </div>
+          <ProjectDriftWall />
         </div>
-        <ProjectDriftWall />
       </section>
       <HomeAbout />
       <HomeCapabilities />
