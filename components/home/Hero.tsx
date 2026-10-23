@@ -7,29 +7,34 @@ export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.topline].join(" ")}>
-        <p>Kristy Kate Taylor / Portfolio 2026</p>
-        <p>Software developer · Philippines</p>
+        <p>Kristy Kate Taylor / Portfolio</p>
+        <p>Full-stack developer · Philippines</p>
       </div>
 
-      <div className={["shell",styles.content].join(" ")}>
+      <div className={["shell", styles.content].join(" ")}>
         <div className={styles.copy}>
-          <p className={styles.kicker}><span aria-hidden="true">●</span> Developer / Designer / Problem solver</p>
+          <p className={styles.kicker}>
+            <span className={styles.kickerLine} aria-hidden="true" />
+            Welcome to my portfolio
+          </p>
           <h1 id="identity" className={styles.heading}>
-            I build <span>useful software.</span>
-            <em>And make it feel effortless.</em>
+            <span>From complexity</span>
+            <em>to clarity.</em>
           </h1>
           <p className={styles.lead}>
-            I&apos;m Kristy, a full-stack developer creating information systems, desktop apps,
-            and websites. I turn complex workflows into software that feels clear and practical.
+            I&apos;m Kristy Kate Taylor, a full-stack developer building digital tools
+            that make complicated work easier — from information systems and desktop
+            applications to thoughtful websites.
           </p>
           <div className={styles.actions}>
             <Link href="#work" className={styles.primary}>
-              View projects <span aria-hidden="true">↗</span>
+              Explore projects <span aria-hidden="true">↗</span>
             </Link>
-            <Link href="/about" className={styles.secondary}>
-              More about me <span aria-hidden="true">↗</span>
+            <Link href="/contact" className={styles.secondary}>
+              Get in touch <span aria-hidden="true">↗</span>
             </Link>
           </div>
+          <p className={styles.detail}>Software development <span aria-hidden="true">/</span> Interface design <span aria-hidden="true">/</span> Problem-solving</p>
         </div>
 
         <figure className={styles.visual}>
@@ -40,18 +45,18 @@ export function Hero() {
               height={960}
               alt="Professional portrait of Kristy Kate Taylor"
               priority
-              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 35vw, 490px"
+              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 32vw, 380px"
             />
           </div>
           <figcaption className={styles.visualMeta}>
             <span>Kristy Kate Taylor</span>
-            <span>Software & interface development</span>
+            <span>Full-stack software developer</span>
           </figcaption>
         </figure>
       </div>
 
-      <div className={["shell",styles.bottom].join(" ")}>
-        <p>Build for people. Design for clarity.</p>
+      <div className={["shell", styles.bottom].join(" ")}>
+        <p>Thoughtful code. Practical solutions.</p>
         <p>React / TypeScript / PostgreSQL / Tauri / PHP</p>
       </div>
 
