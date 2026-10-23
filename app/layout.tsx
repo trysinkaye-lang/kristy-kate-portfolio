@@ -12,7 +12,7 @@ const manrope = localFont({ src: "../public/fonts/manrope-latin.woff2", variable
 const cormorant = localFont({ src: "../public/fonts/cormorant-garamond-latin.woff2", variable: "--font-cormorant", display: "swap", weight: "300 700" });
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} | Full-Stack Developer & UI/UX Designer`, template: `%s | ${site.name}` },
+  title: { default: `${site.name} | Software Developer`, template: `%s | ${site.name}` },
   description: site.headline,
   openGraph: { title: site.name, description: site.headline, url: site.url, siteName: site.name, type: "website" },
   twitter: { card: "summary_large_image", title: site.name, description: site.headline },

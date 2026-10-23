@@ -12,8 +12,7 @@ export type Project = {
   highlights: string[];
   impact: string[];
   features: string[];
-  challenges: string[];
-  lessons: string[];
+
   image: string;
   imageWidth: number;
   imageHeight: number;
@@ -35,7 +34,7 @@ const systemProjects: Project[] = [
     shortTitle: "RBIM",
     category: ["Information Systems", "Full Stack", "Desktop", "UI/UX"],
     status: "Active development",
-    overview: "A barangay records and population information system for structured household and individual data, certificates, reports, migration records, and local data management workflows.",
+    overview: "An offline and online population registry for household records, migration tracking, certificates, and municipal reporting.",
     problem: "Local population records need clear data capture, validation, reporting, and controlled access while remaining practical for day-to-day barangay encoding.",
     solution: "RBIM combines questionnaire-driven data entry, household and individual profiles, certificates, reports, data management, validation, and an offline-first local workflow with ongoing hybrid system development.",
     role: "Software Developer / UI Designer",
@@ -47,8 +46,7 @@ const systemProjects: Project[] = [
       "Brings household, individual, migration, certificate, reporting, and data-management workflows into one operational system."
     ],
     features: ["Household and individual profiles", "Questionnaire workflows", "Certificates", "Reports", "Data validation", "Migration classification", "Offline-first records", "Data management"],
-    challenges: ["Designing complex forms without overwhelming encoders", "Maintaining accurate household and individual relationships", "Balancing offline desktop workflows with online municipal visibility"],
-    lessons: ["Model operational rules explicitly", "Design validation around real data-entry behavior", "Treat usability and data integrity as one system problem"],
+
     image: "/media/rbim-dashboard.webp",
     imageWidth: 640,
     imageHeight: 341,
@@ -60,7 +58,7 @@ const systemProjects: Project[] = [
     shortTitle: "AHDIS",
     category: ["Information Systems", "Desktop", "UI/UX"],
     status: "Developed / maintained",
-    overview: "A desktop information system for adolescent profiles and health-development data, with barangay insights, age distribution, civil status, enrollment, pregnancy history, reports, and import/export workflows.",
+    overview: "An offline desktop application for adolescent records, ages 9–19 reporting, and data import and export.",
     problem: "Program data needs consistent encoding, profile history, age-aware views, and reports that remain clear and usable in an office desktop environment.",
     solution: "AHDIS organizes profile management, local reporting, dashboard analytics, imports and exports, controlled updates, and account-level access in a focused desktop application.",
     role: "Software Developer / UI Designer",
@@ -72,8 +70,7 @@ const systemProjects: Project[] = [
       "Designed for practical office use with local data storage, controlled updates, and clear age-aware reporting behavior."
     ],
     features: ["Adolescent profile management", "Barangay-level insights", "Age distribution reporting", "Civil status and enrollment analytics", "Pregnancy-history tracking", "Import and export workflows", "Reports", "Account settings"],
-    challenges: ["Maintaining a desktop-focused stack", "Separating age-specific reporting behavior", "Protecting local data during installation and updates"],
-    lessons: ["Small workflow details strongly affect data-entry quality", "Deployment and upgrade safety are part of application design", "Clear UI states reduce operator errors"],
+
     image: "/media/ahdis-dashboard.webp",
     imageWidth: 480,
     imageHeight: 256
@@ -84,7 +81,7 @@ const systemProjects: Project[] = [
     shortTitle: "ERP System",
     category: ["Information Systems", "Business Systems", "UI/UX"],
     status: "Developed",
-    overview: "A business management system centered on a unified dashboard for sales, expenses, profit, orders, inventory, employees, purchasing, accounting, reporting, alerts, and recent transactions.",
+    overview: "A unified business system for sales, inventory, purchasing, payroll, accounting, and operational reports.",
     problem: "Business operations become difficult to monitor when sales, inventory, purchasing, HR, payroll, accounting, and reporting are handled through separate workflows.",
     solution: "The ERP interface brings key operational modules and business metrics into one system with quick actions, transaction visibility, inventory status, alerts, and reporting views.",
     role: "Software Developer / UI Designer",
@@ -96,8 +93,7 @@ const systemProjects: Project[] = [
       "Uses consistent cross-module navigation to reduce friction across dense business workflows."
     ],
     features: ["Executive dashboard", "Inventory management", "Sales workflows", "Purchasing workflows", "HR & payroll", "Accounting", "Reports", "Alerts and notifications", "Recent transactions"],
-    challenges: ["Designing a dense dashboard without sacrificing scanability", "Keeping cross-module navigation clear", "Presenting operational metrics and exceptions in one view"],
-    lessons: ["Dashboards should prioritize decision-making over decoration", "Cross-module consistency matters in business systems", "Alerts and quick actions reduce navigation cost"],
+
     image: "/media/erp-dashboard.webp",
     imageWidth: 480,
     imageHeight: 270
@@ -120,8 +116,7 @@ const systemProjects: Project[] = [
       "Translates system requirements and communication goals into clearer layouts, interactions, and visual direction."
     ],
     features: ["Dashboard layouts", "Web interfaces", "Carousel concepts", "Visual hierarchy", "Responsive UI", "Reusable patterns"],
-    challenges: ["Keeping visuals expressive without reducing readability", "Translating system requirements into simple interfaces"],
-    lessons: ["Design decisions should map back to user tasks", "Consistency creates speed for both users and developers"],
+
     image: "/media/rbim-dashboard.webp",
     imageWidth: 640,
     imageHeight: 341
@@ -132,15 +127,14 @@ const websiteProjects: Project[] = [
   {
     slug: "co-designs", title: "C.O. Designs — Architecture portfolio website", shortTitle: "C.O. DESIGNS",
     category: ["Websites", "Creative Development"], status: "In development", role: "Website Designer & Developer",
-    overview: "An architecture portfolio that brings the process of building into the browsing experience, alongside the studio’s residential and interior work.",
+    overview: "An interactive architecture website showcasing residential and interior projects through clean, visual storytelling.",
     problem: "An architecture website needs to communicate space and process while keeping the studio’s work easy to explore on everyday devices.",
     solution: "A scroll-controlled architectural study introduces the practice. An image-led portfolio follows, with clear project categories, studio information, and a responsive editorial layout.",
     technologies: ["React", "TypeScript", "Three.js", "React Three Fiber", "GSAP", "Next.js"],
     highlights: ["Spatial storytelling", "Scroll-controlled construction", "Responsive portfolio"],
     impact: ["The current development preview connects an architectural construction study with the studio’s portfolio.", "Real project imagery gives the residential, wellness, hospitality, and interior work room to lead the page."],
     features: ["Interactive architectural introduction", "Reversible construction stages", "Residential and interior portfolio", "Studio and practice information", "Responsive image composition", "Reduced-motion and WebGL fallbacks"],
-    challenges: ["Keeping a spatial introduction readable and navigable", "Balancing WebGL rendering with ordinary page performance", "Maintaining a useful experience when motion or WebGL is unavailable"],
-    lessons: ["An interactive scene needs an equally clear HTML explanation", "Native scrolling gives visitors control over the pace", "Architecture photography needs space and consistent captions"],
+
     image: "/media/co-designs-preview.webp", imageWidth: 1440, imageHeight: 1000,
     imageAlt: "C.O. Designs website with an interactive architectural model",
     imageCaption: "Actual website preview — the completed stage of the interactive architectural study.",
@@ -158,15 +152,14 @@ const websiteProjects: Project[] = [
   {
     slug: "marci-metzger", title: "Marci Metzger — Real-estate website redesign", shortTitle: "MARCI METZGER",
     category: ["Websites", "UI/UX"], status: "Deployed redesign", role: "Website Designer & Developer",
-    overview: "A real-estate website redesign shaped around property photography, local context, and a clear path for buyers and sellers.",
+    overview: "A real-estate website redesign featuring property photography, buyer and seller pathways, and simple contact options.",
     problem: "Property, service, and agent information need a coherent hierarchy without losing the original site’s content or visual material.",
     solution: "A photographic opening, focused buyer and seller sections, a property gallery, and clear contact routes reorganize the experience around visitor intent.",
     technologies: ["React", "TypeScript", "Vite", "CSS", "GSAP"],
     highlights: ["Real-estate redesign", "Photography-led", "Responsive experience"],
     impact: ["A deployed redesign presents the original property imagery and service content in a cohesive editorial layout.", "Buyer and seller pathways clarify the purpose of each section without adding fabricated listings or business results."],
     features: ["Photographic hero", "Buyer and seller pathways", "Property gallery", "Agent and local-area context", "Responsive navigation", "Links to existing listing and contact channels"],
-    challenges: ["Preserving source content while improving hierarchy", "Composing wide property photographs for narrow screens", "Balancing architectural motion with a useful static experience"],
-    lessons: ["Image selection and crop communicate as much as typography", "Responsive art direction needs a deliberate small-screen composition", "A clear route to existing services matters more than decorative interface controls"],
+
     image: "/media/marci-preview.webp", imageWidth: 1440, imageHeight: 1000,
     imageAlt: "Marci Metzger website showing the Pahrump Realtor opening", imageCaption: "Actual deployed redesign — property photography, local context, and clear buyer pathways.",
     gallery: [
@@ -190,8 +183,7 @@ const websiteProjects: Project[] = [
     highlights: ["Website revamp", "Product and brand", "Ongoing development"],
     impact: ["A live work-in-progress preview is available for reviewing the current direction. This is an ongoing project, not a completed client production launch."],
     features: ["Fragrance collection pathways", "Product-led presentation", "Campaign imagery and editorial gallery", "Responsive layouts", "Official-store links", "Interaction refinement"],
-    challenges: ["Keeping product storytelling clear as the design evolves", "Balancing brand expression with readable mobile layouts"],
-    lessons: ["The design and implementation are still being refined; final project learnings will follow the completed work."],
+
     image: "/media/lacomus-preview.webp", imageWidth: 1440, imageHeight: 1000,
     imageAlt: "Actual Lacomus website development preview", imageCaption: "Current development preview. Design and implementation are ongoing.",
     architecture: [

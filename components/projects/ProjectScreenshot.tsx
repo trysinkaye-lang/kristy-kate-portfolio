@@ -13,7 +13,7 @@ export function ProjectScreenshot({
   sizes?: string;
 }) {
   return (
-    <figure className={styles.screenshot} style={{ maxWidth: project.imageWidth }} data-spotlight>
+    <figure className={styles.screenshot} style={{ maxWidth: Math.min(project.imageWidth, 780) }} data-spotlight>
       <ImageInspector
         src={project.image}
         alt={project.imageAlt ?? `${project.shortTitle} interface screenshot`}

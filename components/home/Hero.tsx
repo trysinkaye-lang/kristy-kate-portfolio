@@ -6,62 +6,51 @@ import styles from "./HeroRefresh.module.css";
 export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
-      <div className={["shell", styles.topline].join(" ")}>
-        <p>Kristy Kate Taylor / Portfolio 2026</p>
-        <p>Software developer · Philippines</p>
-      </div>
-
-      <div className={["shell",styles.content].join(" ")}>
-        <div className={styles.copy}>
-          <p className={styles.kicker}><span aria-hidden="true">●</span> Developer / Designer / Problem solver</p>
-          <h1 id="identity" className={styles.heading}>
-            I build <span>useful software.</span>
-            <em>And make it feel effortless.</em>
-          </h1>
-          <p className={styles.lead}>
-            I&apos;m Kristy, a full-stack developer creating information systems, desktop apps,
-            and websites. I turn complex workflows into software that feels clear and practical.
-          </p>
-          <div className={styles.actions}>
-            <Link href="#work" className={styles.primary}>
-              View projects <span aria-hidden="true">↗</span>
-            </Link>
-            <Link href="/about" className={styles.secondary}>
-              More about me <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
+      <div className={["shell",styles.frame].join(" ")}>
+        <div className={styles.rail}>
+          <span>( KT )</span>
+          <span>PORTFOLIO — 2026</span>
+          <span>01 / 03</span>
         </div>
-
-        <figure className={styles.visual}>
-          <div className={styles.portrait}>
+        <div className={styles.composition}>
+          <div className={styles.copy}>
+            <p className={styles.eyebrow}>Kristy Kate Taylor / Software developer</p>
+            <h1 id="identity" className={styles.title}>
+              Kristy Kate
+              <span>Taylor<em>.</em></span>
+            </h1>
+            <div className={styles.foot}>
+              <p>Web applications.<br />Desktop software.<br />Information systems.</p>
+              <div className={styles.intro}>
+                <p>Full-stack development, from interfaces and application logic to databases and reporting.</p>
+                <div className={styles.actions}>
+                  <Link href="#work">Explore projects <span aria-hidden="true">↗</span></Link>
+                  <Link href="/contact">Contact <span aria-hidden="true">↗</span></Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figure className={styles.portrait}>
             <Image
               src="/media/kristy-kate-professional-portrait-v2.webp"
-              width={960}
-              height={960}
+              width={960} height={960}
+              sizes="(max-width: 767px) 34vw, 210px"
               alt="Professional portrait of Kristy Kate Taylor"
               priority
-              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 35vw, 490px"
             />
-          </div>
-          <figcaption className={styles.visualMeta}>
-            <span>Kristy Kate Taylor</span>
-            <span>Software & interface development</span>
-          </figcaption>
-        </figure>
+            <figcaption>© KT / 2026</figcaption>
+          </figure>
+        </div>
+        <div className={styles.bottom}>
+          <span>Based in the Philippines</span>
+          <span>Scroll to explore <span aria-hidden="true">↓</span></span>
+        </div>
       </div>
-
-      <div className={["shell",styles.bottom].join(" ")}>
-        <p>Build for people. Design for clarity.</p>
-        <p>React / TypeScript / PostgreSQL / Tauri / PHP</p>
-      </div>
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Person", name: site.name, url: site.url,
-        jobTitle: ["Full-Stack Developer", "Software Developer", "UI/UX Designer"],
-        sameAs: [site.github],
-        knowsAbout: ["Information systems", "Full-stack web development", "Desktop applications", "Databases", "UI/UX design"],
-        alumniOf: { "@type": "CollegeOrUniversity", name: "University of Science and Technology of Southern Philippines" },
-      }).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({
+        "@context":"https://schema.org","@type":"Person",name:site.name,url:site.url,
+        jobTitle:["Software Developer","Full-Stack Developer"],sameAs:[site.github],
+        knowsAbout:["Web applications","Desktop applications","Information systems","Database development"]
+      }).replace(/</g,"\\u003c")}} />
     </section>
   );
 }

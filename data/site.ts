@@ -1,7 +1,7 @@
 export const site = {
   name: "Kristy Kate Taylor",
-  title: "Full-Stack Software Developer / UI/UX Designer / Creative Developer",
-  headline: "I build production-focused information systems, web applications, desktop software, and custom websites with reliable data workflows, practical architecture, and clear user experiences.",
+  title: "Software Developer / Full-Stack & Desktop Applications",
+  headline: "Software developer building information systems, offline desktop applications, and websites. Recent work includes RBIM and AHDIS.",
   email: "trysinkaye@gmail.com",
   github: "https://github.com/trysinkaye-lang",
   linkedin: null,
