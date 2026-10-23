@@ -7,7 +7,7 @@ export function HomeCTA() {
     <section className={styles.contact} aria-labelledby="contact-title">
       <div className={["shell",styles.contactInner].join(" ")}>
         <div>
-          <p className={styles.marker}>Contact / 04</p>
+          <p className={styles.marker}>Contact</p>
           <h2 id="contact-title">Get in touch.</h2>
         </div>
         <div className={styles.contactLinks}>
