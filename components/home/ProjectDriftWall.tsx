@@ -73,7 +73,7 @@ export function ProjectDriftWall() {
         </Link>
       </div>
       <div className={styles.end}>
-        <div className={styles.progress} aria-label={"Project " + (active + 1) + " of 4"}>
+        <div role="group" className={styles.progress} aria-label={"Project " + (active + 1) + " of 4"}>
           {projects.map((project, index) => (
             <button key={project.slug} type="button"
               className={active === index ? styles.progressActive : ""}
