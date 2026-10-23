@@ -7,17 +7,17 @@ export function HomeCTA() {
     <section className={styles.contact} aria-labelledby="contact-title">
       <div className={["shell", styles.contactInner].join(" ")}>
         <div className={styles.contactLead}>
-          <p className={styles.marker}>Contact / Next project</p>
+          <p className={styles.marker}>Contact</p>
           <h2 id="contact-title">
-            Tell me{" "}
-            <span>about it.</span>
+            Let&apos;s talk
+            <span>projects.</span>
           </h2>
         </div>
 
         <div className={styles.contactDetails}>
           <p className={styles.contactInvitation}>
-            A website to launch, a web app to develop, or a system to improve?
-            I&apos;d like to hear what you&apos;re working on.
+            Building a website, web app, desktop application, or information system?
+            Tell me what you need and what you want it to do.
           </p>
           <TrackedLink
             className={styles.contactAction}
