@@ -19,7 +19,7 @@ export default function ProjectsPage() {
           <h1>Projects<span aria-hidden="true">.</span></h1>
         </div>
         <div className={styles.intro}>
-          <p>A collection of information systems, desktop applications and websites. Each entry shows the actual product, the tools used and what I built.</p>
+          <p>Five projects across desktop software, information systems, and the web.</p>
           <Link href="/about" className={styles.aboutLink}>More about me <span aria-hidden="true">↗</span></Link>
         </div>
       </header>
