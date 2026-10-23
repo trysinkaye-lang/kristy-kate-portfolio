@@ -1,13 +1,13 @@
 .hero { background: var(--background); color: var(--foreground); }
 .frame { border-bottom: 1px solid var(--line); }
 .rail { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding-block: 19px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .105em; }
-.composition { display: grid; grid-template-columns: minmax(0,1fr) minmax(125px,.22fr); align-items: center; gap: clamp(35px,6vw,100px); min-height: min(74vh,780px); padding-block: clamp(78px,9vw,152px); }
+.composition { display: grid; grid-template-columns: minmax(0,1fr) minmax(125px,.22fr); align-items: center; gap: clamp(35px,6vw,100px); min-height: 0; padding-block: clamp(48px,5vw,86px); }
 .copy { min-width: 0; }
 .eyebrow { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: clamp(24px,3.2vw,50px); }
-.title { font-family: var(--font-editorial); font-size: clamp(82px,11vw,183px); font-weight: 500; letter-spacing: -.072em; line-height: .79; }
+.title { font-family: var(--font-editorial); font-size: clamp(76px,9vw,145px); font-weight: 500; letter-spacing: -.072em; line-height: .79; }
 .title > span { display: block; margin-top: .1em; }
 .title em { font-style: normal; }
-.foot { display: grid; grid-template-columns: minmax(0,.65fr) minmax(0,1fr); align-items:start; gap: clamp(24px,4vw,65px); border-top: 1px solid var(--line); margin-top: clamp(45px,6vw,95px); padding-top: clamp(20px,3vw,36px); }
+.foot { display: grid; grid-template-columns: minmax(0,.65fr) minmax(0,1fr); align-items:start; gap: clamp(24px,4vw,65px); border-top: 1px solid var(--line); margin-top: clamp(28px,3.5vw,55px); padding-top: clamp(20px,3vw,36px); }
 .foot > p { font-size: clamp(17px,1.75vw,25px); font-weight: 560; letter-spacing: -.027em; line-height: 1.35; }
 .intro > p { max-width: 43ch; font-size: 13px; line-height: 1.8; color: var(--muted); }
 .actions { display: flex; align-items:center; flex-wrap: wrap; gap: 10px 25px; margin-top: 18px; }
