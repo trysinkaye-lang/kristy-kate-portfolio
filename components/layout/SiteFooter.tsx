@@ -8,7 +8,7 @@ export function SiteFooter() {
       <div className={`shell ${styles.footerInner}`}>
         <p>© {new Date().getFullYear()} Kristy Kate Taylor · Design & development</p>
         <div className={styles.footerLinks}>
-          <TrackedLink href="/packages" eventName="package_open" eventData={{ source: "footer" }}>Packages</TrackedLink>
+          <TrackedLink href="/projects" eventName="project_open" eventData={{ source: "footer" }}>Projects</TrackedLink>
           <TrackedLink href={site.github} eventName="github_open" eventData={{ source: "footer" }} target="_blank" rel="noreferrer">GitHub</TrackedLink>
           <TrackedLink href={`mailto:${site.email}`} eventName="contact_start" eventData={{ source: "footer_email" }}>Email</TrackedLink>
         </div>
