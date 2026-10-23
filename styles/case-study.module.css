@@ -66,3 +66,15 @@
   .next > a { gap: 20px; }
   .next > a > span { font-size: 32px; }
 }
+
+/* Consistent project case-study typography. */
+.back { color: var(--foreground); font-weight: 650; }
+.caseStudy[data-case="marci-metzger"] .intro h1,
+.caseStudy[data-case="lacomus"] .intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7.2vw, 104px);
+  font-weight: 600;
+  letter-spacing: -.055em;
+}
+.intro h1 { font-weight: 600; letter-spacing: -.06em; }
+.indexCopy h2 { font-weight: 600; }
