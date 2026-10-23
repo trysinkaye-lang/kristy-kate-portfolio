@@ -13,17 +13,17 @@ export function Hero() {
 
       <div className={["shell", styles.stage].join(" ")}>
         <div className={styles.copy}>
-          <p className={styles.kicker}>Design-minded developer, grounded in real systems.</p>
+          <p className={styles.kicker}>Software development / Desktop, web & data</p>
           <h1 id="identity" className={styles.name}>
             Kristy Kate <span>Taylor<span className={styles.period}>.</span></span>
           </h1>
           <div className={styles.intro}>
-            <p className={styles.role}>I make software<br />for real work.</p>
+            <p className={styles.role}>Desktop apps.<br />Web systems.</p>
             <div className={styles.pitch}>
               <p>
-                I develop information systems, desktop applications and websites.
-                Recently, that means household records, municipal reporting and tools
-                that make data easier to work with.
+                My recent work includes RBIM, an offline and online population registry,
+                and AHDIS, a desktop application for adolescent health records.
+                I work on everything from data models to the interfaces people use.
               </p>
               <div className={styles.links}>
                 <Link href="#work" className={styles.mainLink}>Explore projects <span aria-hidden="true">↗</span></Link>
