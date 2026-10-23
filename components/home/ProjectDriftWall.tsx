@@ -10,7 +10,7 @@ export function ProjectDriftWall() {
   return (
     <section className={styles.section} aria-label="Featured case studies">
       <div className="shell">
-        <nav className={styles.gallery} aria-label="Selected projects gallery">
+        <nav className={styles.gallery} aria-label="Projects gallery">
           {featuredProjects.map((project, index) => (
             <article className={styles.card} key={project.slug}>
               <Link className={styles.imageLink} href={"/projects/" + project.slug} aria-label={"View " + project.shortTitle + " case study"}>
