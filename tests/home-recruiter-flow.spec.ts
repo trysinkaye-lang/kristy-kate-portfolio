@@ -235,7 +235,21 @@ test("contact section has visual presence without breaking theme or access", asy
     expect(metrics.overflow).toBe(false);
     await contact.screenshot({ path: testInfo.outputPath("contact-light-" + width + ".png"), animations: "disabled" });
 
-    await page.getByRole("button", { name: "Use dark mode" }).click();
+    // At phone widths the theme toggle is inside the modal navigation;
+    // on desktop the same control lives in the main navigation.
+    const setThemeFromVisibleNavigation = async (label: "Use dark mode" | "Use light mode") => {
+      if (width < 768) {
+        await page.getByRole("button", { name: "Open navigation" }).click();
+        await page.getByRole("dialog", { name: "Navigation" })
+          .getByRole("button", { name: label }).click();
+        await page.getByRole("button", { name: "Close navigation" }).click();
+      } else {
+        await page.getByRole("navigation", { name: "Main navigation" })
+          .getByRole("button", { name: label }).click();
+      }
+    };
+
+    await setThemeFromVisibleNavigation("Use dark mode");
     await expect(page.locator("html")).toHaveClass(/dark/);
     const darkColors = await contact.evaluate(element => ({
       background: getComputedStyle(element).backgroundColor,
@@ -243,7 +257,7 @@ test("contact section has visual presence without breaking theme or access", asy
     }));
     expect(darkColors.background).toBe(darkColors.bodyBackground);
     await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
-    await page.getByRole("button", { name: "Use light mode" }).click();
+    await setThemeFromVisibleNavigation("Use light mode");
     await expect(page.locator("html")).not.toHaveClass(/dark/);
   }
 });
