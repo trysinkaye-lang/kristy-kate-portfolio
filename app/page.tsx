@@ -23,7 +23,7 @@ export default function Home() {
               <p className={styles.marker}>Work / 01</p>
               <h2 id="work-title">Projects</h2>
             </div>
-            <p>Software systems and websites I&apos;ve developed, with an emphasis on real workflows and usable interfaces.</p>
+            <p>An index of systems, applications, and websites I have developed.</p>
           </div>
           <ProjectDriftWall />
         </div>
