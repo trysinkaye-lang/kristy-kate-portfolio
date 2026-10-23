@@ -21,14 +21,14 @@
   grid-template-columns: minmax(0, 1.4fr) minmax(240px, .65fr);
   align-items: center;
   gap: clamp(44px, 8vw, 145px);
-  padding: clamp(58px, 6.2vw, 105px) 0 clamp(45px, 5vw, 80px);
+  padding: clamp(40px, 4vw, 64px) 0 clamp(31px, 3.3vw, 53px);
 }
 .main { min-width: 0; }
 .sender {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: clamp(28px, 3.4vw, 51px);
+  margin-bottom: clamp(19px, 2.1vw, 33px);
   color: var(--muted);
   font-size: 10px;
   line-height: 1.6;
@@ -47,7 +47,7 @@
 }
 .heading {
   max-width: 950px;
-  font-size: clamp(56px, 6.35vw, 99px);
+  font-size: clamp(51px, 5.6vw, 85px);
   font-weight: 630;
   letter-spacing: -.078em;
   line-height: 1.01;
@@ -63,7 +63,7 @@
 .question { color: var(--muted); }
 .lead {
   max-width: 56ch;
-  margin-top: clamp(23px, 3vw, 43px);
+  margin-top: clamp(19px, 2.25vw, 29px);
   color: var(--muted);
   font-size: clamp(14px, 1.3vw, 17px);
   line-height: 1.8;
@@ -73,7 +73,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px 28px;
-  margin-top: 26px;
+  margin-top: 19px;
 }
 .actions a {
   display: inline-flex;
@@ -92,7 +92,7 @@
 .capabilities {
   min-width: 0;
   align-self: center;
-  padding: 25px 25px 19px;
+  padding: 22px 23px 18px;
   background: var(--surface);
   border: 1px solid var(--line);
   transform: rotate(1.5deg);
@@ -115,9 +115,9 @@
   grid-template-columns: 29px minmax(0,1fr);
   align-items: baseline;
   gap: 9px;
-  padding: 20px 0;
+  padding: 15px 0;
   border-top: 1px solid var(--line);
-  font-size: clamp(15px, 1.5vw, 21px);
+  font-size: clamp(15px, 1.36vw, 19px);
   font-weight: 590;
   line-height: 1.28;
   letter-spacing: -.027em;
@@ -149,7 +149,7 @@
 }
 @media (max-width: 1100px) {
   .composition { grid-template-columns: minmax(0, 1.2fr) minmax(215px, .65fr); gap: 35px; }
-  .heading { font-size: clamp(51px, 6.5vw, 75px); }
+  .heading { font-size: clamp(49px, 5.4vw, 73px); }
   .capabilities { padding: 20px 19px 15px; }
 }
 @media (max-width: 767px) {
