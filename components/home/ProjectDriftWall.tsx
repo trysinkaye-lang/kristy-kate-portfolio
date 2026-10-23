@@ -20,7 +20,7 @@ export function ProjectDriftWall() {
     const item = trackRef.current?.querySelectorAll("article")[next];
     if (item && window.innerWidth < 768) {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      item.scrollIntoView({ behavior: reduced ? "instant" : "smooth", inline: "center", block: "nearest" });
+      item.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
     }
   };
 
