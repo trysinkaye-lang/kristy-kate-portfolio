@@ -236,5 +236,7 @@ test("contact section has visual presence without breaking theme or access", asy
     }));
     expect(darkColors.background).toBe(darkColors.bodyBackground);
     await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
+    await page.getByRole("button", { name: "Use light mode" }).click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
   }
 });
