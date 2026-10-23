@@ -2,16 +2,17 @@ import { test, expect } from "@playwright/test";
 
 const selectedSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger"];
 
-test("work-first hero, selected project gallery, and primary interactions", async ({ page }) => {
+test("project-first hero, project gallery, and primary interactions", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
-  await expect(hero.getByRole("img", { name: "Professional portrait of Kristy Kate Taylor" })).toBeVisible();
-  await expect(hero.getByText("PORTFOLIO — 2026")).toBeVisible();
-  await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
+  await expect(hero.getByText("WEB & SOFTWARE DEVELOPMENT / PHILIPPINES")).toHaveCount(0);
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
@@ -20,7 +21,7 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
     await expect(gallery.locator(`a[href="/projects/${slug}"]`).first()).toBeVisible();
   }
 
-  await hero.getByRole("link", { name: "Explore projects" }).click();
+  await hero.getByRole("link", { name: "Explore my projects" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
 
@@ -59,7 +60,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("Kristy Kate");
+  await expect(page.locator("#identity")).toContainText("in mind?");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -82,10 +83,10 @@ test("project stories are distinct, responsive, and navigable", async ({ page })
 });
 
 
-test("portfolio hero features the developer rather than repeating RBIM imagery", async ({ page }) => {
+test("portfolio hero showcases development disciplines without a portrait or duplicate project image", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
-  await expect(hero.getByRole("img", { name: /Professional portrait/ })).toBeVisible();
+  await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.locator('img[src*="rbim-dashboard"]')).toHaveCount(0);
 });
 
@@ -116,10 +117,10 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("Kristy Kate");
+    await expect(page.locator("#identity")).toContainText("in mind?");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
-    const images = await page.locator("#home img, #work img").evaluateAll(async images => {
+    const images = await page.locator("#work img").evaluateAll(async images => {
       await Promise.all(images.map(async image => {
         const img = image as HTMLImageElement;
         img.loading = "eager";
@@ -147,4 +148,116 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
   const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
   expect(new Set(images).size).toBe(4);
+});
+
+
+test("hero avoids personal photo and oversized name while keeping navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const hero = page.locator("#home");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
+  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Kristy Kate");
+  await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
+  await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
+});
+
+
+test("loading intro is visible only as a temporary nonblocking visual transition", async ({ page }) => {
+  await page.goto("/");
+  const splash = page.locator("[data-intro-splash]");
+  await expect(splash).toHaveAttribute("aria-hidden", "true");
+  await expect(splash).toHaveCSS("pointer-events", "none");
+  await expect(splash).toHaveCSS("visibility", "hidden", { timeout: 5000 });
+  await expect(page.locator("#identity")).toBeVisible();
+});
+
+test("prefers-reduced-motion skips the intro animation", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("[data-intro-splash]")).toHaveCSS("display", "none");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Have a project");
+});
+
+
+test("Onlines-inspired introduction uses a solo developer voice and genuine capabilities", async ({ page }) => {
+  await page.goto("/");
+  const hero = page.locator("#home");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
+  await expect(hero.getByText("A NOTE FROM THE DEVELOPER")).toBeVisible();
+  await expect(hero.getByText(/I design and develop websites, web applications, and offline desktop software/)).toBeVisible();
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Websites & web apps");
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Offline desktop software");
+  await expect(hero.getByRole("complementary", { name: "What I develop" })).toContainText("Data systems & reporting");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByRole("link", { name: "Explore my projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
+});
+
+test("intro stays legible with reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({width: 375, height: 812});
+  await page.goto("/");
+  await expect(page.locator("#home aside")).toHaveCSS("animation-name", "none");
+  await expect(page.locator("#identity")).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  expect(overflow).toBe(false);
+});
+
+
+test("contact section has visual presence without breaking theme or access", async ({ page }, testInfo) => {
+  for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    const contact = page.locator('section[aria-labelledby="contact-title"]');
+    const headline = contact.getByRole("heading", { name: /Let's talk\s+projects\./ });
+    await expect(headline).toBeVisible();
+    await expect(contact.getByText(/Building a website, web app, desktop application, or information system/)).toBeVisible();
+    const sameTypeface = await headline.evaluate(element =>
+      getComputedStyle(element).fontFamily === getComputedStyle(document.body).fontFamily
+    );
+    expect(sameTypeface, "The contact heading must use the website's primary font").toBe(true);
+    const action = contact.getByRole("link", { name: "Send a message" });
+    await expect(action).toHaveAttribute("href", "/contact");
+    await expect(contact.getByRole("link", { name: /trysinkaye@gmail.com/ })).toHaveAttribute("href", "mailto:trysinkaye@gmail.com");
+
+    const metrics = await contact.evaluate(element => ({
+      background: getComputedStyle(element).backgroundColor,
+      bodyBackground: getComputedStyle(document.body).backgroundColor,
+      height: element.getBoundingClientRect().height,
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    }));
+    expect(metrics.background).toBe(metrics.bodyBackground);
+    expect(metrics.height).toBeGreaterThan(300);
+    expect(metrics.height).toBeLessThan(width < 600 ? 800 : 630);
+    expect(metrics.overflow).toBe(false);
+    await contact.screenshot({ path: testInfo.outputPath("contact-light-" + width + ".png"), animations: "disabled" });
+
+    // At phone widths the theme toggle is inside the modal navigation;
+    // on desktop the same control lives in the main navigation.
+    const setThemeFromVisibleNavigation = async (label: "Use dark mode" | "Use light mode") => {
+      if (width < 768) {
+        await page.getByRole("button", { name: "Open navigation" }).click();
+        await page.getByRole("dialog", { name: "Navigation" })
+          .getByRole("button", { name: label }).click();
+        await page.getByRole("button", { name: "Close navigation" }).click();
+      } else {
+        await page.getByRole("navigation", { name: "Main navigation" })
+          .getByRole("button", { name: label }).click();
+      }
+    };
+
+    await setThemeFromVisibleNavigation("Use dark mode");
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    const darkColors = await contact.evaluate(element => ({
+      background: getComputedStyle(element).backgroundColor,
+      bodyBackground: getComputedStyle(document.body).backgroundColor,
+    }));
+    expect(darkColors.background).toBe(darkColors.bodyBackground);
+    await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
+    await setThemeFromVisibleNavigation("Use light mode");
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+  }
 });

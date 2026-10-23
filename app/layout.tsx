@@ -6,6 +6,7 @@ import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { IntroSplash } from "@/components/layout/IntroSplash";
 import { site } from "@/data/site";
 
 const manrope = localFont({ src: "../public/fonts/manrope-latin.woff2", variable: "--font-manrope", display: "swap", weight: "200 800" });
@@ -19,7 +20,11 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en" className={`${manrope.variable} ${cormorant.variable}`} suppressHydrationWarning><body>
-    <Providers><a className="skip-link" tabIndex={0} href="#main-content">Skip to content</a><Nav />{children}<SiteFooter /></Providers>
+    <IntroSplash />
+    <a className="skip-link" tabIndex={0} href="#main-content">Skip to content</a>
+    <Providers><Nav /></Providers>
+    {children}
+    <SiteFooter />
     {process.env.VERCEL ? <><Analytics /><SpeedInsights /></> : null}
   </body></html>;
 }

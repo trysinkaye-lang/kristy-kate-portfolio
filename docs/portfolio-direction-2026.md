@@ -81,3 +81,24 @@ Research grounding:
 - Five case studies retain original text/images with centered screenshots, truthful development status, role/technology facts and concise outcomes.
 - No music theme, instrument names, sound, WebGL effects, copied annotations, third-party media or invented metrics. UI is responsive without JS for basic navigation, and honors reduced motion.
 - Site theme remains black/white. Original product screenshots retain their true colors.
+
+
+## October 23 — Onlines intro reference (user selected)
+
+Reference: https://onlines.com.ar/
+
+The current search-indexed version of the Onlines homepage uses a short conversational Spanish invitation (“Hagamos tu nuevo sitio web.”), a follow-up line about custom design/development, professional role labels, a compact “Onlines justo ahora” message cue, and a direct portfolio/contact path. Onlines is an agency; its team scale, client claims, and Spanish-language copy **must not** be mapped onto an individual software developer.
+
+### Adaptation
+
+- English, first-person singular, no made-up team or customer chat.
+- Invitation: **“Have a system in mind?”** This shifts the pitch from websites alone to applications and data workflows.
+- Specific support: **“I develop web applications and offline desktop software — from the screens people use to the databases, access controls, and reports behind them.”**
+- Secondary frame: “What I build” with *Web applications*, *Offline desktop software*, and *Databases & reporting*.
+- Links: “Explore my projects” and “Get in touch”; preserve the original RBIM/AHDIS case studies further down the page.
+- Visual language: black-and-white, small developer note, quiet status dot and restrained staggered entry; no portrait, oversized name, fake status messages, copying of original assets or animations.
+- Respect reduced-motion preferences. Keep the hero compact enough that the project media starts within an ordinary desktop viewport.
+
+### Verification
+
+The source page was retrieved as indexed HTML, not as a full motion capture. Specific animation timings or exact cursor behaviors are not claimed as verified. The implementation is independently authored.
