@@ -2,15 +2,15 @@ import { test, expect } from "@playwright/test";
 
 const selectedSlugs = ["rbim", "co-designs", "ahdis", "marci-metzger"];
 
-test("work-first hero, selected project gallery, and primary interactions", async ({ page }) => {
+test("project-first hero, project gallery, and primary interactions", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
-  await expect(hero.getByRole("img", { name: "Professional portrait of Kristy Kate Taylor" })).toBeVisible();
-  await expect(hero.getByText("PORTFOLIO — 2026")).toBeVisible();
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web applications");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Information systems");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByText("Portfolio / 2026")).toBeVisible();
   await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
@@ -59,7 +59,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("Kristy Kate");
+  await expect(page.locator("#identity")).toContainText("Desktop software");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -82,10 +82,10 @@ test("project stories are distinct, responsive, and navigable", async ({ page })
 });
 
 
-test("portfolio hero features the developer rather than repeating RBIM imagery", async ({ page }) => {
+test("portfolio hero showcases development disciplines without a portrait or duplicate project image", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
-  await expect(hero.getByRole("img", { name: /Professional portrait/ })).toBeVisible();
+  await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.locator('img[src*="rbim-dashboard"]')).toHaveCount(0);
 });
 
@@ -116,10 +116,10 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("Kristy Kate");
+    await expect(page.locator("#identity")).toContainText("Desktop software");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
-    const images = await page.locator("#home img, #work img").evaluateAll(async images => {
+    const images = await page.locator("#work img").evaluateAll(async images => {
       await Promise.all(images.map(async image => {
         const img = image as HTMLImageElement;
         img.loading = "eager";
@@ -147,4 +147,17 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
   const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
   expect(new Set(images).size).toBe(4);
+});
+
+
+test("hero avoids personal photo and oversized name while keeping navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const hero = page.locator("#home");
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Web applications");
+  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Kristy Kate");
+  await expect(hero.getByRole("link", { name: "Explore projects" })).toHaveAttribute("href", "#work");
+  await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
 });
