@@ -1,7 +1,7 @@
 
 .about { padding-top:clamp(57px,7vw,106px); padding-bottom:clamp(79px,9vw,142px); }
 .eyebrow { color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.04em; }
-.head h1 { margin-top:18px; font-size:clamp(50px,6.5vw,87px); font-weight:650; letter-spacing:-.07em; line-height:1.05; }
+.head h1 { margin-top:18px; font-family:var(--font-editorial); font-size:clamp(65px,7.5vw,108px); font-weight:500; letter-spacing:-.055em; line-height:.98; }
 .layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.55fr); align-items:start; gap:clamp(44px,11vw,175px); margin-top:clamp(50px,6vw,85px); }
 .copy { padding-top:9px; }
 .copy > p { max-width:61ch; margin-bottom:21px; color:var(--muted); font-size:15px; line-height:1.85; }
