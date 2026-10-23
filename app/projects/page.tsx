@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { publicProjects } from "@/data/projects";
 import { ProjectDirectory } from "@/components/projects/ProjectDirectory";
 import { pageMetadata } from "@/lib/metadata";
@@ -5,24 +6,35 @@ import styles from "@/styles/projects-index.module.css";
 
 export const metadata = pageMetadata(
   "Projects",
-  "Software systems, desktop applications, and websites developed by Kristy Kate Taylor.",
+  "Explore Kristy Kate Taylor's software systems, desktop applications, and website projects.",
   "/projects",
 );
 
 export default function ProjectsPage() {
   return (
     <main id="main-content" tabIndex={-1} className={styles.page}>
-      <header className={["shell",styles.header].join(" ")}>
-        <div className={styles.headerLeft}>
-          <p className={styles.eyebrow}>The portfolio / 2026</p>
-          <h1>Projects<span className={styles.period}>.</span></h1>
+      <header className={["shell", styles.header].join(" ")}>
+        <div className={styles.headline}>
+          <p className={styles.eyebrow}>Kristy Kate Taylor / Portfolio</p>
+          <h1>Projects<span aria-hidden="true">.</span></h1>
         </div>
-        <p className={styles.intro}>
-          Software, information systems, and websites shaped around how people actually work.
-          Explore each project for the problem, technology, and implementation details.
-        </p>
+        <div className={styles.intro}>
+          <p>A closer look at what I build — useful software, thoughtful interfaces, and websites designed for real people.</p>
+          <Link href="/about" className={styles.aboutLink}>More about me <span aria-hidden="true">↗</span></Link>
+        </div>
       </header>
+
       <ProjectDirectory projects={publicProjects} />
+
+      <aside className={styles.endNote}>
+        <div className={["shell", styles.endInner].join(" ")}>
+          <div>
+            <p>Have something in mind?</p>
+            <h2>Let&apos;s make it work.</h2>
+          </div>
+          <Link href="/contact">Get in touch <span aria-hidden="true">↗</span></Link>
+        </div>
+      </aside>
     </main>
   );
 }
