@@ -21,10 +21,10 @@ export function ProjectDirectory({projects}:{projects:Project[]}) {
               aria-label={"Explore "+project.shortTitle}
             >
               <span className={styles.count}>({String(index+1).padStart(2,"0")})</span>
-              <span className={styles.description}>
+              <div className={styles.description}>
                 <h2>{project.shortTitle}</h2>
                 <span>{project.overview}</span>
-              </span>
+              </div>
               <span className={styles.visual}>
                 <Image src={project.image} alt={project.imageAlt ?? project.shortTitle+" interface preview"}
                   width={project.imageWidth} height={project.imageHeight}
