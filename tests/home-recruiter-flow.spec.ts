@@ -62,3 +62,33 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
 });
+
+
+test("project filters work and public case-study thumbnails do not repeat", async ({ page }) => {
+  await page.goto("/projects");
+  const cards = page.locator("main article");
+  await expect(cards).toHaveCount(5);
+
+  const sources = await cards.locator("img").evaluateAll(images =>
+    images.map(image => new URL((image as HTMLImageElement).src).pathname)
+  );
+  expect(new Set(sources).size).toBe(5);
+  await expect(cards.first().locator("img")).toHaveCSS("filter", "none");
+  await expect(page.getByText("INTERFACE & DIGITAL DESIGN WORK", { exact: true })).toHaveCount(0);
+
+  await page.getByRole("button", { name: /Websites/ }).click();
+  await expect(cards).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "RBIM", exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: /Software/ }).click();
+  await expect(cards).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: "RBIM", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /All projects/ }).click();
+  await expect(cards).toHaveCount(5);
+});
+
+test("portfolio hero features the developer rather than repeating RBIM imagery", async ({ page }) => {
+  await page.goto("/");
+  const hero = page.locator("#home");
+  await expect(hero.getByRole("img", { name: /Professional portrait/ })).toBeVisible();
+  await expect(hero.locator('img[src*="rbim-dashboard"]')).toHaveCount(0);
+});
