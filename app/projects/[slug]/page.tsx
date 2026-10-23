@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return <main id="main-content" tabIndex={-1} className={styles.caseStudy} data-case={slug}>
     <header className={`shell ${styles.intro}`}>
-      <Link href="/projects" className={styles.back}>← All work</Link>
+      <Link href="/projects" className={styles.back}>← All projects</Link>
       <div className={styles.register}><p className="eyebrow">{project.category.join(" / ")}</p><span>{project.status}</span></div>
       <h1>{project.shortTitle}</h1>
       <div className={styles.introCopy}><h2>{project.headline}</h2><div><p>{project.overview}</p><ProjectLinks project={project} source="case_study" caseStudy={false} /></div></div>
