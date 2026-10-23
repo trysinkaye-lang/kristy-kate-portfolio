@@ -19,8 +19,11 @@ export default function Home() {
       <section id="work" aria-labelledby="work-title">
         <div className={["shell", styles.workIntro].join(" ")}>
           <div className={styles.workHeading}>
-            <h2 id="work-title">Selected work<span className={styles.workCount}> / 04</span></h2>
-            <p>Four case studies: software systems, data workflows, and websites designed with purpose.</p>
+            <div>
+              <p className="eyebrow">01 / Portfolio</p>
+              <h2 id="work-title">Projects</h2>
+            </div>
+            <p>Software systems and websites built with a focus on usability, reliability, and clear design.</p>
           </div>
         </div>
         <ProjectDriftWall />
