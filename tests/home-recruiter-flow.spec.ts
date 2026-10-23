@@ -10,7 +10,8 @@ test("project-first hero, project gallery, and primary interactions", async ({ p
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Have a project");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("in mind?");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByText("PORTFOLIO · 2026")).toBeVisible();
+  await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
+  await expect(hero.getByText("WEB & SOFTWARE DEVELOPMENT / PHILIPPINES")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
