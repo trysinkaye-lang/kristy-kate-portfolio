@@ -86,3 +86,284 @@
   .toolbox h2 { font-size: 38px; }
   .toolbox dl > div { grid-template-columns: 90px 1fr; gap: 20px; font-size: 12px; }
 }
+
+
+/* Minimalist project index and About page */
+.projectsPage {
+  padding-top: clamp(54px, 7vw, 94px);
+  padding-bottom: clamp(90px, 10vw, 150px);
+}
+.projectsPage .indexHeader {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(240px,.42fr);
+  gap: 22px 60px;
+  align-items: end;
+  padding-bottom: clamp(44px, 5vw, 72px);
+}
+.projectsPage .indexHeader :global(.eyebrow) {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+  color: var(--muted);
+  letter-spacing: .1em;
+}
+.projectsPage .indexHeader h1 {
+  font-size: clamp(54px, 6.5vw, 95px);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -.07em;
+}
+.projectsPage .indexHeader > p:last-child {
+  max-width: 38ch;
+  font-size: 14px;
+  line-height: 1.8;
+  padding-bottom: 5px;
+}
+.projectsPage .projectIndex {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: clamp(50px, 6vw, 80px) clamp(22px, 3.4vw, 56px);
+}
+.projectsPage .projectIndex article,
+.projectsPage .projectIndex article:nth-child(even) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+.projectsPage .projectIndex article::after { display: none; }
+.projectsPage .projectIndex .indexImage,
+.projectsPage .projectIndex article:nth-child(even) .indexImage {
+  order: 0;
+  grid-area: auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1.55;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.projectsPage .indexImage::after { display: none; }
+.projectsPage .indexImage img {
+  width: 100%;
+  height: 100%;
+  max-width: none !important;
+  object-fit: contain;
+  filter: grayscale(1);
+  transition: filter 220ms ease;
+}
+.projectsPage .indexImage:hover img { transform: none; filter: grayscale(0); }
+.projectsPage .projectIndex .indexCopy,
+.projectsPage .projectIndex article:nth-child(even) .indexCopy {
+  order: 1;
+  grid-area: auto;
+  padding-top: 22px;
+}
+.projectMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.projectsPage .indexCopy h2 {
+  margin: 13px 0;
+  font-size: clamp(27px, 3vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.05em;
+}
+.projectsPage .indexCopy h2 a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.projectsPage .indexCopy > p {
+  max-width: 53ch;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.projectActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 14px;
+}
+.projectsPage .projectActions .status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .035em;
+}
+.projectsPage .projectActions :global(.text-link) {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* About */
+.aboutPage { padding-top: clamp(58px, 7vw, 100px); padding-bottom: clamp(70px, 7vw, 110px); }
+.aboutPage .aboutOpening {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(260px,.56fr);
+  align-items: center;
+  gap: clamp(45px, 7vw, 110px);
+  margin: 0;
+}
+.aboutIntro { min-width: 0; }
+.aboutIntro :global(.eyebrow) { color: var(--muted); letter-spacing: .08em; }
+.aboutPage .aboutOpening h1 {
+  margin-top: 28px;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 7.2vw, 108px);
+  font-weight: 620;
+  letter-spacing: -.075em;
+  line-height: 1;
+}
+.aboutPage .aboutOpening > div > p,
+.aboutPage .aboutIntro > p {
+  max-width: 56ch;
+  margin-top: 22px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.aboutPage .aboutIntro .aboutLead {
+  max-width: 43ch;
+  margin-top: 30px;
+  font-size: clamp(19px, 2vw, 27px);
+  line-height: 1.45;
+  letter-spacing: -.025em;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.aboutPage .aboutIntro :global(.eyebrow) {
+  margin-top: 0;
+  font-size: 11px;
+}
+.aboutLinks { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 34px; margin-top: 30px; }
+.aboutPage .aboutOpening figure {
+  max-width: 370px;
+  width: 100%;
+  justify-self: end;
+  margin: 0;
+}
+.aboutPage .aboutOpening figure::before { display: none; }
+.aboutPage .aboutOpening img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 24%;
+  border: 1px solid var(--line);
+}
+.aboutPage .aboutOpening figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+.aboutPage .biography {
+  border-top: 1px solid var(--line);
+  margin-top: clamp(75px, 9vw, 128px);
+  padding-top: clamp(42px, 5vw, 65px);
+  display: grid;
+  grid-template-columns: minmax(0,.8fr) minmax(0,1fr);
+  gap: clamp(35px, 8vw, 125px);
+}
+.aboutPage .biography :global(.eyebrow) { color: var(--muted); }
+.aboutPage .biography h2 {
+  max-width: 16ch;
+  margin-top: 20px;
+  font-size: clamp(29px, 3.7vw, 50px);
+  font-weight: 600;
+  line-height: 1.13;
+  letter-spacing: -.055em;
+}
+.aboutPage .biography p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.aboutPage .biography h2 + p { margin-top: 16px; }
+.method {
+  padding-block: clamp(75px, 8vw, 110px);
+  background: var(--surface);
+}
+.method :global(.eyebrow) { color: var(--muted); }
+.sectionHeading {
+  margin-top: 14px;
+  font-size: clamp(40px, 5vw, 67px);
+  font-weight: 600;
+  letter-spacing: -.065em;
+}
+.methodRows { margin-top: 44px; }
+.methodRows > div {
+  display: grid;
+  grid-template-columns: 50px minmax(0,.65fr) minmax(0,1fr);
+  align-items: start;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+.methodRows > div:last-child { border-bottom: 1px solid var(--line); }
+.methodNumber { color: var(--muted); font-size: 11px; padding-top: 7px; }
+.methodRows h3 {
+  font-size: clamp(21px, 2.3vw, 31px);
+  font-weight: 600;
+  letter-spacing: -.04em;
+}
+.methodRows p { color: var(--muted); font-size: 14px; line-height: 1.75; }
+.toolbox {
+  display: grid;
+  grid-template-columns: .65fr 1fr;
+  align-items: start;
+  gap: clamp(35px, 7vw, 105px);
+  padding-block: clamp(80px, 8vw, 120px);
+}
+.toolbox :global(.eyebrow) { color: var(--muted); }
+.toolbox h2 {
+  font-size: clamp(32px, 4.3vw, 55px);
+  margin-top: 20px;
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -.05em;
+}
+.toolbox dl > div {
+  grid-template-columns: minmax(95px,.35fr) 1fr;
+  gap: 24px;
+}
+@media (max-width: 950px) {
+  .projectsPage .indexHeader { grid-template-columns: 1fr; gap: 18px; }
+  .projectsPage .indexHeader h1 { font-size: clamp(56px, 9vw, 83px); }
+  .aboutPage .aboutOpening { grid-template-columns: minmax(0,1fr) minmax(235px,.65fr); gap: 38px; }
+  .aboutPage .aboutOpening h1 { font-size: clamp(52px, 6vw, 76px); }
+}
+@media (max-width: 767px) {
+  .projectsPage { padding-top: 44px; padding-bottom: 84px; }
+  .projectsPage .indexHeader { padding-bottom: 42px; }
+  .projectsPage .indexHeader h1 { font-size: 64px; }
+  .projectsPage .projectIndex { grid-template-columns: 1fr; gap: 55px; }
+  .projectsPage .projectIndex .indexCopy,
+  .projectsPage .projectIndex article:nth-child(even) .indexCopy { padding-top: 17px; }
+  .projectsPage .indexCopy h2 { font-size: 33px; }
+  .projectActions { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .aboutPage { padding-top: 45px; padding-bottom: 75px; }
+  .aboutPage .aboutOpening { grid-template-columns: 1fr; gap: 44px; }
+  .aboutPage .aboutOpening h1 { font-size: clamp(57px, 13vw, 75px); }
+  .aboutPage .aboutIntro .aboutLead { font-size: 21px; }
+  .aboutPage .aboutOpening figure { width: min(100%, 360px); justify-self: start; }
+  .aboutPage .biography { grid-template-columns: 1fr; gap: 26px; padding-top: 40px; margin-top: 72px; }
+  .method { padding-block: 65px; }
+  .methodRows > div { grid-template-columns: 36px minmax(0,1fr); gap: 8px 18px; }
+  .methodRows p { grid-column: 2; font-size: 13px; }
+  .methodRows h3 { font-size: 26px; }
+  .toolbox { grid-template-columns: 1fr; padding-block: 74px; }
+}
