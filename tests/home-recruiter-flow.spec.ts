@@ -10,8 +10,8 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
   await expect(hero.getByRole("img", { name: "Professional portrait of Kristy Kate Taylor" })).toBeVisible();
-  await expect(hero.getByText("Software development / Desktop, web & data")).toBeVisible();
-  await expect(hero.getByRole("link", { name: "Contact me" })).toHaveAttribute("href", "/contact");
+  await expect(hero.getByText("PORTFOLIO — 2026")).toBeVisible();
+  await expect(hero.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
 
   await expect(page.locator("#work-title")).toHaveText("Projects");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
@@ -117,7 +117,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
     await page.setViewportSize({width, height:900});
     await page.goto("/");
     await expect(page.locator("#identity")).toContainText("Kristy Kate");
-    await expect(page.getByText(/RBIM, an offline and online population registry/)).toBeVisible();
+    await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#home img, #work img").evaluateAll(async images => {
       await Promise.all(images.map(async image => {
@@ -131,4 +131,20 @@ test("homepage evidence is specific, images load, and small screens do not overf
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
   }
+});
+
+
+test("home project filmstrip offers distinct previews and usable controls", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("#work");
+  const gallery = page.getByRole("navigation", {name:"Projects gallery"});
+  await expect(gallery.locator("article")).toHaveCount(4);
+  await expect(section.getByText("PROJECT 01", {exact:false})).toBeVisible();
+  await section.getByRole("button", {name:"Next project"}).click();
+  await expect(section.getByText("PROJECT 02", {exact:false})).toBeVisible();
+  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/ahdis");
+  await section.getByRole("button",{name:"Previous project"}).click();
+  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
+  const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
+  expect(new Set(images).size).toBe(4);
 });
