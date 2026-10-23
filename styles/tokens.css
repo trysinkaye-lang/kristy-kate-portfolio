@@ -1,15 +1,15 @@
 :root {
-  --background: #f6f1e8;
-  --foreground: #171713;
-  --surface: #e9e1d5;
-  --muted: #66645c;
-  --theme-accent: #e6542f;
+  --background: #ffffff;
+  --foreground: #171717;
+  --surface: #f5f5f5;
+  --muted: #606060;
+  --theme-accent: #171717;
   --accent: var(--theme-accent);
-  --accent-ink: #17120f;
-  --line: #cbc4b8;
-  --inverse: #12130f;
-  --inverse-text: #f7f2e9;
-  --inverse-muted: #b8b8ad;
+  --accent-ink: #ffffff;
+  --line: #dedede;
+  --inverse: #171717;
+  --inverse-text: #ffffff;
+  --inverse-muted: #c5c5c5;
   --space: 8px;
   --space-1: 8px;
   --space-2: 16px;
@@ -33,17 +33,17 @@
 }
 
 .dark {
-  --background: #0f100d;
-  --foreground: #f6f1e8;
-  --surface: #191a16;
-  --muted: #aaa99f;
-  --theme-accent: #ff704d;
+  --background: #111111;
+  --foreground: #f6f6f6;
+  --surface: #202020;
+  --muted: #bcbcbc;
+  --theme-accent: #f6f6f6;
   --accent: var(--theme-accent);
-  --accent-ink: #150f0c;
-  --line: #30332c;
-  --inverse: #f0eadf;
-  --inverse-text: #171713;
-  --inverse-muted: #67665f;
+  --accent-ink: #111111;
+  --line: #393939;
+  --inverse: #f5f5f5;
+  --inverse-text: #171717;
+  --inverse-muted: #575757;
 }
 
 @media (max-width: 767px) {

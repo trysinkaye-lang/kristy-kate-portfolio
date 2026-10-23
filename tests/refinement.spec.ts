@@ -48,7 +48,7 @@ test("image inspection supports keyboard, actual-size viewing, and return focus"
   await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
 });
 
-test("Drift Wall links to every selected case study and stays static without motion", async ({ page }) => {
+test("Selected case studies stay visible and usable without motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -57,8 +57,9 @@ test("Drift Wall links to every selected case study and stays static without mot
   for (const href of ["/projects/rbim", "/projects/co-designs", "/projects/ahdis", "/projects/marci-metzger"]) {
     await expect(wall.locator(`a[href="${href}"]`).first()).toBeVisible();
   }
-  const animationName = await page.locator("[data-drift-column]").first().evaluate(element => getComputedStyle(element).animationName);
-  expect(animationName).toBe("none");
+  await expect(wall.locator("article")).toHaveCount(4);
+  const runningAnimations = await page.evaluate(() => document.getAnimations().filter(animation => animation.playState === "running").length);
+  expect(runningAnimations).toBe(0);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 });

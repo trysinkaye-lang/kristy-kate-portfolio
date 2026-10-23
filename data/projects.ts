@@ -65,9 +65,9 @@ const systemProjects: Project[] = [
     solution: "AHDIS organizes profile management, local reporting, dashboard analytics, imports and exports, controlled updates, and account-level access in a focused desktop application.",
     role: "Software Developer / UI Designer",
     technologies: ["PHP", "JavaScript", "HTML", "CSS", "SQLite", "PHP Desktop"],
-    highlights: ["Ages 10–19 reporting", "Desktop application", "Local analytics"],
+    highlights: ["Ages 9–19 reporting", "Desktop application", "Local analytics"],
     impact: [
-      "Separates adolescent reporting for ages 10–19 from older records so dashboards and exports stay aligned with the program scope.",
+      "Separates adolescent reporting for ages 9–19 from older records so dashboards and exports stay aligned with the program scope.",
       "Combines profile management, barangay-level analytics, import/export, reporting, and account settings in one desktop workflow.",
       "Designed for practical office use with local data storage, controlled updates, and clear age-aware reporting behavior."
     ],
@@ -217,7 +217,7 @@ const enhancements: Record<string, Partial<Project>> = {
     headline: "Information that stays in scope.",
     architecture: [
       { title: "Local application", detail: "PHP Desktop packages the PHP, JavaScript, HTML, and CSS interface for office use, with SQLite providing local storage." },
-      { title: "Age-aware reporting", detail: "Reporting distinguishes adolescents aged 10–19 from older records. The same program scope needs to remain consistent across analytics and exports." },
+      { title: "Age-aware reporting", detail: "Reporting distinguishes adolescents aged 9–19 from older records. The same program scope needs to remain consistent across analytics and exports." },
       { title: "Data continuity", detail: "Import/export, controlled updates, and installation behavior must preserve local records. Deployment and data safety are treated as part of the user workflow." }
     ]
   },
