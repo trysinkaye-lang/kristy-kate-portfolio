@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.topline].join(" ")}>
-        <p>Independent developer / Portfolio 2026</p>
+        <p>Software developer / Portfolio 2026</p>
         <p className={styles.status}><i aria-hidden="true" /> Open to software opportunities</p>
       </div>
 
