@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
 import styles from "./HeroRefresh.module.css";
@@ -6,46 +5,47 @@ import styles from "./HeroRefresh.module.css";
 export function Hero() {
   return (
     <section id="home" className={styles.hero} aria-labelledby="identity">
-      <div className={["shell",styles.frame].join(" ")}>
+      <div className={["shell", styles.frame].join(" ")}>
         <div className={styles.rail}>
-          <span>( KT )</span>
-          <span>PORTFOLIO — 2026</span>
-          <span>01 / 03</span>
+          <span>Software development</span>
+          <span>Portfolio / 2026</span>
+          <span>Based in the Philippines</span>
         </div>
+
         <div className={styles.composition}>
-          <div className={styles.copy}>
-            <p className={styles.eyebrow}>Kristy Kate Taylor / Software developer</p>
-            <h1 id="identity" className={styles.title}>
-              Kristy Kate
-              <span>Taylor<em>.</em></span>
-            </h1>
-            <div className={styles.foot}>
-              <p>Web applications.<br />Desktop software.<br />Information systems.</p>
-              <div className={styles.intro}>
-                <p>Full-stack development, from interfaces and application logic to databases and reporting.</p>
-                <div className={styles.actions}>
-                  <Link href="#work">Explore projects <span aria-hidden="true">↗</span></Link>
-                  <Link href="/contact">Contact <span aria-hidden="true">↗</span></Link>
-                </div>
-              </div>
-            </div>
+          <p className={styles.eyebrow}>Web, desktop &amp; data</p>
+          <h1 id="identity" className={styles.title}>
+            <span className={styles.titleLine}>
+              <span className={styles.index}>01</span>
+              <span>Web applications<span className={styles.fullStop}>.</span></span>
+            </span>
+            <span className={styles.titleLine}>
+              <span className={styles.index}>02</span>
+              <span>Desktop software<span className={styles.fullStop}>.</span></span>
+            </span>
+            <span className={[styles.titleLine, styles.editorial].join(" ")}>
+              <span className={styles.index}>03</span>
+              <span>Information systems<span className={styles.fullStop}>.</span></span>
+            </span>
+          </h1>
+        </div>
+
+        <div className={styles.footer}>
+          <div className={styles.summary}>
+            <p className={styles.label}>The practice</p>
+            <p>I develop the interfaces, application logic, and data workflows behind practical software — from offline records to web-based reporting.</p>
           </div>
-          <figure className={styles.portrait}>
-            <Image
-              src="/media/kristy-kate-professional-portrait-v2.webp"
-              width={960} height={960}
-              sizes="(max-width: 767px) 34vw, 210px"
-              alt="Professional portrait of Kristy Kate Taylor"
-              priority
-            />
-            <figcaption>© KT / 2026</figcaption>
-          </figure>
+          <div className={styles.actions}>
+            <Link href="#work">Explore projects <span aria-hidden="true">↗</span></Link>
+            <Link href="/contact">Contact <span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
         <div className={styles.bottom}>
-          <span>Based in the Philippines</span>
+          <span>Real projects, real workflows</span>
           <span>Scroll to explore <span aria-hidden="true">↓</span></span>
         </div>
       </div>
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({
         "@context":"https://schema.org","@type":"Person",name:site.name,url:site.url,
         jobTitle:["Software Developer","Full-Stack Developer"],sameAs:[site.github],
