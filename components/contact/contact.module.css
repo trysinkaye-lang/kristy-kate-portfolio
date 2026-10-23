@@ -35,3 +35,15 @@
   .submitRow { align-items: start; flex-direction: column; gap: 18px; }
   .submitRow p br { display: none; }
 }
+
+/* Match the minimal editorial direction on contact. */
+.contactPage { padding-block: clamp(52px, 6vw, 90px) clamp(84px, 8vw, 120px); }
+.contactPage h1 { font-size: clamp(52px, 6vw, 84px); font-weight: 600; letter-spacing: -.065em; line-height: 1.05; }
+.contactPage h1 span { font-family: inherit; font-size: 1em; font-weight: 450; color: var(--muted); }
+.contactGrid { gap: clamp(36px, 8vw, 120px); }
+.contactGrid aside > p { font-size: 15px; line-height: 1.8; }
+@media (max-width: 767px) {
+  .contactPage { padding-block: 42px 75px; }
+  .contactPage h1 { font-size: clamp(47px, 11vw, 65px); }
+  .contactGrid { gap: 42px; }
+}
