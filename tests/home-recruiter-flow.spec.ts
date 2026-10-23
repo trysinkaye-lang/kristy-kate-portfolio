@@ -7,8 +7,8 @@ test("work-first hero, selected project gallery, and primary interactions", asyn
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Useful systems.");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Sharp interfaces.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("useful software.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("And make it feel effortless.");
   await expect(hero.getByRole("img", { name: "Kristy Kate Taylor", exact: true })).toHaveCount(0);
 
   const gallery = page.getByRole("navigation", { name: "Selected projects gallery" });
@@ -55,7 +55,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.getByText("Full-stack development · UI/UX · Information systems", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Full-stack developer turning complicated workflows/)).toBeVisible();
   await page.getByRole("navigation", { name: "Selected projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
