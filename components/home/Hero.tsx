@@ -3,9 +3,9 @@ import { site } from "@/data/site";
 import styles from "./HeroRefresh.module.css";
 
 const capabilities = [
-  { id: "01", label: "Web applications" },
+  { id: "01", label: "Websites & web apps" },
   { id: "02", label: "Offline desktop software" },
-  { id: "03", label: "Databases & reporting" },
+  { id: "03", label: "Data systems & reporting" },
 ];
 
 export function Hero() {
@@ -13,7 +13,7 @@ export function Hero() {
     <section id="home" className={styles.hero} aria-labelledby="identity">
       <div className={["shell", styles.inner].join(" ")}>
         <div className={styles.topline}>
-          <span>SOFTWARE DEVELOPMENT / PHILIPPINES</span>
+          <span>WEB & SOFTWARE DEVELOPMENT / PHILIPPINES</span>
           <span>PORTFOLIO · 2026</span>
         </div>
 
@@ -25,13 +25,13 @@ export function Hero() {
             </div>
 
             <h1 id="identity" className={styles.heading}>
-              Have a system
+              Have a project
               <span>in mind<span className={styles.question}>?</span></span>
             </h1>
 
             <p className={styles.lead}>
-              I develop web applications and offline desktop software — from the screens
-              people use to the databases, access controls, and reports behind them.
+              I design and develop websites, web applications, and offline desktop software —
+              from the experience people see to the functionality and data behind it.
             </p>
 
             <div className={styles.actions}>
@@ -59,15 +59,15 @@ export function Hero() {
         </div>
 
         <div className={styles.bottom}>
-          <span>REAL WORK / REAL SYSTEMS</span>
+          <span>WEBSITES / APPLICATIONS / SYSTEMS</span>
           <Link href="#work">PROJECTS BELOW <span aria-hidden="true">↓</span></Link>
         </div>
       </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "Person", name: site.name, url: site.url,
-        jobTitle: ["Software Developer", "Full-Stack Developer"], sameAs: [site.github],
-        knowsAbout: ["Web applications", "Offline desktop software", "Information systems", "Database development"]
+        jobTitle: ["Web Developer", "Software Developer", "Full-Stack Developer"], sameAs: [site.github],
+        knowsAbout: ["Website design and development", "Web applications", "Offline desktop software", "Information systems", "Database development"]
       }).replace(/</g, "\\u003c") }} />
     </section>
   );
