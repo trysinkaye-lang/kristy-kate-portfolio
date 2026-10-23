@@ -108,6 +108,7 @@
   height: auto;
   aspect-ratio: 640 / 341;
   object-fit: contain;
+  filter: grayscale(1);
 }
 .visualMeta {
   display: flex;
