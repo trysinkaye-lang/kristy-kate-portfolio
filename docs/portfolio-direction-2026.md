@@ -59,3 +59,25 @@ The exact Península project URL was not retrievable in the available browser/se
 - Remain keyboard accessible with working image inspection and reduced-motion support.
 - Do not add a Challenges & Learning section.
 
+
+
+## October 23 — Maria Vasilyeva homepage, Phantom and Sierra references
+
+User-selected URLs:
+- https://www.mariavasilyeva.com/
+- https://www.mariavasilyeva.com/work/phantom
+- https://www.mariavasilyeva.com/work/sierra
+
+Research grounding:
+- Maria's own [Codrops design/build breakdown](https://tympanus.net/codrops/2026/10/20/maria-vasilyeva-portfolio/) details how Notes uses a horizontally sequenced, scale-varying image strip, Melody arranges projects in moving horizontal rows, and Overture is restrained and typographic.
+- The [Phantom project](https://www.mariavasilyeva.com/work/phantom) describes the actual project, collaborators, design-system contributions and role with minimal surrounding content.
+- [Sierra](https://www.mariavasilyeva.com/work/sierra) is listed as a 2025 project on the [work index](https://www.mariavasilyeva.com/work); its exact project page was not retrievable and no Sierra-specific layout claims are made.
+- The [third-party portfolio analysis](https://dokle.design/awards/maria-vasilyeva-portfolio-laid-out-like-a-score) describes a black/white site frame, rhythmic image grouping, restrained project metadata and a distinct opening experience.
+
+### Original adaptation in this portfolio
+
+- A tight identity-led introduction followed immediately by an accessible horizontal *interactive project filmstrip*. Four real software/website projects appear once each with mouse/focus selection, progress controls and swipeable cards on narrow screens.
+- A **separate** full Projects index uses editorial serif titles, ruled rows, and *small* original-color preview images; no duplicated home-page gallery.
+- Five case studies retain original text/images with centered screenshots, truthful development status, role/technology facts and concise outcomes.
+- No music theme, instrument names, sound, WebGL effects, copied annotations, third-party media or invented metrics. UI is responsive without JS for basic navigation, and honors reduced motion.
+- Site theme remains black/white. Original product screenshots retain their true colors.
