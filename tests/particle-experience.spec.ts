@@ -69,7 +69,7 @@ test("unavailable WebGL assets leave semantic content and project links usable",
   await expect(page.getByRole("heading",{level:1})).toHaveText("RBIM");
 });
 
-test("portrait three-quarter rotation and simplified one-project gallery", async ({page}) => {
+test("front-facing featureless portrait and single-project carousel", async ({page}) => {
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
   const field = page.locator("[data-particle-field]");
@@ -78,11 +78,39 @@ test("portrait three-quarter rotation and simplified one-project gallery", async
   await page.locator('[data-particle-scene="portraitRight"]').evaluate(el =>
     scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
   await expect.poll(async()=>Number(await field.getAttribute("data-morph"))).toBeCloseTo(1,2);
-  expect(Number(await field.getAttribute("data-portrait-yaw"))).toBeGreaterThan(.3);
+  expect(Number(await field.getAttribute("data-portrait-yaw"))).toBe(0);
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
   const sizes=await gallery.evaluate(el=>({width:el.clientWidth,cards:Array.from(el.querySelectorAll("article")).map(item=>item.getBoundingClientRect().width)}));
   expect(sizes.cards).toHaveLength(5);
   expect(sizes.cards[0]).toBeGreaterThanOrEqual(sizes.width-2);
   await page.getByRole("button",{name:"Next project"}).click();
   await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
+});
+
+test("homepage has no navigation bar or obsolete globe caption", async ({page}) => {
+  await page.goto("/");
+  await expect(page.locator("header")).toHaveCount(0);
+  await expect(page.getByText("SOFTWARE DEVELOPMENT WITHOUT BORDERS")).toHaveCount(0);
+  await expect(page.getByRole("link",{name:"Explore my work"})).toHaveAttribute("href","#work");
+  await page.goto("/projects");
+  await expect(page.getByRole("navigation",{name:"Main navigation"})).toBeVisible();
+});
+
+test("desktop carousel keeps image, caption and description in pinned viewport", async ({page}) => {
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  await page.locator("#work").evaluate(el=>scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:"instant"}));
+  const shell=page.locator("#work .shell"), reel=page.getByRole("navigation",{name:"Projects gallery"});
+  for (let n=0;n<2;n++){
+    if (n) await page.getByRole("button",{name:"Next project"}).click();
+    const item=reel.locator("article").nth(n);
+    const [bounds,title,note,image] = await Promise.all([
+      shell.boundingBox(),item.locator("strong").boundingBox(),
+      page.locator("#work [class*='projectNote']").boundingBox(),item.locator("img").boundingBox()
+    ]);
+    expect(bounds&&title&&note&&image).toBeTruthy();
+    expect(image!.y).toBeGreaterThanOrEqual(bounds!.y);
+    expect(title!.y+title!.height).toBeLessThan(bounds!.y+bounds!.height-4);
+    expect(note!.y+note!.height).toBeLessThan(bounds!.y+bounds!.height-4);
+  }
 });
