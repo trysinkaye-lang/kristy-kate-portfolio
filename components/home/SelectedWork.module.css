@@ -109,6 +109,7 @@
   filter:none;
 }
 .hoverArrow {
+  z-index:2;
   position:absolute;
   right:12px;
   top:12px;
@@ -265,15 +266,15 @@
 }
 .imageVisual img {filter:brightness(.97);transition:filter 400ms ease;}
 .projectLink:hover .imageVisual img,.projectLink:focus-visible .imageVisual img {filter:brightness(1.07);}
-.card.active .imageContainer {animation:projectImageEnter 850ms cubic-bezier(.19,1,.22,1) both;}
-.card.active .screenCaption {animation:projectTextEnter 650ms 160ms cubic-bezier(.19,1,.22,1) both;}
-.projectNote {animation:projectDetailsEnter 750ms cubic-bezier(.19,1,.22,1) both;}
-.projectNote .noteTitle {animation:projectTextEnter 650ms 80ms cubic-bezier(.19,1,.22,1) both;}
-.projectNote .noteCategory {animation:projectTextEnter 650ms 145ms cubic-bezier(.19,1,.22,1) both;}
-.projectNote .noteText {animation:projectTextEnter 650ms 210ms cubic-bezier(.19,1,.22,1) both;}
-.projectNote .openLink {animation:projectTextEnter 650ms 285ms cubic-bezier(.19,1,.22,1) both;}
-.card.active .imageContainer::before {animation:projectHalo 5s ease-in-out infinite alternate;}
-.progress .progressActive span {animation:projectProgressGlow 2.5s ease-in-out infinite alternate;}
+:global(#work[data-motion-ready="true"]) .card.active .imageContainer {animation:projectImageEnter 850ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .card.active .screenCaption {animation:projectTextEnter 650ms 160ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .projectNote {animation:projectDetailsEnter 750ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .projectNote .noteTitle {animation:projectTextEnter 650ms 80ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .projectNote .noteCategory {animation:projectTextEnter 650ms 145ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .projectNote .noteText {animation:projectTextEnter 650ms 210ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .projectNote .openLink {animation:projectTextEnter 650ms 285ms cubic-bezier(.19,1,.22,1) both;}
+:global(#work[data-motion-ready="true"]) .card.active .imageContainer::before {animation:projectHalo 5s ease-in-out infinite alternate;}
+:global(#work[data-motion-ready="true"]) .progress .progressActive span {animation:projectProgressGlow 2.5s ease-in-out infinite alternate;}
 @keyframes projectImageEnter {
   from {opacity:.2;transform:translate3d(32px,24px,0) scale(.967);}
   to {opacity:1;transform:translate3d(0,0,0) scale(1);}
