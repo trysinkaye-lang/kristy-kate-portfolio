@@ -121,11 +121,26 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   const points = new THREE.Points(geometry, material); points.frustumCulled = false; scene.add(points);
   const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-particle-scene]"));
   const orbit = document.querySelector<SVGElement>("[data-sphere-type]");
+  const cursor = document.querySelector<HTMLElement>("[data-particle-cursor]");
   const location = document.querySelector<HTMLElement>("[data-location-copy]");
   const frameTarget = document.querySelector<HTMLElement>("[data-particle-frame-target]");
   let width = innerWidth, height = innerHeight, radius = 1;
   let clouds: Record<Shape, Cloud>, centers: number[] = [], target = 0, current = 0, phase = 0, segment = 0, turnProgress = 0;
   let raf = 0, time = 0, last = 0, dead = false, lost = false;
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  let pointerActive = false, pointerX = -10000, pointerY = -10000, targetX = -10000, targetY = -10000;
+  const pointerMove = (event: PointerEvent) => {
+    if (!finePointer.matches || media.matches || (event.pointerType !== "mouse" && event.pointerType !== "pen")) return;
+    const rect = canvas.getBoundingClientRect();
+    targetX = event.clientX - rect.left; targetY = event.clientY - rect.top;
+    if (!pointerActive) { pointerX = targetX; pointerY = targetY; }
+    pointerActive = true;
+    request();
+  };
+  const pointerLeave = () => {
+    pointerActive = false;
+    if (cursor) cursor.style.opacity = "0";
+  };
   const measure = () => {
     // CSS pixels, excluding the reserved scrollbar gutter. Using innerWidth here
     // squeezes the projection into an ellipse when the canvas is narrower.
@@ -194,16 +209,45 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     };
     const a = new Float64Array(3), b = new Float64Array(3);
     const frameLight = media.matches ? 1 : .9 + Math.sin(time * .001) * .1;
+    const pointerInfluence = pointerActive && finePointer.matches && !media.matches
+      ? Math.min(1, portraitWeight + sphereWeight * .4 + mapWeight * .25) : 0;
     for (let i = 0; i < count; i++) {
       const offset = i * 3;
       transform(from, offset, a); transform(to, offset, b);
       const z = mix(a[2], b[2], blend);
-      positions[offset] = mix(a[0], b[0], blend); positions[offset + 1] = mix(a[1], b[1], blend); positions[offset + 2] = z;
-      const surfaceLight = .20 + .60 * clamp((z / radius + 1) / 2);
-      tones[i] = mix(clouds[from].tones[i], clouds[to].tones[i], blend) * mix(surfaceLight, .9, portraitWeight) * mix(1, frameLight, weight("frame"));
+      let px = mix(a[0], b[0], blend), py = mix(a[1], b[1], blend), pz = z;
+      let proximity = 0;
+      if (pointerInfluence > .001) {
+        const dx = px - pointerX, dy = py - pointerY;
+        if (Math.abs(dx) < 128 && Math.abs(dy) < 128) {
+          const distance = Math.hypot(dx, dy);
+          if (distance < 128) {
+            proximity = Math.pow(1 - distance / 128, 2) * pointerInfluence;
+            const push = proximity * 23 / Math.max(3, distance);
+            px += dx * push; py += dy * push;
+            pz += proximity * 8;
+          }
+        }
+      }
+      // Edge particles gently shimmer like a sculpted surface, never deforming its silhouette.
+      const edgeTone = mix(clouds[from].tones[i], clouds[to].tones[i], blend);
+      if (portraitWeight > .01 && edgeTone > .85 && !media.matches) {
+        const shimmer = .55 * portraitWeight;
+        px += Math.sin(time * .0009 + i * 1.73) * shimmer;
+        py += Math.cos(time * .00072 + i * 2.21) * shimmer;
+      }
+      positions[offset] = px; positions[offset + 1] = py; positions[offset + 2] = pz;
+      const surfaceLight = .20 + .60 * clamp((pz / radius + 1) / 2);
+      // Back/side planes are dimmer than the front, creating a visible volumetric turn.
+      const sculptLight = clamp(.72 + (pz / Math.max(1, radius)) * .23 -
+        ((px - width * .5) / Math.max(1, radius)) * .085);
+      const highlight = media.matches ? 0 : proximity * .38;
+      tones[i] = Math.min(1, edgeTone * mix(surfaceLight, sculptLight, portraitWeight)
+        * mix(1, frameLight, weight("frame")) + highlight);
     }
     geometry.attributes.position.needsUpdate = true; geometry.attributes.tone.needsUpdate = true;
     canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius); canvas.dataset.portraitYaw = String(yaw); canvas.dataset.turnProgress = String(turnProgress); canvas.dataset.mapReveal = String(weight("spherePhilippines"));
+    canvas.dataset.cursorInfluence = String(pointerInfluence.toFixed(3));
     if (orbit) orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .72) / .24));
     // The label appears only once the zoomed map is recognizable, and remains
     // readable through the center of the map section instead of instantly vanishing.
@@ -213,25 +257,40 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   const tick = (stamp: number) => {
     raf = 0; const delta = last ? Math.min(stamp - last, 50) : 16; last = stamp;
     if (!media.matches) time += delta;
+    if (pointerActive && !media.matches) {
+      const follow = 1 - Math.exp(-delta / 80);
+      pointerX += (targetX - pointerX) * follow;
+      pointerY += (targetY - pointerY) * follow;
+      if (cursor) {
+        cursor.style.opacity = "1";
+        cursor.style.transform = `translate3d(${(pointerX - 8.5).toFixed(1)}px,${(pointerY - 8.5).toFixed(1)}px,0)`;
+      }
+    }
     current = Math.abs(target - current) < .00001 ? target : current + (target - current) * (1 - Math.exp(-delta / 65));
     draw(); request();
   };
   const request = () => { if (!raf && !dead && !lost && !document.hidden && !media.matches) raf = requestAnimationFrame(tick); };
   const visibility = () => { cancelAnimationFrame(raf); raf = 0; last = 0; request(); };
-  const preference = () => { cancelAnimationFrame(raf); raf = 0; current = target; draw(); request(); };
+  const preference = () => { cancelAnimationFrame(raf); raf = 0; if (media.matches) pointerLeave(); current = target; draw(); request(); };
   const contextLost = (event: Event) => { event.preventDefault(); lost = true; cancelAnimationFrame(raf); raf = 0; canvas.dataset.renderer = "context-lost"; if (orbit) orbit.style.opacity = "1"; if (location) location.style.opacity = "1"; };
   const contextRestored = () => { lost = false; canvas.dataset.renderer = "webgl"; measure(); request(); };
   measure(); current = target; draw(); request();
   const observer = new ResizeObserver(measure); sections.forEach(section => observer.observe(section));
   addEventListener("scroll", scroll, { passive: true }); addEventListener("resize", measure);
+  addEventListener("pointermove", pointerMove, { passive: true });
+  document.addEventListener("pointerleave", pointerLeave);
+  addEventListener("blur", pointerLeave);
   document.addEventListener("visibilitychange", visibility); media.addEventListener("change", preference);
   canvas.addEventListener("webglcontextlost", contextLost); canvas.addEventListener("webglcontextrestored", contextRestored);
   return () => {
     dead = true; cancelAnimationFrame(raf); observer.disconnect();
     removeEventListener("scroll", scroll); removeEventListener("resize", measure);
+    removeEventListener("pointermove", pointerMove);
+    document.removeEventListener("pointerleave", pointerLeave);
+    removeEventListener("blur", pointerLeave);
     document.removeEventListener("visibilitychange", visibility); media.removeEventListener("change", preference);
     canvas.removeEventListener("webglcontextlost", contextLost); canvas.removeEventListener("webglcontextrestored", contextRestored);
-    orbit?.style.removeProperty("opacity"); location?.style.removeProperty("opacity");
+    orbit?.style.removeProperty("opacity"); location?.style.removeProperty("opacity"); if (cursor) cursor.style.opacity = "0";
     geometry.dispose(); material.dispose(); renderer.dispose();
   };
 }
