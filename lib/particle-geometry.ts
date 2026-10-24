@@ -49,8 +49,12 @@ export function segmentPortrait(data: Uint8ClampedArray, width: number, height: 
     // Rounded shell depth, scaled to produce a believable head in left/right profile.
     // Back shell is synthesized from the same silhouette; identity-accurate rear features
     // still require genuinely captured side/back source photographs.
-    const depth = roundness * (y < height * .66 ? .275 : .165);
-    samples.push({ x: nx, y: ny, tone: .75, depth });
+    const depth = roundness * (y < height * .66 ? .31 : .18);
+    // Emphasize the real silhouette's edge, NOT photographic facial features.
+    // Subtle highlights and a softly shaded core create a sculpted rather than flat mask.
+    const contour = Math.pow(Math.abs(u), 5);
+    const tone = .62 + .35 * contour;
+    samples.push({ x: nx, y: ny, tone, depth });
   }
   return samples;
 }
