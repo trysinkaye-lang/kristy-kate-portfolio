@@ -165,3 +165,30 @@ test("cursor glow reacts gently to pointer and disables with reduced motion",asy
   await expect(canvas).toHaveAttribute("data-renderer","webgl");
 });
 
+
+
+test("selected work animates on arrival and reacts gently to cursor motion",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const section=page.locator("#work");
+  await section.evaluate(el=>{
+    const top=el.getBoundingClientRect().top+scrollY;
+    scrollTo({top:top+innerHeight*.3,behavior:"instant"});
+  });
+  await expect(section).toHaveAttribute("data-motion-ready","true");
+  const gallery=page.getByRole("navigation",{name:"Projects gallery"});
+  const first=gallery.locator('article[data-project-slug="rbim"]');
+  const preview=first.locator('[class*="imageContainer"]');
+  await expect.poll(async()=>preview.evaluate(el=>getComputedStyle(el).animationName)).toContain("projectImageEnter");
+  const box=await preview.boundingBox();
+  expect(box).toBeTruthy();
+  await page.mouse.move(box!.x+box!.width*.64,box!.y+box!.height*.42);
+  await expect.poll(async()=>preview.evaluate(el=>el.style.getPropertyValue("--tilt-y"))).not.toBe("");
+  await page.getByRole("button",{name:"Next project"}).click();
+  await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
+  await expect(page.locator("#work h3")).toHaveText("AHDIS");
+  await page.emulateMedia({reducedMotion:"reduce"});
+  const ahdis=gallery.locator('article[data-project-slug="ahdis"] [class*="imageContainer"]');
+  await expect(ahdis).toHaveCSS("animation-name","none");
+  await expect(page.locator("#work h3")).toHaveText("AHDIS");
+});
