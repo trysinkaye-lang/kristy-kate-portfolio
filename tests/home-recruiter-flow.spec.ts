@@ -9,7 +9,8 @@ test("immersive hero, project gallery, and primary interactions", async ({ page 
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Creative thinking.");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Practical code.");
-  await expect(hero.locator("img")).toHaveCount(0);\n  await expect(hero.locator("canvas[data-particle-field]")).toHaveCount(1);
+  await expect(hero.locator("img")).toHaveCount(0);
+  await expect(hero.locator("canvas[data-particle-field]")).toHaveCount(1);
   await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
   await expect(hero.getByText("WEB & SOFTWARE DEVELOPMENT / PHILIPPINES")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
