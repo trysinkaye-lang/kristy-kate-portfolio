@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { PHILIPPINES_OUTLINE } from "@/lib/philippines-outline";
 
 type Shape = "portrait" | "portraitRight" | "sphere" | "philippines" | "ribbon" | "work" | "torus" | "orb" | "ribbonLow" | "frame";
 type Cloud = { x: Float32Array; y: Float32Array; z: Float32Array };
@@ -47,24 +48,15 @@ function makeMask(kind: "portrait" | "philippines"): { samples: Float32Array; co
     p.bezierCurveTo(91,51,76,81,66,123);
     p.closePath();p.fill();
   } else {
-    // A purpose-built silhouette of the Philippine archipelago,
-    // intentionally not the Italian map shown in the reference.
-    const polys = [
-      [127,7,139,11,150,25,151,42,160,52,151,66,148,81,137,93,127,90,119,111,110,127,101,129,91,111,89,90,98,81,96,64,104,52,107,35,116,23],
-      [119,121,139,109,151,119,165,143,178,157,184,177,177,192,168,182,162,164,146,159,140,144,125,139],
-      [73,181,86,161,95,165,94,193,87,217,81,241,73,260,63,270,60,251,66,222],
-      [118,190,130,183,139,194,132,210,118,212,109,203],
-      [137,213,150,203,157,214,149,229,137,231,132,221],
-      [155,225,165,208,172,213,175,243,168,263,161,259],
-      [174,206,191,192,197,208,201,227,192,240,182,232],
-      [132,236,143,235,147,249,141,260,132,256],
-      [168,269,190,254,208,270,212,288,224,293,218,311,202,329,194,347,172,346,152,356,135,340,131,319,141,298,155,285],
-      [200,350,214,349,216,358,203,359],
-      [89,151,101,141,104,154,96,169,85,167],
-      [107,177,114,173,118,182,111,192],
-      [113,218,125,221,124,232,113,231]
-    ];
-    polys.forEach(points=>polygon(p,points));
+    // Reconstruct the Philippines from the user's actual map reference.
+    // The bitmap was traced into polygon contours to preserve the archipelago.
+    p.save();
+    p.scale(256 / 306, 360 / 461);
+    for (const outline of PHILIPPINES_OUTLINE) {
+      const values = outline.split(",").flatMap(pair => pair.trim().split(" ").map(Number));
+      if(values.length>=6) polygon(p,values);
+    }
+    p.restore();
   }
   const alpha=p.getImageData(0,0,256,360).data;
   const candidates:number[]=[];
@@ -103,7 +95,11 @@ function buildClouds(w:number,h:number,n:number, portrait:ReturnType<typeof make
     set("portraitRight",w*(mobile?.68:.69)+portraitX*portraitWidth*(mobile?.82:.90),
       h*.57+portraitY*portraitHeight*.91,(seed-.5)*50);
     const sy=1-2*u,rr=Math.sqrt(Math.max(0,1-sy*sy));
-    set("sphere",w*.50+sphereR*rr*Math.cos(angle),h*.53+sphereR*sy,sphereR*rr*Math.sin(angle));
+    // A front-facing, perfectly circular filled globe. Depth comes from subtle
+    // brightness variation, not a rotating edge-on projection.
+    const discR = sphereR * Math.sqrt(rand());
+    const discA = rand() * TAU;
+    set("sphere",w*.50+discR*Math.cos(discA),h*.53+discR*Math.sin(discA),sphereR*Math.sqrt(Math.max(0,1-discR*discR/(sphereR*sphereR))));
     const mp=Math.floor(rand()*country.count)*2;
     const mx=(country.samples[mp]/256-.5)*2;
     const my=(country.samples[mp+1]/360-.49)*2;
@@ -178,7 +174,10 @@ export function ParticleField() {
       if(mid>=centers[centers.length-1]){desired=centers.length-1;return;}
       for(let i=0;i<centers.length-1;i++){
         if(mid>=centers[i]&&mid<centers[i+1]){
-          desired=i+ease((mid-centers[i])/Math.max(1,centers[i+1]-centers[i]));
+          // Give each shape a stable hold around its own chapter. Morph
+          // only between the inner transition bands rather than all the time.
+          const sectionProgress=(mid-centers[i])/Math.max(1,centers[i+1]-centers[i]);
+          desired=i+ease((sectionProgress-.28)/.44);
           break;
         }
       }
@@ -208,7 +207,8 @@ export function ParticleField() {
         let y=mix(from.y[i],to.y[i],f);
         const z=mix(from.z[i],to.z[i],f);
         const relX=x-width*.5;
-        x+=orbWeight*(Math.cos(rotation)*relX-Math.sin(rotation)*z-relX)*.46;
+        const globeMix=(order[start]==="sphere"?1-f:0)+(order[end]==="sphere"?f:0);
+        x+=orbWeight*(1-globeMix)*(Math.cos(rotation)*relX-Math.sin(rotation)*z-relX)*.46;
         y+=Math.sin(rotation*2+i*.73)*(.7+orbWeight*1.8);
         const md=Math.hypot(x-mouseX*width,y-mouseY*height);
         const near=Math.max(0,1-md/vignette);
