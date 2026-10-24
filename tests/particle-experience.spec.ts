@@ -39,7 +39,7 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
 test("software reel order, keyboard controls, and single centered contact address", async ({page}) => {
   await page.goto("/");
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
-  expect(await gallery.locator("article").evaluateAll(items=>items.map(el=>(el as HTMLElement).dataset.projectSlug))).toEqual(["rbim","ahdis","erp-system","co-designs","marci-metzger"]);
+  expect(await gallery.locator("article").evaluateAll(items=>items.map(el=>(el as HTMLElement).dataset.projectSlug))).toEqual(["rbim","ahdis","co-designs","marci-metzger"]);
   await gallery.focus();await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
   const frame=page.locator("[data-particle-frame-target]");
@@ -59,8 +59,8 @@ test("changing reduced motion at runtime stops particle rotation and preserves c
   await expect(page.locator("[data-intro-splash]")).toHaveCSS("display","none");
   await page.locator('[data-particle-scene="philippines"]').scrollIntoViewIfNeeded();
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
-  await page.getByRole("button",{name:"Show ERP System"}).click();
-  await expect(page.getByRole("button",{name:"Show ERP System"})).toHaveAttribute("aria-pressed","true");
+  await page.getByRole("button",{name:"Show C.O. Designs"}).click();
+  await expect(page.getByRole("button",{name:"Show C.O. Designs"})).toHaveAttribute("aria-pressed","true");
 });
 
 test("unavailable WebGL assets leave semantic content and project links usable",async({page})=>{
@@ -73,7 +73,7 @@ test("unavailable WebGL assets leave semantic content and project links usable",
   await expect(page.getByRole("heading",{level:1})).toHaveText("RBIM");
 });
 
-test("faceless rotating portrait and single-project carousel", async ({page}) => {
+test("faceless rotating portrait and restored expanding four-card gallery", async ({page}) => {
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
   const field = page.locator("[data-particle-field]");
@@ -90,8 +90,8 @@ test("faceless rotating portrait and single-project carousel", async ({page}) =>
   await expect.poll(async()=>Number(await field.getAttribute("data-portrait-yaw"))).toBeGreaterThan(.3);
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
   const sizes=await gallery.evaluate(el=>({width:el.clientWidth,cards:Array.from(el.querySelectorAll("article")).map(item=>item.getBoundingClientRect().width)}));
-  expect(sizes.cards).toHaveLength(5);
-  expect(sizes.cards[0]).toBeGreaterThanOrEqual(sizes.width-2);
+  expect(sizes.cards).toHaveLength(4);
+  expect(sizes.cards[0]).toBeGreaterThan(sizes.cards[1]*1.7);
   await page.getByRole("button",{name:"Next project"}).click();
   await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
 });
@@ -105,29 +105,28 @@ test("homepage has no navigation bar or obsolete globe caption", async ({page}) 
   await expect(page.getByRole("navigation",{name:"Main navigation"})).toBeVisible();
 });
 
-test("desktop carousel keeps image, caption and description in pinned viewport", async ({page}) => {
+test("four-card previews and supporting notes remain readable without sticky clipping",async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
-  await page.locator("#work").evaluate(el=>scrollTo({top:el.getBoundingClientRect().top+scrollY,behavior:"instant"}));
-  const shell=page.locator("#work .shell"), reel=page.getByRole("navigation",{name:"Projects gallery"});
-  for (let n=0;n<2;n++){
-    if (n) await page.getByRole("button",{name:"Next project"}).click();
-    const item=reel.locator("article").nth(n);
-    const stage=item.locator('[class*="imageContainer"]');
-    const [bounds,visual,title,note,image] = await Promise.all([
-      shell.boundingBox(),stage.boundingBox(),
-      page.locator("#work h3").boundingBox(),
-      page.locator("#work [class*='projectNote']").boundingBox(),item.locator("img").boundingBox()
-    ]);
-    expect(bounds&&visual&&title&&note&&image).toBeTruthy();
-    // Full screenshot fits the preview both vertically and horizontally.
-    expect(image!.x).toBeGreaterThanOrEqual(visual!.x-2);
-    expect(image!.x+image!.width).toBeLessThanOrEqual(visual!.x+visual!.width+2);
-    expect(image!.y).toBeGreaterThanOrEqual(visual!.y-2);
-    expect(image!.y+image!.height).toBeLessThanOrEqual(visual!.y+visual!.height+2);
-    expect(title!.y+title!.height).toBeLessThan(bounds!.y+bounds!.height-4);
-    expect(note!.y+note!.height).toBeLessThan(bounds!.y+bounds!.height-4);
+  const work=page.locator("#work"), gallery=page.getByRole("navigation",{name:"Projects gallery"});
+  await work.scrollIntoViewIfNeeded();
+  const bounds=await work.boundingBox();
+  expect(bounds).toBeTruthy();
+  const cards=gallery.locator("article");
+  await expect(cards).toHaveCount(4);
+  for(const card of await cards.all()){
+    const frame=card.locator('[class*="imageContainer"]');
+    const img=frame.locator("img");
+    const [outer,inner]=await Promise.all([frame.boundingBox(),img.boundingBox()]);
+    expect(outer&&inner).toBeTruthy();
+    expect(inner!.x).toBeGreaterThanOrEqual(outer!.x-2);
+    expect(inner!.x+inner!.width).toBeLessThanOrEqual(outer!.x+outer!.width+2);
+    expect(inner!.y).toBeGreaterThanOrEqual(outer!.y-2);
+    expect(inner!.y+inner!.height).toBeLessThanOrEqual(outer!.y+outer!.height+2);
   }
+  await gallery.locator('article[data-project-slug="co-designs"]').hover();
+  await expect(page.getByRole("button",{name:"Show C.O. Designs"})).toHaveAttribute("aria-pressed","true");
+  await expect(work.getByRole("link",{name:"View project"})).toHaveAttribute("href","/projects/co-designs");
 });
 
 test("sphere highlights Philippines then zooms slowly to readable location",async({page})=>{
@@ -167,28 +166,21 @@ test("cursor glow reacts gently to pointer and disables with reduced motion",asy
 
 
 
-test("selected work animates on arrival and reacts gently to cursor motion",async({page})=>{
+test("restored gallery expands hovered and keyboard-selected projects with reduced motion support",async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
-  const section=page.locator("#work");
-  await section.evaluate(el=>{
-    const top=el.getBoundingClientRect().top+scrollY;
-    scrollTo({top:top+innerHeight*.3,behavior:"instant"});
-  });
-  await expect(section).toHaveAttribute("data-motion-ready","true");
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
-  const first=gallery.locator('article[data-project-slug="rbim"]');
-  const preview=first.locator('[class*="imageContainer"]');
-  await expect.poll(async()=>preview.evaluate(el=>getComputedStyle(el).animationName)).toContain("projectImageEnter");
-  const box=await preview.boundingBox();
-  expect(box).toBeTruthy();
-  await page.mouse.move(box!.x+box!.width*.64,box!.y+box!.height*.42);
-  await expect.poll(async()=>preview.evaluate(el=>el.style.getPropertyValue("--tilt-y"))).not.toBe("");
-  await page.getByRole("button",{name:"Next project"}).click();
+  const rbim=gallery.locator('article[data-project-slug="rbim"]');
+  const ahdis=gallery.locator('article[data-project-slug="ahdis"]');
+  const before=await rbim.evaluate(el=>el.getBoundingClientRect().width);
+  await ahdis.hover();
   await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
-  await expect(page.locator("#work h3")).toHaveText("AHDIS");
+  await expect.poll(()=>ahdis.evaluate(el=>el.getBoundingClientRect().width)).toBeGreaterThan(before*.8);
+  await gallery.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("button",{name:"Show C.O. Designs"})).toHaveAttribute("aria-pressed","true");
   await page.emulateMedia({reducedMotion:"reduce"});
-  const ahdis=gallery.locator('article[data-project-slug="ahdis"] [class*="imageContainer"]');
-  await expect(ahdis).toHaveCSS("animation-name","none");
-  await expect(page.locator("#work h3")).toHaveText("AHDIS");
+  await expect(ahdis).toHaveCSS("transition-duration","0s");
+  await expect(gallery.locator("article")).toHaveCount(4);
 });
+
