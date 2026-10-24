@@ -57,7 +57,7 @@ test("Selected case studies stay visible and usable without motion", async ({ pa
   for (const href of ["/projects/rbim", "/projects/co-designs", "/projects/ahdis", "/projects/marci-metzger"]) {
     await expect(wall.locator(`a[href="${href}"]`).first()).toBeVisible();
   }
-  await expect(wall.locator("article")).toHaveCount(5);
+  await expect(wall.locator("article")).toHaveCount(4);
   const runningAnimations = await page.evaluate(() => document.getAnimations().filter(animation => animation.playState === "running").length);
   expect(runningAnimations).toBe(0);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
