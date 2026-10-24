@@ -25,10 +25,15 @@ export function ProjectDriftWall() {
     const sync = () => {
       frame = 0;
       if (window.innerWidth < 768 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      if (Date.now() < manualUntil.current) return;
       const range = Math.max(1, section.offsetHeight - window.innerHeight);
       const start = section.getBoundingClientRect().top + window.scrollY;
       const progress = Math.max(0, Math.min(1, (window.scrollY - start) / range));
+      // A small scroll-linked vertical offset gives the active preview depth even
+      // between slides; it never scales or crops project screenshots.
+      const travelInSlides = progress * (projects.length - 1);
+      const offset = Math.max(-.5, Math.min(.5, travelInSlides - activeRef.current));
+      track.style.setProperty("--scroll-drift", `${Math.round(-offset * 26)}px`);
+      if (Date.now() < manualUntil.current) return;
       // Scroll chooses a *complete* featured slide. Continuous horizontal movement
       // previously exposed partial screenshots during every wheel movement.
       const cards = Array.from(track.querySelectorAll<HTMLElement>("article"));
@@ -76,6 +81,7 @@ export function ProjectDriftWall() {
     const target = Math.max(0, Math.min(track.scrollWidth-track.clientWidth,
       item.offsetLeft+item.offsetWidth/2-track.clientWidth/2));
     manualUntil.current = Date.now()+950;
+    track.style.setProperty("--scroll-drift", "0px");
     track.scrollTo({ left: target, behavior: reduced ? "instant" : "smooth" });
     if (window.innerWidth >= 768 && !reduced) {
       const section = track.closest<HTMLElement>("#work");
@@ -132,10 +138,27 @@ export function ProjectDriftWall() {
           <article key={project.slug}
             className={[styles.card, active === index ? styles.active : ""].join(" ")}
             data-project-slug={project.slug}
+            data-active={active === index ? "true" : "false"}
             onFocusCapture={() => { activeRef.current = index; setActive(index); }}
           >
             <Link href={"/projects/" + project.slug} className={styles.projectLink} aria-label={"Explore " + project.shortTitle}>
-              <span className={styles.imageContainer}>
+              <span className={styles.imageContainer}
+                onPointerMove={event => {
+                  if (event.pointerType === "touch" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                  const rect = event.currentTarget.getBoundingClientRect();
+                  const horizontal = (event.clientX - rect.left) / rect.width - .5;
+                  const vertical = (event.clientY - rect.top) / rect.height - .5;
+                  event.currentTarget.style.setProperty("--tilt-y", `${(horizontal * 3.2).toFixed(2)}deg`);
+                  event.currentTarget.style.setProperty("--tilt-x", `${(-vertical * 2.6).toFixed(2)}deg`);
+                  event.currentTarget.style.setProperty("--hover-x", `${(horizontal * 9).toFixed(1)}px`);
+                  event.currentTarget.style.setProperty("--hover-y", `${(vertical * 7).toFixed(1)}px`);
+                }}
+                onPointerLeave={event => {
+                  for (const property of ["--tilt-x","--tilt-y","--hover-x","--hover-y"]) {
+                    event.currentTarget.style.removeProperty(property);
+                  }
+                }}
+              >
                 <span className={styles.imageVisual} style={{
                   width: `min(100%, ${project.imageWidth}px, calc(var(--preview-height) * ${project.imageWidth / project.imageHeight}))`,
                   aspectRatio: `${project.imageWidth} / ${project.imageHeight}`,
@@ -158,7 +181,7 @@ export function ProjectDriftWall() {
           </article>
         ))}
       </nav>
-      <aside className={styles.projectNote} aria-live="polite" aria-atomic="true">
+      <aside key={selected.slug} className={styles.projectNote} aria-live="polite" aria-atomic="true">
         <div className={styles.projectIdentity}>
           <p className={styles.noteNo}>PROJECT {String(active + 1).padStart(2, "0")} — {selected.status}</p>
           <h3 className={styles.noteTitle}>{selected.shortTitle}</h3>
