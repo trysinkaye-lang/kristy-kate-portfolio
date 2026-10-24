@@ -1,4 +1,4 @@
-.sequence {min-height:0;display:flex;flex-direction:column;width:100%;}
+.sequence {min-height:0;display:flex;flex:0 0 auto;flex-direction:column;width:100%;}
 .sequenceHead {display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:13px;border-top:1px solid #464646;}
 .sequenceHead > p {font-size:10px;letter-spacing:.12em;color:#b6b6b6;}
 .controllers {display:flex;align-items:center;gap:10px;font-size:12px;font-variant-numeric:tabular-nums;}
@@ -6,19 +6,19 @@
 .faint {color:#888;}
 .controllers button {width:40px;height:40px;border:1px solid #646464;border-radius:50%;color:#f5f5f5;background:transparent;cursor:pointer;transition:background 180ms ease,color 180ms ease;}
 .controllers button:hover {background:#eee;color:#080808;}
-.gallery {position:relative;display:flex;width:100%;align-items:stretch;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:0;scroll-snap-type:none;overscroll-behavior-x:contain;touch-action:pan-y;}
+.gallery {position:relative;display:flex;width:100%;flex:0 0 auto;min-height:0;align-items:stretch;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:0;scroll-snap-type:none;overscroll-behavior-x:contain;touch-action:pan-y;}
 .gallery::-webkit-scrollbar {display:none;}
 .card {flex:0 0 100%;min-width:100%;opacity:1;scroll-snap-align:center;}
 .projectLink {display:block;width:100%;}
-.imageContainer {position:relative;display:grid;place-items:center;height:clamp(230px,37svh,360px);background:transparent;border:0;padding:8px;overflow:hidden;}
+.imageContainer {position:relative;display:grid;place-items:center;height:clamp(158px,28svh,290px);background:transparent;border:0;padding:8px;overflow:hidden;}
 .imageContainer img {display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;filter:none;transform:none;opacity:1;}
 .hoverArrow {position:absolute;right:20px;top:12px;width:34px;height:34px;display:grid;place-items:center;border:1px solid #555;border-radius:50%;background:#101010;color:#fff;opacity:0;transition:opacity 200ms;}
 .projectLink:hover .hoverArrow,.projectLink:focus-visible .hoverArrow {opacity:1;}
-.caption {display:flex;gap:20px;align-items:baseline;justify-content:center;padding:10px 0 14px;}
+.caption {display:flex;min-height:56px;gap:12px 20px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 0 16px;text-align:center;}
 .cardNo {font-size:10px;color:#a9a9a9;}
 .caption strong {font-size:clamp(25px,2.3vw,34px);font-weight:500;letter-spacing:-.045em;}
 .cardCategory {font-size:11px;color:#bcbcbc;}
-.projectNote {display:grid;grid-template-columns:minmax(140px,.34fr) minmax(0,1fr) auto;align-items:center;gap:30px;border-block:1px solid #434343;padding-block:15px;min-height:92px;}
+.projectNote {display:grid;grid-template-columns:minmax(140px,.34fr) minmax(0,1fr) auto;align-items:center;gap:25px;border-block:1px solid #434343;padding-block:12px;min-height:82px;}
 .noteNo {font-size:10px;color:#bababa;letter-spacing:.06em;}
 .noteTitle {display:none;}
 .noteText {font-size:13px;color:#d8d8d8;line-height:1.6;max-width:68ch;}
@@ -34,8 +34,8 @@
 @media (max-width:767px) {
  .sequenceHead {flex-wrap:wrap;}
  .gallery {touch-action:pan-x pan-y;scroll-snap-type:x mandatory;}
- .imageContainer {height:clamp(200px,30svh,270px);padding:6px;}
- .caption {justify-content:flex-start;flex-wrap:wrap;gap:7px 16px;}
+ .imageContainer {height:clamp(170px,28svh,260px);padding:6px;}
+ .caption {justify-content:flex-start;flex-wrap:wrap;gap:7px 16px;text-align:left;}
  .caption strong {font-size:24px;}
  .projectNote {grid-template-columns:1fr;gap:8px;padding:12px 0;min-height:155px;}
  .noteText {font-size:12px;}
