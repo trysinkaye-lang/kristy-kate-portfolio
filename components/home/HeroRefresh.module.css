@@ -6,20 +6,19 @@
 .heroLabels p {text-align:right;}
 .openingBottom {position:absolute;bottom:32px;left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.12em;color:#b8b8b8;}
 .introduction {padding-inline:var(--gutter);}
-.introductionCopy {max-width:min(46%,720px);position:relative;z-index:2;}
+.introductionCopy {max-width:min(46%,720px);position:relative;z-index:2;text-shadow:0 2px 16px #050505;}
 .introductionCopy p,.ribbonPanel p {font:450 clamp(24px,2.05vw,34px)/1.38 var(--font-body);letter-spacing:-.035em;text-wrap:pretty;}
 .introLinks {display:flex;flex-wrap:wrap;gap:12px 30px;margin-top:30px;}
 .quietLink {display:inline-flex;align-items:center;min-height:44px;font-size:13px;border-bottom:1px solid #888888;}
-.strataPanel {min-height:100svh;pointer-events:none;}
 .spherePanel {justify-content:center;flex-direction:column;}
-.sphereType {width:min(80vw,74svh,760px);height:auto;aspect-ratio:1;overflow:visible;pointer-events:none;transform-origin:center center;transform-box:fill-box;}
+.sphereType {width:min(80vw,74svh,760px);height:auto;aspect-ratio:1;overflow:visible;pointer-events:none;}
 .sphereType text {fill:#eeeeee;font:500 18px var(--font-body);letter-spacing:.015em;}
 .sphereCaption {position:absolute;bottom:40px;font-size:10px;letter-spacing:.15em;color:#b5b5b5;text-align:center;}
 .locationPanel {justify-content:flex-end;padding-inline:var(--gutter);}
 .locationPanel p {max-width:30%;font:450 clamp(25px,3vw,42px)/1.3 var(--font-body);letter-spacing:-.04em;}
 .lightDot {display:inline-block;width:6px;height:6px;margin-left:16px;border-radius:50%;background:#f0f0f0;box-shadow:0 0 12px #9c9c9c;}
 .ribbonPanel {padding:var(--gutter);justify-content:flex-end;}
-.ribbonPanel p {max-width:600px;background:linear-gradient(90deg,transparent,#080808e6 15%);padding:30px;}
+.ribbonPanel p {max-width:600px;background:transparent;padding:0;text-shadow:0 1px 20px #050505;}
 @media(max-width:767px) {
  .heroLabels {inset:auto var(--gutter) 12svh;flex-direction:column;gap:8px;}
  .heroLabels h1,.heroLabels p {max-width:100%;text-align:center;font-size:23px;}
