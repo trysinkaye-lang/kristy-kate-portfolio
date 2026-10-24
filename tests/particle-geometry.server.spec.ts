@@ -32,3 +32,22 @@ test("geographic map preserves archipelago bounds and a uniform projection", () 
   const height=Math.max(...points.map(p=>p[1]))-Math.min(...points.map(p=>p[1]));
   expect(height).toBeCloseTo(1,6);expect(width).toBeGreaterThan(.55);expect(width).toBeLessThan(.8);
 });
+
+test("featureless portrait shading brightens silhouette edges without photo tones", () => {
+  const size = 21;
+  const data = new Uint8ClampedArray(size * size * 4).fill(255);
+  for (let y = 2; y < size - 2; y++) for (let x = 3; x < size - 3; x++) {
+    const i = (y * size + x) * 4;
+    data[i] = x % 2 ? 12 : 180;
+    data[i + 1] = 20;
+    data[i + 2] = 28;
+  }
+  const samples = segmentPortrait(data, size, size);
+  const middle = samples.filter(p => Math.abs(p.x) < .03);
+  const contours = samples.filter(p => Math.abs(p.x) > .30);
+  expect(middle.length).toBeGreaterThan(0);
+  expect(contours.length).toBeGreaterThan(0);
+  expect(Math.max(...middle.map(p => p.tone))).toBeLessThan(.7);
+  expect(Math.min(...contours.map(p => p.tone))).toBeGreaterThan(.9);
+  expect(middle.every(p => p.depth > .1)).toBe(true);
+});
