@@ -1,68 +1,52 @@
 import Link from "next/link";
 import { site } from "@/data/site";
-import { ParticleField } from "./ParticleField";
 import styles from "./HeroRefresh.module.css";
 
 export function Hero() {
   return (
-    <section id="home" className={styles.journey} aria-labelledby="identity">
-      <ParticleField />
-      <div className={styles.chapterOne}>
-        <div className={["shell", styles.chapterShell].join(" ")}>
-          <div className={styles.eyebrowRow}>
-            <span>KRISTY KATE TAYLOR®</span>
-            <span>SOFTWARE / WEB DEVELOPMENT</span>
-          </div>
-
-          <div className={styles.heroBody}>
-            <div className={styles.copy}>
-              <p className={styles.kicker}><span className={styles.liveDot} /> HELLO, I&apos;M KRISTY KATE</p>
-              <h1 id="identity" className={styles.heading}>Kristy Kate<br/><em>Taylor.</em></h1>
-              <p className={styles.role}>Software Developer <span>/ Web & Desktop Applications</span></p>
-              <p className={styles.lead}>I develop websites, web applications, and offline desktop software — thoughtfully built from the interface to the logic and data behind it.</p>
-              <div className={styles.actions}>
-                <Link href="#work" className={styles.action}>Explore my work <span aria-hidden="true">↗</span></Link>
-                <Link href="/contact" className={styles.action}>Get in touch <span aria-hidden="true">↗</span></Link>
-              </div>
-            </div>
-            <div className={styles.portraitNote} aria-hidden="true">
-              <span>01 / 03</span>
-              <span>AN INTRODUCTION<br/>IN MOTION</span>
-            </div>
-          </div>
-
-          <div className={styles.bottomRow}>
-            <span>PHILIPPINES — AVAILABLE FOR REMOTE WORK</span>
-            <span className={styles.scrollHint}>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span>
-          </div>
+    <div id="home" className={styles.journey}>
+      <section data-particle-scene="portrait" className={styles.opening} aria-labelledby="identity">
+        <div className={styles.heroLabels}>
+          <h1 id="identity">Kristy Kate Taylor</h1>
+          <p>Software & Web Developer</p>
         </div>
-      </div>
-
-      <div className={styles.chapterTwo} id="approach" data-motion-section>
-        <div className={["shell", styles.storyShell].join(" ")}>
-          <div className={styles.storyNumber}>02 / 03 <span>BEYOND THE SURFACE</span></div>
-          <div className={styles.storyText}>
-            <p className={styles.storyEyebrow}>WHAT I DO</p>
-            <h2>More than<br/><em>what you see.</em></h2>
-            <p>A polished interface is just the beginning. I build the functionality, database workflows, reporting tools, and real-world systems that make it useful.</p>
-            <div className={styles.storyLinks}>
-              <span>WEB APPLICATIONS</span><span>DESKTOP SOFTWARE</span><span>INFORMATION SYSTEMS</span>
-            </div>
-          </div>
+        <div className={styles.openingBottom}>
+          <span>PORTFOLIO © 2026</span>
+          <a href="#introduction">SCROLL TO EXPLORE ↓</a>
         </div>
-      </div>
+      </section>
 
-      <div className={styles.chapterThree}>
-        <div className={["shell", styles.endShell].join(" ")}>
-          <span>03 / 03 — SELECTED PROJECTS</span>
-          <Link href="#work">Explore the work <span aria-hidden="true">↘</span></Link>
+      <section id="introduction" data-particle-scene="portraitRight" className={styles.introduction} aria-label="An introduction">
+        <div className={styles.introductionCopy}>
+          <p>I build websites, web applications, and offline desktop software — from the experience people see to the functionality and data behind it.</p>
+          <Link href="#work" className={styles.quietLink}>Explore my work ↗</Link>
         </div>
-      </div>
+      </section>
+
+      <section data-particle-scene="sphere" className={styles.spherePanel} aria-label="Working remotely">
+        <svg className={styles.sphereType} viewBox="0 0 900 900" aria-hidden="true">
+          <defs>
+            <path id="orbit-above" d="M 150,420 A 306,306 0 0,1 750,420"/>
+            <path id="orbit-below" d="M 150,490 A 306,306 0 0,0 750,490"/>
+          </defs>
+          <text><textPath href="#orbit-above" startOffset="28%">Available remotely</textPath></text>
+          <text><textPath href="#orbit-below" startOffset="29%">Working worldwide</textPath></text>
+        </svg>
+        <p className={styles.sphereCaption}>DESIGN & DEVELOPMENT WITHOUT BORDERS</p>
+      </section>
+
+      <section data-particle-scene="philippines" className={styles.locationPanel} aria-labelledby="location-title">
+        <p id="location-title">Based in the Philippines<span className={styles.lightDot} /></p>
+      </section>
+
+      <section data-particle-scene="ribbon" className={styles.ribbonPanel} aria-label="How I work">
+        <p>I don&apos;t just make interfaces look good. I build the systems, data structures, and functionality that make them work.</p>
+      </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context":"https://schema.org","@type":"Person",name:site.name,url:site.url,
-        jobTitle:["Software Developer","Web Developer","Full-Stack Developer"],sameAs:[site.github],
-        knowsAbout:["Websites","Web applications","Offline desktop software","Information systems","Data reporting"]
-      }).replace(/</g, "\\u003c") }} />
-    </section>
+        jobTitle:["Software Developer","Web Developer","Full-Stack Developer"],
+        sameAs:[site.github],knowsAbout:["Websites","Web applications","Desktop software","Information systems"]
+      }).replace(/</g,"\\u003c") }}/>
+    </div>
   );
 }

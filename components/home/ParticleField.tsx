@@ -2,226 +2,259 @@
 
 import { useEffect, useRef } from "react";
 
-type Point = { x: number; y: number; z: number; tx: number; ty: number; tz: number; bx: number; by: number; bz: number; alpha: number; radius: number };
-
-function rng(seed: number) {
-  return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+type Shape = "portrait" | "portraitRight" | "sphere" | "philippines" | "ribbon" | "work" | "torus" | "orb" | "ribbonLow" | "frame";
+type Cloud = { x: Float32Array; y: Float32Array; z: Float32Array };
+const ORDER: Shape[] = ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"];
+const TAU = Math.PI * 2;
+const PHI = Math.PI * (3 - Math.sqrt(5));
+function ease(x: number) { const t = Math.max(0, Math.min(1, x)); return t*t*(3-2*t); }
+function mix(a: number,b: number,t: number) { return a+(b-a)*t; }
+function randomMaker() {
+  let state=902103;
+  return () => { state=(1664525*state+1013904223)>>>0; return state/4294967296; };
 }
-const blend = (a: number, b: number, t: number) => a + (b-a) * t;
-const smooth = (t: number) => t*t*(3-2*t);
+function polygon(ctx: CanvasRenderingContext2D, coords: number[]) {
+  ctx.beginPath();
+  ctx.moveTo(coords[0],coords[1]);
+  for(let i=2;i<coords.length;i+=2)ctx.lineTo(coords[i],coords[i+1]);
+  ctx.closePath(); ctx.fill();
+}
+function makeMask(kind: "portrait" | "philippines"): { samples: Float32Array; count: number } {
+  const mask=document.createElement("canvas");
+  mask.width=256;mask.height=360;
+  const p=mask.getContext("2d",{willReadFrequently:true});
+  if(!p)return {samples:new Float32Array([0,0]),count:1};
+  p.fillStyle="#fff";
+  if(kind==="portrait") {
+    // Bust, neck, head, and irregular hair contour as a point-cloud sculptural mask.
+    p.beginPath();p.moveTo(105,190);
+    p.bezierCurveTo(107,227,88,233,55,248);
+    p.bezierCurveTo(19,260,5,302,-18,368);
+    p.lineTo(277,368);
+    p.bezierCurveTo(267,310,238,262,195,247);
+    p.bezierCurveTo(161,236,147,222,150,189);
+    p.closePath();p.fill();
+    p.beginPath();p.ellipse(126,126,63,92,-.015,0,TAU);p.fill();
+    p.beginPath();p.moveTo(61,148);
+    p.bezierCurveTo(51,125,37,108,52,84);
+    p.lineTo(45,69);p.lineTo(63,61);p.lineTo(65,42);
+    p.lineTo(80,49);p.lineTo(85,26);p.lineTo(102,36);
+    p.lineTo(119,19);p.lineTo(136,35);p.lineTo(153,20);
+    p.lineTo(164,41);p.lineTo(185,31);p.lineTo(184,51);
+    p.lineTo(208,52);p.lineTo(196,73);p.lineTo(214,81);
+    p.lineTo(199,98);p.lineTo(205,123);p.lineTo(188,125);
+    p.bezierCurveTo(185,73,156,53,127,55);
+    p.bezierCurveTo(91,51,76,81,66,123);
+    p.closePath();p.fill();
+  } else {
+    // A purpose-built silhouette of the Philippine archipelago,
+    // intentionally not the Italian map shown in the reference.
+    const polys = [
+      [127,7,139,11,150,25,151,42,160,52,151,66,148,81,137,93,127,90,119,111,110,127,101,129,91,111,89,90,98,81,96,64,104,52,107,35,116,23],
+      [119,121,139,109,151,119,165,143,178,157,184,177,177,192,168,182,162,164,146,159,140,144,125,139],
+      [73,181,86,161,95,165,94,193,87,217,81,241,73,260,63,270,60,251,66,222],
+      [118,190,130,183,139,194,132,210,118,212,109,203],
+      [137,213,150,203,157,214,149,229,137,231,132,221],
+      [155,225,165,208,172,213,175,243,168,263,161,259],
+      [174,206,191,192,197,208,201,227,192,240,182,232],
+      [132,236,143,235,147,249,141,260,132,256],
+      [168,269,190,254,208,270,212,288,224,293,218,311,202,329,194,347,172,346,152,356,135,340,131,319,141,298,155,285],
+      [200,350,214,349,216,358,203,359],
+      [89,151,101,141,104,154,96,169,85,167],
+      [107,177,114,173,118,182,111,192],
+      [113,218,125,221,124,232,113,231]
+    ];
+    polys.forEach(points=>polygon(p,points));
+  }
+  const alpha=p.getImageData(0,0,256,360).data;
+  const candidates:number[]=[];
+  for(let y=0;y<360;y++)for(let x=0;x<256;x++) {
+    if(alpha[(y*256+x)*4+3]>100)candidates.push(x,y);
+  }
+  return {samples:new Float32Array(candidates),count:candidates.length/2};
+}
+function buildClouds(w:number,h:number,n:number, portrait:ReturnType<typeof makeMask>, country:ReturnType<typeof makeMask>):Record<Shape,Cloud>{
+  const result={} as Record<Shape,Cloud>;
+  const rand=randomMaker();
+  for(const scene of ORDER)result[scene]={x:new Float32Array(n),y:new Float32Array(n),z:new Float32Array(n)};
+  const mobile=w<768;
+  const portraitWidth=Math.min(w*(mobile?.55:.40),490);
+  const portraitHeight=Math.min(h*(mobile?.43:.56),530);
+  const sphereR=Math.min(w*(mobile?.36:.34),h*.40,390);
+  const mapR=Math.min(w*(mobile?.36:.33),h*.46,420);
+  const orbitR=Math.min(w*(mobile?.37:.32),h*.36,410);
+  const frameWidth=Math.min(w*(mobile?.79:.69),1020);
+  const frameHeight=Math.min(h*(mobile?.35:.37),370);
+  const pcx=w*.50,pcy=h*.59;
+  for(let i=0;i<n;i++){
+    const u=(i+.5)/n, angle=i*PHI;
+    const a=rand()*TAU,b=rand()*TAU;
+    const seed=rand(),jitter=rand();
+    const pp=Math.floor(rand()*portrait.count)*2;
+    const portraitX=(portrait.samples[pp]/256-.5)*2;
+    const portraitY=(portrait.samples[pp+1]/360-.48)*2;
+    const targets=result;
+    const set=(key:Shape,x:number,y:number,z:number)=>{
+      targets[key].x[i]=x; targets[key].y[i]=y; targets[key].z[i]=z;
+    };
+    const px=pcx+portraitX*portraitWidth;
+    const py=pcy+portraitY*portraitHeight;
+    set("portrait",px,py,(seed-.5)*50);
+    set("portraitRight",w*(mobile?.68:.69)+portraitX*portraitWidth*(mobile?.82:.90),
+      h*.57+portraitY*portraitHeight*.91,(seed-.5)*50);
+    const sy=1-2*u,rr=Math.sqrt(Math.max(0,1-sy*sy));
+    set("sphere",w*.50+sphereR*rr*Math.cos(angle),h*.53+sphereR*sy,sphereR*rr*Math.sin(angle));
+    const mp=Math.floor(rand()*country.count)*2;
+    const mx=(country.samples[mp]/256-.5)*2;
+    const my=(country.samples[mp+1]/360-.49)*2;
+    set("philippines",w*.49+mx*mapR*.60,h*.50+my*mapR,(seed-.5)*33);
+    const ribbonT=2*u-1;
+    const strand=i%2===0?1:-1;
+    const tw=a;
+    set("ribbon",w*.5+ribbonT*w*.91,
+      h*.47+Math.sin(ribbonT*5.3)*h*.18+strand*Math.cos(ribbonT*13.7+tw)*h*.09,
+      (jitter-.5)*95);
+    set("work",w*.51+ribbonT*w*.79,
+      h*.44+Math.sin(ribbonT*5.1+1)*h*.17+strand*Math.cos(ribbonT*11+tw)*h*.045,
+      (seed-.5)*60);
+    const major=orbitR*.75,minor=orbitR*.33;
+    const torusA=rand()*TAU,torusB=rand()*TAU;
+    const tX=(major+minor*Math.cos(torusB))*Math.cos(torusA);
+    const tY=(major+minor*Math.cos(torusB))*Math.sin(torusA);
+    const tZ=minor*Math.sin(torusB);
+    set("torus",w*.51+tX,h*.51+tY*.72+tZ*.35,tZ);
+    const whirlA=rand()*TAU,whirlB=rand()*TAU;
+    const whirlR=orbitR*(.48+.42*rand());
+    set("orb",w*.53+Math.cos(whirlA)*whirlR,
+      h*.50+Math.sin(whirlA)*whirlR*.85,
+      Math.sin(whirlB+whirlA*1.6)*orbitR*.26);
+    set("ribbonLow",w*.48+ribbonT*w*.89,
+      h*.5+Math.sin(ribbonT*7.5+1.8)*h*.2+Math.cos(ribbonT*19+tw)*h*.035,
+      (seed-.5)*70);
+    const perimeter=rand()*4;
+    const edge=Math.floor(perimeter);
+    const v=perimeter-edge;
+    const halfX=frameWidth*.5,halfY=frameHeight*.5;
+    const jitterX=(rand()-.5)*27,jitterY=(rand()-.5)*27;
+    const x=edge===0?mix(-halfX,halfX,v):edge===1?halfX:edge===2?mix(halfX,-halfX,v):-halfX;
+    const y=edge===0?-halfY:edge===1?mix(-halfY,halfY,v):edge===2?halfY:mix(halfY,-halfY,v);
+    set("frame",w*.5+x+jitterX,h*.49+y+jitterY,(seed-.5)*33);
+  }
+  return result;
+}
 
-/**
- * A single canvas holds the same points throughout the two-chapter introduction.
- * It constructs a portrait-shaped point cloud (using the portfolio's own photo)
- * and morphs those particles through abstract waves as the visitor scrolls.
- * No WebGL dependency and respects reduced-motion and low-power devices.
- */
+/** One persistent scroll-scrubbed particle field across the entire homepage. */
 export function ParticleField() {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = ref.current;
-    const section = canvas?.closest("section");
-    if (!canvas || !section) return;
-    const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
-    if (!ctx) return;
-    const motionOff = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const random = rng(27651);
-    const image = new Image();
-    image.src = "/media/kristy-kate-professional-portrait-v2.webp";
-    let points: Point[] = [];
-    let w = 0, h = 0, ratio = 1, raf = 0, last = 0, time = 0, visible = true;
-    let progress = 0, pointerX = .76, pointerY = .44, mouseX = .76, mouseY = .44;
-    let frameCount = 0;
-
-    const makeMask = () => {
-      const el = document.createElement("canvas");
-      el.width = 180; el.height = 260;
-      const paint = el.getContext("2d", { willReadFrequently:true });
-      if (!paint) return null;
-      // Human silhouette: fallback remains recognizable while the portrait
-      // image provides individual density / photographic depth where available.
-      paint.fillStyle = "#fff";
-      paint.beginPath();
-      paint.ellipse(88, 69, 43, 56, -.06, 0, Math.PI*2);
-      paint.fill();
-      paint.beginPath();
-      paint.moveTo(66,118); paint.bezierCurveTo(67,138,52,142,31,153);
-      paint.bezierCurveTo(4,169,0,208,-4,260);
-      paint.lineTo(184,260);
-      paint.bezierCurveTo(182,206,170,169,145,155);
-      paint.bezierCurveTo(123,140,109,135,110,118);
-      paint.closePath(); paint.fill();
-      const silhouette = paint.getImageData(0,0,180,260);
-      if (image.complete && image.naturalWidth > 0) {
-        const photo = document.createElement("canvas");
-        photo.width=180; photo.height=260;
-        const brush=photo.getContext("2d", { willReadFrequently:true });
-        if (brush) {
-          const scale=Math.max(180/image.naturalWidth,260/image.naturalHeight);
-          const iw=image.naturalWidth*scale, ih=image.naturalHeight*scale;
-          brush.drawImage(image,(180-iw)/2,(260-ih)/2,iw,ih);
-          try {
-            const bitmap=brush.getImageData(0,0,180,260);
-            const raw=bitmap.data;
-            // Estimate uniform studio background by sampling the outermost photo pixels.
-            const corners:[[number,number],[number,number],[number,number],[number,number]] =
-              [[2,2],[177,2],[2,257],[177,257]];
-            const background=[0,0,0];
-            for(const [x,y] of corners) {
-              const k=(y*180+x)*4;
-              background[0]+=raw[k]/4;
-              background[1]+=raw[k+1]/4;
-              background[2]+=raw[k+2]/4;
-            }
-            const inferred = new Uint8ClampedArray(180*260);
-            let foreground=0;
-            for(let y=0;y<260;y++)for(let x=0;x<180;x++) {
-              const k=(y*180+x)*4;
-              const distance=Math.hypot(raw[k]-background[0],raw[k+1]-background[1],raw[k+2]-background[2]);
-              if(distance>53 && raw[k+3]>100) {inferred[y*180+x]=255;foreground++;}
-            }
-            const ratio=foreground/(180*260);
-            // Accept an actual person cutout only when foreground occupancy is plausible.
-            // On complex photographic backgrounds keep the semantic shape fallback.
-            if(ratio>.12 && ratio<.74) {
-              for(let n=0;n<inferred.length;n++) silhouette.data[n*4+3]=inferred[n];
-            }
-            return { silhouette, bitmap };
-          } catch { /* bitmap read denied: retain the silhouette fallback */ }
-        }
-      }
-      return { silhouette, bitmap:null };
-    };
-
-    const create = () => {
-      const mask = makeMask();
-      if (!mask) return;
-      const img = mask.bitmap?.data;
-      const data = mask.silhouette.data;
-      const count = w < 650 ? 2200 : w < 1024 ? 3700 : 6000;
-      const gridW=180, gridH=260;
-      // Estimate the photographic backdrop from the image corners.
-      let bg=[25,25,25];
-      if(img) {
-        const locations=[[3,3],[176,3],[3,257],[176,257]];
-        bg=[0,0,0];
-        locations.forEach(([x,y])=>{const k=(y*180+x)*4; bg[0]+=img[k]/4;bg[1]+=img[k+1]/4;bg[2]+=img[k+2]/4;});
-      }
-      points=[];
-      let tries=0;
-      while(points.length<count && tries<count*27){
-        tries++;
-        const x=Math.floor(random()*gridW), y=Math.floor(random()*gridH), k=(y*gridW+x)*4;
-        if(data[k+3]<50) continue;
-        const fade=img ? Math.hypot(img[k]-bg[0],img[k+1]-bg[1],img[k+2]-bg[2])/300 : .8;
-        // Facial features and photo depth influence particle opacity rather than
-        // replacing the consistent silhouette shape with a rectangular photo.
-        const imageValue=img ? .45 + .48*Math.min(1,fade) : .85;
-        if(random() > (.44 + imageValue*.46)) continue;
-        const ix=(x/gridW-.5)*2.0, iy=(y/gridH-.48)*2.3;
-        const theta=random()*Math.PI*2;
-        const r=Math.sqrt(random())*.86;
-        const wave=random()*2-1;
-        points.push({
-          x:ix, y:iy, z:random()*2-1,
-          tx:Math.cos(theta)*r*(1+.22*Math.sin(theta*4)), ty:Math.sin(theta)*r*.82,
-          tz:random()*2-1,
-          bx:(random()*2-1)*1.55,
-          by:wave*1.22+.12*Math.sin(x*.11),
-          bz:random()*2-1,
-          alpha:imageValue*(.3+random()*.7),
-          radius:.44+random()*.67
-        });
-      }
-    };
-
-    const resize = () => {
-      w=innerWidth; h=innerHeight;
-      ratio=Math.min(devicePixelRatio||1,1.5);
-      canvas.width=Math.floor(w*ratio); canvas.height=Math.floor(h*ratio);
-      canvas.style.width=w+"px"; canvas.style.height=h+"px";
-      ctx.setTransform(ratio,0,0,ratio,0,0);
-      create();
+  const ref=useRef<HTMLCanvasElement>(null);
+  useEffect(()=>{
+    const canvas=ref.current;
+    const ctx=canvas?.getContext("2d",{alpha:true});
+    if(!canvas||!ctx)return;
+    const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse=matchMedia("(pointer: coarse)").matches;
+    const portrait=makeMask("portrait");
+    const country=makeMask("philippines");
+    const scenes=Array.from(document.querySelectorAll<HTMLElement>("[data-particle-scene]"))
+      .filter(e=>ORDER.includes(e.dataset.particleScene as Shape));
+    const order=scenes.map(e=>e.dataset.particleScene as Shape);
+    const n=coarse?3400:matchMedia("(max-width: 1080px)").matches?5600:9800;
+    let width=1,height=1,dpr=1, clouds:Record<Shape,Cloud>|null=null;
+    let centers:number[]=[],desired=0,current=0,frame=0,last=0,clock=0,visible=true;
+    let targetX=.5,targetY=.5,mouseX=.5,mouseY=.5;
+    const size=()=> {
+      width=innerWidth;height=innerHeight;
+      dpr=Math.min(devicePixelRatio||1,1.5);
+      canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      clouds=buildClouds(width,height,n,portrait,country);
+      centers=scenes.map(el=>el.getBoundingClientRect().top+scrollY+el.offsetHeight*.5);
+      onScroll();
       draw();
     };
-    const draw = () => {
-      ctx.clearRect(0,0,w,h);
-      const mobile=w<767;
-      const s=Math.min(w*(mobile?.38:.275), h*(mobile?.32:.42), 460);
-      const cx=w*(mobile?.73:.727), cy=h*(mobile?.41:.52);
-      const p=Math.max(0,Math.min(2,progress));
-      const first=smooth(Math.max(0,Math.min(1,p)));
-      const second=smooth(Math.max(0,Math.min(1,p-1)));
-      const cursorDistance=Math.hypot(mouseX*w-cx,mouseY*h-cy);
-      const flashlight=Math.max(.1,1-cursorDistance/Math.max(s*2,1));
-      const glow=ctx.createRadialGradient(mouseX*w,mouseY*h,1,mouseX*w,mouseY*h,s*1.7);
-      glow.addColorStop(0,"rgba(226,221,202,.11)");
-      glow.addColorStop(.3,"rgba(204,202,185,.035)");
-      glow.addColorStop(1,"rgba(204,202,185,0)");
-      ctx.fillStyle=glow; ctx.fillRect(0,0,w,h);
-
-      const spin=time*.00007;
-      for(const dot of points) {
-        const ripple=Math.sin(spin*8+dot.z*5+dot.y*3)*.045;
-        const firstX=blend(dot.x,dot.tx*1.12,first);
-        const firstY=blend(dot.y,dot.ty*.95,first);
-        const x=blend(firstX,dot.bx,second);
-        const y=blend(firstY,dot.by,second);
-        const depth=blend(dot.z,dot.tz,first)*(1-second)+dot.bz*second;
-        const rx=x*Math.cos(spin*.36)-depth*Math.sin(spin*.36);
-        const rz=x*Math.sin(spin*.36)+depth*Math.cos(spin*.36);
-        const persp=1/(1-rz*.13);
-        const px=cx+(rx+ripple)*s*persp+(mouseX-.5)*depth*19;
-        const py=cy+y*s*persp+(mouseY-.5)*depth*13;
-        const influence=Math.max(0,1-Math.hypot(px-mouseX*w,py-mouseY*h)/(s*.78));
-        const opacity=Math.min(1, (.16+flashlight*.28+influence*.8)*dot.alpha*(1-second*.28));
-        const rad=dot.radius*(mobile?.63:1)*persp + influence*.28;
-        ctx.fillStyle="rgba(232,229,217,"+opacity.toFixed(3)+")";
-        ctx.fillRect(px,py,Math.max(.45,rad),Math.max(.45,rad));
-      }
-    };
-
     const onScroll=()=>{
-      const bounds=section.getBoundingClientRect();
-      const span=Math.max(1,section.getBoundingClientRect().height-innerHeight);
-      progress=Math.min(2,Math.max(0,-bounds.top/span*2.1));
-      visible=bounds.bottom > 0 && bounds.top < innerHeight;
-      if(motionOff) draw();
+      const mid=scrollY+innerHeight*.5;
+      if(centers.length===0)return;
+      if(mid<=centers[0]){desired=0;return;}
+      if(mid>=centers[centers.length-1]){desired=centers.length-1;return;}
+      for(let i=0;i<centers.length-1;i++){
+        if(mid>=centers[i]&&mid<centers[i+1]){
+          desired=i+ease((mid-centers[i])/Math.max(1,centers[i+1]-centers[i]));
+          break;
+        }
+      }
+      if(reduced){current=desired;draw();}
     };
-    const onMove=(e:PointerEvent)=>{
-      pointerX=e.clientX/innerWidth;pointerY=e.clientY/innerHeight;
+    const draw=()=>{
+      if(!clouds)return;
+      ctx.clearRect(0,0,width,height);
+      const start=Math.max(0,Math.min(order.length-1,Math.floor(current)));
+      const end=Math.min(order.length-1,start+1);
+      const f=ease(current-start);
+      const from=clouds[order[start]],to=clouds[order[end]];
+      const orbWeight=(["sphere","torus","orb"].includes(order[start])?1-f:0)+
+        (["sphere","torus","orb"].includes(order[end])?f:0);
+      const rotation=clock*.00013;
+      // A subdued spot of light follows the cursor through the scene.
+      const glow=ctx.createRadialGradient(mouseX*width,mouseY*height,0,mouseX*width,mouseY*height,Math.min(width*.4,430));
+      glow.addColorStop(0,"rgba(225,226,219,.047)");
+      glow.addColorStop(1,"rgba(225,226,219,0)");
+      ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
+      ctx.fillStyle="#f3f2ed";
+      const vignette=Math.min(width,height)*.23;
+      const projectDim=(order[start]==="work"?1-f:0)+(order[end]==="work"?f:0);
+      for(let i=0;i<n;i++){
+        let x=mix(from.x[i],to.x[i],f);
+        let y=mix(from.y[i],to.y[i],f);
+        const z=mix(from.z[i],to.z[i],f);
+        const relX=x-width*.5;
+        x+=orbWeight*(Math.cos(rotation)*relX-Math.sin(rotation)*z-relX)*.46;
+        y+=Math.sin(rotation*2+i*.73)*(.7+orbWeight*1.8);
+        const md=Math.hypot(x-mouseX*width,y-mouseY*height);
+        const near=Math.max(0,1-md/vignette);
+        const wave=Math.sin(clock*.0009+i*.14)*.11;
+        const light=(.19+Math.max(0,z/(Math.min(width,height)*.6))*.27+
+          near*.63+wave)*(.83-projectDim*.30);
+        ctx.globalAlpha=Math.max(.09,Math.min(.92,light));
+        const r=coarse?.83:1.08;
+        ctx.fillRect(x,y,r+near*.7,r+near*.7);
+      }
+      ctx.globalAlpha=1;
     };
-    const tick=(now:number)=>{
-      if(!last)last=now;
-      const diff=Math.min(now-last,50);
-      if(diff>0) time+=diff;
-      last=now;
-      mouseX+=(pointerX-mouseX)*.055;
-      mouseY+=(pointerY-mouseY)*.055;
-      if(visible && (frameCount++ % 2===0)) draw();
-      raf=requestAnimationFrame(tick);
+    const onPointer=(event:PointerEvent)=>{
+      targetX=event.clientX/width;targetY=event.clientY/height;
     };
-    const onVisibility=()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;}else if(!motionOff&&!raf){last=0;raf=requestAnimationFrame(tick);}};
-    const onImg=()=>{create();draw();};
-    window.addEventListener("resize",resize,{passive:true});
-    window.addEventListener("scroll",onScroll,{passive:true});
-    if(fine && !motionOff)window.addEventListener("pointermove",onMove,{passive:true});
+    const tick=(stamp:number)=>{
+      if(!last)last=stamp;
+      const delta=Math.min(stamp-last,50);last=stamp;
+      clock+=delta;
+      current+=(desired-current)*Math.min(1,delta/110);
+      mouseX+=(targetX-mouseX)*Math.min(1,delta/160);
+      mouseY+=(targetY-mouseY)*Math.min(1,delta/160);
+      if(visible && (!coarse || Math.floor(clock/32)!==Math.floor((clock-delta)/32)))draw();
+      frame=requestAnimationFrame(tick);
+    };
+    const onVisibility=()=>{
+      visible=!document.hidden;
+      if(!visible){cancelAnimationFrame(frame);frame=0;}
+      else if(!reduced&&frame===0){last=0;frame=requestAnimationFrame(tick);}
+    };
+    const onResize=()=>size();
+    size();
+    if(!reduced)frame=requestAnimationFrame(tick);
+    addEventListener("scroll",onScroll,{passive:true});
+    addEventListener("resize",onResize,{passive:true});
+    if(!reduced&&!coarse)addEventListener("pointermove",onPointer,{passive:true});
     document.addEventListener("visibilitychange",onVisibility);
-    image.addEventListener("load",onImg);
-    resize(); onScroll();
-    if(!motionOff)raf=requestAnimationFrame(tick);
-    return ()=>{
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize",resize);
-      window.removeEventListener("scroll",onScroll);
-      window.removeEventListener("pointermove",onMove);
+    return()=>{
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll",onScroll);
+      removeEventListener("resize",onResize);
+      removeEventListener("pointermove",onPointer);
       document.removeEventListener("visibilitychange",onVisibility);
-      image.removeEventListener("load",onImg);
     };
   },[]);
-  return <canvas ref={ref} data-particle-field aria-hidden="true" style={{
-    position:"sticky",top:0,zIndex:1,display:"block",width:"100%",height:"100svh",
+  return <canvas data-particle-field ref={ref} aria-hidden="true" style={{
+    position:"sticky",top:0,zIndex:0,width:"100%",height:"100svh",display:"block",
     marginBottom:"-100svh",pointerEvents:"none"
   }}/>;
 }

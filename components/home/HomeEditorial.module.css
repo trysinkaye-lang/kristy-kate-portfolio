@@ -167,3 +167,47 @@
  .workHeader h2 {font-size:clamp(58px,15vw,83px);}
  .workHeader>p{font-size:13px;}
 }
+
+/* One cinematic page: the same point cloud stays alive behind every chapter. */
+.motionPage {position:relative;isolation:isolate;overflow:clip;color:#eaeae7;
+ background:radial-gradient(ellipse at 52% 40%,#2a292d 0%,#232226 65%,#242327 100%);}
+.motionPage > :not(canvas) {position:relative;z-index:1;}
+.motionPage .work {min-height:100svh;background:transparent;color:#efefed;padding-top:75px;}
+.motionPage .workHeader {border:0;padding:0 0 30px;display:block;}
+.motionPage .workHeader h2 {display:none;}
+.motionPage .workHeader .marker {color:#9d9b9e;letter-spacing:.1em;font-size:11px;}
+.motionPage .workHeader > p {display:none;}
+.morePanel {min-height:100svh;display:flex;align-items:center;padding-inline:var(--gutter);}
+.morePanel > p {font-size:clamp(25px,3vw,39px);line-height:1.3;font-weight:500;letter-spacing:-.045em;}
+.motionPage .about,.motionPage .capabilities {background:transparent;color:#eaeae7;}
+.motionPage .aboutInner {min-height:80svh;align-items:center;}
+.motionPage .about h2 {font-size:clamp(44px,5.6vw,87px);letter-spacing:-.065em;}
+.motionPage .capabilities {min-height:85svh;padding-top:13svh;padding-bottom:15svh;}
+.motionPage .capabilitiesHeader h2 {font-size:clamp(42px,5vw,75px);}
+.motionPage .contact {position:relative;min-height:100svh;border:0;display:flex;align-items:center;justify-content:center;
+ padding-inline:var(--gutter);padding-block:70px;background:transparent;color:#eee;}
+.motionPage .contactInner {min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;
+ justify-content:center;gap:10px;padding:30px 0;text-align:center;}
+.motionPage .contactTag {color:#a6a5a8;font-size:12px;font-weight:650;letter-spacing:.12em;}
+.motionPage .bigEmail {display:block;font-size:clamp(31px,5.3vw,90px);line-height:1.12;font-weight:520;
+ letter-spacing:-.075em;overflow-wrap:anywhere;max-width:100%;}
+.motionPage .bigEmail:hover {color:#cac9cb;}
+.motionPage .contact h2 {font-size:16px;margin:0;font-weight:500;letter-spacing:-.02em;color:#a9a9a9;}
+.motionPage .contact h2 span {display:inline;margin:0;font:inherit;}
+.motionPage .contactInvitation {max-width:620px;color:#a9a9ab;font-size:12px;margin:0;}
+.motionPage .contactAction {display:inline-flex;align-items:center;justify-content:center;gap:18px;
+ width:auto;min-height:44px;margin:5px 0 0;padding:8px 4px;border:0;border-bottom:1px solid #a3a3a3;
+ font-size:13px;font-weight:550;letter-spacing:-.01em;}
+.motionPage .contactEmail {display:flex;align-items:center;justify-content:center;gap:10px;
+ font-size:11px;padding-top:10px;}
+.motionPage .contactEmail a {text-decoration:underline;}
+@media(max-width:767px) {
+ .motionPage .work {padding-top:70px;min-height:85svh;}
+ .morePanel {min-height:80svh;}
+ .motionPage .aboutInner {min-height:65svh;}
+ .motionPage .capabilities {min-height:70svh;}
+ .motionPage .contact {min-height:85svh;padding-inline:18px;}
+ .motionPage .bigEmail {font-size:clamp(24px,6.2vw,42px);}
+ .motionPage .contactInvitation {font-size:11px;}
+ .motionPage .contactTag {font-size:9px;}
+}
