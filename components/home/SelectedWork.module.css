@@ -120,3 +120,26 @@
  .imageContainer img {transform:scale(.96);filter:none;}
  .card:hover .imageContainer img,.card.active .imageContainer img{transform:scale(1);}
 }
+
+/* Vertical scrolling now directly advances the horizontal case-study reel. */
+:global(#work) .sequence { flex:1; min-height:0; display:flex; flex-direction:column;
+  justify-content:center; padding:0; }
+:global(#work) .gallery { flex:1 1 auto; min-height:0; overflow-x:auto;
+  padding-top:clamp(15px,4vh,44px); padding-bottom:14px;
+  max-height:min(70svh,620px); align-items:center; }
+:global(#work) .imageContainer {height:clamp(210px,39svh,390px);}
+:global(#work) .imageContainer img {
+  display:block; width:auto; height:auto; max-width:100%;max-height:100%;
+  object-fit:contain; transform:none; filter:none; opacity:1;
+  image-rendering:auto;
+}
+:global(#work) .card:hover img,:global(#work) .card.active img {transform:none;}
+:global(#work) .caption {padding-block:10px;}
+:global(#work) .projectNote {flex:0 0 auto; padding:14px 0 16px;}
+:global(#work) .end {flex:0 0 auto;padding-top:6px;}
+@media(max-width:767px) {
+  :global(#work) .sequence {flex:initial;}
+  :global(#work) .gallery {max-height:none;min-height:0;overflow-x:auto; padding-top:24px;}
+  :global(#work) .imageContainer {height:230px;}
+  :global(#work) .imageContainer img {width:auto;height:auto;max-width:100%;max-height:100%;}
+}

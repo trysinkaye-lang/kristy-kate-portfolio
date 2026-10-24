@@ -211,3 +211,41 @@
  .motionPage .contactInvitation {font-size:11px;}
  .motionPage .contactTag {font-size:9px;}
 }
+
+/* The contact frame and the content now share the same measured box. */
+.motionPage .work {
+  height:365svh;
+  min-height:0;
+  padding:0!important;
+}
+.motionPage .work :global(.shell) {
+  position:sticky;
+  top:0;
+  height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-block:clamp(25px,5vh,60px);
+}
+.motionPage .workHeader {flex:0 0 auto;padding:0 0 16px;}
+.motionPage .contactFrame {
+  position:relative; display:grid;place-items:center;
+  width:min(1120px,calc(100vw - 2 * var(--gutter) - 20px));
+  min-height:clamp(335px,54svh,480px);
+  margin-inline:auto;
+}
+.motionPage .contactFrame .contactInner {gap:8px;padding:30px 15px;}
+.motionPage .contactFrame .bigEmail {font-size:clamp(24px,4.1vw,68px);}
+.motionPage .contactFrame .contactTag {font-size:11px;}
+.motionPage .contactFrame .contactInvitation {max-width:45ch;}
+@media(max-width:767px) {
+ .motionPage .work {height:auto;min-height:100svh;padding:65px 0!important;}
+ .motionPage .work :global(.shell) {position:relative;height:auto;display:block;padding-block:0;}
+ .motionPage .contactFrame {width:calc(100vw - 2 * var(--gutter) - 8px);min-height:380px;}
+ .motionPage .contactFrame .bigEmail {font-size:clamp(24px,5.7vw,39px);}
+ .motionPage .contactFrame .contactInner {gap:8px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .motionPage .work {height:auto;min-height:100svh;padding:65px 0!important;}
+ .motionPage .work :global(.shell) {position:relative;height:auto;display:block;}
+}

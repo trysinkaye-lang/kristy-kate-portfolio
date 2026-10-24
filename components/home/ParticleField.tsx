@@ -157,6 +157,7 @@ export function ParticleField() {
     let width=1,height=1,dpr=1, clouds:Record<Shape,Cloud>|null=null;
     let centers:number[]=[],desired=0,current=0,frame=0,last=0,clock=0,visible=true;
     let targetX=.5,targetY=.5,mouseX=.5,mouseY=.5;
+    const frameTarget=document.querySelector<HTMLElement>("[data-particle-frame-target]");
     const size=()=> {
       width=innerWidth;height=innerHeight;
       dpr=Math.min(devicePixelRatio||1,1.5);
@@ -190,6 +191,18 @@ export function ParticleField() {
       const end=Math.min(order.length-1,start+1);
       const f=ease(current-start);
       const from=clouds[order[start]],to=clouds[order[end]];
+      const frameRect=frameTarget?.getBoundingClientRect();
+      const originalFrameWidth=Math.min(width*(width<768?.79:.69),1020);
+      const originalFrameHeight=Math.min(height*(width<768?.35:.37),370);
+      const frameCenterX=frameRect?frameRect.left+frameRect.width/2:width*.5;
+      const frameCenterY=frameRect?frameRect.top+frameRect.height/2:height*.49;
+      const adjust=(scene:Shape,x:number,y:number):[number,number]=>{
+        if(scene!=="frame"||!frameRect)return [x,y];
+        return [
+          frameCenterX+(x-width*.5)*frameRect.width/originalFrameWidth,
+          frameCenterY+(y-height*.49)*frameRect.height/originalFrameHeight
+        ];
+      };
       canvas.dataset.activeShape=order[Math.round(current)] || "portrait";
       const orbWeight=(["sphere","torus","orb"].includes(order[start])?1-f:0)+
         (["sphere","torus","orb"].includes(order[end])?f:0);
@@ -203,8 +216,10 @@ export function ParticleField() {
       const vignette=Math.min(width,height)*.23;
       const projectDim=(order[start]==="work"?1-f:0)+(order[end]==="work"?f:0);
       for(let i=0;i<n;i++){
-        let x=mix(from.x[i],to.x[i],f);
-        let y=mix(from.y[i],to.y[i],f);
+        const [startX,startY]=adjust(order[start],from.x[i],from.y[i]);
+        const [endX,endY]=adjust(order[end],to.x[i],to.y[i]);
+        let x=mix(startX,endX,f);
+        let y=mix(startY,endY,f);
         const z=mix(from.z[i],to.z[i],f);
         const relX=x-width*.5;
         const globeMix=(order[start]==="sphere"?1-f:0)+(order[end]==="sphere"?f:0);

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { publicProjects } from "@/data/projects";
 import styles from "./SelectedWork.module.css";
 
@@ -15,15 +15,69 @@ export function ProjectDriftWall() {
   const pointer = useRef<{ x: number; y: number } | null>(null);
   const suppressClick = useRef(false);
   const trackRef = useRef<HTMLElement>(null);
+  const manualUntil = useRef(0);
+  const activeRef = useRef(0);
+  useEffect(() => {
+    const track = trackRef.current;
+    const section = track?.closest<HTMLElement>("#work");
+    if (!track || !section) return;
+    let frame = 0;
+    const sync = () => {
+      frame = 0;
+      if (window.innerWidth < 768 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (Date.now() < manualUntil.current) return;
+      const range = Math.max(1, section.offsetHeight - window.innerHeight);
+      const start = section.getBoundingClientRect().top + window.scrollY;
+      const progress = Math.max(0, Math.min(1, (window.scrollY - start) / range));
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      track.scrollLeft = maxScroll * progress;
+      const cards = Array.from(track.querySelectorAll<HTMLElement>("article"));
+      const midpoint = track.scrollLeft + track.clientWidth / 2;
+      let closest = 0, distance = Infinity;
+      cards.forEach((card, index) => {
+        const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - midpoint);
+        if (d < distance) { distance = d; closest = index; }
+      });
+      if (closest !== activeRef.current) {
+        activeRef.current = closest;
+        setActive(closest);
+      }
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(sync); };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(track); observer.observe(section);
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule, { passive: true });
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+    };
+  }, []);
   const selected = projects[active];
 
   const select = (index: number) => {
     const next = (index + projects.length) % projects.length;
+    activeRef.current = next;
     setActive(next);
-    const item = trackRef.current?.querySelectorAll("article")[next];
-    if (item) {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      item.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+    const track = trackRef.current;
+    const item = track?.querySelectorAll<HTMLElement>("article")[next];
+    if (!track || !item) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const target = Math.max(0, Math.min(track.scrollWidth-track.clientWidth,
+      item.offsetLeft+item.offsetWidth/2-track.clientWidth/2));
+    manualUntil.current = Date.now()+950;
+    track.scrollTo({ left: target, behavior: reduced ? "instant" : "smooth" });
+    if (window.innerWidth >= 768 && !reduced) {
+      const section = track.closest<HTMLElement>("#work");
+      if (section) {
+        const range = Math.max(1,section.offsetHeight-innerHeight);
+        const max = Math.max(1,track.scrollWidth-track.clientWidth);
+        const start = section.getBoundingClientRect().top + scrollY;
+        window.scrollTo({top:start+(target/max)*range,behavior:"smooth"});
+      }
     }
   };
 
@@ -65,7 +119,7 @@ export function ProjectDriftWall() {
             className={[styles.card, active === index ? styles.active : ""].join(" ")}
             style={{ "--card-order":index, "--card-distance":Math.abs(index - active), "--card-angle":(index - 1.5) * 5 + "deg" } as React.CSSProperties}
             data-project-slug={project.slug}
-            onMouseEnter={() => {if(!dragging)setActive(index);}}
+            onMouseEnter={() => {if(!dragging && window.innerWidth<768)setActive(index);}}
             onFocusCapture={() => setActive(index)}
           >
             <Link href={"/projects/" + project.slug} className={styles.projectLink} aria-label={"Explore " + project.shortTitle}>
@@ -75,6 +129,7 @@ export function ProjectDriftWall() {
                   width={project.imageWidth} height={project.imageHeight}
                   sizes="(max-width: 767px) 76vw, (max-width: 1150px) 32vw, 540px"
                   unoptimized priority={index===0}
+                  style={{ maxWidth: project.imageWidth + "px", maxHeight: project.imageHeight + "px" }}
                 />
                 <span className={styles.hoverArrow} aria-hidden="true">↗</span>
               </span>

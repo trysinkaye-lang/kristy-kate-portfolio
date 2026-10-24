@@ -5,7 +5,7 @@ import styles from "./HomeEditorial.module.css";
 export function HomeCTA() {
   return (
     <section data-particle-scene="frame" className={styles.contact} aria-labelledby="contact-title">
-      <div className={["shell",styles.contactInner].join(" ")}>
+      <div className={styles.contactFrame} data-particle-frame-target><div className={["shell",styles.contactInner].join(" ")}>
         <p className={styles.contactTag}>GET IN TOUCH</p>
         <a className={styles.bigEmail} href={"mailto:"+site.email}>{site.email}</a>
         <h2 id="contact-title">Let&apos;s talk <span>projects.</span></h2>
@@ -15,7 +15,7 @@ export function HomeCTA() {
           Send a message <span aria-hidden="true">↗</span>
         </TrackedLink>
         <div className={styles.contactEmail}><span>Or email me directly</span><a href={"mailto:"+site.email}>{site.email}</a></div>
-      </div>
+      </div></div>
     </section>
   );
 }
