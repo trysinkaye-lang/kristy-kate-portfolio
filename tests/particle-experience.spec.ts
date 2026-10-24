@@ -9,11 +9,8 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   const sphere = page.locator('[data-particle-scene="sphere"]');
   const location = page.locator('[data-particle-scene="philippines"]');
   const center = async (selector: string) => page.locator(selector).evaluate(el => scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
-  await center('[data-particle-scene="strata"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
-  await expect(canvas).toHaveAttribute("data-active-shape", "strata");
   await center('[data-particle-scene="sphere"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
   const orbit = await page.locator("[data-sphere-type]").boundingBox();
   const radius = Number(await canvas.getAttribute("data-sphere-radius"));
   expect(orbit!.width).toBeCloseTo(orbit!.height, 0);
@@ -27,11 +24,9 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   await page.evaluate(y => scrollTo({top:y,behavior:"instant"}), start+(end-start)*.5);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","0");
   await center('[data-particle-scene="philippines"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(4, 3);
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
   await center('[data-particle-scene="sphere"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
-  await center('[data-particle-scene="strata"]');
   await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
   await center('[data-particle-scene="portrait"]');
   await expect(canvas).toHaveAttribute("data-active-shape","portrait");
@@ -72,4 +67,22 @@ test("unavailable WebGL assets leave semantic content and project links usable",
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
   await page.getByRole("link",{name:"Explore RBIM",exact:true}).click();
   await expect(page.getByRole("heading",{level:1})).toHaveText("RBIM");
+});
+
+test("portrait three-quarter rotation and simplified one-project gallery", async ({page}) => {
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const field = page.locator("[data-particle-field]");
+  await expect(field).toHaveAttribute("data-renderer","webgl");
+  await expect(page.locator('[data-particle-scene="strata"],[data-particle-scene="torus"],[data-particle-scene="orb"]')).toHaveCount(0);
+  await page.locator('[data-particle-scene="portraitRight"]').evaluate(el =>
+    scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
+  await expect.poll(async()=>Number(await field.getAttribute("data-morph"))).toBeCloseTo(1,2);
+  expect(Number(await field.getAttribute("data-portrait-yaw"))).toBeGreaterThan(.3);
+  const gallery=page.getByRole("navigation",{name:"Projects gallery"});
+  const sizes=await gallery.evaluate(el=>({width:el.clientWidth,cards:Array.from(el.querySelectorAll("article")).map(item=>item.getBoundingClientRect().width)}));
+  expect(sizes.cards).toHaveLength(5);
+  expect(sizes.cards[0]).toBeGreaterThanOrEqual(sizes.width-2);
+  await page.getByRole("button",{name:"Next project"}).click();
+  await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
 });
