@@ -8,7 +8,7 @@ test("currency requests wait for selection, run once, and preserve base prices o
     return route.fulfill({ status: 503, json: { base: "PHP", date: null, rates: {} } });
   });
   await page.goto("/packages");
-  await expect(page.getByRole("button", { name: "Use dark mode" })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "Use light mode" })).toBeEnabled();
   expect(requests).toBe(0);
   await page.getByLabel("View prices in").selectOption("USD");
   await expect(page.getByText("Live conversion unavailable; base PHP prices remain valid.")).toBeVisible();
@@ -89,6 +89,7 @@ for (const route of ["/", "/projects", "/about", "/contact", "/packages", "/proj
     test.setTimeout(90_000);
     await page.route("**/api/exchange-rates", route => route.fulfill({ json: { base: "PHP", rates: {} } }));
     await page.goto(route);
+    await page.getByRole("button", { name: "Use light mode" }).click();
     await page.getByRole("button", { name: "Use dark mode" }).waitFor();
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.getByRole("button", { name: "Use dark mode" }).click();

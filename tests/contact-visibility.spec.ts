@@ -8,7 +8,7 @@ async function fill(page: import("@playwright/test").Page) {
 test("contact is legible in both themes and honestly reports missing delivery configuration", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("working on?");
-  for (const theme of ["Use dark mode", "Use light mode"]) {
+  for (const theme of ["Use light mode", "Use dark mode"]) {
     await page.getByRole("button", { name: theme }).click();
     await expect(page.getByRole("link", { name: /trysinkaye@gmail.com/ }).first()).toBeVisible();
     await expect(page.getByLabel("Your message", { exact: true })).toBeVisible();

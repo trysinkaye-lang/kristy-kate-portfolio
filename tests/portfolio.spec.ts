@@ -47,7 +47,7 @@ test("mobile dialog manages focus, escape, links, and viewport changes", async (
   await expect(close).toBeFocused();
   await expect(open).toHaveAttribute("aria-expanded", "true");
   await page.keyboard.press("Shift+Tab");
-  await expect(dialog.getByRole("button", { name: "Use dark mode" })).toBeFocused();
+  await expect(dialog.getByRole("button", { name: "Use light mode" })).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(close).toBeFocused();
   await page.keyboard.press("Escape");
@@ -65,14 +65,15 @@ test("mobile dialog manages focus, escape, links, and viewport changes", async (
 
 test("theme persists across routes and reload", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Use dark mode" }).click();
-  await expect(page.locator("html")).toHaveClass(/dark/);
-  await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Contact", exact: true }).click();
-  await expect(page.locator("html")).toHaveClass(/dark/);
-  await page.reload();
   await expect(page.getByRole("button", { name: "Use light mode" })).toBeVisible();
   await page.getByRole("button", { name: "Use light mode" }).click();
   await expect(page.locator("html")).toHaveClass(/light/);
+  await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Contact", exact: true }).click();
+  await expect(page.locator("html")).toHaveClass(/light/);
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Use dark mode" })).toBeVisible();
+  await page.getByRole("button", { name: "Use dark mode" }).click();
+  await expect(page.locator("html")).toHaveClass(/dark/);
 });
 
 test("every primary route avoids overflow at mobile, tablet, and desktop", async ({ page }) => {

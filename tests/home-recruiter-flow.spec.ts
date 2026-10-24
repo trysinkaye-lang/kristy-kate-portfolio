@@ -249,15 +249,24 @@ test("contact section has visual presence without breaking theme or access", asy
       }
     };
 
-    await setThemeFromVisibleNavigation("Use dark mode");
-    await expect(page.locator("html")).toHaveClass(/dark/);
+    await setThemeFromVisibleNavigation("Use light mode");
+    await expect(page.locator("html")).toHaveClass(/light/);
     const darkColors = await contact.evaluate(element => ({
       background: getComputedStyle(element).backgroundColor,
       bodyBackground: getComputedStyle(document.body).backgroundColor,
     }));
     expect(darkColors.background).toBe(darkColors.bodyBackground);
     await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
-    await setThemeFromVisibleNavigation("Use light mode");
-    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await setThemeFromVisibleNavigation("Use dark mode");
+    await expect(page.locator("html")).toHaveClass(/dark/);
   }
+});
+
+test("kinetic portfolio treatment retains accessible content and an animated canvas", async ({ page }) => {
+  await page.goto("/");
+  const field = page.locator("#home canvas[data-particle-field]");
+  await expect(field).toHaveAttribute("aria-hidden", "true");
+  await expect.poll(() => field.evaluate(element => (element as HTMLCanvasElement).width)).toBeGreaterThan(0);
+  await expect(page.locator("#home")).toHaveCSS("background-color", "rgb(12, 15, 17)");
+  await expect(page.locator("[data-intro-splash]")).toHaveCSS("pointer-events", "none");
 });
