@@ -29,18 +29,17 @@ export function ProjectDriftWall() {
       const range = Math.max(1, section.offsetHeight - window.innerHeight);
       const start = section.getBoundingClientRect().top + window.scrollY;
       const progress = Math.max(0, Math.min(1, (window.scrollY - start) / range));
-      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-      track.scrollLeft = maxScroll * progress;
+      // Scroll chooses a *complete* featured slide. Continuous horizontal movement
+      // previously exposed partial screenshots during every wheel movement.
       const cards = Array.from(track.querySelectorAll<HTMLElement>("article"));
-      const midpoint = track.scrollLeft + track.clientWidth / 2;
-      let closest = 0, distance = Infinity;
-      cards.forEach((card, index) => {
-        const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - midpoint);
-        if (d < distance) { distance = d; closest = index; }
-      });
-      if (closest !== activeRef.current) {
-        activeRef.current = closest;
-        setActive(closest);
+      const index = Math.min(projects.length - 1, Math.round(progress * (projects.length - 1)));
+      if (index !== activeRef.current && cards[index]) {
+        activeRef.current = index;
+        setActive(index);
+        const card = cards[index];
+        const left = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
+          card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2));
+        track.scrollTo({ left, behavior: "instant" });
       }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(sync); };
@@ -92,13 +91,14 @@ export function ProjectDriftWall() {
   return (
     <div className={styles.sequence}>
       <div className={styles.sequenceHead}>
-        <p>SELECTED / SOFTWARE — WEBSITES — SYSTEMS</p>
+        <p>FEATURED CASE STUDIES <span className={styles.sequenceTypes}>/ SYSTEMS &amp; WEBSITES</span></p>
         <div className={styles.controllers}>
           <span aria-live="polite">{String(active + 1).padStart(2, "0")} <span className={styles.faint}>/ 0{projects.length}</span></span>
           <button type="button" aria-label="Previous project" onClick={() => select(active - 1)}>←</button>
           <button type="button" aria-label="Next project" onClick={() => select(active + 1)}>→</button>
         </div>
       </div>
+      <div className={styles.showcase}>
       <nav ref={trackRef} className={styles.gallery} aria-label="Projects gallery"
         tabIndex={0}
         onKeyDown={event => {
@@ -136,33 +136,39 @@ export function ProjectDriftWall() {
           >
             <Link href={"/projects/" + project.slug} className={styles.projectLink} aria-label={"Explore " + project.shortTitle}>
               <span className={styles.imageContainer}>
-                <Image
-                  src={project.image} alt={project.imageAlt ?? project.shortTitle + " interface preview"}
-                  width={project.imageWidth} height={project.imageHeight}
-                  sizes="(max-width: 767px) 76vw, 520px"
-                  unoptimized loading="eager"
-                  style={{ maxWidth: `min(100%, ${project.imageWidth}px)`, maxHeight: `min(100%, ${project.imageHeight}px)` }}
-                />
+                <span className={styles.imageVisual} style={{
+                  width: `min(100%, ${project.imageWidth}px, calc(var(--preview-height) * ${project.imageWidth / project.imageHeight}))`,
+                  aspectRatio: `${project.imageWidth} / ${project.imageHeight}`,
+                }}>
+                  <Image
+                    src={project.image} alt={project.imageAlt ?? project.shortTitle + " interface preview"}
+                    width={project.imageWidth} height={project.imageHeight}
+                    sizes="(max-width: 767px) 90vw, (max-width: 1200px) 60vw, 760px"
+                    unoptimized loading="eager"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </span>
                 <span className={styles.hoverArrow} aria-hidden="true">↗</span>
               </span>
-              <span className={styles.caption}>
-                <span className={styles.cardNo}>{String(index + 1).padStart(2, "0")} / 0{projects.length}</span>
-                <strong>{project.shortTitle}</strong>
-                <span className={styles.cardCategory}>{project.category[0]}</span>
+              <span className={styles.screenCaption}>
+                <span>ACTUAL PROJECT SCREENSHOT</span>
+                <span>{String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
               </span>
             </Link>
           </article>
         ))}
       </nav>
-      <div className={styles.projectNote} aria-live="polite" aria-atomic="true">
-        <div>
+      <aside className={styles.projectNote} aria-live="polite" aria-atomic="true">
+        <div className={styles.projectIdentity}>
           <p className={styles.noteNo}>PROJECT {String(active + 1).padStart(2, "0")} — {selected.status}</p>
-          <p className={styles.noteTitle}>{selected.shortTitle}</p>
+          <h3 className={styles.noteTitle}>{selected.shortTitle}</h3>
+          <p className={styles.noteCategory}>{selected.category[0]}</p>
         </div>
         <p className={styles.noteText}>{selected.overview}</p>
         <Link className={styles.openLink} href={"/projects/" + selected.slug}>
-          View project <span aria-hidden="true">↗</span>
+          Explore full case study <span aria-hidden="true">↗</span>
         </Link>
+      </aside>
       </div>
       <div className={styles.end}>
         <div role="group" className={styles.progress} aria-label={"Project " + (active + 1) + " of " + projects.length}>
@@ -175,7 +181,7 @@ export function ProjectDriftWall() {
           ))}
         </div>
         <div className={styles.endRight}>
-          <span className={styles.dragHint}>SCROLL TO EXPLORE</span>
+          <span className={styles.dragHint}>SCROLL TO CHANGE PROJECT</span>
           <Link href="/projects">View all projects <span aria-hidden="true">↗</span></Link>
         </div>
       </div>
