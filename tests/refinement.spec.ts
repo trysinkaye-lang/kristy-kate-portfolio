@@ -87,12 +87,13 @@ test("package selection reaches the contact subject and unknown values are ignor
 for (const route of ["/", "/projects", "/about", "/contact", "/packages", "/projects/rbim", "/projects/co-designs"]) {
   test(`accessible light and dark presentation: ${route}`, async ({ page }) => {
     test.setTimeout(90_000);
-    await page.route("**/api/exchange-rates", route => route.fulfill({ json: { base: "PHP", rates: {} } }));
-    await page.goto(route);
-    await page.getByRole("button", { name: "Use light mode" }).click();
-    await page.getByRole("button", { name: "Use dark mode" }).waitFor();
-    for (const theme of ["light", "dark"]) {
-      if (theme === "dark") await page.getByRole("button", { name: "Use dark mode" }).click();
+    await page.route("**/api/exchange-rates", handler => handler.fulfill({ json: { base: "PHP", rates: {} } }));
+    // Theme settings remain available in inner-page navigation, not the immersive homepage.
+    for (const theme of ["light", "dark"] as const) {
+      await page.goto("/about");
+      const toggle = page.getByRole("button", { name: theme === "light" ? "Use light mode" : "Use dark mode" });
+      if (await toggle.count()) await toggle.click();
+      await page.goto(route);
       const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
       expect(result.violations, `${route}, ${theme}: ${JSON.stringify(result.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) })))}`).toEqual([]);
     }
