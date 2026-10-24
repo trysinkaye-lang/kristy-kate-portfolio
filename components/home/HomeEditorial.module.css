@@ -147,3 +147,10 @@
   .contactArrow { transition: none; }
   .contactAction:hover .contactArrow, .contactAction:focus-visible .contactArrow { transform: none; }
 }
+
+/* Dark, editorial presentation for the motion-led homepage. */
+.work { background: #0e1113; color: #f4f5f0; padding-top: clamp(85px, 9vw, 140px); }
+.workHeader { border-top: 1px solid #3a4541; padding-top: 25px; }
+.workHeader h2 { font-family: Arial, Helvetica, sans-serif; font-size: clamp(70px, 9vw, 142px); letter-spacing: -.085em; font-weight: 600; line-height: .94; }
+.workHeader > p, .work .marker { color: #a7b4ae; }
+@media(max-width:767px) { .work { padding-top: 64px; } .workHeader h2 { font-size: clamp(56px, 14vw, 80px); } }

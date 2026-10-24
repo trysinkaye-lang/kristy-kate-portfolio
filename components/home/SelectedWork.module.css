@@ -35,3 +35,15 @@
 @media(max-width:1050px) { .card.active { flex-grow: 1.8; } .projectNote { grid-template-columns: minmax(150px, .5fr) minmax(0, 1fr); align-items: start; } .openLink { grid-column: 2; justify-self: start; } }
 @media(max-width:767px) { .sequenceHead { padding-block: 11px; } .sequenceHead > p { font-size: 9px; max-width: 19ch; } .gallery { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; gap: 15px; padding-block: 22px; scrollbar-width: thin; } .card, .card.active { flex: 0 0 min(74vw, 340px); scroll-snap-align: center; } .imageContainer { height: 230px; } .imageContainer img { opacity: 1; filter: none; } .caption strong { font-size: 20px; } .projectNote { display: block; padding-block: 24px; } .noteTitle { font-size: 35px; } .noteText { margin-top: 14px; } .openLink { margin-top: 14px; } .end { padding-top: 15px; } .progress { width: 38%; } }
 @media(prefers-reduced-motion:reduce) { .card, .imageContainer img, .hoverArrow, .progress button span { transition: none; } .gallery { scroll-behavior: auto; } }
+
+/* Flat cinematographic work rail, rather than floating dashboard cards. */
+.sequenceHead, .projectNote { border-color: #3b4640; }
+.sequenceHead > p, .faint, .cardNo, .cardCategory, .noteNo, .noteText { color: #afbbb4; }
+.controllers button { border-color: #405047; }
+.imageContainer { background: #1b2522; border: 1px solid #304239; height: clamp(230px, 24vw, 380px); }
+.imageContainer img { opacity: .87; filter: saturate(.82); }
+.active img, .projectLink:hover img { opacity: 1; filter: none; }
+.hoverArrow { background: #dff7e9; color: #0d1411; border-radius: 50%; width: 40px; height: 40px; display: grid; place-items: center; }
+.caption strong { color: #f3f6ef; }
+.noteTitle { font-family: Arial, Helvetica, sans-serif; font-size: clamp(26px, 3.25vw, 47px); font-weight: 650; }
+@media (max-width:767px) { .imageContainer { height: 240px; } }
