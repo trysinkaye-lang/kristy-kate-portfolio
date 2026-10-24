@@ -146,7 +146,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     const intro = sections.find(el => el.dataset.particleScene === "portraitRight");
     if (intro) {
       const start = intro.getBoundingClientRect().top + scrollY;
-      turnProgress = clamp((scrollY - start + height * .2) / Math.max(1, intro.offsetHeight - height * .6));
+      turnProgress = clamp((scrollY - start + height * .2) / Math.max(1, intro.offsetHeight - height * .95));
     }
     // One continuous morph per pair of scene centers, reversible in both scroll directions.
     target = mid <= centers[0] ? 0 : centers.length - 1;
