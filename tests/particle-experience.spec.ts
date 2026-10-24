@@ -143,3 +143,18 @@ test("sphere highlights Philippines then zooms slowly to readable location",asyn
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
   await expect(page.getByText("Based in the Philippines")).toBeVisible();
 });
+
+test("cursor glow reacts gently to pointer and disables with reduced motion",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const canvas = page.locator("[data-particle-field]");
+  await expect(canvas).toHaveAttribute("data-renderer","webgl");
+  const glow = page.locator("[data-particle-cursor]");
+  await expect(glow).toHaveCSS("opacity","0");
+  await page.mouse.move(710,445);
+  await expect.poll(async()=>Number(await canvas.getAttribute("data-cursor-influence"))).toBeGreaterThan(.9);
+  await expect(glow).toHaveCSS("opacity","1");
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await expect(glow).toHaveCSS("opacity","0");
+  await expect(canvas).toHaveAttribute("data-renderer","webgl");
+});
