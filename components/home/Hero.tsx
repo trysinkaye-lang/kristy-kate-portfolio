@@ -17,25 +17,37 @@ export function Hero() {
       </section>
 
       <section id="introduction" data-particle-scene="portraitRight" className={styles.introduction} aria-label="An introduction">
-        <div className={styles.introductionCopy}>
-          <p>I turn complex workflows into dependable software. Information systems, desktop applications, and web platforms—built for people, not just screens.</p>
-          <div className={styles.introLinks}><Link href="#work" className={styles.quietLink}>Explore my work ↗</Link><Link href="/contact" className={styles.quietLink}>Get in touch ↗</Link></div>
+        <div className={styles.introSticky}>
+          <div className={styles.introductionCopy}>
+            <p>I turn complex workflows into dependable software. Information systems, desktop applications, and web platforms—built for people, not just screens.</p>
+            <div className={styles.introLinks}><Link href="#work" className={styles.quietLink}>Explore my work ↗</Link><Link href="/contact" className={styles.quietLink}>Get in touch ↗</Link></div>
+          </div>
         </div>
       </section>
 
       <section data-particle-scene="sphere" className={styles.spherePanel} aria-label="Working remotely">
-        <svg data-sphere-type className={styles.sphereType} viewBox="0 0 600 600" role="img" aria-label="Available remotely. Working worldwide.">
-          <defs>
-            <path id="orbit-above" d="M 20,300 A 280,280 0 0,1 580,300"/>
-            <path id="orbit-below" d="M 580,300 A 280,280 0 0,1 20,300"/>
-          </defs>
-          <text textAnchor="middle"><textPath href="#orbit-above" startOffset="50%">Available remotely</textPath></text>
-          <text textAnchor="middle"><textPath href="#orbit-below" startOffset="50%">Working worldwide</textPath></text>
-        </svg>
+        <div className={styles.sphereSticky}>
+          <svg data-sphere-type className={styles.sphereType} viewBox="0 0 600 600" role="img" aria-label="Available remotely. Development has no boundaries.">
+            <defs>
+              <path id="orbit-above" d="M 20,300 A 280,280 0 0,0 580,300"/>
+              <path id="orbit-below" d="M 20,300 A 280,280 0 0,1 580,300"/>
+            </defs>
+            <text textAnchor="middle"><textPath href="#orbit-above" startOffset="50%">Available remotely</textPath></text>
+            <text textAnchor="middle"><textPath href="#orbit-below" startOffset="50%">Development has no boundaries</textPath></text>
+          </svg>
+        </div>
+      </section>
+
+      <section data-particle-scene="spherePhilippines" className={styles.globeMapPanel} aria-label="The Philippines emerging on the globe">
+        <div className={styles.globeMapSticky}>
+          <p className={styles.globeMapHint}>From a global perspective to home.</p>
+        </div>
       </section>
 
       <section data-particle-scene="philippines" className={styles.locationPanel} aria-labelledby="location-title">
-        <p id="location-title" data-location-copy>Based in the Philippines<span className={styles.lightDot} /></p>
+        <div className={styles.locationSticky}>
+          <p id="location-title" data-location-copy>Based in the Philippines<span className={styles.lightDot} /></p>
+        </div>
       </section>
 
       <section data-particle-scene="ribbon" className={styles.ribbonPanel} aria-label="How I work">
