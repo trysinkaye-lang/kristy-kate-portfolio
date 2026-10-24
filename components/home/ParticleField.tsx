@@ -16,8 +16,18 @@ export function ParticleField() {
     });
     return () => { disposed = true; controller.abort(); cleanup?.(); };
   }, []);
-  return <canvas data-particle-field ref={ref} aria-hidden="true" style={{
-    position: "sticky", top: 0, zIndex: 0, width: "100%", height: "100svh", display: "block",
-    marginBottom: "-100svh", pointerEvents: "none",
-  }} />;
+  return <>
+    <canvas data-particle-field ref={ref} aria-hidden="true" style={{
+      position: "sticky", top: 0, zIndex: 0, width: "100%", height: "100svh", display: "block",
+      marginBottom: "-100svh", pointerEvents: "none",
+    }} />
+    <div data-particle-cursor aria-hidden="true" style={{
+      position: "fixed", top: 0, left: 0, zIndex: 3, width: 17, height: 17,
+      borderRadius: "50%", pointerEvents: "none", opacity: 0,
+      transform: "translate3d(-100px,-100px,0)", willChange: "transform,opacity",
+      background: "radial-gradient(circle, #ffffff 0%, #ffffff 18%, rgba(255,255,255,.75) 31%, rgba(255,255,255,0) 76%)",
+      boxShadow: "0 0 10px 3px rgba(255,255,255,.22), 0 0 24px 8px rgba(255,255,255,.11)",
+      transition: "opacity 200ms ease",
+    }} />
+  </>;
 }
