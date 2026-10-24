@@ -19,7 +19,7 @@ export function Hero() {
       <section id="introduction" data-particle-scene="portraitRight" className={styles.introduction} aria-label="An introduction">
         <div className={styles.introductionCopy}>
           <p>I build websites, web applications, and offline desktop software — from the experience people see to the functionality and data behind it.</p>
-          <Link href="#work" className={styles.quietLink}>Explore my work ↗</Link>
+          <div className={styles.introLinks}><Link href="#work" className={styles.quietLink}>Explore my work ↗</Link><Link href="/contact" className={styles.quietLink}>Get in touch ↗</Link></div>
         </div>
       </section>
 

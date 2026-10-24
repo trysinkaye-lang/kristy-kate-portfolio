@@ -55,3 +55,6 @@
  @keyframes text-arrive{from{opacity:.35;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 }
 @media(prefers-reduced-motion:reduce) {.introductionCopy,.ribbonPanel p{animation:none;}}
+
+.introLinks { display:flex;flex-wrap:wrap;align-items:center;gap:13px 32px;margin-top:28px; }
+.introLinks .quietLink {margin-top:0;}

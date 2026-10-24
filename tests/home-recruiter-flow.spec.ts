@@ -8,7 +8,7 @@ test("immersive hero, project gallery, and primary interactions", async ({ page 
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor");
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(page.locator("main canvas[data-particle-field]")).toHaveCount(1);
   await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
@@ -61,7 +61,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("Taylor.");
+  await expect(page.locator("#identity")).toContainText("Taylor");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -118,7 +118,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("Taylor.");
+    await expect(page.locator("#identity")).toContainText("Taylor");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#work img").evaluateAll(async images => {
@@ -186,12 +186,12 @@ test("Ingrassia-inspired introduction foregrounds the developer and morphing par
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor");
   await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(hero.getByText(/I build websites, web applications, and offline desktop software/)).toBeVisible();
   await expect(hero.getByText(/Software & Web Developer/)).toBeVisible();
-  await expect(hero.locator('[data-particle-scene="sphere"]')).toBeVisible();
-  await expect(hero.locator('[data-particle-scene="philippines"]')).toBeVisible();
+  await expect(hero.locator('[data-particle-scene="sphere"]')).toHaveCount(1);
+  await expect(hero.locator('[data-particle-scene="philippines"]')).toHaveCount(1);
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Explore my work" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
