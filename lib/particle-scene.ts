@@ -167,7 +167,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
       const z = mix(a[2], b[2], blend);
       positions[offset] = mix(a[0], b[0], blend); positions[offset + 1] = mix(a[1], b[1], blend); positions[offset + 2] = z;
       const surfaceLight = .20 + .60 * clamp((z / radius + 1) / 2);
-      tones[i] = mix(clouds[from].tones[i], clouds[to].tones[i], blend) * mix(surfaceLight, .9, portraitWeight) * (1 - weight("ribbonLow") * .4) * mix(1, frameLight, weight("frame"));
+      tones[i] = mix(clouds[from].tones[i], clouds[to].tones[i], blend) * mix(surfaceLight, .9, portraitWeight) * mix(1, frameLight, weight("frame"));
     }
     geometry.attributes.position.needsUpdate = true; geometry.attributes.tone.needsUpdate = true;
     canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius); canvas.dataset.portraitYaw = String(yaw);
