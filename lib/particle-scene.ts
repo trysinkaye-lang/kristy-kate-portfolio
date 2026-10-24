@@ -172,7 +172,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     // Rotation is driven by scroll through the introduction: front -> profile ->
     // back -> opposite profile -> front. Shapes are inferred from one photo,
     // so this is a stylized volumetric shell rather than a captured 3D scan.
-    const yaw = media.matches ? 0 : smooth(turnProgress) * TAU * weight("portraitRight");
+    const yaw = media.matches ? 0 : smooth(turnProgress) * TAU;
     const spin = media.matches ? 0 : time * .000065;
     const cosSpin = Math.cos(spin), sinSpin = Math.sin(spin), cosAngle = Math.cos(yaw), sinAngle = Math.sin(yaw);
     const transform = (shape: Shape, offset: number, output: Float64Array) => {
