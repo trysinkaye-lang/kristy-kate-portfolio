@@ -7,7 +7,6 @@ type Shape = "portrait" | "portraitRight" | "sphere" | "philippines" | "ribbon" 
 type Cloud = { x: Float32Array; y: Float32Array; z: Float32Array };
 const ORDER: Shape[] = ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"];
 const TAU = Math.PI * 2;
-const PHI = Math.PI * (3 - Math.sqrt(5));
 function ease(x: number) { const t = Math.max(0, Math.min(1, x)); return t*t*(3-2*t); }
 function mix(a: number,b: number,t: number) { return a+(b-a)*t; }
 function randomMaker() {
@@ -79,7 +78,7 @@ function buildClouds(w:number,h:number,n:number, portrait:ReturnType<typeof make
   const frameHeight=Math.min(h*(mobile?.35:.37),370);
   const pcx=w*.50,pcy=h*.59;
   for(let i=0;i<n;i++){
-    const u=(i+.5)/n, angle=i*PHI;
+    const u=(i+.5)/n;
     const a=rand()*TAU,b=rand()*TAU;
     const seed=rand(),jitter=rand();
     const pp=Math.floor(rand()*portrait.count)*2;
@@ -94,7 +93,6 @@ function buildClouds(w:number,h:number,n:number, portrait:ReturnType<typeof make
     set("portrait",px,py,(seed-.5)*50);
     set("portraitRight",w*(mobile?.68:.69)+portraitX*portraitWidth*(mobile?.82:.90),
       h*.57+portraitY*portraitHeight*.91,(seed-.5)*50);
-    const sy=1-2*u,rr=Math.sqrt(Math.max(0,1-sy*sy));
     // A front-facing, perfectly circular filled globe. Depth comes from subtle
     // brightness variation, not a rotating edge-on projection.
     const discR = sphereR * Math.sqrt(rand());
