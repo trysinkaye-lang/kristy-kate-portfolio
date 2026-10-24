@@ -82,3 +82,16 @@ article[id], section[id] { scroll-margin-top: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* The cinematic homepage keeps navigation available but off the scroll canvas. */
+body:has(main[class*="motionPage"]) > header {
+  position:absolute;
+  inset:0 0 auto;
+  width:100%;
+  z-index:30;
+  background:transparent;
+}
+body:has(main[class*="motionPage"]) > header > .shell { border-bottom-color:transparent; }
+@media (max-width:767px) {
+  body:has(main[class*="motionPage"]) > header {background:transparent;}
+}
