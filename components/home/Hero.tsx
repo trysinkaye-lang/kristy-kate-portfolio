@@ -23,13 +23,11 @@ export function Hero() {
         </div>
       </section>
 
-      <section data-particle-scene="strata" className={styles.strataPanel} aria-hidden="true" />
-
       <section data-particle-scene="sphere" className={styles.spherePanel} aria-label="Working remotely">
         <svg data-sphere-type className={styles.sphereType} viewBox="0 0 600 600" role="img" aria-label="Available remotely. Working worldwide.">
           <defs>
             <path id="orbit-above" d="M 20,300 A 280,280 0 0,1 580,300"/>
-            <path id="orbit-below" d="M 20,300 A 280,280 0 0,0 580,300"/>
+            <path id="orbit-below" d="M 580,300 A 280,280 0 0,1 20,300"/>
           </defs>
           <text textAnchor="middle"><textPath href="#orbit-above" startOffset="50%">Available remotely</textPath></text>
           <text textAnchor="middle"><textPath href="#orbit-below" startOffset="50%">Working worldwide</textPath></text>
