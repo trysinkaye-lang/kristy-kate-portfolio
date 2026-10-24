@@ -15,7 +15,7 @@ test("immersive hero, project gallery, and primary interactions", async ({ page 
   await expect(hero.getByText("WEB & SOFTWARE DEVELOPMENT / PHILIPPINES")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
 
-  await expect(page.locator("#work-title")).toContainText("Some selected");
+  await expect(page.locator("#work-title")).toContainText("Selected work");
   const gallery = page.getByRole("navigation", { name: "Projects gallery" });
   await expect(gallery).toBeVisible();
   for (const slug of selectedSlugs) {
@@ -144,9 +144,9 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await expect(section.getByText("PROJECT 01", {exact:false})).toBeVisible();
   await section.getByRole("button", {name:"Next project"}).click();
   await expect(section.getByText("PROJECT 02", {exact:false})).toBeVisible();
-  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/ahdis");
+  await expect(section.getByRole("link", {name:"Explore full case study"})).toHaveAttribute("href","/projects/ahdis");
   await section.getByRole("button",{name:"Previous project"}).click();
-  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
+  await expect(section.getByRole("link", {name:"Explore full case study"})).toHaveAttribute("href","/projects/rbim");
   const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
   expect(new Set(images).size).toBe(5);
 });
