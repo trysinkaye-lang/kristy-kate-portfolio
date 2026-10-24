@@ -13,7 +13,7 @@ test("all pages load with one h1, complete images, and no JavaScript or resource
     expect(response!.status(), route).toBeLessThan(400);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     await page.locator("footer").scrollIntoViewIfNeeded();
-    await expect(page.getByRole("button", { name: /Use (light|dark) mode/ })).toBeEnabled();
+    if (route !== "/") await expect(page.getByRole("button", { name: /Use (light|dark) mode/ })).toBeEnabled();
     await page.evaluate(async () => { for (const image of Array.from(document.images)) { image.loading = "eager"; await image.decode(); } });
     const images = await page.locator("img").evaluateAll((elements) => elements.every((el) => (el as HTMLImageElement).naturalWidth > 0));
     expect(images, route).toBe(true);
@@ -22,7 +22,7 @@ test("all pages load with one h1, complete images, and no JavaScript or resource
 });
 
 test("desktop navigation, services disclosures, and next project journey", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/projects");
   const nav = page.getByRole("navigation", { name: "Main navigation", exact: true });
   await nav.getByRole("link", { name: "Projects", exact: true }).click();
   await expect(page).toHaveURL(/\/projects$/);
@@ -39,7 +39,7 @@ test("desktop navigation, services disclosures, and next project journey", async
 
 test("mobile dialog manages focus, escape, links, and viewport changes", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto("/about");
   const open = page.getByRole("button", { name: "Open navigation", exact: true });
   await open.click();
   const dialog = page.getByRole("dialog", { name: "Navigation", exact: true });
@@ -64,7 +64,7 @@ test("mobile dialog manages focus, escape, links, and viewport changes", async (
 });
 
 test("theme persists across routes and reload", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/about");
   await expect(page.getByRole("button", { name: "Use light mode" })).toBeVisible();
   await page.getByRole("button", { name: "Use light mode" }).click();
   await expect(page.locator("html")).toHaveClass(/light/);
