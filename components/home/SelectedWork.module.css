@@ -238,3 +238,70 @@
 @media (prefers-reduced-motion:reduce) {
   .controllers button,.hoverArrow {transition:none;}
 }
+
+
+/* Motion language: complete slide stays visible; only its presentation animates. */
+.gallery {--scroll-drift:0px;}
+.imageContainer {perspective:1400px;isolation:isolate;}
+.imageContainer::before {
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:5% 10%;
+  background:radial-gradient(ellipse at 50% 52%,rgba(255,255,255,.065),rgba(255,255,255,.015) 40%,transparent 72%);
+  filter:blur(24px);
+  opacity:.55;
+  pointer-events:none;
+}
+.imageVisual {
+  z-index:1;
+  transform-origin:50% 50%;
+  transform:
+    translate3d(var(--hover-x,0px),calc(var(--scroll-drift,0px) + var(--hover-y,0px)),0)
+    rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));
+  transition:transform 600ms cubic-bezier(.2,.85,.25,1), filter 400ms ease;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+.imageVisual img {filter:brightness(.97);transition:filter 400ms ease;}
+.projectLink:hover .imageVisual img,.projectLink:focus-visible .imageVisual img {filter:brightness(1.07);}
+.card.active .imageContainer {animation:projectImageEnter 850ms cubic-bezier(.19,1,.22,1) both;}
+.card.active .screenCaption {animation:projectTextEnter 650ms 160ms cubic-bezier(.19,1,.22,1) both;}
+.projectNote {animation:projectDetailsEnter 750ms cubic-bezier(.19,1,.22,1) both;}
+.projectNote .noteTitle {animation:projectTextEnter 650ms 80ms cubic-bezier(.19,1,.22,1) both;}
+.projectNote .noteCategory {animation:projectTextEnter 650ms 145ms cubic-bezier(.19,1,.22,1) both;}
+.projectNote .noteText {animation:projectTextEnter 650ms 210ms cubic-bezier(.19,1,.22,1) both;}
+.projectNote .openLink {animation:projectTextEnter 650ms 285ms cubic-bezier(.19,1,.22,1) both;}
+.card.active .imageContainer::before {animation:projectHalo 5s ease-in-out infinite alternate;}
+.progress .progressActive span {animation:projectProgressGlow 2.5s ease-in-out infinite alternate;}
+@keyframes projectImageEnter {
+  from {opacity:.2;transform:translate3d(32px,24px,0) scale(.967);}
+  to {opacity:1;transform:translate3d(0,0,0) scale(1);}
+}
+@keyframes projectDetailsEnter {
+  from {opacity:.48;transform:translate3d(20px,0,0);}
+  to {opacity:1;transform:translate3d(0,0,0);}
+}
+@keyframes projectTextEnter {
+  from {opacity:0;transform:translate3d(0,12px,0);}
+  to {opacity:1;transform:translate3d(0,0,0);}
+}
+@keyframes projectHalo {
+  from {opacity:.35;transform:scale(.94);}
+  to {opacity:.72;transform:scale(1.06);}
+}
+@keyframes projectProgressGlow {
+  from {background:#aaa;}
+  to {background:#fff;}
+}
+@media (hover:none),(pointer:coarse) {
+  .imageVisual {will-change:auto;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .card.active .imageContainer,.card.active .screenCaption,.projectNote,
+  .projectNote .noteTitle,.projectNote .noteCategory,.projectNote .noteText,
+  .projectNote .openLink,.card.active .imageContainer::before,.progress .progressActive span {
+    animation:none!important;
+  }
+  .imageVisual,.imageVisual img {transform:none!important;transition:none!important;will-change:auto;}
+}
