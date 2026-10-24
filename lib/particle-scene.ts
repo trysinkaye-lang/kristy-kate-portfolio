@@ -47,9 +47,9 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
       clouds[shape].positions.set([x, y, z], i * 3); clouds[shape].tones[i] = tone;
     };
     const p = portrait[Math.floor(random() * portrait.length)];
-    set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .20 + p.tone * .80);
+    set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .68);
     const introScale = mobile ? .76 : .86;
-    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, p.depth * portraitSize, .19 + p.tone * .81);
+    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, p.depth * portraitSize, .68);
     const [sx, sy, sz] = spherePoint(i, count, radius);
     set("sphere", w / 2 + sx, h / 2 + sy, sz);
     const pmap = i % 4 === 0 ? map.edges[Math.floor(random() * map.edges.length)] : map.samples[Math.floor(random() * map.samples.length)];
@@ -137,9 +137,9 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     const portraitWeight = weight("portrait") + weight("portraitRight");
     const frameRect = weight("frame") > 0 ? frameTarget?.getBoundingClientRect() : undefined;
     const orbitRect = sphereWeight > 0 ? orbit?.getBoundingClientRect() : undefined;
-    // Gentle three-quarter turn only; a full accurate 360 rotation requires multi-view source data.
-    const yaw = media.matches ? 0 : .055 * weight("portrait") + .43 * weight("portraitRight")
-      + portraitWeight * Math.sin(time * .00017) * .013;
+    // Preserve the face-forward silhouette in both hero scenes.
+    // A single photograph cannot show a faithful side or back view.
+    const yaw = 0;
     const spin = media.matches ? 0 : time * .000065;
     const cosSpin = Math.cos(spin), sinSpin = Math.sin(spin), cosAngle = Math.cos(yaw), sinAngle = Math.sin(yaw);
     const transform = (shape: Shape, offset: number, output: Float64Array) => {
