@@ -26,14 +26,27 @@ export function segmentPortrait(data: Uint8ClampedArray, width: number, height: 
     if (x > 0) visit(p - 1); if (x < width - 1) visit(p + 1);
     if (y > 0) visit(p - width); if (y < height - 1) visit(p + width);
   }
+  // Row-specific silhouette breadth supports a restrained 3D relief without stretching the face.
+  // One frontal photograph cannot supply an authentic 360-degree reconstruction.
+  const left = new Int32Array(height).fill(width);
+  const right = new Int32Array(height).fill(-1);
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+    const p = y * width + x;
+    if (background[p] || data[p * 4 + 3] < 128) continue;
+    left[y] = Math.min(left[y], x);
+    right[y] = Math.max(right[y], x);
+  }
   const samples: PortraitSample[] = [];
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
     const p = y * width + x;
     if (background[p] || data[p * 4 + 3] < 128) continue;
     const tone = (data[p * 4] * .2126 + data[p * 4 + 1] * .7152 + data[p * 4 + 2] * .0722) / 255;
     const nx = x / width - .5, ny = y / height - .5;
-    // Shallow photographic relief, not a claimed 3D scan. Rotation stays subtle.
-    const depth = Math.sqrt(Math.max(0, 1 - (nx / .5) ** 2)) * .08 + tone * .045;
+    const midpoint = (left[y] + right[y]) / 2;
+    const halfWidth = Math.max(1, (right[y] - left[y]) / 2);
+    const u = Math.max(-1, Math.min(1, (x - midpoint) / halfWidth));
+    const roundness = Math.sqrt(Math.max(0, 1 - u * u));
+    const depth = roundness * (y < height * .66 ? .235 : .12) + tone * .012;
     samples.push({ x: nx, y: ny, tone, depth });
   }
   return samples;
