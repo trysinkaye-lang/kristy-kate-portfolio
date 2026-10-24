@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { clamp, mix, projectPhilippines, segmentPortrait, smooth, spherePoint, type PortraitSample } from "./particle-geometry";
 const TAU = Math.PI * 2;
-const shapes = ["portrait", "portraitRight", "strata", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"] as const;
+const shapes = ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "ambientAbout", "ambientServices", "frame"] as const;
 type Shape = typeof shapes[number];
 type Cloud = { positions: Float32Array; tones: Float32Array };
 
@@ -37,7 +37,7 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
   for (const shape of shapes) clouds[shape] = { positions: new Float32Array(count * 3), tones: new Float32Array(count) };
   const mobile = w < 768;
   // Keep the actual photo-derived silhouette center-stage without clipping it on shorter screens.
-  const portraitSize = Math.min(w * (mobile ? 1.26 : w < 1200 ? .65 : .78), h * (mobile ? .91 : 1.09), 1080);
+  const portraitSize = Math.min(w * (mobile ? 1.12 : w < 1200 ? .62 : .70), h * (mobile ? .83 : .94), 940);
   const radius = Math.min(w * .295, h * .37, 340);
   const mapSize = Math.min(h * .66, w * (mobile ? 1.1 : .65), 620);
   let seed = 42717;
@@ -48,28 +48,18 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
     };
     const p = portrait[Math.floor(random() * portrait.length)];
     set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .20 + p.tone * .80);
-    const introScale = mobile ? .80 : .96;
-    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .32 : .47) + p.y * portraitSize * introScale, p.depth * portraitSize, .19 + p.tone * .81);
-    // Reference-inspired interlude: the portrait separates into four floating orbital layers.
-    // Band assignment follows source-image height, making the transition coherent and reversible.
-    const tier = Math.min(3, Math.max(0, Math.floor((p.y + .5) * 4)));
-    const aTier = random() * TAU, spread = Math.sqrt(random());
-    const layerRadius = radius * [0.80, 1.02, .96, .75][tier] * spread;
-    const layerDepth = Math.sin(aTier) * layerRadius * .56;
-    set("strata", w * .5 + Math.cos(aTier) * layerRadius,
-      h * .5 + (tier - 1.5) * radius * .53 + (random() - .5) * radius * .13,
-      layerDepth, .48 + random() * .26);
+    const introScale = mobile ? .76 : .86;
+    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, p.depth * portraitSize, .19 + p.tone * .81);
     const [sx, sy, sz] = spherePoint(i, count, radius);
     set("sphere", w / 2 + sx, h / 2 + sy, sz);
     const pmap = i % 4 === 0 ? map.edges[Math.floor(random() * map.edges.length)] : map.samples[Math.floor(random() * map.samples.length)];
     set("philippines", w * (mobile ? .5 : .43) + pmap[0] * mapSize, h * .47 + pmap[1] * mapSize, (random() - .5) * 5);
-    const u = i / count * 2 - 1, a = random() * TAU, b = random() * TAU;
-    for (const shape of ["ribbon", "work", "ribbonLow"] as const) {
-      set(shape, w * .5 + u * w * .65, h * .5 + Math.sin(u * 4 + (shape === "ribbonLow" ? 2 : 0)) * h * .14 + Math.cos(a) * h * .045, Math.sin(a) * 50, shape === "work" ? .12 : .42);
-    }
-    const major = radius * .85, minor = radius * .28;
-    set("torus", w / 2 + (major + minor * Math.cos(b)) * Math.cos(a), h / 2 + (major + minor * Math.cos(b)) * Math.sin(a) * .7, minor * Math.sin(b));
-    set("orb", w * .73 + sx * .7, h * .5 + sy * .7, sz * .7, .28);
+    const u = i / count * 2 - 1, a = random() * TAU;
+    set("ribbon", w * .5 + u * w * .65, h * .5 + Math.sin(u * 4) * h * .14 + Math.cos(a) * h * .045, Math.sin(a) * 50, .32);
+    set("work", w * random(), h * random(), (random() - .5) * 60, .025);
+    // The information sections use unobtrusive dust, not a torus or giant orb.
+    set("ambientAbout", w * (.35 + random() * .65), h * (.10 + random() * .80), (random() - .5) * 60, .035);
+    set("ambientServices", w * random(), h * (.20 + random() * .65), (random() - .5) * 60, .025);
     const edge = i % 4, t = random(), fw = Math.min(w * .86, 1040), fh = Math.min(h * .48, 400);
     set("frame", w / 2 + (edge === 0 ? -fw / 2 : edge === 1 ? fw / 2 : (t - .5) * fw) + (random() - .5) * 10,
       h / 2 + (edge === 2 ? -fh / 2 : edge === 3 ? fh / 2 : (t - .5) * fh) + (random() - .5) * 10, (random() - .5) * 12);
@@ -80,7 +70,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   const [portrait, map] = await Promise.all([loadPortrait(signal), loadMap(signal)]);
   if (signal.aborted) return () => {};
   const media = matchMedia("(prefers-reduced-motion: reduce)");
-  const count = innerWidth < 768 ? 11000 : 23000;
+  const count = innerWidth < 768 ? 11000 : 26000;
   let renderer: THREE.WebGLRenderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: "low-power" }); }
   catch { canvas.dataset.renderer = "unavailable"; return () => {}; }
@@ -126,13 +116,14 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   };
   const scroll = () => {
     const mid = scrollY + height / 2;
-    target = mid <= centers[0] ? 0 : centers.length - 1; phase = 1;
-    for (let i = 0; i < centers.length - 1; i++) if (mid >= centers[i] && mid < centers[i + 1]) {
-      const a = sections[i], b = sections[i + 1];
-      const start = centers[i] + Math.max(0, (a.offsetHeight - height) / 2);
-      const end = centers[i + 1] - Math.max(0, (b.offsetHeight - height) / 2);
-      segment = i; phase = clamp((mid - start) / Math.max(1, end - start));
-      target = i + smooth((phase - .12) / .54); break;
+    // One continuous morph per pair of scene centers, reversible in both scroll directions.
+    target = mid <= centers[0] ? 0 : centers.length - 1;
+    for (let i = 0; i < centers.length - 1; i++) {
+      if (mid < centers[i] || mid >= centers[i + 1]) continue;
+      segment = i;
+      phase = clamp((mid - centers[i]) / Math.max(1, centers[i + 1] - centers[i]));
+      target = i + phase;
+      break;
     }
     if (media.matches) { current = Math.round(target); draw(); } else request();
   };
@@ -146,14 +137,16 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     const portraitWeight = weight("portrait") + weight("portraitRight");
     const frameRect = weight("frame") > 0 ? frameTarget?.getBoundingClientRect() : undefined;
     const orbitRect = sphereWeight > 0 ? orbit?.getBoundingClientRect() : undefined;
-    const angle = media.matches ? 0 : Math.sin(time * .00023) * .075;
+    // Gentle three-quarter turn only; a full accurate 360 rotation requires multi-view source data.
+    const yaw = media.matches ? 0 : .055 * weight("portrait") + .43 * weight("portraitRight")
+      + portraitWeight * Math.sin(time * .00017) * .013;
     const spin = media.matches ? 0 : time * .000065;
-    const cosSpin = Math.cos(spin), sinSpin = Math.sin(spin), cosAngle = Math.cos(angle), sinAngle = Math.sin(angle);
+    const cosSpin = Math.cos(spin), sinSpin = Math.sin(spin), cosAngle = Math.cos(yaw), sinAngle = Math.sin(yaw);
     const transform = (shape: Shape, offset: number, output: Float64Array) => {
       const cloud = clouds[shape], x = cloud.positions[offset], y = cloud.positions[offset + 1], z = cloud.positions[offset + 2];
       output[0] = x; output[1] = y; output[2] = z;
-      if (shape === "sphere" || shape === "orb" || shape === "strata") {
-        const cx = shape === "orb" ? width * .73 : width / 2, dx = x - cx;
+      if (shape === "sphere") {
+        const cx = width / 2, dx = x - cx;
         output[0] = cx + dx * cosSpin + z * sinSpin + (shape === "sphere" && orbitRect ? orbitRect.left + orbitRect.width / 2 - width / 2 : 0);
         output[1] = y + (shape === "sphere" && orbitRect ? orbitRect.top + orbitRect.height / 2 - height / 2 : 0);
         output[2] = z * cosSpin - dx * sinSpin;
@@ -177,13 +170,9 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
       tones[i] = mix(clouds[from].tones[i], clouds[to].tones[i], blend) * mix(surfaceLight, .9, portraitWeight) * (1 - weight("ribbonLow") * .4) * mix(1, frameLight, weight("frame"));
     }
     geometry.attributes.position.needsUpdate = true; geometry.attributes.tone.needsUpdate = true;
-    canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius);
-    if (orbit) {
-      orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .83) / .17));
-      // Type follows the circular globe, with restrained motion and a static reduced-motion state.
-      orbit.style.transform = media.matches ? "none" : `rotate(${((time * .0018) % 360).toFixed(3)}deg)`;
-    }
-    if (location) location.style.opacity = String(media.matches ? 1 : mapWeight > .9999 ? (segment === 4 ? 1 - smooth(phase / .12) : smooth((phase - .7) / .17)) : 0);
+    canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius); canvas.dataset.portraitYaw = String(yaw);
+    if (orbit) orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .83) / .17));
+    if (location) location.style.opacity = String(media.matches ? 1 : mapWeight > .9999 ? (segment === 3 ? 1 - smooth(phase / .12) : smooth((phase - .7) / .17)) : 0);
     renderer.render(scene, camera);
   };
   const tick = (stamp: number) => {
@@ -207,7 +196,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     removeEventListener("scroll", scroll); removeEventListener("resize", measure);
     document.removeEventListener("visibilitychange", visibility); media.removeEventListener("change", preference);
     canvas.removeEventListener("webglcontextlost", contextLost); canvas.removeEventListener("webglcontextrestored", contextRestored);
-    orbit?.style.removeProperty("opacity"); orbit?.style.removeProperty("transform"); location?.style.removeProperty("opacity");
+    orbit?.style.removeProperty("opacity"); location?.style.removeProperty("opacity");
     geometry.dispose(); material.dispose(); renderer.dispose();
   };
 }
