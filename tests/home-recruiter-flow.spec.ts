@@ -120,7 +120,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
     await page.goto("/");
     await expect(page.locator("#identity")).toContainText("Taylor");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
-    await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
+    await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(5);
     const images = await page.locator("#work img").evaluateAll(async images => {
       await Promise.all(images.map(async image => {
         const img = image as HTMLImageElement;
@@ -140,7 +140,7 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await page.goto("/");
   const section = page.locator("#work");
   const gallery = page.getByRole("navigation", {name:"Projects gallery"});
-  await expect(gallery.locator("article")).toHaveCount(4);
+  await expect(gallery.locator("article")).toHaveCount(5);
   await expect(section.getByText("PROJECT 01", {exact:false})).toBeVisible();
   await section.getByRole("button", {name:"Next project"}).click();
   await expect(section.getByText("PROJECT 02", {exact:false})).toBeVisible();
@@ -148,7 +148,7 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await section.getByRole("button",{name:"Previous project"}).click();
   await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
   const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
-  expect(new Set(images).size).toBe(4);
+  expect(new Set(images).size).toBe(5);
 });
 
 
@@ -188,8 +188,8 @@ test("Ingrassia-inspired introduction foregrounds the developer and morphing par
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor");
   await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(hero.getByText(/I build websites, web applications, and offline desktop software/)).toBeVisible();
-  await expect(hero.getByText(/Software & Web Developer/)).toBeVisible();
+  await expect(hero.getByText(/I build information systems, desktop applications, databases, and web applications/)).toBeVisible();
+  await expect(hero.getByText(/Software Developer/)).toBeVisible();
   await expect(hero.locator('[data-particle-scene="sphere"]')).toHaveCount(1);
   await expect(hero.locator('[data-particle-scene="philippines"]')).toHaveCount(1);
   await expect(hero.locator("img")).toHaveCount(0);

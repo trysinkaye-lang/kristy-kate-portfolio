@@ -1,251 +1,60 @@
-
-.marker { color:var(--muted); font-size:11px; line-height:1.6; font-weight:650; letter-spacing:.02em; }
-.work { padding-top:clamp(38px,4vw,68px); }
-.workHeader { display:grid; grid-template-columns:1fr minmax(225px,.5fr); align-items:end; gap:34px 70px; padding-bottom:clamp(26px,4vw,48px); }
-.workHeader h2 { font-size:clamp(51px,6vw,83px); line-height:1.05; letter-spacing:-.067em; font-weight:630; padding-top:13px; }
-.workHeader > p { max-width:41ch; font-size:14px; line-height:1.75; color:var(--muted); }
-.about { background:var(--surface); }
-.aboutInner { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.8fr); align-items:start; gap:clamp(45px,8vw,145px); padding-block:clamp(70px,8vw,126px); }
-.about h2 { max-width:18ch; margin-top:21px; font-size:clamp(33px,4vw,58px); line-height:1.13; letter-spacing:-.055em; font-weight:610; }
-.aboutCopy { padding-top:27px; }
-.aboutCopy > p { max-width:54ch; margin-bottom:20px; color:var(--muted); font-size:14px; line-height:1.85; }
-.aboutCopy a { display:inline-flex; align-items:center; gap:25px; margin-top:7px; padding-block:11px; min-height:44px; border-bottom:1px solid var(--foreground); font-size:12px; font-weight:700; }
-.aboutCopy a:hover { opacity:.7; }
-.capabilities { padding-block:clamp(46px,5vw,74px); }
-.capabilitiesHeader { display:grid; grid-template-columns:1fr minmax(0,2fr); gap:20px; align-items:end; padding-bottom:27px; }
-.capabilitiesHeader h2 { font-size:clamp(35px,4vw,58px); line-height:1.1; letter-spacing:-.055em; font-weight:620; }
-.disciplines { border-top:1px solid var(--line); }
-.disciplines details { border-bottom:1px solid var(--line); }
-.disciplines summary { display:grid; grid-template-columns:minmax(40px,.33fr) minmax(0,2fr) 28px; align-items:center; gap:16px; min-height:68px; padding:12px 2px; cursor:pointer; list-style:none; }
-.disciplines summary::-webkit-details-marker { display:none; }
-.number { color:var(--muted); font-size:11px; font-variant-numeric:tabular-nums; }
-.disciplineTitle { font-size:clamp(19px,2.3vw,30px); font-weight:570; letter-spacing:-.03em; }
-.plus { justify-self:end; font-size:22px; line-height:1; font-weight:300; }
-.disciplines details[open] .plus { transform:rotate(45deg); }
-.disciplines details > p { padding:0 20px 25px calc(14% + 16px); font-size:13px; line-height:1.7; color:var(--muted); }
-.contact {
-  border-top: 1px solid var(--line);
-  background: var(--background);
-  color: var(--foreground);
-}
-.contactInner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(285px, .65fr);
-  align-items: end;
-  gap: clamp(45px, 7vw, 125px);
-  padding-block: clamp(65px, 7vw, 110px);
-}
-.contactLead { min-width: 0; }
-.contact .marker {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 720;
-  letter-spacing: .065em;
-  text-transform: uppercase;
-}
-.contact h2 {
-  margin-top: clamp(26px, 2.8vw, 38px);
-  font-family: var(--font-body);
-  font-size: clamp(62px, 6.65vw, 108px);
-  font-weight: 660;
-  line-height: .99;
-  letter-spacing: -.075em;
-}
-.contact h2 span {
-  display: block;
-  margin-top: .04em;
-  font-family: inherit;
-  font-size: 1em;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-}
-.contactDetails { min-width: 0; padding-bottom: 6px; }
-.contactInvitation {
-  max-width: 38ch;
-  color: var(--muted);
-  font-size: clamp(14px, 1.15vw, 17px);
-  line-height: 1.8;
-}
-.contactAction {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  width: 100%;
-  min-height: 100px;
-  margin-top: 27px;
-  padding: 20px 0;
-  border-block: 1px solid var(--line);
-  font-size: clamp(19px, 2vw, 28px);
-  line-height: 1.2;
-  font-weight: 660;
-  letter-spacing: -.04em;
-}
-.contactArrow {
-  display: inline-grid;
-  place-items: center;
-  flex: 0 0 61px;
-  width: 61px;
-  height: 61px;
-  border: 1px solid var(--foreground);
-  border-radius: 50%;
-  font-size: 26px;
-  font-weight: 400;
-  transition: background 220ms ease, color 220ms ease, transform 250ms ease;
-}
-.contactAction:hover .contactArrow,
-.contactAction:focus-visible .contactArrow {
-  background: var(--foreground);
-  color: var(--background);
-  transform: translate(3px, -3px);
-}
-.contactEmail {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 5px 14px;
-  padding-top: 23px;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.contactEmail > span { color: var(--muted); }
-.contactEmail a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 5px; overflow-wrap: anywhere; }
-.contactEmail a:hover { text-decoration-color: var(--foreground); }
-@media(max-width:767px) {
-  .work { padding-top:48px; }
-  .workHeader { grid-template-columns:1fr; gap:14px; padding-bottom:27px; }
-  .workHeader h2 { font-size:58px; }
-  .workHeader > p { font-size:13px; }
-  .aboutInner { grid-template-columns:1fr; gap:9px; padding-block:72px; }
-  .about h2 { font-size:39px; }
-  .aboutCopy { padding-top:15px; }
-  .capabilities { padding-block:48px; }
-  .capabilitiesHeader { grid-template-columns:1fr; gap:9px; }
-  .capabilitiesHeader h2 { font-size:39px; }
-  .disciplines summary { grid-template-columns:25px minmax(0,1fr) 20px; gap:15px; min-height:62px; }
-  .disciplineTitle { font-size:20px; }
-  .disciplines details > p { padding-left:40px; }
-  .contactInner {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 38px;
-    padding-block: 59px 68px;
-  }
-  .contact h2 { margin-top: 19px; font-size: clamp(53px, 12.4vw, 76px); }
-  .contact h2 span { margin-top: .035em; }
-  .contactDetails { padding-bottom: 0; }
-  .contactInvitation { font-size: 14px; }
-  .contactAction { min-height: 87px; padding-block: 15px; margin-top: 24px; font-size: 22px; }
-  .contactArrow { width: 52px; height: 52px; flex-basis: 52px; font-size: 23px; }
-  .contactEmail { padding-top: 18px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contactArrow { transition: none; }
-  .contactAction:hover .contactArrow, .contactAction:focus-visible .contactArrow { transform: none; }
-}
-
-/* Dark, editorial presentation for the motion-led homepage. */
-.work { background: #0e1113; color: #f4f5f0; padding-top: clamp(85px, 9vw, 140px); }
-.workHeader { border-top: 1px solid #3a4541; padding-top: 25px; }
-.workHeader h2 { font-family: Arial, Helvetica, sans-serif; font-size: clamp(70px, 9vw, 142px); letter-spacing: -.085em; font-weight: 600; line-height: .94; }
-.workHeader > p, .work .marker { color: #a7b4ae; }
-@media(max-width:767px) { .work { padding-top: 64px; } .workHeader h2 { font-size: clamp(56px, 14vw, 80px); } }
-
-/* Selected work becomes a visual gallery rather than the old card grid. */
-.work {padding-top:clamp(95px,10vw,160px);background:#0b0b0b;color:#f5f4ef;}
-.workHeader {padding-top:27px;padding-bottom:0;border-top:1px solid #484843;}
-.workHeader h2 {font-size:clamp(70px,9.5vw,154px);line-height:.95;letter-spacing:-.087em;}
-.workHeader>p {max-width:34ch;color:#aaa9a3;font-size:14px;}
-.work .marker {color:#9d9f98;}
-@media(max-width:767px) {
- .work {padding-top:64px;}
- .workHeader {gap:22px;}
- .workHeader h2 {font-size:clamp(58px,15vw,83px);}
- .workHeader>p{font-size:13px;}
-}
-
-/* One cinematic page: the same point cloud stays alive behind every chapter. */
-.motionPage {position:relative;isolation:isolate;overflow:clip;color:#eaeae7;
- background:radial-gradient(ellipse at 52% 40%,#2a292d 0%,#232226 65%,#242327 100%);}
+.motionPage {position:relative;isolation:isolate;overflow:clip;color:#eef0ed;background:radial-gradient(ellipse at 50% 35%,#232b2d,#121718 75%);}
 .motionPage > :not(canvas) {position:relative;z-index:1;}
-.motionPage .work {min-height:100svh;background:transparent;color:#efefed;padding-top:75px;}
-.motionPage .workHeader {border:0;padding:0 0 30px;display:block;}
-.motionPage .workHeader h2 {display:none;}
-.motionPage .workHeader .marker {color:#9d9b9e;letter-spacing:.1em;font-size:11px;}
-.motionPage .workHeader > p {display:none;}
+.marker {color:#b4bfb9;font-size:10px;letter-spacing:.13em;text-transform:uppercase;}
+.work {height:400svh;background:transparent;}
+.work :global(.shell) {position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:85px 28px;}
+.workHeader {display:flex;align-items:end;justify-content:space-between;gap:30px;padding-bottom:20px;}
+.workHeader .marker {display:none;}
+.workHeader h2 {font-size:clamp(23px,2.7vw,38px);font-weight:500;letter-spacing:-.045em;line-height:1.1;}
+.workHeader h2 br {display:none;}
+.workHeader > p {max-width:35ch;color:#b4bfb9;font-size:12px;line-height:1.6;}
 .morePanel {min-height:100svh;display:flex;align-items:center;padding-inline:var(--gutter);}
-.morePanel > p {font-size:clamp(25px,3vw,39px);line-height:1.3;font-weight:500;letter-spacing:-.045em;}
-.motionPage .about,.motionPage .capabilities {background:transparent;color:#eaeae7;}
-.motionPage .aboutInner {min-height:80svh;align-items:center;}
-.motionPage .about h2 {font-size:clamp(44px,5.6vw,87px);letter-spacing:-.065em;}
-.motionPage .capabilities {min-height:85svh;padding-top:13svh;padding-bottom:15svh;}
-.motionPage .capabilitiesHeader h2 {font-size:clamp(42px,5vw,75px);}
-.motionPage .contact {position:relative;min-height:100svh;border:0;display:flex;align-items:center;justify-content:center;
- padding-inline:var(--gutter);padding-block:70px;background:transparent;color:#eee;}
-.motionPage .contactInner {min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;
- justify-content:center;gap:10px;padding:30px 0;text-align:center;}
-.motionPage .contactTag {color:#a6a5a8;font-size:12px;font-weight:650;letter-spacing:.12em;}
-.motionPage .bigEmail {display:block;font-size:clamp(31px,5.3vw,90px);line-height:1.12;font-weight:520;
- letter-spacing:-.075em;overflow-wrap:anywhere;max-width:100%;}
-.motionPage .bigEmail:hover {color:#cac9cb;}
-.motionPage .contact h2 {font-size:16px;margin:0;font-weight:500;letter-spacing:-.02em;color:#a9a9a9;}
-.motionPage .contact h2 span {display:inline;margin:0;font:inherit;}
-.motionPage .contactInvitation {max-width:620px;color:#a9a9ab;font-size:12px;margin:0;}
-.motionPage .contactAction {display:inline-flex;align-items:center;justify-content:center;gap:18px;
- width:auto;min-height:44px;margin:5px 0 0;padding:8px 4px;border:0;border-bottom:1px solid #a3a3a3;
- font-size:13px;font-weight:550;letter-spacing:-.01em;}
-.motionPage .contactEmail {display:flex;align-items:center;justify-content:center;gap:10px;
- font-size:11px;padding-top:10px;}
-.motionPage .contactEmail a {text-decoration:underline;}
+.morePanel > p {font-size:clamp(25px,3vw,39px);line-height:1.3;font-weight:500;letter-spacing:-.04em;}
+.about,.capabilities {background:transparent;color:inherit;}
+.aboutInner {min-height:100svh;display:grid;grid-template-columns:1.1fr .8fr;align-items:center;gap:12%;padding-block:100px;}
+.about h2 {margin-top:20px;max-width:16ch;font-size:clamp(32px,4vw,58px);line-height:1.15;font-weight:500;letter-spacing:-.045em;}
+.aboutCopy {background:#151a1ba6;padding:24px;}
+.aboutCopy p {color:#c1cbc5;font-size:15px;line-height:1.8;}
+.aboutCopy a {display:inline-flex;align-items:center;gap:24px;min-height:44px;margin-top:22px;font-size:13px;border-bottom:1px solid #85958b;}
+.capabilities {min-height:100svh;padding-block:18svh;}
+.capabilitiesHeader {display:flex;justify-content:space-between;align-items:end;gap:24px;padding-bottom:30px;}
+.capabilitiesHeader h2 {font-size:clamp(32px,4vw,52px);font-weight:500;letter-spacing:-.04em;}
+.disciplines {border-top:1px solid #56645d;background:#151a1bba;}
+.disciplines details {border-bottom:1px solid #56645d;}
+.disciplines summary {display:grid;grid-template-columns:50px 1fr 24px;gap:20px;align-items:center;min-height:72px;cursor:pointer;list-style:none;}
+.disciplines summary::-webkit-details-marker {display:none;}
+.number {font-size:11px;color:#becac2;}
+.disciplineTitle {font-size:clamp(18px,2vw,28px);letter-spacing:-.025em;}
+.plus {font-size:25px;}
+.disciplines details[open] .plus {transform:rotate(45deg);}
+.disciplines details > p {padding:0 30px 25px 70px;color:#c1cbc5;font-size:13px;line-height:1.8;}
+.contact {min-height:100svh;border:0;display:grid;place-items:center;padding:80px var(--gutter);background:#151b1d;color:#eef0ed;}
+.motionPage .contact {background:transparent;}
+.contactFrame {position:relative;display:grid;place-items:center;width:min(1040px,100%);min-height:clamp(340px,48svh,400px);}
+.contactInner {display:grid;grid-template-rows:1fr auto 1fr;justify-items:center;gap:18px;padding:30px 20px;text-align:center;width:100%;height:100%;}
+.contactPrelude {align-self:end;display:grid;gap:10px;}
+.contactFollowup {align-self:start;display:grid;justify-items:center;gap:12px;}
+.contactTag {color:#bac9c0;font-size:10px;letter-spacing:.16em;}
+.bigEmail {display:block;font-size:clamp(24px,4vw,56px);line-height:1.2;font-weight:500;letter-spacing:-.05em;max-width:100%;}
+.contact h2 {font:500 17px/1.4 var(--font-body);color:#c1cbc5;}
+.contactInvitation {font-size:12px;line-height:1.7;max-width:48ch;color:#c1cbc5;}
+.contactAction {display:inline-flex;align-items:center;gap:18px;min-height:44px;font-size:13px;border-bottom:1px solid #879b8f;}
+@media(max-width:767px),(prefers-reduced-motion:reduce) {
+ .work {height:auto;min-height:100svh;padding-block:90px 50px;}
+ .work :global(.shell) {position:relative;height:auto;padding-block:0;}
+}
 @media(max-width:767px) {
- .motionPage .work {padding-top:70px;min-height:85svh;}
- .morePanel {min-height:80svh;}
- .motionPage .aboutInner {min-height:65svh;}
- .motionPage .capabilities {min-height:70svh;}
- .motionPage .contact {min-height:85svh;padding-inline:18px;}
- .motionPage .bigEmail {font-size:clamp(24px,6.2vw,42px);}
- .motionPage .contactInvitation {font-size:11px;}
- .motionPage .contactTag {font-size:9px;}
-}
-
-/* The contact frame and the content now share the same measured box. */
-.motionPage .work {
-  height:365svh;
-  min-height:0;
-  padding:0!important;
-}
-.motionPage .work :global(.shell) {
-  position:sticky;
-  top:0;
-  height:100svh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding-block:clamp(25px,5vh,60px);
-}
-.motionPage .workHeader {flex:0 0 auto;padding:0 0 16px;}
-.motionPage .contactFrame {
-  position:relative; display:grid;place-items:center;
-  width:min(1120px,calc(100vw - 2 * var(--gutter) - 20px));
-  min-height:clamp(335px,54svh,480px);
-  margin-inline:auto;
-}
-.motionPage .contactFrame .contactInner {gap:8px;padding:30px 15px;}
-.motionPage .contactFrame .bigEmail {font-size:clamp(24px,4.1vw,68px);}
-.motionPage .contactFrame .contactTag {font-size:11px;}
-.motionPage .contactFrame .contactInvitation {max-width:45ch;}
-@media(max-width:767px) {
- .motionPage .work {height:auto;min-height:100svh;padding:65px 0!important;}
- .motionPage .work :global(.shell) {position:relative;height:auto;display:block;padding-block:0;}
- .motionPage .contactFrame {width:calc(100vw - 2 * var(--gutter) - 8px);min-height:380px;}
- .motionPage .contactFrame .bigEmail {font-size:clamp(24px,5.7vw,39px);}
- .motionPage .contactFrame .contactInner {gap:8px;}
-}
-@media(prefers-reduced-motion:reduce) {
- .motionPage .work {height:auto;min-height:100svh;padding:65px 0!important;}
- .motionPage .work :global(.shell) {position:relative;height:auto;display:block;}
+ .workHeader {display:block;}
+ .workHeader h2 {font-size:30px;}
+ .workHeader > p {margin-top:12px;}
+ .aboutInner {grid-template-columns:1fr;gap:30px;min-height:100svh;align-content:center;}
+ .aboutCopy {padding:0;}
+ .capabilitiesHeader {display:block;}
+ .capabilitiesHeader h2 {margin-top:18px;}
+ .disciplines summary {grid-template-columns:22px 1fr 20px;gap:14px;}
+ .disciplines details > p {padding-left:36px;}
+ .contact {padding-inline:18px;}
+ .contactFrame {width:100%;min-height:380px;}
+ .contactInner {padding:24px 14px;gap:18px;}
+ .bigEmail {font-size:clamp(23px,5.5vw,35px);}
 }

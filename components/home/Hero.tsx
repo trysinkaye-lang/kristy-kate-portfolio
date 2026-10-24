@@ -8,7 +8,7 @@ export function Hero() {
       <section data-particle-scene="portrait" className={styles.opening} aria-labelledby="identity">
         <div className={styles.heroLabels}>
           <h1 id="identity">Kristy Kate Taylor</h1>
-          <p>Software & Web Developer</p>
+          <p>Software Developer</p>
         </div>
         <div className={styles.openingBottom}>
           <span>PORTFOLIO © 2026</span>
@@ -18,25 +18,25 @@ export function Hero() {
 
       <section id="introduction" data-particle-scene="portraitRight" className={styles.introduction} aria-label="An introduction">
         <div className={styles.introductionCopy}>
-          <p>I build websites, web applications, and offline desktop software — from the experience people see to the functionality and data behind it.</p>
+          <p>I build information systems, desktop applications, databases, and web applications — software shaped around the people who use it.</p>
           <div className={styles.introLinks}><Link href="#work" className={styles.quietLink}>Explore my work ↗</Link><Link href="/contact" className={styles.quietLink}>Get in touch ↗</Link></div>
         </div>
       </section>
 
       <section data-particle-scene="sphere" className={styles.spherePanel} aria-label="Working remotely">
-        <svg className={styles.sphereType} viewBox="0 0 900 900" aria-hidden="true">
+        <svg data-sphere-type className={styles.sphereType} viewBox="0 0 600 600" role="img" aria-label="Available remotely. Working worldwide.">
           <defs>
-            <path id="orbit-above" d="M 150,420 A 306,306 0 0,1 750,420"/>
-            <path id="orbit-below" d="M 150,490 A 306,306 0 0,0 750,490"/>
+            <path id="orbit-above" d="M 20,300 A 280,280 0 0,1 580,300"/>
+            <path id="orbit-below" d="M 20,300 A 280,280 0 0,0 580,300"/>
           </defs>
-          <text><textPath href="#orbit-above" startOffset="28%">Available remotely</textPath></text>
-          <text><textPath href="#orbit-below" startOffset="29%">Working worldwide</textPath></text>
+          <text textAnchor="middle"><textPath href="#orbit-above" startOffset="50%">Available remotely</textPath></text>
+          <text textAnchor="middle"><textPath href="#orbit-below" startOffset="50%">Working worldwide</textPath></text>
         </svg>
-        <p className={styles.sphereCaption}>DESIGN & DEVELOPMENT WITHOUT BORDERS</p>
+        <p className={styles.sphereCaption}>SOFTWARE DEVELOPMENT WITHOUT BORDERS</p>
       </section>
 
       <section data-particle-scene="philippines" className={styles.locationPanel} aria-labelledby="location-title">
-        <p id="location-title">Based in the Philippines<span className={styles.lightDot} /></p>
+        <p id="location-title" data-location-copy>Based in the Philippines<span className={styles.lightDot} /></p>
       </section>
 
       <section data-particle-scene="ribbon" className={styles.ribbonPanel} aria-label="How I work">

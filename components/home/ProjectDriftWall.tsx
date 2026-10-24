@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { publicProjects } from "@/data/projects";
 import styles from "./SelectedWork.module.css";
 
-const featured = ["rbim", "ahdis", "co-designs", "marci-metzger"];
+const featured = ["rbim", "ahdis", "erp-system", "co-designs", "marci-metzger"];
 const projects = featured.flatMap(slug => publicProjects.filter(project => project.slug === slug));
 
 export function ProjectDriftWall() {
@@ -45,6 +45,13 @@ export function ProjectDriftWall() {
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(sync); };
     const observer = new ResizeObserver(schedule);
+    const trackScroll = () => {
+      const cards = Array.from(track.querySelectorAll<HTMLElement>("article"));
+      const midpoint = track.scrollLeft + track.clientWidth / 2;
+      const next = cards.reduce((best, card, index) => Math.abs(card.offsetLeft + card.offsetWidth / 2 - midpoint) < Math.abs(cards[best].offsetLeft + cards[best].offsetWidth / 2 - midpoint) ? index : best, 0);
+      if (next !== activeRef.current) { activeRef.current = next; setActive(next); }
+    };
+    track.addEventListener("scroll", trackScroll, { passive: true });
     observer.observe(track); observer.observe(section);
     addEventListener("scroll", schedule, { passive: true });
     addEventListener("resize", schedule, { passive: true });
@@ -52,6 +59,7 @@ export function ProjectDriftWall() {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      track.removeEventListener("scroll", trackScroll);
       removeEventListener("scroll", schedule);
       removeEventListener("resize", schedule);
     };
@@ -92,6 +100,12 @@ export function ProjectDriftWall() {
         </div>
       </div>
       <nav ref={trackRef} className={styles.gallery} aria-label="Projects gallery"
+        tabIndex={0}
+        onKeyDown={event => {
+          if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+            event.preventDefault(); select(active + (event.key === "ArrowRight" ? 1 : -1));
+          }
+        }}
         data-dragging={dragging}
         onPointerDown={event => {
           if(event.pointerType === "mouse" && event.button !== 0)return;
@@ -117,19 +131,17 @@ export function ProjectDriftWall() {
         {projects.map((project, index) => (
           <article key={project.slug}
             className={[styles.card, active === index ? styles.active : ""].join(" ")}
-            style={{ "--card-order":index, "--card-distance":Math.abs(index - active), "--card-angle":(index - 1.5) * 5 + "deg" } as React.CSSProperties}
             data-project-slug={project.slug}
-            onMouseEnter={() => {if(!dragging && window.innerWidth<768)setActive(index);}}
-            onFocusCapture={() => setActive(index)}
+            onFocusCapture={() => { activeRef.current = index; setActive(index); }}
           >
             <Link href={"/projects/" + project.slug} className={styles.projectLink} aria-label={"Explore " + project.shortTitle}>
               <span className={styles.imageContainer}>
                 <Image
                   src={project.image} alt={project.imageAlt ?? project.shortTitle + " interface preview"}
                   width={project.imageWidth} height={project.imageHeight}
-                  sizes="(max-width: 767px) 76vw, (max-width: 1150px) 32vw, 540px"
-                  unoptimized priority={index===0}
-                  style={{ maxWidth: project.imageWidth + "px", maxHeight: project.imageHeight + "px" }}
+                  sizes="(max-width: 767px) 76vw, 520px"
+                  unoptimized loading="eager"
+                  style={{ maxWidth: `min(100%, ${project.imageWidth}px)`, maxHeight: `min(100%, ${project.imageHeight}px)` }}
                 />
                 <span className={styles.hoverArrow} aria-hidden="true">↗</span>
               </span>
@@ -153,7 +165,7 @@ export function ProjectDriftWall() {
         </Link>
       </div>
       <div className={styles.end}>
-        <div role="group" className={styles.progress} aria-label={"Project " + (active + 1) + " of 4"}>
+        <div role="group" className={styles.progress} aria-label={"Project " + (active + 1) + " of " + projects.length}>
           {projects.map((project, index) => (
             <button key={project.slug} type="button"
               className={active === index ? styles.progressActive : ""}
@@ -163,7 +175,7 @@ export function ProjectDriftWall() {
           ))}
         </div>
         <div className={styles.endRight}>
-          <span className={styles.dragHint}>DRAG / HOVER TO EXPLORE</span>
+          <span className={styles.dragHint}>SCROLL TO EXPLORE</span>
           <Link href="/projects">View all projects <span aria-hidden="true">↗</span></Link>
         </div>
       </div>

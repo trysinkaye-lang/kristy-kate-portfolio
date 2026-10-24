@@ -57,8 +57,8 @@ try {
       const timing = name => Math.round((timings.find(item => item.name === name)?.value ?? 0) * 1000);
       Object.assign(initial, { mainThreadMs: timing("TaskDuration"), scriptMs: timing("ScriptDuration"), layoutMs: timing("LayoutDuration"), styleMs: timing("RecalcStyleDuration") });
       if (device === "mobile") await page.getByRole("button", { name: "Open navigation", exact: true }).click();
-      await page.getByRole("button", { name: "Use dark mode" }).click();
       await page.getByRole("button", { name: "Use light mode" }).click();
+      await page.getByRole("button", { name: "Use dark mode" }).click();
       if (device === "mobile") await page.getByRole("button", { name: "Close navigation", exact: true }).click();
       // Homepage has project links, not an image-inspector dialog. Record homepage
       // interactions before navigating, because navigation resets PerformanceObserver state.

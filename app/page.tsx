@@ -21,7 +21,7 @@ export default function Home() {
       <section id="work" data-particle-scene="work" className={styles.work} aria-labelledby="work-title">
         <div className="shell">
           <div className={styles.workHeader}>
-            <div><p className={styles.marker}>SOME SELECTED WORKS</p><h2 id="work-title">Some selected<br/>work.</h2></div>
+            <div><p className={styles.marker}>SOME SELECTED WORKS</p><h2 id="work-title">Some selected work.</h2></div>
             <p>From information systems and offline software to responsive websites.</p>
           </div>
           <ProjectDriftWall />
