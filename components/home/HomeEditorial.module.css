@@ -1,10 +1,10 @@
-.motionPage {position:relative;isolation:isolate;overflow:clip;color:#f5f5f5;background:radial-gradient(ellipse at 50% 35%,#121212 0%,#050505 75%);}
+.motionPage {position:relative;isolation:isolate;overflow:clip;color:#f5f5f5;background:radial-gradient(ellipse at 50% 35%,#0b0b0b,#040404 75%);}
 .motionPage > :not(canvas) {position:relative;z-index:1;}
 .marker {color:#b4b4b4;font-size:10px;letter-spacing:.13em;text-transform:uppercase;}
 .work {height:400svh;background:transparent;}
 .work :global(.shell) {position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:85px 28px;}
 .workHeader {display:flex;align-items:end;justify-content:space-between;gap:30px;padding-bottom:20px;}
-.workHeader .marker {display:none;}
+.workHeader .marker {display:block;margin-bottom:10px;}
 .workHeader h2 {font-size:clamp(23px,2.7vw,38px);font-weight:500;letter-spacing:-.045em;line-height:1.1;}
 .workHeader h2 br {display:none;}
 .workHeader > p {max-width:35ch;color:#b4b4b4;font-size:12px;line-height:1.6;}
@@ -13,13 +13,13 @@
 .about,.capabilities {background:transparent;color:inherit;}
 .aboutInner {min-height:100svh;display:grid;grid-template-columns:1.1fr .8fr;align-items:center;gap:12%;padding-block:100px;}
 .about h2 {margin-top:20px;max-width:16ch;font-size:clamp(32px,4vw,58px);line-height:1.15;font-weight:500;letter-spacing:-.045em;}
-.aboutCopy {background:#101010d9;padding:24px;}
+.aboutCopy {background:transparent;padding:0;}
 .aboutCopy p {color:#cecece;font-size:15px;line-height:1.8;}
 .aboutCopy a {display:inline-flex;align-items:center;gap:24px;min-height:44px;margin-top:22px;font-size:13px;border-bottom:1px solid #888888;}
 .capabilities {min-height:100svh;padding-block:18svh;}
 .capabilitiesHeader {display:flex;justify-content:space-between;align-items:end;gap:24px;padding-bottom:30px;}
 .capabilitiesHeader h2 {font-size:clamp(32px,4vw,52px);font-weight:500;letter-spacing:-.04em;}
-.disciplines {border-top:1px solid #505050;background:#101010cc;}
+.disciplines {border-top:1px solid #505050;background:transparent;}
 .disciplines details {border-bottom:1px solid #505050;}
 .disciplines summary {display:grid;grid-template-columns:50px 1fr 24px;gap:20px;align-items:center;min-height:72px;cursor:pointer;list-style:none;}
 .disciplines summary::-webkit-details-marker {display:none;}
