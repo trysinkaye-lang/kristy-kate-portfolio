@@ -1,6 +1,15 @@
 import * as THREE from "three";
 import { clamp, mix, projectPhilippines, segmentPortrait, smooth, spherePoint, type PortraitSample } from "./particle-geometry";
 const TAU = Math.PI * 2;
+// Relative depth proportions estimated from the supplied front/left/back/right reference.
+// These silhouette ratios calibrate the volumetric relief; they do not pretend to be
+// a photogrammetric reconstruction of a real scanned head.
+const FOUR_VIEW_DEPTH_RATIO = [
+  .62, .90, 1.18, 1.17, 1.14, 1.07, 1.06, 1.06,
+  1.06, 1.03, 1.04, 1.10, 1.13, 1.10, 1.08, 1.06,
+  1.06, .98, .70, .66, .63, .70, .78, .81,
+  .85, .88, .91, .94, .98, 1, 1, 1,
+];
 const shapes = ["portrait", "portraitRight", "sphere", "spherePhilippines", "philippines", "ribbon", "work", "ambientAbout", "ambientServices", "frame"] as const;
 type Shape = typeof shapes[number];
 type Cloud = { positions: Float32Array; tones: Float32Array };
@@ -49,7 +58,10 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
     const p = portrait[Math.floor(random() * portrait.length)];
     // Front/back shell samples are paired from the actual portrait silhouette.
     // It rotates in 3D without inventing eyes, mouth or nose.
-    const shellZ = p.depth * portraitSize * (i % 2 === 0 ? 1 : -.95);
+    const profileBand = Math.min(FOUR_VIEW_DEPTH_RATIO.length - 1,
+      Math.max(0, Math.floor((p.y + .5) * FOUR_VIEW_DEPTH_RATIO.length)));
+    const shellZ = p.depth * portraitSize * FOUR_VIEW_DEPTH_RATIO[profileBand] *
+      (i % 2 === 0 ? 1 : -.95);
     set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, shellZ, .68);
     const introScale = mobile ? .76 : .86;
     set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, shellZ * introScale, .68);
