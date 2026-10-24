@@ -6,12 +6,13 @@
 .heroLabels p {text-align:right;}
 .openingBottom {position:absolute;bottom:32px;left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.12em;color:#b8b8b8;}
 .introduction {padding-inline:var(--gutter);}
-.introductionCopy {max-width:47%;}
-.introductionCopy p,.ribbonPanel p {font:450 clamp(24px,2.5vw,38px)/1.4 var(--font-body);letter-spacing:-.035em;text-wrap:pretty;}
+.introductionCopy {max-width:min(46%,720px);position:relative;z-index:2;}
+.introductionCopy p,.ribbonPanel p {font:450 clamp(24px,2.05vw,34px)/1.38 var(--font-body);letter-spacing:-.035em;text-wrap:pretty;}
 .introLinks {display:flex;flex-wrap:wrap;gap:12px 30px;margin-top:30px;}
 .quietLink {display:inline-flex;align-items:center;min-height:44px;font-size:13px;border-bottom:1px solid #888888;}
+.strataPanel {min-height:100svh;pointer-events:none;}
 .spherePanel {justify-content:center;flex-direction:column;}
-.sphereType {width:min(68vw,60svh,612px);height:auto;aspect-ratio:1;overflow:visible;pointer-events:none;}
+.sphereType {width:min(80vw,74svh,760px);height:auto;aspect-ratio:1;overflow:visible;pointer-events:none;transform-origin:center center;transform-box:fill-box;}
 .sphereType text {fill:#eeeeee;font:500 18px var(--font-body);letter-spacing:.015em;}
 .sphereCaption {position:absolute;bottom:40px;font-size:10px;letter-spacing:.15em;color:#b5b5b5;text-align:center;}
 .locationPanel {justify-content:flex-end;padding-inline:var(--gutter);}

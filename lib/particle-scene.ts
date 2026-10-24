@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { clamp, mix, projectPhilippines, segmentPortrait, smooth, spherePoint, type PortraitSample } from "./particle-geometry";
 const TAU = Math.PI * 2;
-const shapes = ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"] as const;
+const shapes = ["portrait", "portraitRight", "strata", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"] as const;
 type Shape = typeof shapes[number];
 type Cloud = { positions: Float32Array; tones: Float32Array };
 
@@ -37,8 +37,8 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
   for (const shape of shapes) clouds[shape] = { positions: new Float32Array(count * 3), tones: new Float32Array(count) };
   const mobile = w < 768;
   // Keep the actual photo-derived silhouette center-stage without clipping it on shorter screens.
-  const portraitSize = Math.min(w * (mobile ? 1.20 : w < 1280 ? .53 : .62), h * (mobile ? .78 : .90), mobile ? 720 : 900);
-  const radius = Math.min(w * .30, h * .29, 270);
+  const portraitSize = Math.min(w * (mobile ? 1.26 : w < 1200 ? .65 : .78), h * (mobile ? .91 : 1.09), 1080);
+  const radius = Math.min(w * .295, h * .37, 340);
   const mapSize = Math.min(h * .66, w * (mobile ? 1.1 : .65), 620);
   let seed = 42717;
   const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
@@ -48,8 +48,17 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
     };
     const p = portrait[Math.floor(random() * portrait.length)];
     set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .20 + p.tone * .80);
-    const introScale = mobile ? .65 : .75;
-    set("portraitRight", w * (mobile ? .60 : .74) + p.x * portraitSize * introScale, h * (mobile ? .29 : .5) + p.y * portraitSize * introScale, p.depth * portraitSize, .08 + p.tone * .92);
+    const introScale = mobile ? .80 : .96;
+    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .32 : .47) + p.y * portraitSize * introScale, p.depth * portraitSize, .19 + p.tone * .81);
+    // Reference-inspired interlude: the portrait separates into four floating orbital layers.
+    // Band assignment follows source-image height, making the transition coherent and reversible.
+    const tier = Math.min(3, Math.max(0, Math.floor((p.y + .5) * 4)));
+    const aTier = random() * TAU, spread = Math.sqrt(random());
+    const layerRadius = radius * [0.80, 1.02, .96, .75][tier] * spread;
+    const layerDepth = Math.sin(aTier) * layerRadius * .56;
+    set("strata", w * .5 + Math.cos(aTier) * layerRadius,
+      h * .5 + (tier - 1.5) * radius * .53 + (random() - .5) * radius * .13,
+      layerDepth, .48 + random() * .26);
     const [sx, sy, sz] = spherePoint(i, count, radius);
     set("sphere", w / 2 + sx, h / 2 + sy, sz);
     const pmap = i % 4 === 0 ? map.edges[Math.floor(random() * map.edges.length)] : map.samples[Math.floor(random() * map.samples.length)];
@@ -143,13 +152,13 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     const transform = (shape: Shape, offset: number, output: Float64Array) => {
       const cloud = clouds[shape], x = cloud.positions[offset], y = cloud.positions[offset + 1], z = cloud.positions[offset + 2];
       output[0] = x; output[1] = y; output[2] = z;
-      if (shape === "sphere" || shape === "orb") {
-        const cx = shape === "sphere" ? width / 2 : width * .73, dx = x - cx;
+      if (shape === "sphere" || shape === "orb" || shape === "strata") {
+        const cx = shape === "orb" ? width * .73 : width / 2, dx = x - cx;
         output[0] = cx + dx * cosSpin + z * sinSpin + (shape === "sphere" && orbitRect ? orbitRect.left + orbitRect.width / 2 - width / 2 : 0);
         output[1] = y + (shape === "sphere" && orbitRect ? orbitRect.top + orbitRect.height / 2 - height / 2 : 0);
         output[2] = z * cosSpin - dx * sinSpin;
       } else if (shape === "portrait" || shape === "portraitRight") {
-        const cx = shape === "portrait" ? width / 2 : width * (width < 768 ? .60 : .74);
+        const cx = shape === "portrait" ? width / 2 : width * (width < 768 ? .60 : .72);
         output[0] = cx + (x - cx) * cosAngle + z * sinAngle;
         output[2] = z * cosAngle - (x - cx) * sinAngle;
       } else if (shape === "frame" && frameRect) {
@@ -169,8 +178,12 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     }
     geometry.attributes.position.needsUpdate = true; geometry.attributes.tone.needsUpdate = true;
     canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius);
-    if (orbit) orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .9) / .1));
-    if (location) location.style.opacity = String(media.matches ? 1 : mapWeight > .9999 ? (segment === 3 ? 1 - smooth(phase / .12) : smooth((phase - .7) / .17)) : 0);
+    if (orbit) {
+      orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .83) / .17));
+      // Type follows the circular globe, with restrained motion and a static reduced-motion state.
+      orbit.style.transform = media.matches ? "none" : `rotate(${((time * .0018) % 360).toFixed(3)}deg)`;
+    }
+    if (location) location.style.opacity = String(media.matches ? 1 : mapWeight > .9999 ? (segment === 4 ? 1 - smooth(phase / .12) : smooth((phase - .7) / .17)) : 0);
     renderer.render(scene, camera);
   };
   const tick = (stamp: number) => {
@@ -194,7 +207,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     removeEventListener("scroll", scroll); removeEventListener("resize", measure);
     document.removeEventListener("visibilitychange", visibility); media.removeEventListener("change", preference);
     canvas.removeEventListener("webglcontextlost", contextLost); canvas.removeEventListener("webglcontextrestored", contextRestored);
-    orbit?.style.removeProperty("opacity"); location?.style.removeProperty("opacity");
+    orbit?.style.removeProperty("opacity"); orbit?.style.removeProperty("transform"); location?.style.removeProperty("opacity");
     geometry.dispose(); material.dispose(); renderer.dispose();
   };
 }

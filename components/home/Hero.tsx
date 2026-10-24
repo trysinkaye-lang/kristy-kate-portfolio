@@ -18,10 +18,12 @@ export function Hero() {
 
       <section id="introduction" data-particle-scene="portraitRight" className={styles.introduction} aria-label="An introduction">
         <div className={styles.introductionCopy}>
-          <p>I build information systems, desktop applications, databases, and web applications — software shaped around the people who use it.</p>
+          <p>I turn complex workflows into dependable software. Information systems, desktop applications, and web platforms—built for people, not just screens.</p>
           <div className={styles.introLinks}><Link href="#work" className={styles.quietLink}>Explore my work ↗</Link><Link href="/contact" className={styles.quietLink}>Get in touch ↗</Link></div>
         </div>
       </section>
+
+      <section data-particle-scene="strata" className={styles.strataPanel} aria-hidden="true" />
 
       <section data-particle-scene="sphere" className={styles.spherePanel} aria-label="Working remotely">
         <svg data-sphere-type className={styles.sphereType} viewBox="0 0 600 600" role="img" aria-label="Available remotely. Working worldwide.">

@@ -188,7 +188,7 @@ test("Ingrassia-inspired introduction foregrounds the developer and morphing par
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor");
   await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(hero.getByText(/I build information systems, desktop applications, databases, and web applications/)).toBeVisible();
+  await expect(hero.getByText(/I turn complex workflows into dependable software/)).toBeVisible();
   await expect(hero.getByText(/Software Developer/)).toBeVisible();
   await expect(hero.locator('[data-particle-scene="sphere"]')).toHaveCount(1);
   await expect(hero.locator('[data-particle-scene="philippines"]')).toHaveCount(1);

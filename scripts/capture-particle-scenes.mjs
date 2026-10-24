@@ -12,7 +12,7 @@ try {
     await page.goto(base);
     await page.locator('[data-particle-field][data-renderer="webgl"]').waitFor();
     await page.evaluate(() => document.fonts.ready);
-    for (const shape of ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"]) {
+    for (const shape of ["portrait", "portraitRight", "strata", "sphere", "philippines", "ribbon", "work", "torus", "orb", "ribbonLow", "frame"]) {
       await page.locator(`[data-particle-scene="${shape}"]`).evaluate(el => scrollTo({top: el.getBoundingClientRect().top + scrollY + el.clientHeight / 2 - innerHeight / 2, behavior:"instant"}));
       await page.waitForFunction(shape => document.querySelector('[data-particle-field]').dataset.activeShape === shape, shape);
       await page.waitForTimeout(850);

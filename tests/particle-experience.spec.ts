@@ -9,8 +9,11 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   const sphere = page.locator('[data-particle-scene="sphere"]');
   const location = page.locator('[data-particle-scene="philippines"]');
   const center = async (selector: string) => page.locator(selector).evaluate(el => scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
-  await center('[data-particle-scene="sphere"]');
+  await center('[data-particle-scene="strata"]');
   await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
+  await expect(canvas).toHaveAttribute("data-active-shape", "strata");
+  await center('[data-particle-scene="sphere"]');
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
   const orbit = await page.locator("[data-sphere-type]").boundingBox();
   const radius = Number(await canvas.getAttribute("data-sphere-radius"));
   expect(orbit!.width).toBeCloseTo(orbit!.height, 0);
@@ -24,9 +27,11 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   await page.evaluate(y => scrollTo({top:y,behavior:"instant"}), start+(end-start)*.5);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","0");
   await center('[data-particle-scene="philippines"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(4, 3);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
   await center('[data-particle-scene="sphere"]');
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
+  await center('[data-particle-scene="strata"]');
   await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
   await center('[data-particle-scene="portrait"]');
   await expect(canvas).toHaveAttribute("data-active-shape","portrait");
