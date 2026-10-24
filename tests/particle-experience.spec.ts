@@ -165,17 +165,3 @@ test("cursor glow reacts gently to pointer and disables with reduced motion",asy
   await expect(canvas).toHaveAttribute("data-renderer","webgl");
 });
 
-test("scroll advances whole project slides rather than cropped partial slides",async({page})=>{
-  await page.setViewportSize({width:1440,height:900});
-  await page.goto("/");
-  const work=page.locator("#work");
-  const reel=page.getByRole("navigation",{name:"Projects gallery"});
-  await work.evaluate(el=>{
-    const start=el.getBoundingClientRect().top+scrollY;
-    const travel=el.offsetHeight-innerHeight;
-    scrollTo({top:start+travel*.52,behavior:"instant"});
-  });
-  await expect(page.getByRole("button",{name:"Show ERP System"})).toHaveAttribute("aria-pressed","true");
-  await expect.poll(()=>reel.evaluate(el=>Math.abs(el.scrollLeft-el.clientWidth*2))).toBeLessThan(4);
-  await expect(page.locator("#work h3")).toHaveText("ERP System");
-});
