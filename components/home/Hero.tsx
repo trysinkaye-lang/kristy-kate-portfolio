@@ -39,9 +39,7 @@ export function Hero() {
       </section>
 
       <section data-particle-scene="spherePhilippines" className={styles.globeMapPanel} aria-label="The Philippines emerging on the globe">
-        <div className={styles.globeMapSticky}>
-          <p className={styles.globeMapHint}>From a global perspective to home.</p>
-        </div>
+        <div className={styles.globeMapSticky} aria-hidden="true" />
       </section>
 
       <section data-particle-scene="philippines" className={styles.locationPanel} aria-labelledby="location-title">
