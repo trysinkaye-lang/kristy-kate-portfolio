@@ -40,14 +40,14 @@ export function segmentPortrait(data: Uint8ClampedArray, width: number, height: 
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
     const p = y * width + x;
     if (background[p] || data[p * 4 + 3] < 128) continue;
-    const tone = (data[p * 4] * .2126 + data[p * 4 + 1] * .7152 + data[p * 4 + 2] * .0722) / 255;
     const nx = x / width - .5, ny = y / height - .5;
     const midpoint = (left[y] + right[y]) / 2;
     const halfWidth = Math.max(1, (right[y] - left[y]) / 2);
     const u = Math.max(-1, Math.min(1, (x - midpoint) / halfWidth));
     const roundness = Math.sqrt(Math.max(0, 1 - u * u));
-    const depth = roundness * (y < height * .66 ? .235 : .12) + tone * .012;
-    samples.push({ x: nx, y: ny, tone, depth });
+    // Uniform density / brightness creates a faceless silhouette without photo texture.
+    const depth = roundness * (y < height * .66 ? .12 : .065);
+    samples.push({ x: nx, y: ny, tone: .75, depth });
   }
   return samples;
 }
