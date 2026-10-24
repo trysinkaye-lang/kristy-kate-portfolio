@@ -27,11 +27,8 @@ export default function Home() {
           <ProjectDriftWall />
         </div>
       </section>
-      <section data-particle-scene="torus" className={styles.morePanel} aria-label="More work in progress">
-        <p>And still building more.</p>
-      </section>
-      <div data-particle-scene="orb"><HomeAbout /></div>
-      <div data-particle-scene="ribbonLow"><HomeCapabilities /></div>
+      <div data-particle-scene="ambientAbout"><HomeAbout /></div>
+      <div data-particle-scene="ambientServices"><HomeCapabilities /></div>
       <HomeCTA />
     </main>
   );
