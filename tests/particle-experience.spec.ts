@@ -113,12 +113,18 @@ test("desktop carousel keeps image, caption and description in pinned viewport",
   for (let n=0;n<2;n++){
     if (n) await page.getByRole("button",{name:"Next project"}).click();
     const item=reel.locator("article").nth(n);
-    const [bounds,title,note,image] = await Promise.all([
-      shell.boundingBox(),item.locator("strong").boundingBox(),
+    const stage=item.locator('[class*="imageContainer"]');
+    const [bounds,visual,title,note,image] = await Promise.all([
+      shell.boundingBox(),stage.boundingBox(),
+      page.locator("#work h3").boundingBox(),
       page.locator("#work [class*='projectNote']").boundingBox(),item.locator("img").boundingBox()
     ]);
-    expect(bounds&&title&&note&&image).toBeTruthy();
-    expect(image!.y).toBeGreaterThanOrEqual(bounds!.y);
+    expect(bounds&&visual&&title&&note&&image).toBeTruthy();
+    // Full screenshot fits the preview both vertically and horizontally.
+    expect(image!.x).toBeGreaterThanOrEqual(visual!.x-2);
+    expect(image!.x+image!.width).toBeLessThanOrEqual(visual!.x+visual!.width+2);
+    expect(image!.y).toBeGreaterThanOrEqual(visual!.y-2);
+    expect(image!.y+image!.height).toBeLessThanOrEqual(visual!.y+visual!.height+2);
     expect(title!.y+title!.height).toBeLessThan(bounds!.y+bounds!.height-4);
     expect(note!.y+note!.height).toBeLessThan(bounds!.y+bounds!.height-4);
   }
@@ -157,4 +163,19 @@ test("cursor glow reacts gently to pointer and disables with reduced motion",asy
   await page.emulateMedia({reducedMotion:"reduce"});
   await expect(glow).toHaveCSS("opacity","0");
   await expect(canvas).toHaveAttribute("data-renderer","webgl");
+});
+
+test("scroll advances whole project slides rather than cropped partial slides",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const work=page.locator("#work");
+  const reel=page.getByRole("navigation",{name:"Projects gallery"});
+  await work.evaluate(el=>{
+    const start=el.getBoundingClientRect().top+scrollY;
+    const travel=el.offsetHeight-innerHeight;
+    scrollTo({top:start+travel*.52,behavior:"instant"});
+  });
+  await expect(page.getByRole("button",{name:"Show ERP System"})).toHaveAttribute("aria-pressed","true");
+  await expect.poll(()=>reel.evaluate(el=>Math.abs(el.scrollLeft-el.clientWidth*2))).toBeLessThan(4);
+  await expect(page.locator("#work h3")).toHaveText("ERP System");
 });
