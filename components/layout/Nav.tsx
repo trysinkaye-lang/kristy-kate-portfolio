@@ -46,6 +46,9 @@ export function Nav() {
     pathname === href || (href === "/projects" && pathname.startsWith("/projects/"))
   );
 
+  // Keep full navigation on inner pages; the immersive home uses in-scene links.
+  if (pathname === "/") return null;
+
   return (
     <header className={styles.header}>
       <div className={["shell", styles.bar].join(" ")}>
