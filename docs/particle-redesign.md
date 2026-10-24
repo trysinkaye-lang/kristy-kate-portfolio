@@ -64,3 +64,11 @@ An earlier implementation reported 192 passing tests; these newer visual and scr
 The four horizontal bands, torus/donut, and oversized background orb remain removed. The portrait now has a front-and-back convex point cloud, with a full scroll-controlled turn whose depth proportions draw on the four-view reference. The motion is an artistic approximation, not a scanned model; the original photograph does not contain true captured rear-facing texture. The continuous scroll interpolation no longer pauses at dead zones.
 
 The projects section is now a single featured card in a scroll-synchronized horizontal reel, preserving the actual screenshot's maximum native resolution. Dark rectangular overlays behind About, services and the ribbon text were removed. Following the change, rerun Playwright, lint, TypeScript and desktop/mobile visual checks before a production merge.
+
+## October 24 — sculpting and cursor interaction
+
+- The featureless silhouette now receives controlled convex thickness plus contour-aware grayscale highlights. Brightness is **not** derived from eyes, lips, or nose in the source photo. The silhouette remains based on the existing portrait, rather than copying the reference model’s hairstyle.
+- Individual edge particles shimmer fractionally (sub-pixel scale); portrait shading changes with the 3D rotation to distinguish front, sides, and back.
+- A luminous pointer orb follows mouse movement with gentle lag on fine-pointer devices; nearby particles repel by at most 23 CSS pixels before naturally returning when the cursor moves. There is no pointer force on touch screens or in reduced-motion mode.
+- The orb and listeners are cleaned up on unmount; semantic page content, links, and keyboard navigation remain accessible.
+- The Vercel build and preview deployment status are checked independently. Source-level tests are added; a READY deployment is not a substitute for full Playwright visual acceptance.
