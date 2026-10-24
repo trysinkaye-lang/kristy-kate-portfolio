@@ -1,6 +1,6 @@
-.splash {position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;pointer-events:none;background:#151b1d;color:#e5ece7;animation:depart 650ms ease-out both;}
-.dust {position:absolute;width:230px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#bcd1c2 1px,transparent 1.5px);background-size:9px 9px;mask-image:radial-gradient(circle,#000,transparent 70%);opacity:.35;}
+.splash {position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;pointer-events:none;background:#080808;color:#f5f5f5;animation:depart 650ms ease-out both;}
+.dust {position:absolute;width:230px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#e8e8e8 1px,transparent 1.5px);background-size:9px 9px;mask-image:radial-gradient(circle,#000,transparent 70%);opacity:.35;}
 .name {z-index:1;font-size:12px;letter-spacing:.18em;}
-.label {z-index:1;font-size:9px;letter-spacing:.2em;color:#b7c8bd;}
+.label {z-index:1;font-size:9px;letter-spacing:.2em;color:#bdbdbd;}
 @keyframes depart {0%,30%{opacity:1;visibility:visible;}100%{opacity:0;visibility:hidden;}}
 @media(prefers-reduced-motion:reduce){.splash{display:none;animation:none;}}

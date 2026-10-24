@@ -36,7 +36,8 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
   const clouds = {} as Record<Shape, Cloud>;
   for (const shape of shapes) clouds[shape] = { positions: new Float32Array(count * 3), tones: new Float32Array(count) };
   const mobile = w < 768;
-  const portraitSize = Math.min(w * (mobile ? .92 : .45), h * .68, 620);
+  // Keep the actual photo-derived silhouette center-stage without clipping it on shorter screens.
+  const portraitSize = Math.min(w * (mobile ? 1.20 : w < 1280 ? .53 : .62), h * (mobile ? .78 : .90), mobile ? 720 : 900);
   const radius = Math.min(w * .30, h * .29, 270);
   const mapSize = Math.min(h * .66, w * (mobile ? 1.1 : .65), 620);
   let seed = 42717;
@@ -46,7 +47,7 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
       clouds[shape].positions.set([x, y, z], i * 3); clouds[shape].tones[i] = tone;
     };
     const p = portrait[Math.floor(random() * portrait.length)];
-    set("portrait", w * .5 + p.x * portraitSize, h * .54 + p.y * portraitSize, p.depth * portraitSize, .08 + p.tone * .92);
+    set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .20 + p.tone * .80);
     const introScale = mobile ? .65 : .75;
     set("portraitRight", w * (mobile ? .60 : .74) + p.x * portraitSize * introScale, h * (mobile ? .29 : .5) + p.y * portraitSize * introScale, p.depth * portraitSize, .08 + p.tone * .92);
     const [sx, sy, sz] = spherePoint(i, count, radius);
@@ -89,9 +90,9 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     uniforms: { pixelRatio: { value: 1 } },
     vertexShader: `attribute float tone; varying float vTone; uniform float pixelRatio;
-      void main(){vTone=tone;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_PointSize=1.55*pixelRatio;}`,
+      void main(){vTone=tone;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_PointSize=1.8*pixelRatio;}`,
     fragmentShader: `varying float vTone; void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;
-      gl_FragColor=vec4(vec3(.91,.95,1.),vTone*smoothstep(.5,.15,d));}`,
+      gl_FragColor=vec4(vec3(1.,1.,1.),vTone*smoothstep(.5,.15,d));}`,
   });
   const points = new THREE.Points(geometry, material); points.frustumCulled = false; scene.add(points);
   const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-particle-scene]"));
