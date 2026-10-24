@@ -191,6 +191,7 @@ export function ParticleField() {
       const end=Math.min(order.length-1,start+1);
       const f=ease(current-start);
       const from=clouds[order[start]],to=clouds[order[end]];
+      canvas.dataset.activeShape=order[Math.round(current)] || "portrait";
       const orbWeight=(["sphere","torus","orb"].includes(order[start])?1-f:0)+
         (["sphere","torus","orb"].includes(order[end])?f:0);
       const rotation=clock*.00013;

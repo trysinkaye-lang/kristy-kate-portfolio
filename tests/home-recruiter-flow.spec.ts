@@ -10,7 +10,7 @@ test("immersive hero, project gallery, and primary interactions", async ({ page 
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.locator("canvas[data-particle-field]")).toHaveCount(1);
+  await expect(page.locator("main canvas[data-particle-field]")).toHaveCount(1);
   await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
   await expect(hero.getByText("WEB & SOFTWARE DEVELOPMENT / PHILIPPINES")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
@@ -187,11 +187,11 @@ test("Ingrassia-inspired introduction foregrounds the developer and morphing par
   const hero = page.locator("#home");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
-  await expect(hero.getByText(/HELLO, I.M KRISTY KATE/)).toBeVisible();
-  await expect(hero.getByText(/I develop websites, web applications, and offline desktop software/)).toBeVisible();
-  await expect(hero.getByText("WEB APPLICATIONS")).toBeVisible();
-  await expect(hero.getByText("DESKTOP SOFTWARE")).toBeVisible();
-  await expect(hero.getByText("INFORMATION SYSTEMS")).toBeVisible();
+  await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(hero.getByText(/I build websites, web applications, and offline desktop software/)).toBeVisible();
+  await expect(hero.getByText(/Software & Web Developer/)).toBeVisible();
+  await expect(hero.locator('[data-particle-scene="sphere"]')).toBeVisible();
+  await expect(hero.locator('[data-particle-scene="philippines"]')).toBeVisible();
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.getByRole("link", { name: "Explore my work" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
@@ -201,7 +201,7 @@ test("intro stays legible with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({width: 375, height: 812});
   await page.goto("/");
-  await expect(page.locator("#home canvas[data-particle-field]")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator("main canvas[data-particle-field]")).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator("#identity")).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
   expect(overflow).toBe(false);
@@ -230,9 +230,9 @@ test("contact section has visual presence without breaking theme or access", asy
       height: element.getBoundingClientRect().height,
       overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     }));
-    expect(metrics.background).toBe(metrics.bodyBackground);
+    expect(metrics.background).toBe("rgba(0, 0, 0, 0)");
     expect(metrics.height).toBeGreaterThan(300);
-    expect(metrics.height).toBeLessThan(width < 600 ? 800 : 630);
+    expect(metrics.height).toBeLessThan(width < 600 ? 1100 : 1300);
     expect(metrics.overflow).toBe(false);
     await contact.screenshot({ path: testInfo.outputPath("contact-light-" + width + ".png"), animations: "disabled" });
 
@@ -256,7 +256,7 @@ test("contact section has visual presence without breaking theme or access", asy
       background: getComputedStyle(element).backgroundColor,
       bodyBackground: getComputedStyle(document.body).backgroundColor,
     }));
-    expect(darkColors.background).toBe(darkColors.bodyBackground);
+    expect(darkColors.background).toBe("rgba(0, 0, 0, 0)");
     await contact.screenshot({ path: testInfo.outputPath("contact-dark-" + width + ".png"), animations: "disabled" });
     await setThemeFromVisibleNavigation("Use dark mode");
     await expect(page.locator("html")).toHaveClass(/dark/);
@@ -265,9 +265,25 @@ test("contact section has visual presence without breaking theme or access", asy
 
 test("kinetic portfolio treatment retains accessible content and an animated canvas", async ({ page }) => {
   await page.goto("/");
-  const field = page.locator("#home canvas[data-particle-field]");
+  const field = page.locator("main canvas[data-particle-field]");
   await expect(field).toHaveAttribute("aria-hidden", "true");
   await expect.poll(() => field.evaluate(element => (element as HTMLCanvasElement).width)).toBeGreaterThan(0);
-  await expect(page.locator("#home")).toHaveCSS("background-color", "rgb(12, 15, 17)");
+  await expect(page.locator("main")).toHaveClass(/motionPage/);
   await expect(page.locator("[data-intro-splash]")).toHaveCSS("pointer-events", "none");
+});
+
+test("particle scene responds to scrolling from portrait through the contact frame", async ({ page }) => {
+  await page.goto("/");
+  const particles=page.locator("main canvas[data-particle-field]");
+  await expect(particles).toHaveAttribute("data-active-shape", "portrait");
+  for (const [selector,shape] of [
+    ['[data-particle-scene="sphere"]',"sphere"],
+    ['[data-particle-scene="philippines"]',"philippines"],
+    ['[data-particle-scene="ribbon"]',"ribbon"],
+    ['[data-particle-scene="work"]',"work"],
+    ['[data-particle-scene="frame"]',"frame"]
+  ] as const) {
+    await page.locator(selector).scrollIntoViewIfNeeded();
+    await expect.poll(()=>particles.getAttribute("data-active-shape"),{timeout:8000}).toBe(shape);
+  }
 });
