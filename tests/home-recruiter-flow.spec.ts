@@ -161,7 +161,7 @@ test("developer nameplate uses a particle-rendered portrait instead of a photo e
   await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("link", { name: "Explore my work" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
-  await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
+  await expect(page.locator("header")).toHaveCount(0);
 });
 
 
@@ -236,18 +236,18 @@ test("contact section has visual presence without breaking theme or access", asy
     expect(metrics.overflow).toBe(false);
     await contact.screenshot({ path: testInfo.outputPath("contact-light-" + width + ".png"), animations: "disabled" });
 
-    // At phone widths the theme toggle is inside the modal navigation;
-    // on desktop the same control lives in the main navigation.
+    // Home intentionally has no header. Use the inner-page navigation to set theme.
     const setThemeFromVisibleNavigation = async (label: "Use dark mode" | "Use light mode") => {
+      await page.goto("/about");
       if (width < 768) {
         await page.getByRole("button", { name: "Open navigation" }).click();
         await page.getByRole("dialog", { name: "Navigation" })
           .getByRole("button", { name: label }).click();
-        await page.getByRole("button", { name: "Close navigation" }).click();
       } else {
         await page.getByRole("navigation", { name: "Main navigation" })
           .getByRole("button", { name: label }).click();
       }
+      await page.goto("/");
     };
 
     await setThemeFromVisibleNavigation("Use light mode");
