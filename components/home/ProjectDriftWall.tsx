@@ -21,7 +21,7 @@ export function ProjectDriftWall() {
     const next = (index + projects.length) % projects.length;
     setActive(next);
     const item = trackRef.current?.querySelectorAll("article")[next];
-    if (item && window.innerWidth < 768) {
+    if (item) {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       item.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
     }

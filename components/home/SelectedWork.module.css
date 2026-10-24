@@ -85,3 +85,38 @@
 @media(prefers-reduced-motion:reduce) {
   .gallery,.card,.imageContainer img,.hoverArrow,.progress button span {animation:none!important;transition:none;}
 }
+
+/* Filmstrip-like large project panels, similar to the reference's curved reel. */
+@media (min-width:768px) {
+ .gallery {
+   position:relative;
+   display:flex;
+   justify-content:flex-start;
+   gap:clamp(26px,4vw,84px);
+   min-height:clamp(570px,51vw,850px);
+   overflow-x:auto;
+   overflow-y:hidden;
+   scroll-snap-type:x mandatory;
+   scrollbar-width:none;
+   overscroll-behavior-x:contain;
+   padding:clamp(70px,7vw,115px) max(var(--gutter),3vw) 65px;
+   touch-action:pan-x;
+ }
+ .gallery::-webkit-scrollbar {display:none;}
+ .card,.card.active {
+   flex:0 0 clamp(460px,56vw,930px);
+   scroll-snap-align:center;
+   opacity:1;
+   transform:translateY(calc((var(--card-order) - 1.5) * (var(--card-order) - 1.5) * 10px))
+     rotate(calc(var(--card-angle) * .48));
+ }
+ .card.active {
+   transform:translateY(-13px) rotate(-.6deg) scale(1.008);
+ }
+ .imageContainer {
+   height:clamp(340px,36vw,590px);
+   border-radius:3% 2% 4% 3% / 4% 3% 4% 5%;
+ }
+ .imageContainer img {transform:scale(.96);filter:none;}
+ .card:hover .imageContainer img,.card.active .imageContainer img{transform:scale(1);}
+}

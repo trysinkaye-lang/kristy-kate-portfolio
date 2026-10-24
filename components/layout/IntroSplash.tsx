@@ -8,7 +8,7 @@ export function IntroSplash() {
   useEffect(()=>{
     if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     let frame=0, start=0;
-    const duration=1500;
+    const duration=1150;
     const advance=(now:number)=>{
       if(!start)start=now;
       const t=Math.min(1,(now-start)/duration);

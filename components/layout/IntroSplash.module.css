@@ -1,6 +1,6 @@
 .splash {
  position:fixed; inset:0; z-index:90; overflow:hidden; pointer-events:none;
- background:#0b0b0b; color:#f5f4ef; animation:depart 2350ms cubic-bezier(.74,0,.22,1) both;
+ background:#0b0b0b; color:#f5f4ef; animation:depart 1750ms cubic-bezier(.74,0,.22,1) both;
 }
 .header,.footer { position:absolute; z-index:2; left:var(--gutter); right:var(--gutter);
  display:flex; align-items:center; justify-content:space-between; gap:20px;
@@ -14,16 +14,16 @@
  background:radial-gradient(ellipse at center,rgba(207,208,197,.18),transparent 34%),
  repeating-radial-gradient(circle at center,rgba(255,255,255,.24) 0 1px,transparent 1px 7px);
  mask-image:radial-gradient(ellipse 34% 55% at center,#000,transparent 80%);
- opacity:.28; animation:dust-form 1800ms cubic-bezier(.3,0,.2,1) both; }
+ opacity:.28; animation:dust-form 1400ms cubic-bezier(.3,0,.2,1) both; }
 .ring { position:absolute; width:clamp(280px,44vw,680px); aspect-ratio:1; border-radius:50%; border:1px solid #777870;
  box-shadow:0 0 60px rgba(255,255,255,.035),inset 0 0 65px rgba(255,255,255,.015);
- transform:rotate(-90deg); animation:ring-in 1750ms ease-out both; }
+ transform:rotate(-90deg); animation:ring-in 1450ms ease-out both; }
 .ring::before,.ring::after { position:absolute; content:""; inset:7%; border:1px dashed #5c5b56; border-radius:50%;
  transform:rotate(33deg) scaleX(.38); }
 .ring::after { transform:rotate(-33deg) scaleX(.38); }
 .ringCore { position:absolute; width:6px; height:6px; border-radius:50%; top:0; left:50%; background:#eae7df;box-shadow:0 0 22px #e0dad0;}
 .track { height:1px; flex:1; overflow:hidden; background:#3d3e3a; }
-.fill { display:block; width:100%; height:100%; background:#eeece4; transform-origin:left; animation:fill 1550ms ease-out both; }
+.fill { display:block; width:100%; height:100%; background:#eeece4; transform-origin:left; animation:fill 1200ms ease-out both; }
 .counter { min-width:48px; text-align:right; font-variant-numeric:tabular-nums; }
 @keyframes ring-in { from { opacity:0; transform:scale(.45) rotate(-90deg); } to {opacity:.55;transform:scale(1) rotate(30deg);} }
 @keyframes dust-form { from {opacity:0;transform:scale(1.8);} to {opacity:.28;transform:scale(.9);} }
