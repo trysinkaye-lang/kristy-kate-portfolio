@@ -23,7 +23,7 @@ export default function Home() {
               <p className={styles.marker}>WORK / 01</p>
               <h2 id="work-title">Some selected<br/>work.</h2>
             </div>
-            <p>From offline information systems to websites and web applications. A selection of things I've designed and built.</p>
+            <p>From offline information systems to websites and web applications. A selection of things I&apos;ve designed and built.</p>
           </div>
           <ProjectDriftWall />
         </div>
