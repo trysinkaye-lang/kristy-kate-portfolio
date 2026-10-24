@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { clamp, mix, projectPhilippines, segmentPortrait, smooth, spherePoint, type PortraitSample } from "./particle-geometry";
 const TAU = Math.PI * 2;
-const shapes = ["portrait", "portraitRight", "sphere", "philippines", "ribbon", "work", "ambientAbout", "ambientServices", "frame"] as const;
+const shapes = ["portrait", "portraitRight", "sphere", "spherePhilippines", "philippines", "ribbon", "work", "ambientAbout", "ambientServices", "frame"] as const;
 type Shape = typeof shapes[number];
 type Cloud = { positions: Float32Array; tones: Float32Array };
 
@@ -39,7 +39,7 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
   // Keep the actual photo-derived silhouette center-stage without clipping it on shorter screens.
   const portraitSize = Math.min(w * (mobile ? 1.12 : w < 1200 ? .62 : .70), h * (mobile ? .83 : .94), 940);
   const radius = Math.min(w * .295, h * .37, 340);
-  const mapSize = Math.min(h * .66, w * (mobile ? 1.1 : .65), 620);
+  const mapSize = Math.min(h * .89, w * (mobile ? 1.22 : .82), 840);
   let seed = 42717;
   const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
   for (let i = 0; i < count; i++) {
@@ -47,13 +47,26 @@ function cloudsFor(w: number, h: number, count: number, portrait: PortraitSample
       clouds[shape].positions.set([x, y, z], i * 3); clouds[shape].tones[i] = tone;
     };
     const p = portrait[Math.floor(random() * portrait.length)];
-    set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, p.depth * portraitSize, .68);
+    // Front/back shell samples are paired from the actual portrait silhouette.
+    // It rotates in 3D without inventing eyes, mouth or nose.
+    const shellZ = p.depth * portraitSize * (i % 2 === 0 ? 1 : -.95);
+    set("portrait", w * .5 + p.x * portraitSize, h * (mobile ? .43 : .49) + p.y * portraitSize, shellZ, .68);
     const introScale = mobile ? .76 : .86;
-    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, p.depth * portraitSize, .68);
+    set("portraitRight", w * (mobile ? .60 : .72) + p.x * portraitSize * introScale, h * (mobile ? .34 : .49) + p.y * portraitSize * introScale, shellZ * introScale, .68);
     const [sx, sy, sz] = spherePoint(i, count, radius);
     set("sphere", w / 2 + sx, h / 2 + sy, sz);
     const pmap = i % 4 === 0 ? map.edges[Math.floor(random() * map.edges.length)] : map.samples[Math.floor(random() * map.samples.length)];
-    set("philippines", w * (mobile ? .5 : .43) + pmap[0] * mapSize, h * .47 + pmap[1] * mapSize, (random() - .5) * 5);
+    // Reveal the real archipelago in brighter particles ON the surface of a globe.
+    // Remaining particles retain its circular wireframe before the camera moves closer.
+    if (i % 3 === 0) {
+      set("spherePhilippines", w / 2 + sx, h / 2 + sy, sz, .25);
+    } else {
+      const gx = pmap[0] * radius * 1.46, gy = pmap[1] * radius * 1.46;
+      const frontZ = Math.sqrt(Math.max(0, radius * radius - gx * gx - gy * gy));
+      set("spherePhilippines", w / 2 + gx, h / 2 + gy, frontZ + 5, 1);
+    }
+    // Geographic point correspondences flow outward from the globe into a zoomed map.
+    set("philippines", w * (mobile ? .5 : .43) + pmap[0] * mapSize, h * .48 + pmap[1] * mapSize, (random() - .5) * 6, .9);
     const u = i / count * 2 - 1, a = random() * TAU;
     set("ribbon", w * .5 + u * w * .65, h * .5 + Math.sin(u * 4) * h * .14 + Math.cos(a) * h * .045, Math.sin(a) * 50, .32);
     set("work", w * random(), h * random(), (random() - .5) * 60, .025);
@@ -99,7 +112,7 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   const location = document.querySelector<HTMLElement>("[data-location-copy]");
   const frameTarget = document.querySelector<HTMLElement>("[data-particle-frame-target]");
   let width = innerWidth, height = innerHeight, radius = 1;
-  let clouds: Record<Shape, Cloud>, centers: number[] = [], target = 0, current = 0, phase = 0, segment = 0;
+  let clouds: Record<Shape, Cloud>, centers: number[] = [], target = 0, current = 0, phase = 0, segment = 0, turnProgress = 0;
   let raf = 0, time = 0, last = 0, dead = false, lost = false;
   const measure = () => {
     // CSS pixels, excluding the reserved scrollbar gutter. Using innerWidth here
@@ -116,6 +129,13 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
   };
   const scroll = () => {
     const mid = scrollY + height / 2;
+    // Read scroll displacement through the tall introduction; one continuous full turn
+    // covers front, either profile and back with no automatic spinning or abrupt snapping.
+    const intro = sections.find(el => el.dataset.particleScene === "portraitRight");
+    if (intro) {
+      const start = intro.getBoundingClientRect().top + scrollY;
+      turnProgress = clamp((scrollY - start + height * .2) / Math.max(1, intro.offsetHeight - height * .6));
+    }
     // One continuous morph per pair of scene centers, reversible in both scroll directions.
     target = mid <= centers[0] ? 0 : centers.length - 1;
     for (let i = 0; i < centers.length - 1; i++) {
@@ -133,13 +153,14 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
     const toIndex = Math.min(shapes.length - 1, fromIndex + 1), blend = current - fromIndex;
     const from = shapes[fromIndex], to = shapes[toIndex];
     const weight = (shape: Shape) => (from === shape ? 1 - blend : 0) + (to === shape ? blend : 0);
-    const sphereWeight = weight("sphere"), mapWeight = weight("philippines");
+    const sphereWeight = weight("sphere") + weight("spherePhilippines"), mapWeight = weight("philippines");
     const portraitWeight = weight("portrait") + weight("portraitRight");
     const frameRect = weight("frame") > 0 ? frameTarget?.getBoundingClientRect() : undefined;
     const orbitRect = sphereWeight > 0 ? orbit?.getBoundingClientRect() : undefined;
-    // Preserve the face-forward silhouette in both hero scenes.
-    // A single photograph cannot show a faithful side or back view.
-    const yaw = 0;
+    // Rotation is driven by scroll through the introduction: front -> profile ->
+    // back -> opposite profile -> front. Shapes are inferred from one photo,
+    // so this is a stylized volumetric shell rather than a captured 3D scan.
+    const yaw = media.matches ? 0 : smooth(turnProgress) * TAU * weight("portraitRight");
     const spin = media.matches ? 0 : time * .000065;
     const cosSpin = Math.cos(spin), sinSpin = Math.sin(spin), cosAngle = Math.cos(yaw), sinAngle = Math.sin(yaw);
     const transform = (shape: Shape, offset: number, output: Float64Array) => {
@@ -170,9 +191,11 @@ export async function mountParticleScene(canvas: HTMLCanvasElement, signal: Abor
       tones[i] = mix(clouds[from].tones[i], clouds[to].tones[i], blend) * mix(surfaceLight, .9, portraitWeight) * mix(1, frameLight, weight("frame"));
     }
     geometry.attributes.position.needsUpdate = true; geometry.attributes.tone.needsUpdate = true;
-    canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius); canvas.dataset.portraitYaw = String(yaw);
-    if (orbit) orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .83) / .17));
-    if (location) location.style.opacity = String(media.matches ? 1 : mapWeight > .9999 ? (segment === 3 ? 1 - smooth(phase / .12) : smooth((phase - .7) / .17)) : 0);
+    canvas.dataset.activeShape = shapes[Math.round(current)]; canvas.dataset.morph = String(current); canvas.dataset.sphereRadius = String(radius); canvas.dataset.portraitYaw = String(yaw); canvas.dataset.turnProgress = String(turnProgress); canvas.dataset.mapReveal = String(weight("spherePhilippines"));
+    if (orbit) orbit.style.opacity = String(media.matches ? 1 : smooth((sphereWeight - .72) / .24));
+    // The label appears only once the zoomed map is recognizable, and remains
+    // readable through the center of the map section instead of instantly vanishing.
+    if (location) location.style.opacity = String(media.matches ? 1 : smooth((mapWeight - .62) / .32));
     renderer.render(scene, camera);
   };
   const tick = (stamp: number) => {
