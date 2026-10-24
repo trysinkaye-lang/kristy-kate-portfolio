@@ -7,6 +7,7 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   await expect(canvas).toHaveAttribute("data-portrait-source", "kristy-kate-professional-portrait-v2.webp");
   expect(Number(await canvas.getAttribute("data-portrait-samples"))).toBeGreaterThan(40000);
   const sphere = page.locator('[data-particle-scene="sphere"]');
+  const globeMap = page.locator('[data-particle-scene="spherePhilippines"]');
   const location = page.locator('[data-particle-scene="philippines"]');
   const center = async (selector: string) => page.locator(selector).evaluate(el => scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
   await center('[data-particle-scene="sphere"]');
@@ -20,11 +21,14 @@ test("portrait uses the segmented source, map reveal follows formation, and scro
   });
   expect(projection.x).toBeCloseTo(projection.y,2);
   const start = await sphere.evaluate(el => el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2);
+  await center('[data-particle-scene="spherePhilippines"]');
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
+  await expect(globeMap).toBeVisible();
   const end = await location.evaluate(el => el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2);
   await page.evaluate(y => scrollTo({top:y,behavior:"instant"}), start+(end-start)*.5);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","0");
   await center('[data-particle-scene="philippines"]');
-  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(3, 3);
+  await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(4, 3);
   await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
   await center('[data-particle-scene="sphere"]');
   await expect.poll(async () => Number(await canvas.getAttribute("data-morph"))).toBeCloseTo(2, 3);
@@ -69,7 +73,7 @@ test("unavailable WebGL assets leave semantic content and project links usable",
   await expect(page.getByRole("heading",{level:1})).toHaveText("RBIM");
 });
 
-test("front-facing featureless portrait and single-project carousel", async ({page}) => {
+test("faceless rotating portrait and single-project carousel", async ({page}) => {
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
   const field = page.locator("[data-particle-field]");
@@ -78,7 +82,12 @@ test("front-facing featureless portrait and single-project carousel", async ({pa
   await page.locator('[data-particle-scene="portraitRight"]').evaluate(el =>
     scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
   await expect.poll(async()=>Number(await field.getAttribute("data-morph"))).toBeCloseTo(1,2);
-  expect(Number(await field.getAttribute("data-portrait-yaw"))).toBe(0);
+  const intro = page.locator('[data-particle-scene="portraitRight"]');
+  await intro.evaluate(el => scrollTo({
+    top:el.getBoundingClientRect().top+scrollY+el.clientHeight*.58-innerHeight/2,behavior:"instant"
+  }));
+  await expect.poll(async()=>Number(await field.getAttribute("data-turn-progress"))).toBeGreaterThan(.3);
+  await expect.poll(async()=>Number(await field.getAttribute("data-portrait-yaw"))).toBeGreaterThan(.3);
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
   const sizes=await gallery.evaluate(el=>({width:el.clientWidth,cards:Array.from(el.querySelectorAll("article")).map(item=>item.getBoundingClientRect().width)}));
   expect(sizes.cards).toHaveLength(5);
@@ -113,4 +122,24 @@ test("desktop carousel keeps image, caption and description in pinned viewport",
     expect(title!.y+title!.height).toBeLessThan(bounds!.y+bounds!.height-4);
     expect(note!.y+note!.height).toBeLessThan(bounds!.y+bounds!.height-4);
   }
+});
+
+test("sphere highlights Philippines then zooms slowly to readable location",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/");
+  const orbit=page.locator("[data-sphere-type]");
+  await expect(orbit).toHaveAttribute("aria-label","Available remotely. Development has no boundaries.");
+  await expect(orbit.getByText("Development has no boundaries")).toHaveCount(1);
+  const field=page.locator("[data-particle-field]");
+  const globe=page.locator('[data-particle-scene="spherePhilippines"]');
+  const map=page.locator('[data-particle-scene="philippines"]');
+  expect(await globe.evaluate(el=>el.getBoundingClientRect().height)).toBeGreaterThan(1000);
+  expect(await map.evaluate(el=>el.getBoundingClientRect().height)).toBeGreaterThan(1500);
+  await globe.evaluate(el=>scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
+  await expect.poll(async()=>Number(await field.getAttribute("data-morph"))).toBeCloseTo(3,2);
+  await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","0");
+  await map.evaluate(el=>scrollTo({top:el.getBoundingClientRect().top+scrollY+el.clientHeight/2-innerHeight/2,behavior:"instant"}));
+  await expect.poll(async()=>Number(await field.getAttribute("data-morph"))).toBeCloseTo(4,2);
+  await expect(page.locator("[data-location-copy]")).toHaveCSS("opacity","1");
+  await expect(page.getByText("Based in the Philippines")).toBeVisible();
 });
