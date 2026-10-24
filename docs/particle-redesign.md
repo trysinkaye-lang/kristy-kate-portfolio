@@ -7,10 +7,10 @@ The homepage identifies Kristy Kate Taylor as a Software Developer. Its project 
 ## Rendering and motion
 
 - A deferred Three.js WebGL renderer owns one persistent point cloud. Scene geometry morphs reversibly with vertical scroll. An orthographic camera uses the canvas's actual CSS dimensions, including scrollbar-gutter effects, so a spherical shell projects to a circle.
-- The portrait is segmented from `public/media/kristy-kate-professional-portrait-v2.webp` (960 × 960). A flood fill removes only near-white background connected to the image borders; interior highlights and source luminance remain. No generic bust is used. Luminance and a shallow rounded relief supply depth, with rotation limited to about four degrees.
-- Portrait depth is an artistic photographic relief, not a recovered anatomical mesh. A supplied depth map or multi-angle portrait scan would be needed for accurate side views or larger rotation. The attached reference photo has a different crop from the existing square source; the existing source was used without inventing missing features.
+- The portrait is segmented from `public/media/kristy-kate-professional-portrait-v2.webp` (960 × 960). A flood fill removes border-connected near-white background. Facial luminance is intentionally suppressed for a featureless silhouette. A front-and-back rounded particle shell gives a controlled 360° artistic rotation during the tall sticky introduction.
+- Depth is calibrated with approximate head and shoulder breadth ratios measured from the user-supplied four-angle reference board (front, left, back, right). A single existing portrait is still the underlying mask for both front and back. This produces a **stylized point-cloud visual hull, not an identity-accurate 3D scan**; actual multi-view photogrammetry is needed for exact anatomical reconstruction.
 - Sphere positions lie on a Fibonacci spherical shell with real positive and negative depth. Its curved SVG labels and radius share the renderer's measurements and scroll state.
-- The Philippines uses Natural Earth country geometry. Longitude is scaled by the cosine of 12.5° latitude; both axes then use the same display scale. This avoids stretching the archipelago to fit a rectangular mask. The location text appears only after the map finishes forming and fades before the next morph.
+- The Philippines uses Natural Earth country geometry. Longitude is scaled by the cosine of 12.5° latitude, with uniform axes. A separate `spherePhilippines` stage highlights the archipelago on the globe surface; the subsequent long scroll morph zooms those particles into a larger standalone map. “Based in the Philippines” fades in once enough of the map is formed.
 - Desktop vertical scrolling drives the horizontal reel. Buttons and keyboard controls map back to that same scroll range; mobile and reduced-motion layouts use a native horizontal reel. Indicators follow actual scroll position.
 - The frame measures the real contact container. The single visible address is centered on both axes. Its particles gently pulse when motion is enabled.
 - The 650 ms introduction is decorative and nonblocking. It does not simulate loading percentages. Reduced motion removes it and stops continuous particle rotation. Preference changes are handled at runtime.
@@ -36,9 +36,9 @@ Run `npm run lint`, `npm run typecheck`, `npm run build`, and `npm test`. The Pl
 
 New coverage checks spherical depth and equal axes, connected-background segmentation, geographic proportions, source-derived portrait sampling, delayed map text, reverse scrolling, keyboard reel controls, project order, exact email centering, runtime reduced motion, and asset failure fallback. Existing assertions remain; content expectations change only for the requested Software Developer identity and the added verified ERP project.
 
-`node scripts/capture-particle-scenes.mjs` captures all nine scenes at 1440 × 900 and 390 × 844. Start the production server on port 3101 first, or set `REVIEW_URL`. Captures and runtime error results are saved under `.artifacts/particle-review/` (ignored by Git). `REVIEW_OUTPUT` selects another output directory.
+`node scripts/capture-particle-scenes.mjs` captures all ten scenes at 1440 × 900 and 390 × 844. Start the production server on port 3101 first, or set `REVIEW_URL`. Captures and runtime error results are saved under `.artifacts/particle-review/` (ignored by Git). `REVIEW_OUTPUT` selects another output directory.
 
-An earlier implementation reported 192 passing tests; the new orbital-layer scene and related changes have not yet completed a full local cross-browser test run. The scene capture script covers nine scenes without the removed bands or torus; desktop/mobile review is required after the change. Release verification reruns the checks after the final geometry corrections; the task report records the final result and deployed commit.
+An earlier implementation reported 192 passing tests; these newer visual and scroll revisions have not yet completed a full local cross-browser suite. The capture script now includes the Philippines-on-globe state, without the removed bands or torus. Release verification reruns the checks after the final geometry corrections; the task report records the final result and deployed commit.
 
 ## Changed files
 
@@ -61,6 +61,6 @@ An earlier implementation reported 192 passing tests; the new orbital-layer scen
 
 ## October 24 motion cleanup
 
-The four horizontal bands, torus/donut, and oversized background orb were removed. The portrait uses a row-constrained photographic convex relief and transitions to a controlled three-quarter view (roughly 25 degrees) before the circular sphere. A faithful identity-accurate 360-degree model cannot be reconstructed from a single frontal photograph; additional views or a 3D scan are required. The continuous scroll interpolation no longer pauses at dead zones.
+The four horizontal bands, torus/donut, and oversized background orb remain removed. The portrait now has a front-and-back convex point cloud, with a full scroll-controlled turn whose depth proportions draw on the four-view reference. The motion is an artistic approximation, not a scanned model; the original photograph does not contain true captured rear-facing texture. The continuous scroll interpolation no longer pauses at dead zones.
 
 The projects section is now a single featured card in a scroll-synchronized horizontal reel, preserving the actual screenshot's maximum native resolution. Dark rectangular overlays behind About, services and the ribbon text were removed. Following the change, rerun Playwright, lint, TypeScript and desktop/mobile visual checks before a production merge.
