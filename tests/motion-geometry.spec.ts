@@ -1,21 +1,19 @@
 import { test, expect } from "@playwright/test";
 
-test("the desktop project reel advances horizontally with normal vertical scrolling", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
+test("desktop work section uses the restored expandable four-card gallery", async ({page}) => {
+  await page.setViewportSize({width:1440,height:900});
   await page.goto("/");
   const work=page.locator("#work");
   const gallery=page.getByRole("navigation",{name:"Projects gallery"});
-  await work.evaluate(element=>{
-    const top=element.getBoundingClientRect().top+scrollY;
-    scrollTo({top,behavior:"instant"});
-  });
-  await expect.poll(()=>gallery.evaluate(element=>element.scrollLeft)).toBeLessThan(100);
-  await work.evaluate(element=>{
-    const top=element.getBoundingClientRect().top+scrollY;
-    const travel=Math.max(0,element.clientHeight-innerHeight);
-    scrollTo({top:top+travel*.82,behavior:"instant"});
-  });
-  await expect.poll(()=>gallery.evaluate(element=>element.scrollLeft),{timeout:6000}).toBeGreaterThan(200);
+  await expect(gallery.locator("article")).toHaveCount(4);
+  const height=await work.evaluate(el=>el.getBoundingClientRect().height);
+  expect(height).toBeLessThan(2200);
+  const widths=await gallery.locator("article").evaluateAll(items=>items.map(el=>el.getBoundingClientRect().width));
+  expect(widths[0]).toBeGreaterThan(widths[1]*1.7);
+  await page.getByRole("button",{name:"Next project"}).click();
+  await expect(page.getByRole("button",{name:"Show AHDIS"})).toHaveAttribute("aria-pressed","true");
+  await expect.poll(async()=>gallery.locator("article").nth(1).evaluate(el=>el.getBoundingClientRect().width))
+    .toBeGreaterThan(widths[1]*1.4);
 });
 
 test("small system screenshots stay within their original image resolution", async ({ page }) => {
