@@ -1,48 +1,38 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import styles from "./IntroSplash.module.css";
 
-/** A brief branded entrance; the CSS exit is independent of hydration or network timing. */
+/** Metamorphosis-inspired entrance: numeric count and dust-to-form opening. */
 export function IntroSplash() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0;
-    let started = 0;
-    const animate = (stamp: number) => {
-      if (!started) started = stamp;
-      const x = Math.min(1, (stamp - started) / 970);
-      setProgress(Math.round((1 - Math.pow(1 - x, 2.4)) * 100));
-      if (x < 1) raf = requestAnimationFrame(animate);
+  const [count,setCount]=useState(0);
+  useEffect(()=>{
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    let frame=0, start=0;
+    const duration=1500;
+    const advance=(now:number)=>{
+      if(!start)start=now;
+      const t=Math.min(1,(now-start)/duration);
+      setCount(Math.round((1-Math.pow(1-t,2.1))*100));
+      if(t<1)frame=requestAnimationFrame(advance);
     };
-    raf = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
+    frame=requestAnimationFrame(advance);
+    return ()=>cancelAnimationFrame(frame);
+  },[]);
   return (
     <div data-intro-splash className={styles.splash} aria-hidden="true">
-      <div className={styles.grain} />
-      <div className={styles.inner}>
-        <div className={styles.top}>
-          <span>KRISTY KATE / PORTFOLIO</span>
-          <span>EST. 2026 — PH</span>
-        </div>
-        <div className={styles.center}>
-          <p className={styles.super}>SOFTWARE & DIGITAL EXPERIENCES</p>
-          <div className={styles.brandLine}>
-            <span className={styles.letter}>K</span>
-            <span className={styles.orb}><span className={styles.orbCore} /></span>
-            <span className={styles.letter}>K</span>
-          </div>
-          <p className={styles.sub}>MADE WITH INTENTION</p>
-        </div>
-        <div className={styles.bottom}>
-          <span>OPENING EXPERIENCE</span>
-          <span className={styles.track}><span className={styles.fill} /></span>
-          <span className={styles.counter}>{String(progress).padStart(2, "0")}%</span>
-        </div>
+      <div className={styles.header}>
+        <span>KRISTY KATE TAYLOR®</span><span>PORTFOLIO / 2026</span>
+      </div>
+      <div className={styles.center}>
+        <div className={styles.dust} />
+        <div className={styles.ring}><div className={styles.ringCore} /></div>
+        <span className={styles.bigCount}>{String(count).padStart(3,"0")}</span>
+        <span className={styles.label}>BUILDING THE EXPERIENCE</span>
+      </div>
+      <div className={styles.footer}>
+        <span>EVERYTHING IS IN MOTION</span>
+        <span className={styles.track}><span className={styles.fill}/></span>
+        <span className={styles.counter}>{String(count).padStart(2,"0")}%</span>
       </div>
     </div>
   );
