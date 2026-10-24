@@ -143,3 +143,8 @@
   :global(#work) .imageContainer {height:230px;}
   :global(#work) .imageContainer img {width:auto;height:auto;max-width:100%;max-height:100%;}
 }
+
+/* Critical: snapping fights the scroll-driven horizontal scrub on desktop. */
+@media(min-width:768px) and (prefers-reduced-motion:no-preference) {
+  :global(#work) .gallery {scroll-snap-type:none;scroll-behavior:auto;}
+}
