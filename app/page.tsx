@@ -20,10 +20,10 @@ export default function Home() {
         <div className="shell">
           <div className={styles.workHeader}>
             <div>
-              <p className={styles.marker}>Work / 01</p>
-              <h2 id="work-title">Projects</h2>
+              <p className={styles.marker}>WORK / 01</p>
+              <h2 id="work-title">Some selected<br/>work.</h2>
             </div>
-            <p>An index of systems, applications, and websites I have developed.</p>
+            <p>From offline information systems to websites and web applications. A selection of things I've designed and built.</p>
           </div>
           <ProjectDriftWall />
         </div>
