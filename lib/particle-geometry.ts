@@ -46,7 +46,10 @@ export function segmentPortrait(data: Uint8ClampedArray, width: number, height: 
     const u = Math.max(-1, Math.min(1, (x - midpoint) / halfWidth));
     const roundness = Math.sqrt(Math.max(0, 1 - u * u));
     // Uniform density / brightness creates a faceless silhouette without photo texture.
-    const depth = roundness * (y < height * .66 ? .12 : .065);
+    // Rounded shell depth, scaled to produce a believable head in left/right profile.
+    // Back shell is synthesized from the same silhouette; identity-accurate rear features
+    // still require genuinely captured side/back source photographs.
+    const depth = roundness * (y < height * .66 ? .275 : .165);
     samples.push({ x: nx, y: ny, tone: .75, depth });
   }
   return samples;
