@@ -49,6 +49,15 @@ export function ProjectDriftWall() {
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(sync); };
     const observer = new ResizeObserver(schedule);
+    // Trigger the initial scene reveal only when the project showcase is reached.
+    // Subsequent active-card changes replay their own enter animation.
+    const reveal = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        section.dataset.motionReady = "true";
+        reveal.disconnect();
+      }
+    }, { rootMargin: "0px 0px -12% 0px" });
+    reveal.observe(section);
     const trackScroll = () => {
       const cards = Array.from(track.querySelectorAll<HTMLElement>("article"));
       const midpoint = track.scrollLeft + track.clientWidth / 2;
@@ -63,6 +72,7 @@ export function ProjectDriftWall() {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      reveal.disconnect();
       track.removeEventListener("scroll", trackScroll);
       removeEventListener("scroll", schedule);
       removeEventListener("resize", schedule);
