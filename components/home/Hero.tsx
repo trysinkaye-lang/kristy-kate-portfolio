@@ -32,7 +32,6 @@ export function Hero() {
           <text textAnchor="middle"><textPath href="#orbit-above" startOffset="50%">Available remotely</textPath></text>
           <text textAnchor="middle"><textPath href="#orbit-below" startOffset="50%">Working worldwide</textPath></text>
         </svg>
-        <p className={styles.sphereCaption}>SOFTWARE DEVELOPMENT WITHOUT BORDERS</p>
       </section>
 
       <section data-particle-scene="philippines" className={styles.locationPanel} aria-labelledby="location-title">
