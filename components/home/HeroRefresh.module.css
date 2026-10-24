@@ -5,15 +5,22 @@
 .heroLabels h1,.heroLabels p {font:500 clamp(18px,1.65vw,25px)/1.3 var(--font-body);letter-spacing:-.04em;max-width:24%;}
 .heroLabels p {text-align:right;}
 .openingBottom {position:absolute;bottom:32px;left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.12em;color:#b8b8b8;}
-.introduction {padding-inline:var(--gutter);}
+.introduction {min-height:255svh!important;display:block!important;}
+.introSticky {position:sticky;top:0;height:100svh;display:flex;align-items:center;padding-inline:var(--gutter);}
 .introductionCopy {max-width:min(46%,720px);position:relative;z-index:2;text-shadow:0 2px 16px #050505;}
 .introductionCopy p,.ribbonPanel p {font:450 clamp(24px,2.05vw,34px)/1.38 var(--font-body);letter-spacing:-.035em;text-wrap:pretty;}
 .introLinks {display:flex;flex-wrap:wrap;gap:12px 30px;margin-top:30px;}
 .quietLink {display:inline-flex;align-items:center;min-height:44px;font-size:13px;border-bottom:1px solid #888888;}
-.spherePanel {justify-content:center;flex-direction:column;}
+.spherePanel {min-height:160svh!important;display:block!important;}
+.sphereSticky {position:sticky;top:0;height:100svh;display:flex;justify-content:center;align-items:center;}
+.globeMapPanel {min-height:150svh!important;display:block!important;}
+.globeMapSticky {position:sticky;top:0;height:100svh;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10svh;}
+.globeMapHint {font-size:12px;letter-spacing:.10em;color:#c3c3c3;text-align:center;}
+
 .sphereType {width:min(80vw,74svh,760px);height:auto;aspect-ratio:1;overflow:visible;pointer-events:none;}
 .sphereType text {fill:#eeeeee;font:500 18px var(--font-body);letter-spacing:.015em;}
-.locationPanel {justify-content:flex-end;padding-inline:var(--gutter);}
+.locationPanel {min-height:230svh!important;display:block!important;}
+.locationSticky {position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:flex-end;padding-inline:var(--gutter);}
 .locationPanel p {max-width:30%;font:450 clamp(25px,3vw,42px)/1.3 var(--font-body);letter-spacing:-.04em;}
 .lightDot {display:inline-block;width:6px;height:6px;margin-left:16px;border-radius:50%;background:#f0f0f0;box-shadow:0 0 12px #9c9c9c;}
 .ribbonPanel {padding:var(--gutter);justify-content:flex-end;}
@@ -23,10 +30,12 @@
  .heroLabels h1,.heroLabels p {max-width:100%;text-align:center;font-size:23px;}
  .heroLabels p {font-size:15px;color:#bdbdbd;}
  .openingBottom {font-size:8px;bottom:25px;}
- .introduction {align-items:flex-end!important;padding-bottom:10svh;}
+ .introduction {min-height:210svh!important;}
+ .introSticky {align-items:flex-end!important;padding-bottom:10svh;}
  .introductionCopy {max-width:100%;}
  .introductionCopy p,.ribbonPanel p {font-size:24px;}
- .locationPanel {align-items:flex-end!important;justify-content:center;padding-bottom:12svh;}
+ .locationPanel {min-height:200svh!important;}
+ .locationSticky {align-items:flex-end!important;justify-content:center;padding-bottom:12svh;}
  .locationPanel p {max-width:100%;font-size:25px;text-align:center;}
  .ribbonPanel {align-items:flex-end!important;padding-bottom:12svh;}
  .ribbonPanel p {padding:16px 0;}
