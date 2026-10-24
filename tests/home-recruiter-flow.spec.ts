@@ -7,8 +7,8 @@ test("immersive hero, project gallery, and primary interactions", async ({ page 
   const hero = page.locator("#home");
   await expect(page).toHaveTitle(/Kristy Kate Taylor/);
   await expect(page.locator("body")).toHaveCSS("font-family", /manrope/i);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Creative thinking.");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Practical code.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
   await expect(hero.locator("img")).toHaveCount(0);
   await expect(hero.locator("canvas[data-particle-field]")).toHaveCount(1);
   await expect(hero.getByText("PORTFOLIO · 2026")).toHaveCount(0);
@@ -61,7 +61,7 @@ test("static content and navigation remain usable without JavaScript", async ({ 
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("#identity")).toBeVisible();
-  await expect(page.locator("#identity")).toContainText("Practical code.");
+  await expect(page.locator("#identity")).toContainText("Taylor.");
   await page.getByRole("navigation", { name: "Projects gallery" }).locator('a[href="/projects/rbim"]').first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("RBIM");
   await context.close();
@@ -118,7 +118,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
   for (const width of [375, 768, 1440]) {
     await page.setViewportSize({width, height:900});
     await page.goto("/");
-    await expect(page.locator("#identity")).toContainText("Practical code.");
+    await expect(page.locator("#identity")).toContainText("Taylor.");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
     await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#work img").evaluateAll(async images => {
@@ -152,13 +152,13 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
 });
 
 
-test("hero avoids conventional image tags while keeping navigation", async ({ page }) => {
+test("developer nameplate uses a particle-rendered portrait instead of a photo element", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   const hero = page.locator("#home");
   await expect(hero.locator("img")).toHaveCount(0);
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Creative thinking.");
-  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText("Daniel Ingrassia");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
   await expect(hero.getByRole("link", { name: "Explore my work" })).toHaveAttribute("href", "#work");
   await expect(hero.getByRole("link", { name: "Get in touch" })).toHaveAttribute("href", "/contact");
   await expect(page.getByRole("link", { name: /Kristy Kate/ }).first()).toHaveAttribute("href", "/");
@@ -178,15 +178,15 @@ test("prefers-reduced-motion skips the intro animation", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("[data-intro-splash]")).toHaveCSS("display", "none");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Creative thinking.");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
 });
 
 
 test("Ingrassia-inspired introduction foregrounds the developer and morphing particle story", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#home");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Creative thinking.");
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Practical code.");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Kristy Kate");
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText("Taylor.");
   await expect(hero.getByText(/HELLO, I.M KRISTY KATE/)).toBeVisible();
   await expect(hero.getByText(/I develop websites, web applications, and offline desktop software/)).toBeVisible();
   await expect(hero.getByText("WEB APPLICATIONS")).toBeVisible();

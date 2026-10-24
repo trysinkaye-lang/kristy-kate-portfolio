@@ -63,8 +63,32 @@ export function ParticleField() {
           brush.drawImage(image,(180-iw)/2,(260-ih)/2,iw,ih);
           try {
             const bitmap=brush.getImageData(0,0,180,260);
+            const raw=bitmap.data;
+            // Estimate uniform studio background by sampling the outermost photo pixels.
+            const corners:[[number,number],[number,number],[number,number],[number,number]] =
+              [[2,2],[177,2],[2,257],[177,257]];
+            const background=[0,0,0];
+            for(const [x,y] of corners) {
+              const k=(y*180+x)*4;
+              background[0]+=raw[k]/4;
+              background[1]+=raw[k+1]/4;
+              background[2]+=raw[k+2]/4;
+            }
+            const inferred = new Uint8ClampedArray(180*260);
+            let foreground=0;
+            for(let y=0;y<260;y++)for(let x=0;x<180;x++) {
+              const k=(y*180+x)*4;
+              const distance=Math.hypot(raw[k]-background[0],raw[k+1]-background[1],raw[k+2]-background[2]);
+              if(distance>53 && raw[k+3]>100) {inferred[y*180+x]=255;foreground++;}
+            }
+            const ratio=foreground/(180*260);
+            // Accept an actual person cutout only when foreground occupancy is plausible.
+            // On complex photographic backgrounds keep the semantic shape fallback.
+            if(ratio>.12 && ratio<.74) {
+              for(let n=0;n<inferred.length;n++) silhouette.data[n*4+3]=inferred[n];
+            }
             return { silhouette, bitmap };
-          } catch { /* cross-origin browser policy: keep the generated mask */ }
+          } catch { /* bitmap read denied: retain the silhouette fallback */ }
         }
       }
       return { silhouette, bitmap:null };

@@ -106,3 +106,8 @@
   @keyframes story-enter { from { transform:translateY(35px); opacity:0; } to { transform:none; opacity:1; } }
 }
 @media(prefers-reduced-motion:reduce) { .copy,.action { animation:none; transition:none; } }
+
+/* Reference-driven nameplate hierarchy: name, role, and story around the portrait. */
+.heading em { color:#f0eee7; }
+.role span { color:#777873; font-size:.75em; letter-spacing:-.02em; }
+@media(max-width:767px){.role span { display:block; margin-top:6px; font-size:12px;letter-spacing:0;}}

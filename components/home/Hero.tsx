@@ -17,8 +17,8 @@ export function Hero() {
           <div className={styles.heroBody}>
             <div className={styles.copy}>
               <p className={styles.kicker}><span className={styles.liveDot} /> HELLO, I&apos;M KRISTY KATE</p>
-              <h1 id="identity" className={styles.heading}>Creative thinking.<br/><em>Practical code.</em></h1>
-              <p className={styles.role}>Software & web developer</p>
+              <h1 id="identity" className={styles.heading}>Kristy Kate<br/><em>Taylor.</em></h1>
+              <p className={styles.role}>Software Developer <span>/ Web & Desktop Applications</span></p>
               <p className={styles.lead}>I develop websites, web applications, and offline desktop software — thoughtfully built from the interface to the logic and data behind it.</p>
               <div className={styles.actions}>
                 <Link href="#work" className={styles.action}>Explore my work <span aria-hidden="true">↗</span></Link>
