@@ -120,7 +120,7 @@ test("homepage evidence is specific, images load, and small screens do not overf
     await page.goto("/");
     await expect(page.locator("#identity")).toContainText("Taylor");
     await expect(page.getByText(/An offline and online population registry for household records/)).toBeVisible();
-    await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(5);
+    await expect(page.getByRole("navigation", {name:"Projects gallery"}).locator("article")).toHaveCount(4);
     const images = await page.locator("#work img").evaluateAll(async images => {
       await Promise.all(images.map(async image => {
         const img = image as HTMLImageElement;
@@ -140,15 +140,15 @@ test("home project filmstrip offers distinct previews and usable controls", asyn
   await page.goto("/");
   const section = page.locator("#work");
   const gallery = page.getByRole("navigation", {name:"Projects gallery"});
-  await expect(gallery.locator("article")).toHaveCount(5);
+  await expect(gallery.locator("article")).toHaveCount(4);
   await expect(section.getByText("PROJECT 01", {exact:false})).toBeVisible();
   await section.getByRole("button", {name:"Next project"}).click();
   await expect(section.getByText("PROJECT 02", {exact:false})).toBeVisible();
-  await expect(section.getByRole("link", {name:"Explore full case study"})).toHaveAttribute("href","/projects/ahdis");
+  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/ahdis");
   await section.getByRole("button",{name:"Previous project"}).click();
-  await expect(section.getByRole("link", {name:"Explore full case study"})).toHaveAttribute("href","/projects/rbim");
+  await expect(section.getByRole("link", {name:"View project"})).toHaveAttribute("href","/projects/rbim");
   const images = await gallery.locator("img").evaluateAll(items => items.map(img => (img as HTMLImageElement).src));
-  expect(new Set(images).size).toBe(5);
+  expect(new Set(images).size).toBe(4);
 });
 
 
